@@ -1,0 +1,29 @@
+"funnysdk.unknown" = "Unknown handling";
+"funnysdk.botton.ok.title" = "OK";
+"funnysdk.botton.cancel.title" = "Cancel";
+
+"funnysdk.sdk.qq.config.failure" = "QQ SDK is not initialized, please check the configuration information";
+"funnysdk.sdk.wechat.config.failure" = "WeChat SDK not initialized Please check the configuration information";
+"funnysdk.sdk.facebook.config.failure" = "Facebook SDK not initialized Please check configuration information";
+"funnysdk.sdk.twitter.config.failure" = "Twitter SDK not initialized Please check configuration information";
+
+"funnysdk.sub.module.error" = "The relevant function module was not found";
+
+"funnysdk.login.button.login" = "Login with Funny";
+
+"funnysdk.login.status.expired" = "The current account login status has expired, please log in again";
+"funnysdk.login.status.limit" = "The current account has been restricted, please log in again";
+
+"funnysdk.active.code.nodata" = "Please fill in the invitation code";
+
+"funnysdk.realname.cerification.failure" = "Real-name authentication failed, error code：%@";
+"funnysdk.realname.cerification.nodata" = "Incomplete real-name authentication information";
+
+"funnysdk.user.center.nologin" = "Please log in before entering the user center";
+
+"funnysdk.bind.account.success" = "Account binding is successful";
+
+"funnysdk.switch.account.nodata" = "The target account record is empty, and the account switch fails";
+
+"funnysdk.minor.player.tips" = "This account is a minor account. It is a health protection period beyond 20:00~21:00 on Friday, Saturday, Sunday and statutory holidays. You cannot play. Please arrange your time reasonably";
+

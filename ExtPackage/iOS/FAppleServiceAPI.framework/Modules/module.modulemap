@@ -1,0 +1,11 @@
+framework module FAppleServiceAPI {
+  umbrella header "FAppleServiceAPI.h"
+
+  export *
+  module * { export * }
+}
+
+module FAppleServiceAPI.Swift {
+    header "FAppleServiceAPI-Swift.h"
+    requires objc
+}

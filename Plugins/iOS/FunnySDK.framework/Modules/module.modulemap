@@ -1,0 +1,11 @@
+framework module FunnySDK {
+  umbrella header "FunnySDK.h"
+
+  export *
+  module * { export * }
+}
+
+module FunnySDK.Swift {
+    header "FunnySDK-Swift.h"
+    requires objc
+}

@@ -1,0 +1,11 @@
+framework module FWeChatOpenAPI {
+  umbrella header "FWeChatOpenAPI.h"
+
+  export *
+  module * { export * }
+}
+
+module FWeChatOpenAPI.Swift {
+    header "FWeChatOpenAPI-Swift.h"
+    requires objc
+}
