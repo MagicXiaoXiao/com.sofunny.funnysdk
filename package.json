@@ -1,0 +1,18 @@
+{
+  "name": "com.sofunny.funnysdk",
+  "version": "0.46.0",
+  "displayName": "FunnySDK",
+  "description": "\u771f\u6709\u8da3\u5e73\u53f0\u8d26\u53f7 SDK \u63a5\u5165\u5305",
+  "unity": "2019.3",
+  "keywords": [
+    "sdk",
+    "funny",
+    "sofunny",
+    "framework"
+  ],
+  "author": {
+    "name": "SoFunny",
+    "email": "xxx@example.com",
+    "url": "https://www.xxx.com"
+  }
+}

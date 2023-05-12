@@ -1,0 +1,11 @@
+framework module FTencentOpenAPI {
+  umbrella header "FTencentOpenAPI.h"
+
+  export *
+  module * { export * }
+}
+
+module FTencentOpenAPI.Swift {
+    header "FTencentOpenAPI-Swift.h"
+    requires objc
+}

@@ -1,0 +1,11 @@
+framework module FunnySDKUnityBridge {
+  umbrella header "FunnySDKUnityBridge.h"
+
+  export *
+  module * { export * }
+}
+
+module FunnySDKUnityBridge.Swift {
+    header "FunnySDKUnityBridge-Swift.h"
+    requires objc
+}

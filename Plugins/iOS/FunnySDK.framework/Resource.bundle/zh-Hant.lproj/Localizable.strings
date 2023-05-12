@@ -1,0 +1,28 @@
+"funnysdk.unknown" = "未知處理";
+"funnysdk.botton.ok.title" = "確定";
+"funnysdk.botton.cancel.title" = "取消";
+
+"funnysdk.sdk.qq.config.failure" = "未初始化 QQ SDK 請檢查配置信息";
+"funnysdk.sdk.wechat.config.failure" = "未初始化微信 SDK 請檢查配置信息";
+"funnysdk.sdk.facebook.config.failure" = "未初始化 Facebook SDK 請檢查配置信息";
+"funnysdk.sdk.twitter.config.failure" = "未初始化 Twitter SDK 請檢查配置信息";
+
+"funnysdk.sub.module.error" = "未找到相關功能模塊";
+
+"funnysdk.login.button.login" = "登錄真有趣賬號";
+
+"funnysdk.login.status.expired" = "當前賬號登錄狀態已過期，請重新登錄";
+"funnysdk.login.status.limit" = "當前賬號已被限制，請重新登錄";
+
+"funnysdk.active.code.nodata" = "請填寫邀請碼";
+
+"funnysdk.realname.cerification.failure" = "實名認證失敗，錯誤代碼：%@";
+"funnysdk.realname.cerification.nodata" = "實名認證信息不完整";
+
+"funnysdk.user.center.nologin" = "請先登錄後再進入用戶中心";
+
+"funnysdk.bind.account.success" = "賬號綁定成功";
+
+"funnysdk.switch.account.nodata" = "目標賬號記錄為空，切換賬號失敗";
+
+"funnysdk.minor.player.tips" = "此賬號為未成年賬號，週五、週六、週日及法定節假日 20 點 ~ 21 點之外為健康保護時段，無法遊戲，請合理安排時間";

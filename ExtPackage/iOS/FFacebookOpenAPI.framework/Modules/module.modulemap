@@ -1,0 +1,11 @@
+framework module FFacebookOpenAPI {
+  umbrella header "FFacebookOpenAPI.h"
+
+  export *
+  module * { export * }
+}
+
+module FFacebookOpenAPI.Swift {
+    header "FFacebookOpenAPI-Swift.h"
+    requires objc
+}

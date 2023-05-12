@@ -1,0 +1,11 @@
+framework module FTapTapOpenAPI {
+  umbrella header "FTapTapOpenAPI.h"
+
+  export *
+  module * { export * }
+}
+
+module FTapTapOpenAPI.Swift {
+    header "FTapTapOpenAPI-Swift.h"
+    requires objc
+}

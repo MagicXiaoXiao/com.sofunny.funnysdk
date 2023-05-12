@@ -1,0 +1,11 @@
+framework module FTwitterOpenAPI {
+  umbrella header "FTwitterOpenAPI.h"
+
+  export *
+  module * { export * }
+}
+
+module FTwitterOpenAPI.Swift {
+    header "FTwitterOpenAPI-Swift.h"
+    requires objc
+}
