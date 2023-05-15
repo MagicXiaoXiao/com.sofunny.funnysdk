@@ -18,14 +18,18 @@ FunnySDK 账号系统 Unity 引擎插件包，提供各项功能服务支持。
 
 - 使用 Unity Package Manager 配置文件形式
 
-  1. 打开 Unity 项目 Package 目录下的 manifest.json 文件。
+  1. 打开 Unity 项目 Packages 目录下的 manifest.json 文件。
 
   2. 添加 FunnySDK 依赖地址配置。如下：
 
      ![手动步骤1](Imgs~/upm_step2-1.png)
 
 - 手动集成形式
-  1. 下载 [Releases](https://git.sofunny.io/platform/com.sofunny.funnysdk/-/releases) 下的包，将其内容解压至 Unity 项目中的 Plugins 目录下即可。
+  1. 下载 [Releases](https://git.sofunny.io/platform/com.sofunny.funnysdk/-/releases) 下的包，将其内容解压至 Unity 项目中的 Packages 目录下即可。
+  
+     注：如解压后 com.sofunny.funnysdk 文件夹带有版本号则需移除掉版本号。(如下图示例)
+  
+     ![手动集成步骤1](Imgs~/upm_step3.png)
 
 
 
