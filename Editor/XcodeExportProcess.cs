@@ -77,14 +77,34 @@ namespace SoFunny.FunnySDK.Editor {
 
             #endregion
 
+            #region 配置对应 Bundle 资源文件流程
+            var resourcesBuildPhase = proj.GetResourcesBuildPhaseByTarget(mainTargetGUID);
+
+            foreach (var step in buildStepList)
+            {
+                var allBundles = step.OnProcessBundles(target, pathToBuiltProject, proj);
+                foreach (var bundle in allBundles)
+                {
+                    var groupFolder = Path.Combine(FRAMEWORK_TARGET_PATH, bundle.Name);
+
+                    FunnyUtils.Copy(bundle.FullName, Path.Combine(pathToBuiltProject, groupFolder));
+
+                    var resourcesFilesGuid = proj.AddFolderReference(groupFolder, groupFolder, PBXSourceTree.Source);
+
+                    proj.AddFileToBuildSection(mainTargetGUID, resourcesBuildPhase, resourcesFilesGuid);
+                }
+            }
+            #endregion
+
             #region 配置对应 Framework 资源文件流程
 
             foreach (var step in buildStepList)
             {
-                var allXCFramework = step.OnProcessFrameworks(target, pathToBuiltProject, proj);
+                var allFrameworks = step.OnProcessFrameworks(target, pathToBuiltProject, proj);
+                var mainLinkPhaseGuid = proj.GetFrameworksBuildPhaseByTarget(mainTargetGUID);
 
                 // Add SoFunny Frameworks
-                foreach (var framework in allXCFramework)
+                foreach (var framework in allFrameworks)
                 {
 
                     var groupFolder = Path.Combine(FRAMEWORK_TARGET_PATH, framework.Name);
@@ -92,7 +112,6 @@ namespace SoFunny.FunnySDK.Editor {
                     FunnyUtils.Copy(framework.FullName, Path.Combine(pathToBuiltProject, groupFolder));
 
                     var folderGuid = proj.AddFile(groupFolder, groupFolder);
-                    var mainLinkPhaseGuid = proj.GetFrameworksBuildPhaseByTarget(mainTargetGUID);
 
                     proj.AddFileToBuildSection(mainTargetGUID, mainLinkPhaseGuid, folderGuid);
                     proj.AddFileToBuild(unityPackageTargetGUID, folderGuid);

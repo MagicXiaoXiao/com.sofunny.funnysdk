@@ -25,6 +25,22 @@ namespace SoFunny.FunnySDK.Editor
             }
         }
 
+        public override DirectoryInfo[] OnProcessBundles(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject)
+        {
+            var allBundles = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
+                                 .Where((dirPath) => {
+                                     return Path.GetExtension(dirPath) == ".bundle";
+                                 })
+                                 .Select((dirPath) => {
+                                     return new DirectoryInfo(dirPath);
+                                 })
+                                 .Where((framework) => {
+                                     return framework.Name == "AntiAdictionResources.bundle";
+                                 });
+
+            return allBundles.ToArray();
+        }
+
         public override DirectoryInfo[] OnProcessFrameworks(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject)
         {
 
