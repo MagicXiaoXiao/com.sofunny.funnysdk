@@ -224,13 +224,16 @@ namespace SoFunny.FunnySDK.Editor {
         public string serverURL;
         [SerializeField]
         public bool isBonfire;
+        [SerializeField]
+        public bool isTapBeta;
 
-        public TapTapConfig(string clientID, string clientToken, string serverURL, bool isBonfire)
+        public TapTapConfig(string clientID, string clientToken, string serverURL, bool isBonfire, bool isTapBeta)
         {
             this.clientID = clientID;
             this.clientToken = clientToken;
             this.serverURL = serverURL;
             this.isBonfire = isBonfire;
+            this.isTapBeta = isTapBeta;
         }
 
         /// <summary>

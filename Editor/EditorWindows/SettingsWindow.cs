@@ -136,8 +136,16 @@ namespace SoFunny.FunnySDK.Editor {
                     var taptapServerURL = EditorGUILayout.TextField(FunnyConfig.Instance.TapTap.serverURL);
 
                     EditorGUILayout.Separator();
-                    var isBonfireValue = EditorGUILayout.ToggleLeft("开启篝火测试", FunnyConfig.Instance.TapTap.isBonfire, funnyToggleStyle);
-                    FunnyConfig.Instance.TapTap = new TapTapConfig(taptapClientID, taptapClientToken, taptapServerURL, isBonfireValue);
+                    var isBetaValue = EditorGUILayout.ToggleLeft("TapTap 小号测试", FunnyConfig.Instance.TapTap.isTapBeta, funnyToggleStyle);
+                    EditorGUILayout.Separator();
+                    var isBonfireValue = EditorGUILayout.ToggleLeft("篝火资格校验逻辑", FunnyConfig.Instance.TapTap.isBonfire, funnyToggleStyle);
+                    FunnyConfig.Instance.TapTap = new TapTapConfig(
+                        taptapClientID,
+                        taptapClientToken,
+                        taptapServerURL,
+                        isBonfireValue,
+                        isBetaValue
+                        );
                     break;
                 case 1: // QQ
                     EditorGUILayout.LabelField("QQ App ID");

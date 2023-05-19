@@ -104,10 +104,17 @@ namespace SoFunny.FunnySDK.Editor
             serverUrlNode.SetAttribute("value", NamespaceURI, "@string/taptap_server_url");
             applicationNode.AppendChild(serverUrlNode);
 
+            // 篝火资格验证开关
             XmlElement channelNode = manifestXML.CreateElement("meta-data");
             channelNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.taptap.isBonFire");
             channelNode.SetAttribute("value", NamespaceURI, FunnyConfig.Instance.TapTap.isBonfire.ToString());
             applicationNode.AppendChild(channelNode);
+
+            // Tap 小号测试开关
+            XmlElement bateNode = manifestXML.CreateElement("meta-data");
+            bateNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.taptap.isTapBeta");
+            bateNode.SetAttribute("value", NamespaceURI, FunnyConfig.Instance.TapTap.isTapBeta.ToString());
+            applicationNode.AppendChild(bateNode);
 
         }
 
