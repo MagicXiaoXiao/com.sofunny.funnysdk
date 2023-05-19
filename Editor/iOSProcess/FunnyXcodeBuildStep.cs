@@ -68,6 +68,8 @@ namespace SoFunny.FunnySDK.Editor {
 
         //public virtual void OnProcessEntitlements(BuildTarget buildTarget, string pathToBuiltTarget, PlistDocument entitlements) { }
 
+        public virtual DirectoryInfo[] OnProcessBundles(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject) { return Array.Empty<DirectoryInfo>(); }
+
         public virtual DirectoryInfo[] OnProcessFrameworks(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject) { return Array.Empty<DirectoryInfo>(); }
 
         public virtual void OnFinalizePostProcess(BuildTarget buildTarget, string pathToBuiltProject) { }
