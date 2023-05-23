@@ -42,7 +42,9 @@ namespace SoFunny.FunnySDK.Editor
                                     if (aar.Name.Equals("TapBootstrap_3.18.6.aar")
                                     || aar.Name.Equals("TapCommon_3.18.6.aar")
                                     || aar.Name.Equals("TapLogin_3.18.6.aar")
-                                    || aar.Name.Equals("funny-sdk-taptap.aar"))
+                                    || aar.Name.Equals("funny-sdk-taptap.aar")
+                                    || aar.Name.Equals("AntiAddiction_3.18.6.aar")
+                                    || aar.Name.Equals("AntiAddictionUI_3.18.6.aar"))
                                     {
                                         return true;
                                     }
