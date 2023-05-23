@@ -87,27 +87,27 @@ public class MainController : MonoBehaviour {
         Debug.Log("用户中心被关闭了");
     }
 
-    private async void OnLoginEvent(AccessToken token) {
+    private void OnLoginEvent(AccessToken token) {
         FunnyUtils.ShowToast("账号已登录");
         GetProfile();
 
-        try
-        {
-            var privacy = await FunnySDK.AuthPrivacyProfile();
+        //try
+        //{
+        //    var privacy = await FunnySDK.AuthPrivacyProfile();
 
-        }
-        catch (PrivacyProfileCancelledException)
-        {
-            FunnyUtils.ShowToast("用户已取消授权");
-        }
-        catch (PrivacyProfileDisableException)
-        {
-            FunnyUtils.ShowToast("授权功能未开启");
-        }
-        catch (FunnySDKException ex)
-        {
-            FunnyUtils.ShowTipsAlert("提示", $"发生错误 - {ex.Message} : {ex.Code}");
-        }
+        //}
+        //catch (PrivacyProfileCancelledException)
+        //{
+        //    FunnyUtils.ShowToast("用户已取消授权");
+        //}
+        //catch (PrivacyProfileDisableException)
+        //{
+        //    FunnyUtils.ShowToast("授权功能未开启");
+        //}
+        //catch (FunnySDKException ex)
+        //{
+        //    FunnyUtils.ShowTipsAlert("提示", $"发生错误 - {ex.Message} : {ex.Code}");
+        //}
     }
 
     private void Start() {
