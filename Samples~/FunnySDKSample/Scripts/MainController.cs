@@ -23,7 +23,8 @@ public class MainController : MonoBehaviour {
     private void Awake() {
         /// 初始化 SDK 
         //FunnySDK.InitializeSDK("900000000");
-        FunnyLaunch.Show(launchValue, () => {
+        FunnyLaunch.Show(launchValue, () =>
+        {
             Debug.Log("开屏动画完成");
         });
 
@@ -223,8 +224,9 @@ public class MainController : MonoBehaviour {
 
     public void ShowLaunchScreen() {
         launchValue = !launchValue;
-        FunnyLaunch.Show(launchValue, () => {
-            Debug.Log("开屏动画完成");
+        FunnyLaunch.Show(launchValue, () =>
+        {
+            Debug.Log("开屏动画完成2");
         });
     }
 
@@ -232,6 +234,23 @@ public class MainController : MonoBehaviour {
         if (profile.PictureUrl != null) {
             var www = UnityWebRequestTexture.GetTexture(profile.PictureUrl);
             yield return www.SendWebRequest();
+
+#if UNITY_2020_1_OR_NEWER
+            switch (www.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    var texture = DownloadHandlerTexture.GetContent(www);
+                    userIconImage.color = Color.white;
+                    userIconImage.sprite = Sprite.Create(
+                        texture,
+                        new Rect(0, 0, texture.width, texture.height),
+                        new Vector2(0, 0));
+                    break;
+                default:
+                    Debug.LogError(www.error);
+                    break;
+            }
+#else
             if (www.isDone && !www.isNetworkError) {
                 var texture = DownloadHandlerTexture.GetContent(www);
                 userIconImage.color = Color.white;
@@ -243,20 +262,9 @@ public class MainController : MonoBehaviour {
             else {
                 Debug.LogError(www.error);
             }
-            //switch (www.result) {
-            //    case UnityWebRequest.Result.Success:
-            //        var texture = DownloadHandlerTexture.GetContent(www);
-            //        userIconImage.color = Color.white;
-            //        userIconImage.sprite = Sprite.Create(
-            //            texture,
-            //            new Rect(0, 0, texture.width, texture.height),
-            //            new Vector2(0, 0));
-            //        break;
-            //    default:
-            //        Debug.LogError(www.error);
-            //        break;
-            //}
-        } else {
+#endif
+        }
+        else {
             yield return null;
         }
 
