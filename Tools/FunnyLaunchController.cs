@@ -72,7 +72,6 @@ namespace SoFunny.Tools {
         private void UpdateTipsStyle() {
 #if UNITY_EDITOR
             // 编辑器模式下处理
-
             if (Screen.width > Screen.height) {
                 // 横屏样式
                 logoGroup.padding.left = 300;
@@ -91,7 +90,8 @@ namespace SoFunny.Tools {
             }
 #else
         switch (Screen.orientation) {
-            case ScreenOrientation.Landscape:
+            case ScreenOrientation.LandscapeLeft:
+            case ScreenOrientation.LandscapeRight:
                     
                 logoGroup.padding.left = 300;
                 logoGroup.padding.right = 300;
