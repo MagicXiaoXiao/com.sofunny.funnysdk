@@ -63,6 +63,8 @@ namespace SoFunny.FunnySDK.Editor
             depNode.AppendContentNode("implementation(name: 'TapLogin_3.18.6', ext:'aar')");
             depNode.AppendContentNode("implementation(name: 'TapBootstrap_3.18.6', ext:'aar')");
             depNode.AppendContentNode("implementation(name: 'funny-sdk-taptap', ext:'aar')");
+            depNode.AppendContentNode("implementation(name: 'AntiAddiction_3.18.6', ext:'aar')");
+            depNode.AppendContentNode("implementation(name: 'AntiAddictionUI_3.18.6', ext:'aar')");
         }
 
 
