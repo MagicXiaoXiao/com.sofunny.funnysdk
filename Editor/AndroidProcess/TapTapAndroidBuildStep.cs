@@ -42,7 +42,9 @@ namespace SoFunny.FunnySDK.Editor
                                     if (aar.Name.Equals("TapBootstrap_3.18.6.aar")
                                     || aar.Name.Equals("TapCommon_3.18.6.aar")
                                     || aar.Name.Equals("TapLogin_3.18.6.aar")
-                                    || aar.Name.Equals("funny-sdk-taptap.aar"))
+                                    || aar.Name.Equals("funny-sdk-taptap.aar")
+                                    || aar.Name.Equals("AntiAddiction_3.18.6.aar")
+                                    || aar.Name.Equals("AntiAddictionUI_3.18.6.aar"))
                                     {
                                         return true;
                                     }
@@ -61,6 +63,8 @@ namespace SoFunny.FunnySDK.Editor
             depNode.AppendContentNode("implementation(name: 'TapLogin_3.18.6', ext:'aar')");
             depNode.AppendContentNode("implementation(name: 'TapBootstrap_3.18.6', ext:'aar')");
             depNode.AppendContentNode("implementation(name: 'funny-sdk-taptap', ext:'aar')");
+            depNode.AppendContentNode("implementation(name: 'AntiAddiction_3.18.6', ext:'aar')");
+            depNode.AppendContentNode("implementation(name: 'AntiAddictionUI_3.18.6', ext:'aar')");
         }
 
 
