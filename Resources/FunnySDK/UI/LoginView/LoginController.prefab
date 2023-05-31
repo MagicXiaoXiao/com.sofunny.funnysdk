@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 6049518156574429823}
   - component: {fileID: 5355099349266156895}
   m_Layer: 5
-  m_Name: EmailInputField
+  m_Name: EmailOrPhoneInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2502,7 +2502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfed3c8890184d9d8ec8b688e6f3a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emailInputField: {fileID: 6359142204736367195}
+  emailOrPhoneInputField: {fileID: 6359142204736367195}
+  emailOrPhonePlaceholder: {fileID: 3700778609260909124}
   pwdInputField: {fileID: 3206968534621811000}
   retrieveButton: {fileID: 7828618468156117627}
   registerButton: {fileID: 4734742408710821101}
@@ -2562,6 +2563,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a382a840e834a3c860ba41b9a6231b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeButton: {fileID: 7620860012041819037}
+  contentText: {fileID: 4710072190885652362}
+  otherLoginButton: {fileID: 197772057240406040}
+  contactButton: {fileID: 1438409933459281573}
 --- !u!1 &2104609171698001869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,6 +3467,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9dc624cf3eda42a8a419aef41f0d188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeButton: {fileID: 3318420750552200004}
+  contentLabel: {fileID: 4393495447566460544}
+  recallButton: {fileID: 4129197734668462433}
 --- !u!1 &2576913737827144057
 GameObject:
   m_ObjectHideFlags: 0
@@ -4668,10 +4676,10 @@ RectTransform:
   m_Father: {fileID: 7071962056475826960}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &600153534754658567
 MonoBehaviour:
@@ -4685,6 +4693,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fd5572524554a8fa5107683cdedd93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeButton: {fileID: 4807760504846816581}
+  nameInputField: {fileID: 4793301045255559553}
+  idInputField: {fileID: 7507120762941257026}
+  commitButton: {fileID: 9023046463985363090}
+  otherLoginButton: {fileID: 573619940205859247}
 --- !u!1 &3186479494400905561
 GameObject:
   m_ObjectHideFlags: 0
@@ -4869,14 +4882,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085aaddd858564787aac1e018e79a87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoginViewList:
-  - {fileID: 5013001949606790032}
-  - {fileID: 5391931006290431936}
-  - {fileID: 5840868624534897393}
-  - {fileID: 7815250440757769376}
-  - {fileID: 5958424597526286024}
-  - {fileID: 600153534754658567}
-  - {fileID: 7805367120504051067}
+  loginSelectView: {fileID: 5013001949606790032}
+  registerAndRetrieveView: {fileID: 5840868624534897393}
+  emailOrPhonePwdView: {fileID: 5391931006290431936}
+  loginLimitView: {fileID: 5958424597526286024}
+  coolDownTipsView: {fileID: 7805367120504051067}
+  activationKeyView: {fileID: 7815250440757769376}
+  antiAddictionView: {fileID: 600153534754658567}
 --- !u!1 &3294314815881697996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5932,6 +5944,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e12ff53dd634dcd9cadbe2da7c7ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeButton: {fileID: 978928526174766033}
+  activationKeyInputField: {fileID: 444807662705432586}
+  commitButton: {fileID: 7590790002598191101}
 --- !u!1 &3940813082203398114
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,10 +6641,10 @@ RectTransform:
   m_Father: {fileID: 7071962056475826960}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5840868624534897393
 MonoBehaviour:
@@ -6643,6 +6658,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaef2812685f44ac5b4288daf953164a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backButton: {fileID: 2471677514083801572}
+  closeButton: {fileID: 5010746038465344661}
+  emailOrPhoneInputField: {fileID: 6049518156574429823}
+  emailOrPhonePlaceholder: {fileID: 4016527317296427523}
+  pwdInputField: {fileID: 4090669947364068941}
+  newPwdInputField: {fileID: 5190577451844472794}
+  verifyCodeContainer: {fileID: 2033937524905768710}
+  smsInputField: {fileID: 9036250021304474255}
+  smsButton: {fileID: 3075134210886855896}
+  registerButton: {fileID: 1786424457985667249}
+  retrieveButton: {fileID: 690974607531374225}
 --- !u!1 &4418482293032826579
 GameObject:
   m_ObjectHideFlags: 0
@@ -7265,7 +7291,7 @@ GameObject:
   - component: {fileID: 6359142204736367195}
   - component: {fileID: 8790672909552227870}
   m_Layer: 5
-  m_Name: EmailInputField
+  m_Name: EmailOrPhoneInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,7 +7,6 @@ namespace SoFunny.FunnySDK.UIModule
 {
     public class SDKUILoginSelectView : SDKUILoginBase
     {
-        internal override UILoginViewType ViewType => UILoginViewType.LoginSelect;
 
         public Button closeButton;
         public Button sofunnyLoginButton;
@@ -35,12 +34,12 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnSoFunnyLoginAction()
         {
-            Controller.OpenLoginView(UILoginViewType.EmailOrPhonePwd);
+            Controller.OpenPage(UILoginPageState.EmailLoginPage);
         }
 
         private void OnGuestLoginAction()
         {
-            Toast.Show("暂未实现");
+            Toast.Show("开发中");
         }
     }
 }

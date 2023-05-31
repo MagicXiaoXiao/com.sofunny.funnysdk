@@ -4,8 +4,15 @@ using UnityEngine;
 
 namespace SoFunny.FunnySDK.UIModule
 {
+    internal enum ToastStyle
+    {
+        Normal,
+        Fail
+    }
+
     public static class Toast
     {
+
         internal static bool isLoaded = false;
 
         private static SDKUIToast toastUI;
@@ -28,6 +35,11 @@ namespace SoFunny.FunnySDK.UIModule
             toastUI.Init(text, duration);
         }
 
+        public static void ShowFail(string text, float duration = 2f)
+        {
+            Prepare();
+            toastUI.Init(text, duration, style: ToastStyle.Fail);
+        }
     }
 }
 

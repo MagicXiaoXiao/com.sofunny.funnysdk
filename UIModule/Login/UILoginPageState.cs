@@ -4,7 +4,7 @@ namespace SoFunny.FunnySDK.UIModule
 {
     public enum UILoginPageState
     {
-        LoginSelectPage,
+        LoginSelectPage = 100,
         EmailLoginPage,
         PhoneLoginPage,
         RegisterPage,

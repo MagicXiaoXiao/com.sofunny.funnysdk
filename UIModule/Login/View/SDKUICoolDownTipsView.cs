@@ -1,15 +1,37 @@
 ﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
     public class SDKUICoolDownTipsView : SDKUILoginBase
     {
-        internal override UILoginViewType ViewType => UILoginViewType.CoolDownTips;
+        public Button closeButton;
+        public Text contentLabel;
+        public Button recallButton;
 
         protected override void Init()
         {
-
+            closeButton.onClick.AddListener(OnCloseViewAction);
+            recallButton.onClick.AddListener(OnRecallAction);
         }
+
+        protected override void DeInit()
+        {
+            closeButton.onClick.RemoveAllListeners();
+            recallButton.onClick.RemoveAllListeners();
+        }
+
+        private void OnCloseViewAction()
+        {
+            Controller.CloseLoginController();
+        }
+
+        private void OnRecallAction()
+        {
+            Toast.Show("开发中");
+        }
+
     }
 }
 

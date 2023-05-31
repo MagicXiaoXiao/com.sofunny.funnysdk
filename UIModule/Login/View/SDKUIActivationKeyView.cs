@@ -1,15 +1,37 @@
 ﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
     public class SDKUIActivationKeyView : SDKUILoginBase
     {
-        internal override UILoginViewType ViewType => UILoginViewType.ActivationKey;
+        public Button closeButton;
+        public InputField activationKeyInputField;
+        public Button commitButton;
 
         protected override void Init()
         {
-
+            closeButton.onClick.AddListener(OnCloseViewAction);
+            commitButton.onClick.AddListener(OnCommitAction);
         }
+
+        protected override void DeInit()
+        {
+            closeButton.onClick.RemoveAllListeners();
+            commitButton.onClick.RemoveAllListeners();
+        }
+
+        private void OnCommitAction()
+        {
+            Toast.Show("开发中");
+        }
+
+        private void OnCloseViewAction()
+        {
+            Controller.CloseLoginController();
+        }
+
     }
 }
 

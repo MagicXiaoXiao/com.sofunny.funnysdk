@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using SoFunny.FunnySDK.Internal;
 
 namespace SoFunny.FunnySDK.UIModule
 {
+
     public class SDKUIEmailOrPhonePwdView : SDKUILoginBase
     {
-        internal override UILoginViewType ViewType => UILoginViewType.EmailOrPhonePwd;
 
-        public InputField emailInputField;
+        public InputField emailOrPhoneInputField;
+        public Text emailOrPhonePlaceholder;
         public InputField pwdInputField;
         public Button retrieveButton;
         public Button registerButton;
@@ -46,18 +49,44 @@ namespace SoFunny.FunnySDK.UIModule
             smsButton.onClick.RemoveAllListeners();
         }
 
+        public override void Show()
+        {
+            if (ConfigService.Config.IsMainland)
+            {
+                emailOrPhonePlaceholder.text = "手机号";
+                emailOrPhoneInputField.contentType = InputField.ContentType.IntegerNumber;
+                emailOrPhoneInputField.characterLimit = 11;
+            }
+            else
+            {
+                emailOrPhonePlaceholder.text = "邮箱";
+                emailOrPhoneInputField.contentType = InputField.ContentType.EmailAddress;
+                emailOrPhoneInputField.characterLimit = 0;
+            }
+
+            base.Show();
+        }
+
         private void OnRetrieveAction()
         {
-            Controller.OpenLoginView(UILoginViewType.RegisterAndRetrieve);
+            Controller.OpenPage(UILoginPageState.RetrievePage);
         }
 
         private void OnRegisterAction()
         {
-            Controller.OpenLoginView(UILoginViewType.RegisterAndRetrieve);
+            Controller.OpenPage(UILoginPageState.RegisterPage);
         }
 
         private void OnLoginAction()
         {
+            StartCoroutine(TryLogin());
+        }
+
+        IEnumerator TryLogin()
+        {
+            Loader.ShowIndicator();
+            yield return new WaitForSeconds(2);
+            Loader.HideIndicator();
             Toast.Show("开发中");
         }
 
@@ -88,7 +117,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnBackViewAction()
         {
-            Controller.OpenLoginView(UILoginViewType.LoginSelect);
+            Controller.OpenPage(UILoginPageState.LoginSelectPage);
         }
 
         private void OnSendSMSAction()

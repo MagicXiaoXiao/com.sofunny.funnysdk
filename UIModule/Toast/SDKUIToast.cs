@@ -7,10 +7,12 @@ namespace SoFunny.FunnySDK.UIModule
 {
     public class SDKUIToast : MonoBehaviour
     {
+
         [Header("UI References :")]
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
-        [SerializeField] private Text label;
+        public CanvasGroup canvasGroup;
+        public VerticalLayoutGroup verticalLayoutGroup;
+        public Image failLogo;
+        public Text label;
 
         [Header("Toast Fade In/Out Duration :")]
         [Range(.1f, .8f)]
@@ -28,18 +30,28 @@ namespace SoFunny.FunnySDK.UIModule
             Toast.isLoaded = false;
         }
 
-        public void Init(string text, float duration, TextAnchor position = TextAnchor.MiddleCenter)
+        internal void Init(string text, float duration, TextAnchor position = TextAnchor.MiddleCenter, ToastStyle style = ToastStyle.Normal)
         {
             label.text = (text.Length > maxTextLength) ? text.Substring(0, maxTextLength) + "..." : text;
 
             verticalLayoutGroup.childAlignment = position;
 
+            switch (style)
+            {
+                case ToastStyle.Normal:
+                    failLogo.gameObject.SetActive(false);
+                    break;
+                case ToastStyle.Fail:
+                    failLogo.gameObject.SetActive(true);
+                    break;
+                default: break;
+            }
+
             Dismiss();
             StartCoroutine(FadeInOut(duration, fadeDuration));
         }
 
-
-        public void Dismiss()
+        internal void Dismiss()
         {
             StopAllCoroutines();
             canvasGroup.alpha = 0f;

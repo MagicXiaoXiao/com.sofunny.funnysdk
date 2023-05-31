@@ -9,9 +9,7 @@ namespace SoFunny.FunnySDK.UIModule
     public abstract class SDKUILoginBase : MonoBehaviour
     {
 
-        internal abstract UILoginViewType ViewType { get; }
         protected SDKUILoginController Controller;
-        protected string Identifier;
 
         private void Awake()
         {

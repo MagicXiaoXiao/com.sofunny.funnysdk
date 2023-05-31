@@ -36,13 +36,13 @@ namespace SoFunny.FunnySDK.UIModule
         public static void OpenLoginSelectView()
         {
             Prepare();
-            controller.OpenLoginView(UILoginViewType.LoginSelect);
+            controller.OpenPage(UILoginPageState.LoginSelectPage);
         }
 
         public static void OpenLoginLimitView()
         {
             Prepare();
-            controller.OpenLoginView(UILoginViewType.LoginLimit);
+            controller.OpenPage(UILoginPageState.LoginLimitPage);
         }
 
     }
