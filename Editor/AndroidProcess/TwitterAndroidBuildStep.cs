@@ -9,16 +9,17 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TwitterAndroidBuildStep : AndroidBaseBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
 
         public override bool IsEnabled {
             get {
-                if (FunnyConfig.Instance.isMainland)
+                if (Config.IsMainland)
                 {
                     return false;
                 }
                 else
                 {
-                    return FunnyConfig.Instance.Twitter.Enable;
+                    return Config.Twitter.Enable;
                 }
             }
         }
@@ -53,12 +54,12 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement twitterAppID = stringsXML.CreateElement("string");
             twitterAppID.SetAttribute("name", "twitter_app_id");
-            twitterAppID.InnerText = FunnyConfig.Instance.Twitter.consumerKey;
+            twitterAppID.InnerText = Config.Twitter.consumerKey;
             resources.AppendChild(twitterAppID);
 
             XmlElement twitterSecret = stringsXML.CreateElement("string");
             twitterSecret.SetAttribute("name", "twitter_secret");
-            twitterSecret.InnerText = FunnyConfig.Instance.Twitter.consumerSecret;
+            twitterSecret.InnerText = Config.Twitter.consumerSecret;
             resources.AppendChild(twitterSecret);
 
         }

@@ -15,15 +15,17 @@ namespace SoFunny.FunnySDK.Editor {
     /// </summary>
     public class GoogleAndroidBuildStep: AndroidBaseBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled {
             get {
                 // 是否海外
-                if (FunnyConfig.Instance.isMainland)
+                if (Config.IsMainland)
                 {
                     return false;
                 }
                 else {
-                    return FunnyConfig.Instance.Google.Enable;
+                    return Config.Google.Enable;
                 }
             }
         }
@@ -61,7 +63,7 @@ namespace SoFunny.FunnySDK.Editor {
 
             XmlElement googleAppID = stringsXML.CreateElement("string");
             googleAppID.SetAttribute("name", "google_play_app_id");
-            googleAppID.InnerText = FunnyConfig.Instance.Google.idToken;
+            googleAppID.InnerText = Config.Google.idToken;
             resources.AppendChild(googleAppID);
         }
 

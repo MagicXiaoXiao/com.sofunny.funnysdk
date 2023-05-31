@@ -19,7 +19,7 @@ namespace SoFunny.FunnySDK.Editor {
 
         public virtual string DisplayName => GetType().Name;
         public virtual string NamespaceURI => "http://schemas.android.com/apk/res/android";
-        public virtual string AAR_ORIGIN_PATH => Path.Combine(FunnyConfig.Instance._defaultPluginPath, "ExtPackage/Android");
+        public virtual string AAR_ORIGIN_PATH => "Packages/com.sofunny.funnysdk/ExtPackage/Android";
 
         public static AndroidBaseBuildStep[] ProjectBuildStepObjects()
         {

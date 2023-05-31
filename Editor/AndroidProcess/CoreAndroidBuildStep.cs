@@ -13,6 +13,8 @@ namespace SoFunny.FunnySDK.Editor {
     /// </summary>
     public class CoreAndroidBuildStep: AndroidBaseBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled => true;
 
         public override void OnProcessGradleProperties(Dictionary<string, string> properties)
@@ -55,13 +57,13 @@ namespace SoFunny.FunnySDK.Editor {
             // 创建子节点
             XmlElement mainlandValue = stringsXML.CreateElement("string");
             mainlandValue.SetAttribute("name", "funny_sdk_mainland");
-            mainlandValue.InnerText = FunnyConfig.Instance.isMainland ? "true" : "false";
+            mainlandValue.InnerText = Config.IsMainland ? "true" : "false";
             // 加入 resources 节点
             resources.AppendChild(mainlandValue);
 
             XmlElement appIDValue = stringsXML.CreateElement("string");
             appIDValue.SetAttribute("name", "funny_sdk_app_id");
-            appIDValue.InnerText = FunnyConfig.Instance.appID;
+            appIDValue.InnerText = Config.AppID;
             resources.AppendChild(appIDValue);
         }
 
@@ -72,7 +74,6 @@ namespace SoFunny.FunnySDK.Editor {
             
             XmlElement funnyAppIdNode = manifestXML.CreateElement("meta-data");
             funnyAppIdNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.FunnyAppId");
-            Debug.Log("FunnyAppId: " + FunnyConfig.Instance.appID);
             funnyAppIdNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_app_id");
             applicationNode.AppendChild(funnyAppIdNode);
 

@@ -10,14 +10,16 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class FacebookAndroidBuildStep : AndroidBaseBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled {
             get {
-                if (FunnyConfig.Instance.isMainland)
+                if (Config.IsMainland)
                 {
                     return false;
                 } else
                 {
-                    return FunnyConfig.Instance.Facebook.Enable;
+                    return Config.Facebook.Enable;
                 }
             }
         }
@@ -56,17 +58,17 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement facebookAppID = stringsXML.CreateElement("string");
             facebookAppID.SetAttribute("name", "facebook_app_id");
-            facebookAppID.InnerText = FunnyConfig.Instance.Facebook.appID;
+            facebookAppID.InnerText = Config.Facebook.appID;
             resources.AppendChild(facebookAppID);
 
             XmlElement facebookScheme = stringsXML.CreateElement("string");
             facebookScheme.SetAttribute("name", "fb_login_protocol_scheme");
-            facebookScheme.InnerText = "fb" + FunnyConfig.Instance.Facebook.appID;
+            facebookScheme.InnerText = "fb" + Config.Facebook.appID;
             resources.AppendChild(facebookScheme);
 
             XmlElement facebookClient = stringsXML.CreateElement("string");
             facebookClient.SetAttribute("name", "facebook_client_token");
-            facebookClient.InnerText = FunnyConfig.Instance.Facebook.clientToken;
+            facebookClient.InnerText = Config.Facebook.clientToken;
             resources.AppendChild(facebookClient);
         }
 
@@ -85,7 +87,7 @@ namespace SoFunny.FunnySDK.Editor
             facebookClientTokenNode.SetAttribute("value", NamespaceURI, "@string/facebook_client_token");
             applicationNode.AppendChild(facebookClientTokenNode);
 
-            var trackValue = FunnyConfig.Instance.Facebook.trackEnable ? "true" : "false";
+            var trackValue = Config.Facebook.trackEnable ? "true" : "false";
 
             XmlElement facebookTrackNode = manifestXML.CreateElement("meta-data");
             facebookTrackNode.SetAttribute("name", NamespaceURI, "com.facebook.sdk.AutoLogAppEventsEnabled");

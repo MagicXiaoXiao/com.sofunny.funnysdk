@@ -13,16 +13,11 @@ namespace SoFunny.FunnySDK.Editor
     /// </summary>
     public class TapTapAndroidBuildStep : AndroidBaseBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled {
             get {
-                // 是否海外
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.TapTap.Enable;
-                }
-                else {
-                    return false;
-                }
+                return Config.IsMainland && Config.TapTap.Enable;
             }
         }
 
@@ -74,17 +69,17 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement clientID = stringsXML.CreateElement("string");
             clientID.SetAttribute("name", "taptap_client_id");
-            clientID.InnerText = FunnyConfig.Instance.TapTap.clientID;
+            clientID.InnerText = Config.TapTap.clientID;
             resources.AppendChild(clientID);
 
             XmlElement clientToken = stringsXML.CreateElement("string");
             clientToken.SetAttribute("name", "taptap_client_token");
-            clientToken.InnerText = FunnyConfig.Instance.TapTap.clientToken;
+            clientToken.InnerText = Config.TapTap.clientToken;
             resources.AppendChild(clientToken);
 
             XmlElement serverUrl = stringsXML.CreateElement("string");
             serverUrl.SetAttribute("name", "taptap_server_url");
-            serverUrl.InnerText = FunnyConfig.Instance.TapTap.serverURL;
+            serverUrl.InnerText = Config.TapTap.serverURL;
             resources.AppendChild(serverUrl);
         }
 
@@ -111,13 +106,13 @@ namespace SoFunny.FunnySDK.Editor
             // 篝火资格验证开关
             XmlElement channelNode = manifestXML.CreateElement("meta-data");
             channelNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.taptap.isBonFire");
-            channelNode.SetAttribute("value", NamespaceURI, FunnyConfig.Instance.TapTap.isBonfire.ToString());
+            channelNode.SetAttribute("value", NamespaceURI, Config.TapTap.isBonfire.ToString());
             applicationNode.AppendChild(channelNode);
 
             // Tap 小号测试开关
             XmlElement bateNode = manifestXML.CreateElement("meta-data");
             bateNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.taptap.isTapBeta");
-            bateNode.SetAttribute("value", NamespaceURI, FunnyConfig.Instance.TapTap.isTapBeta.ToString());
+            bateNode.SetAttribute("value", NamespaceURI, Config.TapTap.isTapBeta.ToString());
             applicationNode.AppendChild(bateNode);
 
         }

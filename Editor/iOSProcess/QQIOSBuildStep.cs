@@ -10,18 +10,13 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class QQIOSBuildStep : FunnyXcodeBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.QQ.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+                return Config.IsMainland && Config.QQ.Enable;
             }
         }
 
@@ -50,7 +45,7 @@ namespace SoFunny.FunnySDK.Editor
             qqURLScheme.SetString("CFBundleTypeRole", "Editor");
             qqURLScheme.SetString("CFBundleURLName", "QQ SDK");
             var qqSchemes = qqURLScheme.CreateArray("CFBundleURLSchemes");
-            qqSchemes.AddString($"tencent{FunnyConfig.Instance.QQ.appID}");
+            qqSchemes.AddString($"tencent{Config.QQ.appID}");
 
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
@@ -66,8 +61,8 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TENCENT_APPID", FunnyConfig.Instance.QQ.appID);
-            sofunnyDict.SetString("FUNNY_TENCENT_UNIVERSALLINK", FunnyConfig.Instance.QQ.universalLink);
+            sofunnyDict.SetString("FUNNY_TENCENT_APPID", Config.QQ.appID);
+            sofunnyDict.SetString("FUNNY_TENCENT_UNIVERSALLINK", Config.QQ.universalLink);
         }
     }
 }

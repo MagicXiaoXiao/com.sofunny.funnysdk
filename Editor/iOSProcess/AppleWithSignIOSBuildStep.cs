@@ -14,13 +14,14 @@ namespace SoFunny.FunnySDK.Editor
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
+                var config = FunnyEditorConfig.Get();
+                if (config.IsMainland)
                 {
-                    return FunnyConfig.Instance.Apple.mainlandEnable;
+                    return config.Apple.mainlandEnable;
                 }
                 else
                 {
-                    return FunnyConfig.Instance.Apple.overseaEnable;
+                    return config.Apple.overseaEnable;
                 }
             }
         }

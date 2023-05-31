@@ -23,7 +23,8 @@ namespace SoFunny.FunnySDK.Editor {
 
         public void OnPostGenerateGradleAndroidProject(string path)
         {
-            FunnyConfig.Instance.SyncToConfig();
+            FunnyEditorConfig.SyncData();
+
             // Android 导出脚本执行
             var buildStepList = AndroidBaseBuildStep.ProjectBuildStepObjects();
 

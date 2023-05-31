@@ -10,18 +10,13 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TapTapIOSBuildStep : FunnyXcodeBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.TapTap.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+                return Config.IsMainland && Config.TapTap.Enable;
             }
         }
 
@@ -67,7 +62,7 @@ namespace SoFunny.FunnySDK.Editor
             taptapURLScheme.SetString("CFBundleTypeRole", "Editor");
             taptapURLScheme.SetString("CFBundleURLName", "TapTap SDK");
             var taptapSchemes = taptapURLScheme.CreateArray("CFBundleURLSchemes");
-            taptapSchemes.AddString($"tt{FunnyConfig.Instance.TapTap.clientID}");
+            taptapSchemes.AddString($"tt{Config.TapTap.clientID}");
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("tapiosdk");
@@ -78,10 +73,10 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTID", FunnyConfig.Instance.TapTap.clientID);
-            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTTOKEN", FunnyConfig.Instance.TapTap.clientToken);
-            sofunnyDict.SetString("FUNNY_TAPTAP_SERVERURL", FunnyConfig.Instance.TapTap.serverURL);
-            sofunnyDict.SetBoolean("FUNNY_TAPTAP_BONFIRE", FunnyConfig.Instance.TapTap.isBonfire);
+            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTID", Config.TapTap.clientID);
+            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTTOKEN", Config.TapTap.clientToken);
+            sofunnyDict.SetString("FUNNY_TAPTAP_SERVERURL", Config.TapTap.serverURL);
+            sofunnyDict.SetBoolean("FUNNY_TAPTAP_BONFIRE", Config.TapTap.isBonfire);
         }
 
     }

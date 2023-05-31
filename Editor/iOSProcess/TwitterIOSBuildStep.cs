@@ -10,17 +10,19 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TwitterIOSBuildStep : FunnyXcodeBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
+                if (Config.IsMainland)
                 {
                     return false;
                 }
                 else
                 {
-                    return FunnyConfig.Instance.Twitter.Enable;
+                    return Config.Twitter.Enable;
                 }
             }
         }
@@ -50,7 +52,7 @@ namespace SoFunny.FunnySDK.Editor
             twitterURLScheme.SetString("CFBundleTypeRole", "Editor");
             twitterURLScheme.SetString("CFBundleURLName", "TWITTER SDK");
             var twiSchemes = twitterURLScheme.CreateArray("CFBundleURLSchemes");
-            twiSchemes.AddString($"twitterkit-{FunnyConfig.Instance.Twitter.consumerKey}");
+            twiSchemes.AddString($"twitterkit-{Config.Twitter.consumerKey}");
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("twitter");
@@ -61,8 +63,8 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TWITTER_CKEY", FunnyConfig.Instance.Twitter.consumerKey);
-            sofunnyDict.SetString("FUNNY_TWITTER_CSECRET", FunnyConfig.Instance.Twitter.consumerSecret);
+            sofunnyDict.SetString("FUNNY_TWITTER_CKEY", Config.Twitter.consumerKey);
+            sofunnyDict.SetString("FUNNY_TWITTER_CSECRET", Config.Twitter.consumerSecret);
         }
 
     }

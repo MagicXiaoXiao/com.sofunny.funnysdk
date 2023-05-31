@@ -10,18 +10,13 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class WeChatIOSBuildStep : FunnyXcodeBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.WeChat.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+                return Config.IsMainland && Config.WeChat.Enable;
             }
         }
 
@@ -51,7 +46,7 @@ namespace SoFunny.FunnySDK.Editor
             wechatURLScheme.SetString("CFBundleTypeRole", "Editor");
             wechatURLScheme.SetString("CFBundleURLName", "WECHAT SDK");
             var wechatSchemes = wechatURLScheme.CreateArray("CFBundleURLSchemes");
-            wechatSchemes.AddString(FunnyConfig.Instance.WeChat.appID);
+            wechatSchemes.AddString(Config.WeChat.appID);
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("weixin");
@@ -62,8 +57,8 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_WECHAT_APPID", FunnyConfig.Instance.WeChat.appID);
-            sofunnyDict.SetString("FUNNY_WECHAT_UNIVERSALLINK", FunnyConfig.Instance.WeChat.universalLink);
+            sofunnyDict.SetString("FUNNY_WECHAT_APPID", Config.WeChat.appID);
+            sofunnyDict.SetString("FUNNY_WECHAT_UNIVERSALLINK", Config.WeChat.universalLink);
         }
 
     }

@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace SoFunny.FunnySDK.UIModule
+{
+
+    public abstract class SDKUILoginBase : MonoBehaviour
+    {
+
+        internal abstract UILoginViewType ViewType { get; }
+        protected SDKUILoginController Controller;
+        protected string Identifier;
+
+        private void Awake()
+        {
+            Controller = GetComponentInParent<SDKUILoginController>();
+            Init();
+        }
+
+        private void OnDestroy()
+        {
+            DeInit();
+        }
+
+        protected abstract void Init();
+        protected virtual void DeInit() { }
+
+        public virtual void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public virtual void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+    }
+}
+
+

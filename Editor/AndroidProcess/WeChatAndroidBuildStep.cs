@@ -9,16 +9,11 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class WeChatAndroidBuildStep : AndroidBaseBuildStep
     {
+        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+
         public override bool IsEnabled {
             get {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.WeChat.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+                return Config.IsMainland && Config.WeChat.Enable;
             }
         }
 
@@ -55,7 +50,7 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement wechatAppID = stringsXML.CreateElement("string");
             wechatAppID.SetAttribute("name", "wechat_app_id");
-            wechatAppID.InnerText = FunnyConfig.Instance.WeChat.appID;
+            wechatAppID.InnerText = Config.WeChat.appID;
             resources.AppendChild(wechatAppID);
         }
 
