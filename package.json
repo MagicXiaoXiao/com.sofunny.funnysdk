@@ -17,9 +17,12 @@
   },
   "samples": [
     {
-        "displayName": "FunnySDKSample",
-        "description": "真有趣账号 SDK 演示 Demo",
-        "path": "Samples~/FunnySDKSample"
+      "displayName": "FunnySDKSample",
+      "description": "\u771f\u6709\u8da3\u8d26\u53f7 SDK \u6f14\u793a Demo",
+      "path": "Samples~/FunnySDKSample"
     }
-  ]
+  ],
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  }
 }

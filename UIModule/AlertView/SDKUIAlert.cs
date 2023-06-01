@@ -8,10 +8,10 @@ namespace SoFunny.FunnySDK.UIModule
 {
     public class SDKUIAlert : MonoBehaviour
     {
-        [SerializeField] private Text titleLabel;
-        [SerializeField] private Text contentLabel;
-        [SerializeField] private Button cancelButton;
-        [SerializeField] private Button okButton;
+        public Text titleLabel;
+        public Text contentLabel;
+        public Button cancelButton;
+        public Button okButton;
 
         private Action cancelAction;
         private Action okAction;

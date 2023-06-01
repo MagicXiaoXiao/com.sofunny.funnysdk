@@ -9,8 +9,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         internal static UIController Instance;
 
-
-        [SerializeField] internal GameObject UIContainer;
+        public GameObject UIContainer;
 
         private void Awake()
         {

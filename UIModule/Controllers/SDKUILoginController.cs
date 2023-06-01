@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public partial class SDKUILoginController : MonoBehaviour
+    public class SDKUILoginController : MonoBehaviour
     {
 
         public SDKUILoginSelectView loginSelectView;
@@ -18,6 +18,10 @@ namespace SoFunny.FunnySDK.UIModule
 
         private UILoginPageState currentPageState;
 
+        private void Awake()
+        {
+            HideAllView();
+        }
 
         public void OpenPage(UILoginPageState pageState)
         {
@@ -62,6 +66,24 @@ namespace SoFunny.FunnySDK.UIModule
             currentPageState = pageState;
         }
 
+
+        public void CloseLoginController()
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+
+        private void HideAllView()
+        {
+            loginSelectView.gameObject.SetActive(false);
+            registerAndRetrieveView.gameObject.SetActive(false);
+            emailOrPhonePwdView.gameObject.SetActive(false);
+            loginLimitView.gameObject.SetActive(false);
+            coolDownTipsView.gameObject.SetActive(false);
+            activationKeyView.gameObject.SetActive(false);
+            antiAddictionView.gameObject.SetActive(false);
+        }
+
         private void HideCurrentPage()
         {
 
@@ -92,18 +114,13 @@ namespace SoFunny.FunnySDK.UIModule
                     coolDownTipsView.Hide();
                     break;
                 case UILoginPageState.PhoneLoginPage:
-                    loginSelectView.Show();
+                    loginSelectView.Hide();
                     break;
 
                 default: break;
             }
         }
 
-        public void CloseLoginController()
-        {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
-        }
 
         private void OnDestroy()
         {

@@ -22,7 +22,6 @@ namespace SoFunny.FunnySDK.UIModule
             }
         }
 
-
         public static void ShowIndicator()
         {
             Prepare();

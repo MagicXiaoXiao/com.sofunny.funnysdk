@@ -7,8 +7,8 @@ namespace SoFunny.FunnySDK.UIModule
 {
     public class SDKUILoading : MonoBehaviour
     {
-        [SerializeField] private Image circleView;
-        [SerializeField] private float rotationSpeed = 200f;
+        public Image circleView;
+        public float rotationSpeed = 200f;
 
         private Coroutine rotationCoroutine;
         private bool isShow = false;

@@ -12,6 +12,7 @@ namespace SoFunny.FunnySDK.UIModule
         public CanvasGroup canvasGroup;
         public VerticalLayoutGroup verticalLayoutGroup;
         public Image failLogo;
+        public Image successLogo;
         public Text label;
 
         [Header("Toast Fade In/Out Duration :")]
@@ -39,10 +40,16 @@ namespace SoFunny.FunnySDK.UIModule
             switch (style)
             {
                 case ToastStyle.Normal:
+                    successLogo.gameObject.SetActive(false);
                     failLogo.gameObject.SetActive(false);
                     break;
                 case ToastStyle.Fail:
+                    successLogo.gameObject.SetActive(false);
                     failLogo.gameObject.SetActive(true);
+                    break;
+                case ToastStyle.Success:
+                    successLogo.gameObject.SetActive(true);
+                    failLogo.gameObject.SetActive(false);
                     break;
                 default: break;
             }

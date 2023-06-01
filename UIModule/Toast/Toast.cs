@@ -7,7 +7,8 @@ namespace SoFunny.FunnySDK.UIModule
     internal enum ToastStyle
     {
         Normal,
-        Fail
+        Fail,
+        Success
     }
 
     public static class Toast
@@ -39,6 +40,12 @@ namespace SoFunny.FunnySDK.UIModule
         {
             Prepare();
             toastUI.Init(text, duration, style: ToastStyle.Fail);
+        }
+
+        public static void ShowSuccess(string text, float duration = 2f)
+        {
+            Prepare();
+            toastUI.Init(text, duration, style: ToastStyle.Success);
         }
     }
 }
