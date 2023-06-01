@@ -21,6 +21,7 @@ namespace SoFunny.FunnySDK.UIModule
         public Button backButton;
 
         public GameObject verifyCodeContainer;
+        public SFSmsCodeButtonTimerHandler timerHandler;
         public InputField smsInputField;
         public Button smsButton;
 
@@ -122,7 +123,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnSendSMSAction()
         {
-            Toast.Show("开发中");
+            timerHandler.StartTimer();
         }
     }
 }

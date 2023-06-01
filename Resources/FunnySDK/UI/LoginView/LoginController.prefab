@@ -52,7 +52,6 @@ MonoBehaviour:
   closeButton: {fileID: 4615323076501981975}
   sofunnyLoginButton: {fileID: 392489108811907710}
   guestLoginButton: {fileID: 1974814849980216727}
-  channelContainer: {fileID: 7173336671651011247}
 --- !u!1 &288074074611173413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2605,6 +2604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4817439506543662738}
+  - component: {fileID: 2187350708843975758}
   m_Layer: 5
   m_Name: VerifyCodeContainer
   m_TagString: Untagged
@@ -2633,6 +2633,21 @@ RectTransform:
   m_AnchoredPosition: {x: 205, y: -195}
   m_SizeDelta: {x: 410, y: 62}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2187350708843975758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033937524905768710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93244222761594101a431dcd382ce550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smsButton: {fileID: 3075134210886855896}
+  smsText: {fileID: 346239997870222814}
+  timerSeconds: 60
 --- !u!1 &2081198476855877190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,6 +2707,7 @@ MonoBehaviour:
   closeButton: {fileID: 458289667961662084}
   backButton: {fileID: 2391778731616808592}
   verifyCodeContainer: {fileID: 7504575802447704234}
+  timerHandler: {fileID: 3636528961577534618}
   smsInputField: {fileID: 7228665720239236531}
   smsButton: {fileID: 2740171856561867388}
 --- !u!1 &2094308578662215120
@@ -5841,8 +5857,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 43.45789, y: -22.712961}
-  m_SizeDelta: {x: 86.91578, y: 1.5}
+  m_AnchoredPosition: {x: 44.942585, y: -23.79665}
+  m_SizeDelta: {x: 89.88517, y: 1.5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1805347009726933627
 CanvasRenderer:
@@ -6204,8 +6220,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 43.45789, y: -9.606481}
-  m_SizeDelta: {x: 86.91578, y: 19.212961}
+  m_AnchoredPosition: {x: 44.942585, y: -10.148325}
+  m_SizeDelta: {x: 89.88517, y: 20.29665}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8753683131124560293
 CanvasRenderer:
@@ -7018,6 +7034,7 @@ MonoBehaviour:
   pwdInputField: {fileID: 4090669947364068941}
   newPwdInputField: {fileID: 5190577451844472794}
   verifyCodeContainer: {fileID: 2033937524905768710}
+  timerHandler: {fileID: 2187350708843975758}
   smsInputField: {fileID: 9036250021304474255}
   smsButton: {fileID: 3075134210886855896}
   registerButton: {fileID: 1786424457985667249}
@@ -8214,7 +8231,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 86.91578, y: 30}
+  m_SizeDelta: {x: 89.88517, y: 30}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1027873773804202334
 CanvasRenderer:
@@ -11936,6 +11953,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6349308608712403434}
+  - component: {fileID: 3636528961577534618}
   m_Layer: 5
   m_Name: VerifyCodeContainer
   m_TagString: Untagged
@@ -11964,6 +11982,21 @@ RectTransform:
   m_AnchoredPosition: {x: 205, y: -123}
   m_SizeDelta: {x: 410, y: 62}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3636528961577534618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504575802447704234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93244222761594101a431dcd382ce550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smsButton: {fileID: 2740171856561867388}
+  smsText: {fileID: 4128544339553507950}
+  timerSeconds: 60
 --- !u!1 &7623456388117913364
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ namespace SoFunny.FunnySDK.UIModule
         public Button closeButton;
         public Button sofunnyLoginButton;
         public Button guestLoginButton;
-        public GameObject channelContainer;
 
         protected override void Init()
         {

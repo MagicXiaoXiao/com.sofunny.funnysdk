@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using SoFunny.FunnySDK.Internal;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace SoFunny.FunnySDK.UIModule
 {
@@ -16,6 +18,7 @@ namespace SoFunny.FunnySDK.UIModule
         public InputField newPwdInputField;
 
         public GameObject verifyCodeContainer;
+        public SFSmsCodeButtonTimerHandler timerHandler;
         public InputField smsInputField;
         public Button smsButton;
 
@@ -24,6 +27,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         protected override void Init()
         {
+
             backButton.onClick.AddListener(OnBackAction);
             closeButton.onClick.AddListener(OnCloseViewAction);
             smsButton.onClick.AddListener(OnSendSmsAction);
@@ -87,7 +91,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnSendSmsAction()
         {
-            Toast.Show("开发中");
+            timerHandler.StartTimer();
         }
 
         private void OnRegisterAction()
