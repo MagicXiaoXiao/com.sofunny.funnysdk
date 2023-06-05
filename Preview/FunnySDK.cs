@@ -121,7 +121,14 @@ namespace SoFunny.FunnySDKPreview
         {
             Native.GetInstance().OpenFeedback(playerID);
         }
-
+        /// <summary>
+        /// 打开用户协议界面
+        /// </summary>
+        /// <returns>void</returns>
+        public static void ShowProtocol()
+        {
+            Native.GetInstance().ShowProtocol();
+        }
     }
 
     public partial class FunnySDK
@@ -169,8 +176,10 @@ namespace SoFunny.FunnySDKPreview
         /// 反馈面板被关闭事件
         /// </summary>
         public static event FunnySDKAction OnCloseFeedbackEvent;
-
-
+        /// <summary>
+        /// 用户隐私协议同意事件
+        /// </summary>
+        public static event FunnySDKAction OnConfirmProtocolEvent;
 
         internal static void OnNativeListener(string identifier, string value = null)
         {
@@ -217,6 +226,9 @@ namespace SoFunny.FunnySDKPreview
                     break;
                 case "event.close.feedback":
                     OnCloseFeedbackEvent?.Invoke();
+                    break;
+                case "event.open.protocol":
+                    OnConfirmProtocolEvent?.Invoke();
                     break;
                 default:
                     Debug.Log("[FunnySDK]: 暂未含有该事件处理: " + identifier);
