@@ -1,14 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using SoFunny;
-using SoFunny.Utils;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Net;
 using System.Linq;
 using SoFunny.Tools;
-using UnityEngine.SceneManagement;
+using SoFunny;
+using SoFunny.Utils;
 
 public class MainController : MonoBehaviour {
 
@@ -19,15 +17,19 @@ public class MainController : MonoBehaviour {
     public VerticalLayoutGroup layoutGroup;
 
     private bool launchValue = false;
-
     private void Awake() {
         /// 初始化 SDK 
         //FunnySDK.InitializeSDK("900000000");
+        FunnySDK.OnConfirmProtocolEvent += FunnySDK_OnConfirmProtocolEvent;
         FunnyLaunch.Show(launchValue, () =>
         {
             Debug.Log("开屏动画完成");
+            FunnySDK.ShowProtocol();
         });
+    }
 
+    private void initSDKAfterProtocol()
+    {
         FunnySDK.Initialize();
         /// SDK 事件监听
         FunnySDK.OnLogoutEvent += OnLogoutEvent;
@@ -63,6 +65,19 @@ public class MainController : MonoBehaviour {
     private void FunnySDK_OnOpenBillboardEvent()
     {
         FunnyUtils.ShowToast("公告面板被打开了");
+    }
+
+    private void FunnySDK_OnConfirmProtocolEvent(bool isSuccess)
+    {
+        Debug.Log("receive value: " + isSuccess);
+        if (isSuccess)
+        {
+            FunnyUtils.ShowToast("用户同意了协议");
+            initSDKAfterProtocol();
+        } else
+        {
+            FunnyUtils.ShowToast("同意协议对话框加载失败！");
+        }
     }
 
     private void OnSwitchAccountEvent(AccessToken token) {
@@ -137,6 +152,11 @@ public class MainController : MonoBehaviour {
         FunnySDK.OpenUserCenterUI();
     }
 
+    //public void LoginWithUGUI()
+    //{
+    //    SoFunny.FunnySDK.UIModule.LoginUIService.OpenLoginSelectView();
+    //}
+
     public void GetCurrentToken() {
         var accessToken = FunnySDK.GetCurrentAccessToken();
         UpdateRawSection(accessToken);
@@ -191,6 +211,12 @@ public class MainController : MonoBehaviour {
             FunnyUtils.ShowTipsAlert("","Token 已失效，请重新登陆");
         }
     }
+
+    public void ShowProtocol()
+    {
+        FunnySDK.ShowProtocol();
+    }
+        
 
     public void GetIPAddress() {
         try {
