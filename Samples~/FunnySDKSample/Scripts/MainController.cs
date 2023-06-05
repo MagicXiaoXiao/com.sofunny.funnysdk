@@ -24,7 +24,7 @@ public class MainController : MonoBehaviour {
         FunnyLaunch.Show(launchValue, () =>
         {
             Debug.Log("开屏动画完成");
-            FunnySDK.ShowProtocol();
+            FunnySDK.OpenProtocol();
         });
     }
 
@@ -212,9 +212,9 @@ public class MainController : MonoBehaviour {
         }
     }
 
-    public void ShowProtocol()
+    public void OpenProtocol()
     {
-        FunnySDK.ShowProtocol();
+        FunnySDK.OpenProtocol();
     }
         
 

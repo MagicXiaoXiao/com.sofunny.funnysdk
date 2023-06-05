@@ -304,7 +304,7 @@
             </summary>
             <param name="playerID">玩家编号</param>
         </member>
-        <member name="M:SoFunny.FunnySDK.ShowProtocol">
+        <member name="M:SoFunny.FunnySDK.OpenProtocol">
             <summary>
             打开用户协议界面
             </summary>
