@@ -1,14 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using SoFunny;
-using SoFunny.Utils;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Net;
 using System.Linq;
 using SoFunny.Tools;
-using UnityEngine.SceneManagement;
+using SoFunny.FunnySDKPreview;
 
 public class MainController : MonoBehaviour {
 
@@ -43,6 +40,7 @@ public class MainController : MonoBehaviour {
         FunnySDK.OnCloseBillboardEvent += FunnySDK_OnCloseBillboardEvent;
         FunnySDK.OnOpenFeedbackEvent += FunnySDK_OnOpenFeedbackEvent;
         FunnySDK.OnCloseFeedbackEvent += FunnySDK_OnCloseFeedbackEvent;
+        FunnySDK.OnConfirmProtocolEvent += FunnySDK_OnConfirmProtocolEvent;
     }
 
     private void FunnySDK_OnCloseFeedbackEvent()
@@ -63,6 +61,11 @@ public class MainController : MonoBehaviour {
     private void FunnySDK_OnOpenBillboardEvent()
     {
         FunnyUtils.ShowToast("公告面板被打开了");
+    }
+
+    private void FunnySDK_OnConfirmProtocolEvent()
+    {
+        FunnyUtils.ShowToast("用户同意了协议");
     }
 
     private void OnSwitchAccountEvent(AccessToken token) {
@@ -137,6 +140,11 @@ public class MainController : MonoBehaviour {
         FunnySDK.OpenUserCenterUI();
     }
 
+    //public void LoginWithUGUI()
+    //{
+    //    SoFunny.FunnySDK.UIModule.LoginUIService.OpenLoginSelectView();
+    //}
+
     public void GetCurrentToken() {
         var accessToken = FunnySDK.GetCurrentAccessToken();
         UpdateRawSection(accessToken);
@@ -191,6 +199,13 @@ public class MainController : MonoBehaviour {
             FunnyUtils.ShowTipsAlert("","Token 已失效，请重新登陆");
         }
     }
+
+    public void ShowProtocol()
+    {
+        FunnySDK.ShowProtocol();
+        FunnyUtils.ShowTipsAlert("", "用户同意了隐私授权协议");
+    }
+        
 
     public void GetIPAddress() {
         try {
