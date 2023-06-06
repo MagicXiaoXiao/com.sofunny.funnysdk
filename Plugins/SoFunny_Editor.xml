@@ -304,6 +304,12 @@
             </summary>
             <param name="playerID">玩家编号</param>
         </member>
+        <member name="M:SoFunny.FunnySDK.OpenProtocol">
+            <summary>
+            打开用户协议界面
+            </summary>
+            <returns>void</returns>
+        </member>
         <member name="E:SoFunny.FunnySDK.OnLoginEvent">
             <summary>
             FunnySDK 用户登录后会调用该事件
@@ -352,6 +358,11 @@
         <member name="E:SoFunny.FunnySDK.OnCloseFeedbackEvent">
             <summary>
             反馈面板被关闭事件
+            </summary>
+        </member>
+        <member name="E:SoFunny.FunnySDK.OnConfirmProtocolEvent">
+            <summary>
+            用户隐私协议同意事件
             </summary>
         </member>
         <member name="P:SoFunny.LimitConfig.AccountEnable">
@@ -421,21 +432,6 @@
             </summary>
             <param name="obj">A Dictionary&lt;string, object&gt; / List&lt;object&gt;</param>
             <returns>A JSON encoded string, or null if object 'json' is not serializable</returns>
-        </member>
-        <member name="T:SoFunny.PrivacyAuthPlatform">
-            <summary>
-            隐私信息授权平台
-            </summary>
-        </member>
-        <member name="F:SoFunny.PrivacyAuthPlatform.Funny">
-            <summary>
-            真有趣平台
-            </summary>
-        </member>
-        <member name="F:SoFunny.PrivacyAuthPlatform.Google">
-            <summary>
-            谷歌平台
-            </summary>
         </member>
         <member name="P:SoFunny.PrivacyProfile.AuthPlatform">
             <summary>
