@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SoFunny;
-using SoFunny.Utils;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Net;
 using System.Linq;
 using SoFunny.Tools;
 using UnityEngine.SceneManagement;
+using SoFunny.FunnySDKPreview;
+using SoFunny.FunnySDK.UIModule;
 
 public class MainController : MonoBehaviour {
 
@@ -119,8 +120,9 @@ public class MainController : MonoBehaviour {
 #endif
     }
 
-    public async void Login() {
-        
+
+    #region 两种登录方式
+    public async void LoginWeb() {
         try {
             await FunnySDK.Login();
         }
@@ -130,8 +132,12 @@ public class MainController : MonoBehaviour {
         catch (FunnySDKException error) {
             rawJsonText.text = error.Message;
         }
-        
     }
+
+    public void LoginUGUI() {
+        LoginUIService.OpenLoginSelectView();
+    }
+    #endregion
 
     public void OpenUserCenter() {
         FunnySDK.OpenUserCenterUI();

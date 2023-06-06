@@ -169,6 +169,11 @@ namespace SoFunny.FunnySDKPreview
             var parameter = NativeParameter.Builder().Add("message", message).Add("time", time);
             _bridge.Call("showToast", parameter);
         }
+
+       internal void ShowProtocol()
+       {
+            _bridge.Call("openProtocol");
+       }
     }
 }
 
