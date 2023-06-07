@@ -5,31 +5,14 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    [RequireComponent(typeof(InputField))]
     public class SFInputFieldPwdEyeHandler : MonoBehaviour
     {
-        private InputField inputField;
-        private Button openEyeButton;
-        private Button closeEyeButton;
+        public InputField inputField;
+        public Button openEyeButton;
+        public Button closeEyeButton;
 
         void Awake()
         {
-            inputField = GetComponent<InputField>();
-
-            var buttons = GetComponentsInChildren<Button>(true);
-
-            foreach (var button in buttons)
-            {
-                if (button.name == "CloseEye")
-                {
-                    closeEyeButton = button;
-                }
-                else if (button.name == "OpenEye")
-                {
-                    openEyeButton = button;
-                }
-            }
-
             openEyeButton.gameObject.SetActive(false);
             openEyeButton.onClick.AddListener(OnHidePasswordValue);
 
@@ -50,7 +33,7 @@ namespace SoFunny.FunnySDK.UIModule
             openEyeButton.gameObject.SetActive(true);
             closeEyeButton.gameObject.SetActive(false);
             inputField.contentType = InputField.ContentType.Standard;
-            inputField.Select();
+            inputField.ForceLabelUpdate();
         }
 
         private void OnHidePasswordValue()
@@ -58,7 +41,7 @@ namespace SoFunny.FunnySDK.UIModule
             openEyeButton.gameObject.SetActive(false);
             closeEyeButton.gameObject.SetActive(true);
             inputField.contentType = InputField.ContentType.Password;
-            inputField.Select();
+            inputField.ForceLabelUpdate();
         }
     }
 }
