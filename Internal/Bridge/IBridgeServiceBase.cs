@@ -8,19 +8,12 @@ namespace SoFunny.FunnySDK.Internal
     public interface IBridgeServiceBase
     {
         /// <summary>
-        /// 正常调用方法（无任何返回值）
-        /// </summary>
-        /// <param name="method">方法名</param>
-        /// <param name="parameter">参数表</param>
-        void Call(string method, string parameter);
-
-        /// <summary>
-        /// 异步调用方法 (包含返回值)
+        /// 对接方法调用
         /// </summary>
         /// <param name="method">方法名</param>
         /// <param name="parameter">参数表</param>
         /// <param name="handler">异步处理接口</param>
-        void CallAsync(string method, string parameter, IServiceAsyncCallbackHandler handler);
+        void Call(string method, string parameter, IServiceAsyncCallbackHandler handler = null);
     }
 }
 
