@@ -8,23 +8,27 @@ using System.Linq;
 using System.Xml;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.Editor {
+namespace SoFunny.FunnySDK.Editor
+{
 
     /// <summary>
     /// 谷歌相关配置流程脚本
     /// </summary>
-    public class GoogleAndroidBuildStep: AndroidBaseBuildStep
+    public class GoogleAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+        private FunnySDK.UIModule.SDKConfig Config => FunnyEditorConfig.Get();
 
-        public override bool IsEnabled {
-            get {
+        public override bool IsEnabled
+        {
+            get
+            {
                 // 是否海外
                 if (Config.IsMainland)
                 {
                     return false;
                 }
-                else {
+                else
+                {
                     return Config.Google.Enable;
                 }
             }
@@ -33,13 +37,16 @@ namespace SoFunny.FunnySDK.Editor {
         public override FileInfo[] OnProcessPrepareAARFile(string unityLibraryPath)
         {
             var allAARFiles = Directory.GetFiles(AAR_ORIGIN_PATH)
-                                .Where((dirPath) => {
+                                .Where((dirPath) =>
+                                {
                                     return Path.GetExtension(dirPath) == ".aar";
                                 })
-                                .Select((dirPath) => {
+                                .Select((dirPath) =>
+                                {
                                     return new FileInfo(dirPath);
                                 })
-                                .Where((aar) => {
+                                .Where((aar) =>
+                                {
                                     return aar.Name.Equals("funny-sdk-googleplay.aar");
                                 });
 

@@ -6,14 +6,15 @@ using System.Xml;
 using UnityEngine;
 using System.IO;
 
-namespace SoFunny.FunnySDK.Editor {
+namespace SoFunny.FunnySDK.Editor
+{
 
     /// <summary>
     /// 核心导出流程类
     /// </summary>
-    public class CoreAndroidBuildStep: AndroidBaseBuildStep
+    public class CoreAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+        private FunnySDK.UIModule.SDKConfig Config => FunnyEditorConfig.Get();
 
         public override bool IsEnabled => true;
 
@@ -71,7 +72,7 @@ namespace SoFunny.FunnySDK.Editor {
         {
             var rootNode = manifestXML.DocumentElement;
             var applicationNode = rootNode.SelectSingleNode("application");
-            
+
             XmlElement funnyAppIdNode = manifestXML.CreateElement("meta-data");
             funnyAppIdNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.FunnyAppId");
             funnyAppIdNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_app_id");

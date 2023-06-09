@@ -1,7 +1,7 @@
 {
     "name": "SoFunny.FunnySDK.Editor",
     "references": [
-        "GUID:faff9dd9888a344d69c73f72fd32646c"
+        "GUID:dd0421eb466554655ba6463a0242a44f"
     ],
     "includePlatforms": [
         "Editor"

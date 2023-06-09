@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.Internal
+namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKConfig: ScriptableObject
+    public class SDKConfig : ScriptableObject
     {
         /// <summary>
         /// 是否国内版本, 默认 true

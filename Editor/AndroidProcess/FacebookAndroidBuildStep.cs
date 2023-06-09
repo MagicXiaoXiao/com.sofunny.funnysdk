@@ -10,14 +10,17 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class FacebookAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+        private FunnySDK.UIModule.SDKConfig Config => FunnyEditorConfig.Get();
 
-        public override bool IsEnabled {
-            get {
+        public override bool IsEnabled
+        {
+            get
+            {
                 if (Config.IsMainland)
                 {
                     return false;
-                } else
+                }
+                else
                 {
                     return Config.Facebook.Enable;
                 }
@@ -27,13 +30,16 @@ namespace SoFunny.FunnySDK.Editor
         public override FileInfo[] OnProcessPrepareAARFile(string unityLibraryPath)
         {
             var allAARFiles = Directory.GetFiles(AAR_ORIGIN_PATH)
-                                .Where((dirPath) => {
+                                .Where((dirPath) =>
+                                {
                                     return Path.GetExtension(dirPath) == ".aar";
                                 })
-                                .Select((dirPath) => {
+                                .Select((dirPath) =>
+                                {
                                     return new FileInfo(dirPath);
                                 })
-                                .Where((aar) => {
+                                .Where((aar) =>
+                                {
                                     return aar.Name.Equals("funny-sdk-facebook.aar");
                                 });
 

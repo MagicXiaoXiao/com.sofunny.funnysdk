@@ -13,10 +13,12 @@ namespace SoFunny.FunnySDK.Editor
     /// </summary>
     public class TapTapAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+        private FunnySDK.UIModule.SDKConfig Config => FunnyEditorConfig.Get();
 
-        public override bool IsEnabled {
-            get {
+        public override bool IsEnabled
+        {
+            get
+            {
                 return Config.IsMainland && Config.TapTap.Enable;
             }
         }

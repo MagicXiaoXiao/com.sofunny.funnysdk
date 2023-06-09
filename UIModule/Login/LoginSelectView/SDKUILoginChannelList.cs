@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using SoFunny.FunnySDK.Internal;
 
 namespace SoFunny.FunnySDK.UIModule
 {

@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SoFunny.FunnySDK.Internal;
+using SoFunny.FunnySDK.UIModule;
 using UnityEditor;
 
 namespace SoFunny.FunnySDK.Editor

@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using SoFunny.FunnySDK.Internal;
 using System.Collections.Generic;
 using System.Collections;
 

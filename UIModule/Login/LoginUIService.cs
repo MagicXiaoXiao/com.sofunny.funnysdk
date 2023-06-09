@@ -45,6 +45,18 @@ namespace SoFunny.FunnySDK.UIModule
             controller.OpenPage(UILoginPageState.LoginLimitPage);
         }
 
+        public static void OpenActivationKeyView()
+        {
+            Prepare();
+            controller.OpenPage(UILoginPageState.ActivationKeyPage);
+        }
+
+        public static void OpenAntiAddictionView()
+        {
+            Prepare();
+            controller.OpenPage(UILoginPageState.AntiAddictionPage);
+        }
+
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.Internal
+namespace SoFunny.FunnySDK.UIModule
 {
     [Serializable]
     public struct GoogleConfig

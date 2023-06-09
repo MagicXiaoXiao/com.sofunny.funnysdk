@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using SoFunny.FunnySDK.Internal;
 
 namespace SoFunny.FunnySDK.UIModule
 {
@@ -88,7 +87,7 @@ namespace SoFunny.FunnySDK.UIModule
             Loader.ShowIndicator();
             yield return new WaitForSeconds(2);
             Loader.HideIndicator();
-            Toast.Show("开发中");
+            Toast.ShowFail("功能还在开发中");
         }
 
         private void OnSmsOrPwdSwitchAction()

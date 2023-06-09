@@ -10,10 +10,12 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class QQAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+        private FunnySDK.UIModule.SDKConfig Config => FunnyEditorConfig.Get();
 
-        public override bool IsEnabled {
-            get {
+        public override bool IsEnabled
+        {
+            get
+            {
                 return Config.IsMainland && Config.QQ.Enable;
             }
         }

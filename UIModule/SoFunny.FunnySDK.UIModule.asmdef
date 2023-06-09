@@ -1,8 +1,6 @@
 {
     "name": "SoFunny.FunnySDK.UIModule",
-    "references": [
-        "GUID:faff9dd9888a344d69c73f72fd32646c"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
