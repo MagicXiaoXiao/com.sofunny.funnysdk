@@ -1,34 +1,36 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using SoFunny.FunnySDK.Internal;
 using SoFunny.FunnySDK.UIModule;
 
 namespace SoFunny.FunnySDK
 {
     public static partial class Funny
     {
-        internal static class Bridge
+        internal static class Core
         {
-            private static BridgeService bridgeService;
+            private static FunnyService internalService;
 
-            internal static BridgeService Service
+            internal static FunnyService Service
             {
                 get
                 {
-                    if (bridgeService == null)
+                    if (internalService == null)
                     {
                         throw new InvalidOperationException("FunnySDK 未初始化，请先调用 Initialize 方法。");
                     }
-                    return bridgeService;
+                    return internalService;
                 }
             }
 
-            internal static void Init()
+            internal static void Initialize()
             {
-                if (bridgeService != null) { return; }
+                Logger.Log("初始化调用 Initialize 2");
+                if (internalService != null) { return; }
 
-                bridgeService = new BridgeService(ConfigService.Config.AppID, ConfigService.Config.IsMainland);
+                internalService = new FunnyService(ConfigService.Config);
+
+                internalService.Initialize();
             }
         }
 
@@ -37,10 +39,27 @@ namespace SoFunny.FunnySDK
         /// </summary>
         public static void Initialize()
         {
+            Logger.Log("初始化调用 Initialize 1");
             // 初始化桥接服务对象
-            Bridge.Init();
-            // 调用桥接初始化方法
-            Bridge.Service.Call(Method.Initialize);
+            Core.Initialize();
+
+            // UI 服务模块
+            UIService.Initialize();
+        }
+
+    }
+
+    public partial class Funny
+    {
+        /// <summary>
+        /// 登录服务
+        /// </summary>
+        public static IFunnyLoginAPI Login
+        {
+            get
+            {
+                return Core.Service.LoginAPI;
+            }
         }
     }
 }
