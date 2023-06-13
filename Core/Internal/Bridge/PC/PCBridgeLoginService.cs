@@ -279,6 +279,11 @@ namespace SoFunny.FunnySDK.Internal
                 }
             });
         }
+
+        public void Logout()
+        {
+            FunnyDataStore.DeleteToken();
+        }
     }
 }
 

@@ -37,7 +37,7 @@ namespace SoFunny.FunnySDK
 
         public void Logout()
         {
-            FunnyDataStore.DeleteToken();
+            LoginBridgeService.Logout();
         }
 
         public void StartFlow(ILoginServiceDelegate serviceDelegate)

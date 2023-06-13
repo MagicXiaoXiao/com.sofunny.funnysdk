@@ -11,6 +11,11 @@ namespace SoFunny.FunnySDK.Internal
         AccessToken GetCurrentAccessToken();
 
         /// <summary>
+        /// 登出账号
+        /// </summary>
+        void Logout();
+
+        /// <summary>
         /// 密码登录
         /// </summary>
         /// <param name="account"></param>
