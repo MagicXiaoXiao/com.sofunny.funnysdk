@@ -14,6 +14,11 @@ namespace SoFunny.FunnySDK.Internal
             Service = new AndroidJavaObject("安卓类名路径 (后续确定)");
         }
 
+        public void ContactUS()
+        {
+            throw new NotImplementedException();
+        }
+
         public void GetAppInfo(ServiceCompletedHandler<AppInfoConfig> handler)
         {
             throw new NotImplementedException();

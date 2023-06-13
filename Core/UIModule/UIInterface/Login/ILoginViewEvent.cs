@@ -46,6 +46,29 @@ namespace SoFunny.FunnySDK.UIModule
         /// <param name="pwd"></param>
         /// <param name="newPwd"></param>
         void OnRetrievePassword(string account, string newPwd, string code);
+
+        /// <summary>
+        /// 邀请码提交
+        /// </summary>
+        /// <param name="code"></param>
+        void OnActivationCodeCommit(string code);
+
+        /// <summary>
+        /// 实名认证信息提交
+        /// </summary>
+        /// <param name="realname"></param>
+        /// <param name="cardID"></param>
+        void OnRealnameInfoCommit(string realname, string cardID);
+
+        /// <summary>
+        /// 点击联系客服
+        /// </summary>
+        void OnClickContactUS();
+
+        /// <summary>
+        /// 撤销删除
+        /// </summary>
+        void OnReCallDelete();
     }
 }
 

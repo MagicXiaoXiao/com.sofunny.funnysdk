@@ -26,7 +26,8 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnCommitAction()
         {
-            Toast.Show("开发中");
+            string code = activationKeyInputField.text;
+            loginViewEvent?.OnActivationCodeCommit(code);
         }
 
         private void OnCloseViewAction()

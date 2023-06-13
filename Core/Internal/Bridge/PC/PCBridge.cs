@@ -26,6 +26,11 @@ namespace SoFunny.FunnySDK.Internal
             return _instance;
         }
 
+        public void ContactUS()
+        {
+            Logger.Log("PC 平台暂无此功能");
+        }
+
         public void GetAppInfo(ServiceCompletedHandler<AppInfoConfig> handler)
         {
             Network.Send(new AppInfoRequest(), (data, error) =>

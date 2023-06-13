@@ -6,35 +6,33 @@ namespace SoFunny.FunnySDK
     [JsonObject(MemberSerialization.OptIn)]
     public class UserProfile
     {
-        [JsonProperty("openid")]
-        public string OpenID;
-        [JsonProperty("unionid")]
-        public string UnionID;
 
-        [JsonProperty("display_name")]
-        public string DispalyName;
+        [JsonProperty("openid")] public string OpenID;
 
-        [JsonProperty("picture_url")]
-        public string PictureURL;
+        [JsonProperty("unionid")] public string UnionID;
 
-        [JsonProperty("amr")]
-        internal string Amr;
-        [JsonProperty("platform")]
-        internal string Platform;
-        [JsonProperty("delete_flag")]
-        internal bool DeleteFlag;
+        /// <summary>
+        /// 用户定义名称
+        /// </summary>
+        [JsonProperty("display_name")] public string DispalyName;
+        /// <summary>
+        /// 用户头像 URL
+        /// </summary>
+        [JsonProperty("picture_url")] public string PictureURL;
 
-        [JsonProperty("account")]
-        internal string Account;
-        [JsonProperty("mainland")]
-        internal bool Mainland;
-        [JsonProperty("correlated_name")]
-        internal string CorrelatedName;
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+        [JsonProperty("amr")] internal string Amr;
+
+        [JsonProperty("platform")] internal string Platform;
+
+        [JsonProperty("delete_flag")] internal bool DeleteFlag;
+
+
+        [JsonProperty("account")] internal string Account;
+
+        [JsonProperty("mainland")] internal bool Mainland;
+
+        [JsonProperty("correlated_name")] internal string CorrelatedName;
     }
 
 }

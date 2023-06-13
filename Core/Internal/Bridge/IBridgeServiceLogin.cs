@@ -59,6 +59,30 @@ namespace SoFunny.FunnySDK.Internal
         void NativeVerifyLimit(string tokenValue, ServiceCompletedHandler<LimitStatus> handler);
 
         /// <summary>
+        /// 提交邀请码
+        /// </summary>
+        /// <param name="tokenValue"></param>
+        /// <param name="code"></param>
+        /// <param name="handler"></param>
+        void ActivationCodeCommit(string tokenValue, string code, ServiceCompletedHandler<LimitStatus> handler);
+
+        /// <summary>
+        /// 提交实名信息
+        /// </summary>
+        /// <param name="tokenValue"></param>
+        /// <param name="realname"></param>
+        /// <param name="cardID"></param>
+        /// <param name="handler"></param>
+        void RealnameInfoCommit(string tokenValue, string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler);
+
+        /// <summary>
+        /// 撤销账号删除
+        /// </summary>
+        /// <param name="tokenValue"></param>
+        /// <param name="handler"></param>
+        void RecallAccountDelete(string tokenValue, ServiceCompletedHandler<VoidObject> handler);
+
+        /// <summary>
         /// 获取用户信息
         /// </summary>
         /// <param name="handler"></param>

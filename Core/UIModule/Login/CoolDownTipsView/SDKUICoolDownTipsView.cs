@@ -31,7 +31,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnRecallAction()
         {
-            Toast.Show("开发中");
+            loginViewEvent?.OnReCallDelete();
         }
 
     }

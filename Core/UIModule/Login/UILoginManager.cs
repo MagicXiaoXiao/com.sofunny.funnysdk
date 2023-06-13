@@ -9,6 +9,9 @@ namespace SoFunny.FunnySDK.UIModule
     {
         private GameObject LoginPrefab;
         private SDKUILoginController Controller;
+        private HashSet<LoginProvider> Providers;
+        private ILoginViewEvent ViewDelegate;
+
         internal bool Display = false;
 
         internal UILoginManager()
@@ -24,6 +27,8 @@ namespace SoFunny.FunnySDK.UIModule
                 instance.name = "LoginController";
                 Controller = instance.GetComponent<SDKUILoginController>();
                 Controller.manager = this;
+                Controller.SetLoginProviders(Providers);
+                Controller.SetLoginViewEvent(ViewDelegate);
                 Display = true;
             }
         }
@@ -34,11 +39,9 @@ namespace SoFunny.FunnySDK.UIModule
             Controller.OpenPage(pageState);
         }
 
-        public void Open(ILoginViewEvent loginViewEvent, HashSet<LoginProvider> providers)
+        public void Open()
         {
             Prepare();
-            Controller.SetLoginProviders(providers);
-            Controller.SetLoginViewEvent(loginViewEvent);
             Controller.OpenPage(UILoginPageState.LoginSelectPage);
         }
 
@@ -66,6 +69,13 @@ namespace SoFunny.FunnySDK.UIModule
 
             Controller.CloseLoginController(false);
         }
+
+        public void SetupLoginConfig(ILoginViewEvent loginViewEvent, HashSet<LoginProvider> providers)
+        {
+            ViewDelegate = loginViewEvent;
+            Providers = providers;
+        }
+
     }
 }
 

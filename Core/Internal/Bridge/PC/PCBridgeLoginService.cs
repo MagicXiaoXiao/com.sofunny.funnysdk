@@ -216,6 +216,69 @@ namespace SoFunny.FunnySDK.Internal
                 }
             });
         }
+
+        public void ActivationCodeCommit(string tokenValue, string code, ServiceCompletedHandler<LimitStatus> handler)
+        {
+            Network.Send(new ActivationCodeRequest(tokenValue, code), (data, error) =>
+            {
+                if (error == null)
+                {
+                    try
+                    {
+                        LimitStatus limitStatus = JsonConvert.DeserializeObject<LimitStatus>(data);
+                        handler?.Invoke(limitStatus, null);
+                    }
+                    catch (JsonException ex)
+                    {
+                        Logger.LogError("数据解析失败。" + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        public void RealnameInfoCommit(string tokenValue, string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
+        {
+            Network.Send(new RealnameCommitRequest(tokenValue, realname, cardID), (data, error) =>
+            {
+                if (error == null)
+                {
+                    try
+                    {
+                        LimitStatus limitStatus = JsonConvert.DeserializeObject<LimitStatus>(data);
+                        handler?.Invoke(limitStatus, null);
+                    }
+                    catch (JsonException ex)
+                    {
+                        Logger.LogError("数据解析失败。" + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        public void RecallAccountDelete(string tokenValue, ServiceCompletedHandler<VoidObject> handler)
+        {
+            Network.Send(new RecallAccountDeleteRequest(tokenValue), (data, error) =>
+            {
+                if (error == null)
+                {
+                    handler?.Invoke(new VoidObject(), null);
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
     }
 }
 

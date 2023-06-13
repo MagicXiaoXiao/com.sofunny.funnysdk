@@ -38,7 +38,10 @@ namespace SoFunny.FunnySDK.Internal
         /// 打开用户协议
         /// </summary>
         void OpenUserAgreenment();
-
+        /// <summary>
+        /// 联系客服
+        /// </summary>
+        void ContactUS();
     }
 }
 

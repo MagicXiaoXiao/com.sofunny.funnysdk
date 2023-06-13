@@ -40,7 +40,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnContactAction()
         {
-            Toast.Show("开发中");
+            loginViewEvent?.OnClickContactUS();
         }
     }
 }

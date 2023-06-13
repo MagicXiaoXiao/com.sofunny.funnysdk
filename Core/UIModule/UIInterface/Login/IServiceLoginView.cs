@@ -6,7 +6,9 @@ namespace SoFunny.FunnySDK.UIModule
 {
     internal interface IServiceLoginView
     {
-        void Open(ILoginViewEvent loginViewEvent, HashSet<LoginProvider> providers);
+        void SetupLoginConfig(ILoginViewEvent loginViewEvent, HashSet<LoginProvider> providers);
+
+        void Open();
 
         void CloseView();
 

@@ -6,6 +6,11 @@ namespace SoFunny.FunnySDK.Internal
 {
     internal class IosBridge : IBridgeServiceBase
     {
+        public void ContactUS()
+        {
+            throw new NotImplementedException();
+        }
+
         public void GetAppInfo(ServiceCompletedHandler<AppInfoConfig> handler)
         {
             throw new NotImplementedException();

@@ -37,7 +37,7 @@ namespace SoFunny.FunnySDK
             /// </summary>
             Success = 1,
             /// <summary>
-            /// 校验被限制
+            /// 登录IP被限制
             /// </summary>
             AllowFailed = 1000,
             /// <summary>

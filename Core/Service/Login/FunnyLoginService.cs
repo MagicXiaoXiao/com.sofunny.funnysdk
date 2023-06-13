@@ -48,29 +48,30 @@ namespace SoFunny.FunnySDK
             LoginDelegate = serviceDelegate;
             AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
-            if (accessToken != null)
+            BaseBridgeService.GetAppInfo((appConfig, error) =>
             {
-                // 已登录，验证 Token
-                VerifyLimit(accessToken);
-            }
-            else
-            {
-                // 获取应用信息
-                BaseBridgeService.GetAppInfo((appConfig, error) =>
+                UIService.Login.SetupLoginConfig(this, appConfig.GetLoginProviders());
+
+                if (accessToken != null)
+                {
+                    // 已登录，验证 Token
+                    VerifyLimit(accessToken);
+                }
+                else
                 {
                     Loader.HideIndicator();
 
                     if (error == null)
                     {
-                        UIService.Login.Open(this, appConfig.GetLoginProviders());
+                        UIService.Login.Open();
                     }
                     else
                     {
                         Toast.ShowFail(error.Message);
                         LoginDelegate?.OnLoginFailure(error);
                     }
-                });
-            }
+                }
+            });
         }
     }
 
@@ -102,6 +103,8 @@ namespace SoFunny.FunnySDK
             {
                 if (error == null)
                 {
+                    // 数据存储
+                    FunnyDataStore.UpdateToken(token);
                     // 验证 Token
                     VerifyLimit(token);
                 }
@@ -122,6 +125,9 @@ namespace SoFunny.FunnySDK
             {
                 if (error == null)
                 {
+                    // 数据存储
+                    FunnyDataStore.UpdateToken(token);
+                    // 验证 Token
                     VerifyLimit(token);
                 }
                 else
@@ -143,31 +149,58 @@ namespace SoFunny.FunnySDK
                 Loader.HideIndicator();
                 if (error == null)
                 {
-                    switch (limitStatus.Status)
-                    {
-                        case LimitStatus.StatusType.Success:
-                            // TODO: 数据存储逻辑(后续补充)
-                            FunnyDataStore.UpdateToken(token);
-                            // UI 展示逻辑
-                            Toast.ShowSuccess("登录成功");
-                            // 关闭 UI 以及后续逻辑
-                            UIService.Login.CloseView();
-                            LoginDelegate?.OnLoginSuccess(token);
-                            LoginDelegate = null;
-                            break;
-                        case LimitStatus.StatusType.AccountBannedFailed:
-                            // 账号已被封禁处理
-                            break;
-                        default:
-                            Toast.ShowFail("登录被限制");
-                            break;
-                    }
+                    LimitResultHandler(limitStatus);
                 }
                 else
                 {
                     Toast.ShowFail(error.Message);
                 }
             });
+        }
+
+        /// <summary>
+        /// 限制结果处理
+        /// </summary>
+        /// <param name="limitStatus"></param>
+        private void LimitResultHandler(LimitStatus limitStatus)
+        {
+            switch (limitStatus.Status)
+            {
+                case LimitStatus.StatusType.Success:
+                    // UI 展示逻辑
+                    Toast.ShowSuccess("登录成功");
+                    // 关闭 UI 以及后续逻辑
+                    UIService.Login.CloseView();
+
+                    AccessToken token = FunnyDataStore.GetCurrentToken();
+                    LoginDelegate?.OnLoginSuccess(token);
+                    LoginDelegate = null;
+                    break;
+                case LimitStatus.StatusType.AccountBannedFailed:
+                    // 账号已被封禁处理
+                    UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
+                    break;
+                case LimitStatus.StatusType.AllowFailed:
+                    // IP 限制页面
+                    UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
+                    break;
+                case LimitStatus.StatusType.AccountInCooldownFailed:
+                    // 账号冷静期页面
+                    UIService.Login.JumpTo(UILoginPageState.CoolDownTipsPage);
+                    break;
+                case LimitStatus.StatusType.ActivationFailed:
+                    Toast.ShowFail("无效邀请码");
+                    UIService.Login.JumpTo(UILoginPageState.ActivationKeyPage);
+                    break;
+                case LimitStatus.StatusType.ActivationUnfilled:
+                    // 跳转邀请码页面
+                    UIService.Login.JumpTo(UILoginPageState.ActivationKeyPage);
+                    break;
+                default:
+                    Toast.ShowFail("未知限制");
+                    UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
+                    break;
+            }
         }
 
         public void OnLoginWithProvider(LoginProvider provider)
@@ -195,7 +228,8 @@ namespace SoFunny.FunnySDK
             {
                 if (error == null)
                 {
-                    // 成功处理
+                    // 数据存储
+                    FunnyDataStore.UpdateToken(accessToken);
                     // 验证 Token
                     VerifyLimit(accessToken);
                 }
@@ -293,6 +327,79 @@ namespace SoFunny.FunnySDK
                 default:
                     // 不发送处理
                     break;
+            }
+        }
+
+        public void OnActivationCodeCommit(string code)
+        {
+            if (FunnyDataStore.HasToken)
+            {
+                Loader.ShowIndicator();
+
+                AccessToken accessToken = FunnyDataStore.GetCurrentToken();
+
+                LoginBridgeService.ActivationCodeCommit(accessToken.Value, code, (limitResult, error) =>
+                {
+                    Loader.HideIndicator();
+                    LimitResultHandler(limitResult);
+                });
+            }
+            else
+            {
+                Toast.ShowFail("当前未登录账号");
+            }
+        }
+
+        public void OnRealnameInfoCommit(string realname, string cardID)
+        {
+            if (FunnyDataStore.HasToken)
+            {
+                Loader.ShowIndicator();
+
+                AccessToken accessToken = FunnyDataStore.GetCurrentToken();
+
+                LoginBridgeService.RealnameInfoCommit(accessToken.Value, realname, cardID, (limitResult, error) =>
+                {
+                    Loader.HideIndicator();
+                    LimitResultHandler(limitResult);
+                });
+            }
+            else
+            {
+                Toast.ShowFail("当前未登录账号");
+            }
+        }
+
+        public void OnClickContactUS()
+        {
+            Toast.Show("功能开发中");
+            BaseBridgeService.ContactUS();
+        }
+
+        public void OnReCallDelete()
+        {
+            if (FunnyDataStore.HasToken)
+            {
+                Loader.ShowIndicator();
+
+                AccessToken accessToken = FunnyDataStore.GetCurrentToken();
+
+                LoginBridgeService.RecallAccountDelete(accessToken.Value, (_, error) =>
+                {
+                    if (error == null)
+                    {
+                        VerifyLimit(accessToken);
+                    }
+                    else
+                    {
+                        Loader.HideIndicator();
+                        Toast.ShowFail(error.Message);
+                    }
+                });
+            }
+            else
+            {
+                Toast.ShowFail("当前未登录账号");
             }
         }
     }

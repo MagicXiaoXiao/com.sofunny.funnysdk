@@ -35,7 +35,11 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnCommitAction()
         {
-            Toast.Show("开发中");
+            // 数据逻辑校验
+            string name = nameInputField.text;
+            string cardID = idInputField.text;
+
+            loginViewEvent?.OnRealnameInfoCommit(name, cardID);
         }
 
         private void OnOtherLoginAction()
