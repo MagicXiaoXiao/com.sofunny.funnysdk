@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -7,7 +8,7 @@ namespace SoFunny.FunnySDK.Internal
     {
         public AccessToken GetCurrentAccessToken()
         {
-            return default;
+            return FunnyDataStore.GetCurrentToken();
         }
 
         public void LoginWithCode(string account, string code, ServiceCompletedHandler<AccessToken> handler)
@@ -16,25 +17,20 @@ namespace SoFunny.FunnySDK.Internal
             {
                 if (error == null)
                 {
-                    Logger.Log("登录成功 - " + data);
-                    // 解析 Model 数据
-                    SSOToken ssoToken = JsonConvert.DeserializeObject<SSOToken>(data);
-
-                    Network.Send(new RedirectRequest(ssoToken.Value), (redirect, nerror) =>
+                    try
                     {
-                        if (error == null)
-                        {
-                            Logger.Log("Redirect成功 - " + redirect);
-                        }
-                        else
-                        {
-                            Logger.Log("登录失败 - " + nerror.Message);
-                        }
-                    });
+                        // 解析 Model 数据
+                        SSOToken ssoToken = JsonConvert.DeserializeObject<SSOToken>(data);
+                        RedirectHandler(ssoToken, handler);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogError("数据解析失败。" + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
                 }
                 else
                 {
-                    Logger.Log("登录失败 - " + error.Message);
                     handler?.Invoke(null, error);
                 }
             });
@@ -46,21 +42,18 @@ namespace SoFunny.FunnySDK.Internal
             {
                 if (error == null)
                 {
-                    Logger.Log("登录成功 - " + data);
-                    // 解析 Model 数据
-                    SSOToken ssoToken = JsonConvert.DeserializeObject<SSOToken>(data);
-
-                    Network.Send(new RedirectRequest(ssoToken.Value), (redirect, nerror) =>
+                    try
                     {
-                        if (error == null)
-                        {
-                            Logger.Log("Redirect成功 - " + redirect);
-                        }
-                        else
-                        {
-                            Logger.Log("登录失败 - " + nerror.Message);
-                        }
-                    });
+                        // 解析 Model 数据
+                        SSOToken ssoToken = JsonConvert.DeserializeObject<SSOToken>(data);
+                        RedirectHandler(ssoToken, handler);
+                    }
+                    catch (JsonException ex)
+                    {
+                        Logger.LogError("数据解析失败。" + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
+
                 }
                 else
                 {
@@ -69,32 +62,106 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void LoginWithProvider(string channel, ServiceCompletedHandler<AccessToken> handler)
+        private void RedirectHandler(SSOToken token, ServiceCompletedHandler<AccessToken> handler)
         {
-            throw new NotImplementedException();
+            var redirectRequest = new RedirectRequest(token.Value);
+
+            Network.Send(redirectRequest, (redirect, error) =>
+            {
+                if (error == null)
+                {
+                    JObject json = JObject.Parse(redirect);
+                    if (json.TryGetValue("location", out var location))
+                    {
+                        string locationValue = location.ToString();
+                        string code = locationValue.GetQuery("code");
+                        NativeTokenHandler(code, redirectRequest.pkce, handler);
+                    }
+                    else
+                    {
+                        Logger.LogError("数据解析失败");
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
         }
 
-        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<SSOToken> handler)
+        private void NativeTokenHandler(string code, PKCE pkce, ServiceCompletedHandler<AccessToken> handler)
+        {
+            Network.Send(new NativeTokenRequest(code, pkce), (data, error) =>
+            {
+                if (error == null)
+                {
+                    try
+                    {
+                        AccessToken accessToken = JsonConvert.DeserializeObject<AccessToken>(data);
+                        handler?.Invoke(accessToken, null);
+                    }
+                    catch (JsonException ex)
+                    {
+                        Logger.LogError("数据解析失败。" + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        public void NativeVerifyLimit(string tokenValue, ServiceCompletedHandler<LimitStatus> handler)
+        {
+            Network.Send(new NativeVerifyLimitRequest(tokenValue), (data, error) =>
+            {
+                if (error == null)
+                {
+                    try
+                    {
+                        LimitStatus limitStatus = JsonConvert.DeserializeObject<LimitStatus>(data);
+                        handler?.Invoke(limitStatus, null);
+                    }
+                    catch (JsonException ex)
+                    {
+                        Logger.LogError("数据解析失败。" + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<AccessToken> handler)
+        {
+            handler?.Invoke(null, new ServiceError(-1, "PC 版本暂无此登录"));
+        }
+
+        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<AccessToken> handler)
         {
             Network.Send(new RegisterAccountRequest(account, password, chkCode), (data, error) =>
             {
                 if (error == null)
                 {
-                    Logger.Log("注册成功 - " + data);
                     try
                     {
                         SSOToken ssoToken = JsonConvert.DeserializeObject<SSOToken>(data);
-                        handler?.Invoke(ssoToken, null);
+                        RedirectHandler(ssoToken, handler);
                     }
                     catch (JsonException ex)
                     {
-                        Logger.LogError("注册失败: " + ex.Message);
-                        handler?.Invoke(null, new ServiceError(-3000, "数据解析失败"));
+                        Logger.LogError("数据解析失败。" + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
                     }
                 }
                 else
                 {
-                    Logger.LogError("注册失败: " + error.Message);
                     handler?.Invoke(null, error);
                 }
             });
@@ -114,6 +181,37 @@ namespace SoFunny.FunnySDK.Internal
                 else
                 {
                     Logger.LogError("找回失败: " + error.Message);
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        public void GetUserProfile(ServiceCompletedHandler<UserProfile> handler)
+        {
+            AccessToken token = GetCurrentAccessToken();
+            if (token == null)
+            {
+                handler?.Invoke(null, new ServiceError(-1, "当前未登录账号"));
+                return;
+            }
+
+            Network.Send(new UserProfileRequest(token.Value), (data, error) =>
+            {
+                if (error == null)
+                {
+                    try
+                    {
+                        UserProfile userProfile = JsonConvert.DeserializeObject<UserProfile>(data);
+                        handler?.Invoke(userProfile, null);
+                    }
+                    catch (JsonException ex)
+                    {
+                        Logger.Log("数据解析出错 - " + ex.Message);
+                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                    }
+                }
+                else
+                {
                     handler?.Invoke(null, error);
                 }
             });

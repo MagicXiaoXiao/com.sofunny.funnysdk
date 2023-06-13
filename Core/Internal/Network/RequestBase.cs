@@ -42,6 +42,11 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         internal virtual bool AppID => false;
 
+        /// <summary>
+        /// 设置 Token 头
+        /// </summary>
+        internal virtual string Token => string.Empty;
+
     }
 }
 

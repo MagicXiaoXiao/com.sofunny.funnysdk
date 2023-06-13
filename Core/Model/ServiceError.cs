@@ -25,6 +25,8 @@ namespace SoFunny.FunnySDK
             Code = code;
             Message = message;
         }
+
+        internal static ServiceError ModelDeserializationError => new ServiceError(-3000, "数据解析失败");
     }
 }
 

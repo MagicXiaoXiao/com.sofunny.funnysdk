@@ -16,6 +16,12 @@ namespace SoFunny.FunnySDK.Internal
         void Initialize();
 
         /// <summary>
+        /// 获取应用配置信息
+        /// </summary>
+        /// <param name="handler"></param>
+        void GetAppInfo(ServiceCompletedHandler<AppInfoConfig> handler);
+
+        /// <summary>
         /// 发送验证码接口
         /// </summary>
         /// <param name="account"></param>
@@ -23,6 +29,15 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="codeCategory"></param>
         /// <param name="handler"></param>
         void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler);
+
+        /// <summary>
+        /// 打开隐私政策
+        /// </summary>
+        void OpenPriacyProtocol();
+        /// <summary>
+        /// 打开用户协议
+        /// </summary>
+        void OpenUserAgreenment();
 
     }
 }

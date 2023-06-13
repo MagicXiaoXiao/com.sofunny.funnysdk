@@ -102,6 +102,11 @@ namespace SoFunny.FunnySDK.Internal
             HttpRequestMessage message = new HttpRequestMessage();
             message.Method = request.Method;
 
+            if (!string.IsNullOrEmpty(request.Token))
+            {
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", request.Token);
+            }
+
             var parameters = request.Parameters();
 
             if (request.AppID)

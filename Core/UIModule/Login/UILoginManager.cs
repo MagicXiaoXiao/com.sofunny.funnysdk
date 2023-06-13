@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -33,9 +34,10 @@ namespace SoFunny.FunnySDK.UIModule
             Controller.OpenPage(pageState);
         }
 
-        public void Open(ILoginViewEvent loginViewEvent)
+        public void Open(ILoginViewEvent loginViewEvent, HashSet<LoginProvider> providers)
         {
             Prepare();
+            Controller.SetLoginProviders(providers);
             Controller.SetLoginViewEvent(loginViewEvent);
             Controller.OpenPage(UILoginPageState.LoginSelectPage);
         }
@@ -56,6 +58,13 @@ namespace SoFunny.FunnySDK.UIModule
         {
             // 还原倒计时
             Controller.UpdateTimerToReset(pageState);
+        }
+
+        public void CloseView()
+        {
+            if (Controller == null) { return; }
+
+            Controller.CloseLoginController(false);
         }
     }
 }

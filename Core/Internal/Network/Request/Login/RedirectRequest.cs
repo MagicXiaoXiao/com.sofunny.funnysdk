@@ -7,7 +7,7 @@ namespace SoFunny.FunnySDK.Internal
     internal class RedirectRequest : RequestBase
     {
         private readonly string TokenValue;
-        private readonly PKCE pkce;
+        internal readonly PKCE pkce;
 
         internal RedirectRequest(string accessToken)
         {
@@ -27,7 +27,7 @@ namespace SoFunny.FunnySDK.Internal
                 { "code_challenge",pkce.CodeChallenge },
                 { "code_challenge_method",pkce.CodeChallengeMethod },
                 { "redirect_uri","funny3rdp.com.funny.win://authorize/" },
-                { "state","123" },
+                { "state","pc" },
             };
         }
 

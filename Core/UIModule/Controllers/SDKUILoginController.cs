@@ -30,6 +30,11 @@ namespace SoFunny.FunnySDK.UIModule
             manager.Display = false;
         }
 
+        internal void SetLoginProviders(HashSet<LoginProvider> providers)
+        {
+            loginSelectView.SetProvider(providers);
+        }
+
         internal void SetLoginViewEvent(ILoginViewEvent loginViewEvent)
         {
             this.loginViewEvent = loginViewEvent;
@@ -85,10 +90,15 @@ namespace SoFunny.FunnySDK.UIModule
             currentPageState = pageState;
         }
 
-        public void CloseLoginController()
+        public void CloseLoginController(bool callEvent = true)
         {
             gameObject.SetActive(false);
-            loginViewEvent?.OnCloseView(currentPageState);
+
+            if (callEvent)
+            {
+                loginViewEvent?.OnCloseView(currentPageState);
+            }
+
             Destroy(gameObject);
         }
 

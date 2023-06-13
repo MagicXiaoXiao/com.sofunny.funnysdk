@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace SoFunny.FunnySDK.UIModule
 {
@@ -27,6 +28,8 @@ namespace SoFunny.FunnySDK.UIModule
         [SerializeField] private Button privacyButton;
 
 #pragma warning restore 0649
+
+        internal ILoginViewEvent loginViewEvent;
 
         private void Awake()
         {
@@ -56,10 +59,17 @@ namespace SoFunny.FunnySDK.UIModule
                 taptapButton.gameObject.SetActive(false);
             }
         }
-        // Start is called before the first frame update
-        void Start()
-        {
 
+        internal void SetProvider(HashSet<LoginProvider> providers)
+        {
+            if (providers.Count > 0)
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
     }

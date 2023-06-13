@@ -5,7 +5,9 @@ namespace SoFunny.FunnySDK
 {
     public interface IFunnyLoginAPI
     {
-        void StartFlow();
+        void StartFlow(ILoginServiceDelegate serviceDelegate);
+        void GetUserProfile(IUserServiceDelegate serviceDelegate);
+        void Logout();
     }
 }
 

@@ -11,7 +11,7 @@ namespace SoFunny.FunnySDK.UIModule
         void OnLoginWithCode(string account, string code);
 
         // 第三方登录
-        void OnLoginWithProvider();
+        void OnLoginWithProvider(LoginProvider provider);
 
         // 关闭页面
         void OnCloseView(UILoginPageState pageState);

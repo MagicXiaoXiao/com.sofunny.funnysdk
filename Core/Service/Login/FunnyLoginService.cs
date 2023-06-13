@@ -7,9 +7,10 @@ namespace SoFunny.FunnySDK
 {
     internal partial class FunnyLoginService : IFunnyLoginAPI
     {
-        private SDKConfig Config;
-        private IBridgeServiceLogin LoginBridgeService;
-        private IBridgeServiceBase BaseBridgeService;
+        private readonly SDKConfig Config;
+        private readonly IBridgeServiceLogin LoginBridgeService;
+        private readonly IBridgeServiceBase BaseBridgeService;
+        private ILoginServiceDelegate LoginDelegate;
 
         internal FunnyLoginService(SDKConfig config, IBridgeServiceBase baseBridgeService, IBridgeServiceLogin loginBridgeService)
         {
@@ -19,9 +20,57 @@ namespace SoFunny.FunnySDK
 
         }
 
-        public void StartFlow()
+        public void GetUserProfile(IUserServiceDelegate serviceDelegate)
         {
-            UIService.Login.Open(this);
+            LoginBridgeService.GetUserProfile((userProfile, error) =>
+            {
+                if (error == null)
+                {
+                    serviceDelegate?.OnUserProfileSuccess(userProfile);
+                }
+                else
+                {
+                    serviceDelegate?.OnUserProfileFailure(error);
+                }
+            });
+        }
+
+        public void Logout()
+        {
+            FunnyDataStore.DeleteToken();
+        }
+
+        public void StartFlow(ILoginServiceDelegate serviceDelegate)
+        {
+            Loader.ShowIndicator();
+
+            // 设置代理对象
+            LoginDelegate = serviceDelegate;
+            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
+
+            if (accessToken != null)
+            {
+                // 已登录，验证 Token
+                VerifyLimit(accessToken);
+            }
+            else
+            {
+                // 获取应用信息
+                BaseBridgeService.GetAppInfo((appConfig, error) =>
+                {
+                    Loader.HideIndicator();
+
+                    if (error == null)
+                    {
+                        UIService.Login.Open(this, appConfig.GetLoginProviders());
+                    }
+                    else
+                    {
+                        Toast.ShowFail(error.Message);
+                        LoginDelegate?.OnLoginFailure(error);
+                    }
+                });
+            }
         }
     }
 
@@ -29,32 +78,36 @@ namespace SoFunny.FunnySDK
     {
         public void OnClickPriacyProtocol()
         {
-            Logger.Log("点击了隐私协议");
+            BaseBridgeService.OpenPriacyProtocol();
         }
 
         public void OnClickUserAgreenment()
         {
-            Logger.Log("点击了用户协议");
+            BaseBridgeService.OpenUserAgreenment();
         }
 
         public void OnCloseView(UILoginPageState pageState)
         {
             Logger.Log("关闭了登录页" + pageState);
+            LoginDelegate?.OnLoginCancel();
+            LoginDelegate = null;
         }
 
         public void OnLoginWithCode(string account, string code)
         {
             Logger.Log($"发起了验证码登录 - {account} - {code}");
+            Loader.ShowIndicator();
 
             LoginBridgeService.LoginWithCode(account, code, (token, error) =>
             {
                 if (error == null)
                 {
-                    Toast.ShowSuccess("登录成功");
-                    // 后续逻辑
+                    // 验证 Token
+                    VerifyLimit(token);
                 }
                 else
                 {
+                    Loader.HideIndicator();
                     Toast.ShowFail(error.Message);
                 }
             });
@@ -64,12 +117,51 @@ namespace SoFunny.FunnySDK
         public void OnLoginWithPassword(string account, string password)
         {
             Logger.Log($"发起了账号密码登录 - {account} - {password}");
-
+            Loader.ShowIndicator();
             LoginBridgeService.LoginWithPassword(account, password, (token, error) =>
             {
                 if (error == null)
                 {
+                    VerifyLimit(token);
+                }
+                else
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+                }
+            });
+        }
 
+        /// <summary>
+        /// 验证 Token
+        /// </summary>
+        /// <param name="token"></param>
+        private void VerifyLimit(AccessToken token)
+        {
+            LoginBridgeService.NativeVerifyLimit(token.Value, (limitStatus, error) =>
+            {
+                Loader.HideIndicator();
+                if (error == null)
+                {
+                    switch (limitStatus.Status)
+                    {
+                        case LimitStatus.StatusType.Success:
+                            // TODO: 数据存储逻辑(后续补充)
+                            FunnyDataStore.UpdateToken(token);
+                            // UI 展示逻辑
+                            Toast.ShowSuccess("登录成功");
+                            // 关闭 UI 以及后续逻辑
+                            UIService.Login.CloseView();
+                            LoginDelegate?.OnLoginSuccess(token);
+                            LoginDelegate = null;
+                            break;
+                        case LimitStatus.StatusType.AccountBannedFailed:
+                            // 账号已被封禁处理
+                            break;
+                        default:
+                            Toast.ShowFail("登录被限制");
+                            break;
+                    }
                 }
                 else
                 {
@@ -78,28 +170,39 @@ namespace SoFunny.FunnySDK
             });
         }
 
-        public void OnLoginWithProvider()
+        public void OnLoginWithProvider(LoginProvider provider)
         {
-            Logger.Log("发起了第三方登录");
-        }
-
-        public void OnRegisterAccount(string account, string pwd, string code)
-        {
-            Logger.Log($"发起账号注册- {account} - {pwd} - {code}");
+            Logger.Log("发起了第三方登录 - " + provider);
             Loader.ShowIndicator();
-            LoginBridgeService.RegisterAccount(account, pwd, code, (ssoToken, error) =>
+            LoginBridgeService.LoginWithProvider(provider, (accessToken, error) =>
             {
                 Loader.HideIndicator();
                 if (error == null)
                 {
-                    // 成功处理
-                    Toast.ShowSuccess("注册成功");
-                    Logger.Log("注册成功 - " + ssoToken);
+                    VerifyLimit(accessToken);
                 }
                 else
                 {
                     Toast.ShowFail(error.Message);
-                    Logger.Log($"注册失败 - {error.Message}");
+                }
+            });
+        }
+
+        public void OnRegisterAccount(string account, string pwd, string code)
+        {
+            Loader.ShowIndicator();
+            LoginBridgeService.RegisterAccount(account, pwd, code, (accessToken, error) =>
+            {
+                if (error == null)
+                {
+                    // 成功处理
+                    // 验证 Token
+                    VerifyLimit(accessToken);
+                }
+                else
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
                 }
             });
 
@@ -107,7 +210,6 @@ namespace SoFunny.FunnySDK
 
         public void OnRetrievePassword(string account, string newPwd, string code)
         {
-            Logger.Log($"找回密码- {account} - {newPwd} - {code}");
             Loader.ShowIndicator();
             LoginBridgeService.RetrievePassword(account, newPwd, code, (none, error) =>
             {
@@ -115,12 +217,12 @@ namespace SoFunny.FunnySDK
                 if (error == null)
                 {
                     Toast.ShowSuccess("修改成功");
-                    Logger.Log("修改密码成功");
+                    // 跳转页面
+                    UIService.Login.JumpTo(Config.IsMainland ? UILoginPageState.PhoneLoginPage : UILoginPageState.EmailLoginPage);
                 }
                 else
                 {
                     Toast.ShowFail(error.Message);
-                    Logger.Log($"修改密码失败 - {error.Message}");
                 }
             });
 

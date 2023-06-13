@@ -201,8 +201,18 @@ MonoBehaviour:
   closeButton: {fileID: 4615323076501981975}
   sofunnyLoginButton: {fileID: 392489108811907710}
   guestLoginButton: {fileID: 1974814849980216727}
+  protocolContainer: {fileID: 2455410501797618924}
+  protocolToggle: {fileID: 8160953997811470637}
   agreementButton: {fileID: 5228054263651776240}
   privacyProtocolButton: {fileID: 6432566548547101521}
+  providerLoginContainer: {fileID: 7173336671651011247}
+  facebookButton: {fileID: 4584606702977069002}
+  twitterButton: {fileID: 9146788475404201000}
+  googleButton: {fileID: 5321566468188669906}
+  appleButton: {fileID: 8991776380594618120}
+  wechatButton: {fileID: 7558513176169454509}
+  qqButton: {fileID: 2335213488146791256}
+  taptapButton: {fileID: 7146102521075763423}
 --- !u!1 &288074074611173413
 GameObject:
   m_ObjectHideFlags: 0
@@ -15132,7 +15142,6 @@ GameObject:
   - component: {fileID: 8281592673299412526}
   - component: {fileID: 8151835447569212183}
   - component: {fileID: 2728945407169565599}
-  - component: {fileID: 2914148004646293580}
   m_Layer: 5
   m_Name: MiddleContainer
   m_TagString: Untagged
@@ -15201,32 +15210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &2914148004646293580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8458538341494124887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a66d4dfa306431685ec40de0862440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sofunnyLoginButton: {fileID: 392489108811907710}
-  guestLoginButton: {fileID: 1974814849980216727}
-  otherLoginContainer: {fileID: 7173336671651011247}
-  facebookButton: {fileID: 4584606702977069002}
-  twitterButton: {fileID: 9146788475404201000}
-  googleButton: {fileID: 5321566468188669906}
-  appleButton: {fileID: 8991776380594618120}
-  wechatButton: {fileID: 7558513176169454509}
-  qqButton: {fileID: 2335213488146791256}
-  taptapButton: {fileID: 7146102521075763423}
-  protocolContainer: {fileID: 2455410501797618924}
-  protocolToggle: {fileID: 8160953997811470637}
-  agreementButton: {fileID: 5228054263651776240}
-  privacyButton: {fileID: 6432566548547101521}
 --- !u!1 &8495516052863687662
 GameObject:
   m_ObjectHideFlags: 0
