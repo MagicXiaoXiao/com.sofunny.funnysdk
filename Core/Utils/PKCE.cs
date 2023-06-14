@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SoFunny.FunnySDK.Internal
+namespace SoFunny.FunnySDK
 {
     internal class PKCE
     {

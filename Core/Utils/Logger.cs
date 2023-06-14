@@ -3,11 +3,11 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace SoFunny.FunnySDK.Internal
+namespace SoFunny.FunnySDK
 {
     internal static class Logger
     {
-        const string k_Tag = "[FunnySDK.Internal]";
+        const string k_Tag = "[ FunnySDK ]";
 
         internal const string k_GlobalVerboseLoggingDefine = "ENABLE_FUNNYSDK_DEBUG";
 
