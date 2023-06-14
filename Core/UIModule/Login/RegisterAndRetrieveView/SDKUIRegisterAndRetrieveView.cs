@@ -108,20 +108,77 @@ namespace SoFunny.FunnySDK.UIModule
             Controller.OpenPage(UILoginPageState.EmailLoginPage);
         }
 
+        // 验证账号的方法
+        private bool ValidateAccount(string account)
+        {
+            if (ConfigService.Config.IsMainland)
+            {
+                if (string.IsNullOrEmpty(account))
+                {
+                    Toast.ShowFail("请填写手机号码");
+                    return false;
+                }
+
+                if (!account.IsMatchPhone())
+                {
+                    Toast.ShowFail("手机号格式错误");
+                    return false;
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(account))
+                {
+                    Toast.ShowFail("请填写邮箱");
+                    return false;
+                }
+
+                if (!account.IsMatchEmail())
+                {
+                    Toast.ShowFail("邮箱格式错误");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void OnSendSmsAction()
         {
             // 校验账号规则逻辑
-            string account = emailOrPhoneInputField.text;
-            // 判断是否是注册行为
+            string account = emailOrPhoneInputField.text.Trim();
+
+            if (!ValidateAccount(account)) { return; }
+
             loginViewEvent?.OnSendVerifcationCode(account, isRegister ? UILoginPageState.RegisterPage : UILoginPageState.RetrievePage);
         }
 
         private void OnRegisterAction()
         {
             // 校验账号规则逻辑
-            string account = emailOrPhoneInputField.text;
-            string pwd = pwdInputField.text;
-            string code = smsInputField.text;
+            string account = emailOrPhoneInputField.text.Trim();
+            string pwd = pwdInputField.text.Trim();
+            string code = smsInputField.text.Trim();
+
+            if (!ValidateAccount(account)) { return; }
+
+            if (string.IsNullOrEmpty(pwd))
+            {
+                Toast.ShowFail("请输入密码");
+                return;
+            }
+
+            if (pwd.Length < 8)
+            {
+                Toast.ShowFail("密码最少为 8 个字符");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(code))
+            {
+                Toast.ShowFail("请输入验证码");
+                return;
+            }
 
             // 发起账号注册
             loginViewEvent?.OnRegisterAccount(account, pwd, code);
@@ -130,9 +187,29 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnRetrieveAction()
         {
             // 校验账号规则逻辑
-            string account = emailOrPhoneInputField.text;
-            string newPwd = newPwdInputField.text;
-            string code = retSmsInputField.text;
+            string account = emailOrPhoneInputField.text.Trim();
+            string newPwd = newPwdInputField.text.Trim();
+            string code = retSmsInputField.text.Trim();
+
+            if (!ValidateAccount(account)) { return; }
+
+            if (string.IsNullOrEmpty(newPwd))
+            {
+                Toast.ShowFail("请输入新密码");
+                return;
+            }
+
+            if (newPwd.Length < 8)
+            {
+                Toast.ShowFail("新密码最少为 8 个字符");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(code))
+            {
+                Toast.ShowFail("请输入验证码");
+                return;
+            }
 
             // 发起账号注册
             loginViewEvent?.OnRetrievePassword(account, newPwd, code);

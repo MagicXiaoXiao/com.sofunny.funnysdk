@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -82,7 +83,7 @@ namespace SoFunny.FunnySDK.Internal
                 }
                 else
                 {
-                    handler(null, error);
+                    handler?.Invoke(null, error);
                 }
             });
         }

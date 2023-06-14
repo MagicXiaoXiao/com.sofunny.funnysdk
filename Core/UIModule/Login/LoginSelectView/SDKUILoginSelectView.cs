@@ -142,8 +142,26 @@ namespace SoFunny.FunnySDK.UIModule
             Controller.CloseLoginController();
         }
 
+        private bool CheckAgreement()
+        {
+            if (ConfigService.Config.IsMainland)
+            {
+                if (!protocolToggle.isOn)
+                {
+                    Toast.ShowFail("请先阅读并勾选同意后再操作");
+                }
+                return protocolToggle.isOn;
+            }
+
+            return true;
+        }
+
+        #region 登录触发处理
+
         private void OnSoFunnyLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             if (ConfigService.Config.IsMainland)
             {
                 Controller.OpenPage(UILoginPageState.PhoneLoginPage);
@@ -156,43 +174,61 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnGuestLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Guest);
         }
 
         private void OnFacebookLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Facebook);
         }
 
         private void OnTwitterLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Twitter);
         }
 
         private void OnGoogleLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Google);
         }
 
         private void OnAppleLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Apple);
         }
 
         private void OnQQLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.QQ);
         }
 
         private void OnWeChatLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.WeChat);
         }
 
         private void OnTapTapLoginAction()
         {
+            if (!CheckAgreement()) { return; }
+
             loginViewEvent?.OnLoginWithProvider(LoginProvider.TapTap);
         }
+
+        #endregion
 
         private void OnClickAgreementAction()
         {

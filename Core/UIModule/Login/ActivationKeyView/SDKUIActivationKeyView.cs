@@ -26,7 +26,14 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnCommitAction()
         {
-            string code = activationKeyInputField.text;
+            string code = activationKeyInputField.text.Trim();
+
+            if (string.IsNullOrEmpty(code))
+            {
+                Toast.ShowFail("请输入邀请码");
+                return;
+            }
+
             loginViewEvent?.OnActivationCodeCommit(code);
         }
 

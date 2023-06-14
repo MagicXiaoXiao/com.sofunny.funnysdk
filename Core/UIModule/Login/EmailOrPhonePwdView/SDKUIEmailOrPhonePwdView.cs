@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 namespace SoFunny.FunnySDK.UIModule
 {
@@ -79,22 +80,75 @@ namespace SoFunny.FunnySDK.UIModule
             Controller.OpenPage(UILoginPageState.RegisterPage);
         }
 
+        // 验证账号的方法
+        private bool ValidateAccount(string account)
+        {
+            if (ConfigService.Config.IsMainland)
+            {
+                if (string.IsNullOrEmpty(account))
+                {
+                    Toast.ShowFail("请填写手机号码");
+                    return false;
+                }
+
+                if (!account.IsMatchPhone())
+                {
+                    Toast.ShowFail("手机号格式错误");
+                    return false;
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(account))
+                {
+                    Toast.ShowFail("请填写邮箱");
+                    return false;
+                }
+
+                if (!account.IsMatchEmail())
+                {
+                    Toast.ShowFail("邮箱格式错误");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void OnLoginAction()
         {
             // 验证逻辑代码
+            string account = emailOrPhoneInputField.text.Trim();
+            string pwd = pwdInputField.text.Trim();
+            string code = smsInputField.text.Trim();
+
+            // 验证账号
+            if (!ValidateAccount(account)) { return; }
 
             // 发起登录
             if (isPwd)
             {
-                string account = emailOrPhoneInputField.text;
-                string pwd = pwdInputField.text;
+                if (string.IsNullOrEmpty(pwd))
+                {
+                    Toast.ShowFail("请输入密码");
+                    return;
+                }
+
+                if (pwd.Length < 8)
+                {
+                    Toast.ShowFail("密码最少为 8 个字符");
+                    return;
+                }
 
                 loginViewEvent?.OnLoginWithPassword(account, pwd);
             }
             else
             {
-                string account = emailOrPhoneInputField.text;
-                string code = smsInputField.text;
+                if (string.IsNullOrEmpty(code))
+                {
+                    Toast.ShowFail("请输入验证码");
+                    return;
+                }
 
                 loginViewEvent?.OnLoginWithCode(account, code);
             }
@@ -135,7 +189,12 @@ namespace SoFunny.FunnySDK.UIModule
         {
             // 数据格式效验逻辑
             UILoginPageState page = ConfigService.Config.IsMainland ? UILoginPageState.PhoneLoginPage : UILoginPageState.EmailLoginPage;
-            string account = emailOrPhoneInputField.text;
+
+            // 验证账号
+            string account = emailOrPhoneInputField.text.Trim();
+
+            if (!ValidateAccount(account)) { return; }
+
             loginViewEvent?.OnSendVerifcationCode(account, page);
         }
 

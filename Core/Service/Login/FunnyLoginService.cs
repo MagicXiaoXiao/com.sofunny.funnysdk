@@ -1,7 +1,6 @@
 ﻿using System;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
-using Logger = SoFunny.FunnySDK.Internal.Logger;
 
 namespace SoFunny.FunnySDK
 {
