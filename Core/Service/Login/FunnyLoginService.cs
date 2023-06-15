@@ -74,6 +74,8 @@ namespace SoFunny.FunnySDK
         }
     }
 
+    #region 登录服务接口实现
+
     internal partial class FunnyLoginService : ILoginViewEvent
     {
         public void OnClickPriacyProtocol()
@@ -105,7 +107,7 @@ namespace SoFunny.FunnySDK
                     // 数据存储
                     FunnyDataStore.UpdateToken(token);
                     // 验证 Token
-                    VerifyLimit(token);
+                    VerifyLimit(token, true);
                 }
                 else
                 {
@@ -141,7 +143,7 @@ namespace SoFunny.FunnySDK
         /// 验证 Token
         /// </summary>
         /// <param name="token"></param>
-        private void VerifyLimit(AccessToken token)
+        private void VerifyLimit(AccessToken token, bool auto = false)
         {
             LoginBridgeService.NativeVerifyLimit(token.Value, (limitStatus, error) =>
             {
@@ -153,6 +155,11 @@ namespace SoFunny.FunnySDK
                 else
                 {
                     Toast.ShowFail(error.Message);
+
+                    if (auto)
+                    {
+                        LoginDelegate?.OnLoginFailure(error);
+                    }
                 }
             });
         }
@@ -402,6 +409,8 @@ namespace SoFunny.FunnySDK
             }
         }
     }
+
+    #endregion
 
 }
 
