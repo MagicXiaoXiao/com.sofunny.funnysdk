@@ -50,26 +50,25 @@ namespace SoFunny.FunnySDK
 
             BaseBridgeService.GetAppInfo((appConfig, error) =>
             {
-                UIService.Login.SetupLoginConfig(this, appConfig.GetLoginProviders());
-
-                if (accessToken != null)
+                if (error == null)
                 {
-                    // 已登录，验证 Token
-                    VerifyLimit(accessToken);
+                    UIService.Login.SetupLoginConfig(this, appConfig.GetLoginProviders());
+
+                    if (accessToken != null)
+                    {
+                        // 已登录，验证 Token
+                        VerifyLimit(accessToken);
+                    }
+                    else
+                    {
+                        Loader.HideIndicator();
+                        UIService.Login.Open();
+                    }
                 }
                 else
                 {
                     Loader.HideIndicator();
-
-                    if (error == null)
-                    {
-                        UIService.Login.Open();
-                    }
-                    else
-                    {
-                        Toast.ShowFail(error.Message);
-                        LoginDelegate?.OnLoginFailure(error);
-                    }
+                    LoginDelegate?.OnLoginFailure(error);
                 }
             });
         }

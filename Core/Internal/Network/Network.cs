@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -39,6 +40,13 @@ namespace SoFunny.FunnySDK.Internal
 
         internal static async void Send(RequestBase request, RequestCompletedHandler completedHandler)
         {
+
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                completedHandler?.Invoke(null, new ServiceError(-1, "当前无网络"));
+                return;
+            }
+
             CancellationTokenSource timeOutToken = new CancellationTokenSource(request.TimeOut);
 
             try
@@ -96,7 +104,8 @@ namespace SoFunny.FunnySDK.Internal
             }
             catch (JsonException ex)
             {
-                completedHandler(null, new ServiceError(-3000, $"数据解析失败. {ex.Message}"));
+                Logger.LogError($"数据解析失败 - {ex.Message}");
+                completedHandler(null, ServiceError.ModelDeserializationError);
             }
         }
 
