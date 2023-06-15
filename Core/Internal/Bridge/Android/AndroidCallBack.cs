@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -8,15 +10,51 @@ namespace SoFunny.FunnySDK.Internal
     /// </summary>
     internal class AndroidCallBack<T> : AndroidJavaProxy
     {
-        private ServiceCompletedHandler<T> callbackHandler;
+        private readonly ServiceCompletedHandler<T> CallbackHandler;
+        private readonly SynchronizationContext OriginalContext;
 
-        internal AndroidCallBack(ServiceCompletedHandler<T> handler) : base("安卓 Java 接口对象路径 (后续确定)")
+        internal AndroidCallBack(ServiceCompletedHandler<T> handler) : base("安卓 Java 回调接口对象路径 (后续确定)")
         {
-            callbackHandler = handler;
+            OriginalContext = SynchronizationContext.Current;
+
+            CallbackHandler = handler;
         }
 
-        // 等待后续接口方法定义
+        internal void OnSuccessHandler(string jsonModel)
+        {
+            Logger.Log($"AndroidBridgeCallback - Success - {jsonModel}");
 
+            try
+            {
+                var model = JsonConvert.DeserializeObject<T>(jsonModel);
+
+                OriginalContext.Post(_ =>
+                {
+                    CallbackHandler?.Invoke(model, null);
+
+                }, null);
+            }
+            catch (JsonException ex)
+            {
+                Logger.LogError("AndroidBridgeCallback 回调数据解析出错 - " + ex.Message);
+
+                OriginalContext.Post(_ =>
+                {
+                    CallbackHandler?.Invoke(default, ServiceError.ModelDeserializationError);
+
+                }, null);
+            }
+        }
+
+        internal void OnFailureHandler(int code, string message)
+        {
+            Logger.LogError($"AndroidBridgeCallback - Failure - [code = {code}, message = {message}]");
+
+            OriginalContext.Post(_ =>
+            {
+                CallbackHandler?.Invoke(default, new ServiceError(code, message));
+            }, null);
+        }
     }
 }
 

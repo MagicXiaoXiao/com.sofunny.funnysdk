@@ -78,7 +78,7 @@ namespace SoFunny.FunnySDK
     {
         public void OnClickPriacyProtocol()
         {
-            BaseBridgeService.OpenPriacyProtocol();
+            BaseBridgeService.OpenPrivacyProtocol();
         }
 
         public void OnClickUserAgreenment()

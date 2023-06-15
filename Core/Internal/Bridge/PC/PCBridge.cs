@@ -61,7 +61,7 @@ namespace SoFunny.FunnySDK.Internal
             Logger.Log("PC 端初始化完毕");
         }
 
-        public void OpenPriacyProtocol()
+        public void OpenPrivacyProtocol()
         {
             Logger.Log("打开隐私政策暂未实现");
         }

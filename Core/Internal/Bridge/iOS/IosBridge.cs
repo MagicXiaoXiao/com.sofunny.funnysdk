@@ -21,7 +21,7 @@ namespace SoFunny.FunnySDK.Internal
             throw new NotImplementedException();
         }
 
-        public void OpenPriacyProtocol()
+        public void OpenPrivacyProtocol()
         {
             throw new NotImplementedException();
         }

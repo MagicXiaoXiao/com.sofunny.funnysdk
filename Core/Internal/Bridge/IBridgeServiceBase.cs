@@ -33,7 +33,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <summary>
         /// 打开隐私政策
         /// </summary>
-        void OpenPriacyProtocol();
+        void OpenPrivacyProtocol();
         /// <summary>
         /// 打开用户协议
         /// </summary>

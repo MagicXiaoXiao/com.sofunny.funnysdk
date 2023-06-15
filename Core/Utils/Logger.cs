@@ -13,7 +13,17 @@ namespace SoFunny.FunnySDK
 
         internal static void Log(object message) => Debug.unityLogger.Log(k_Tag, message);
         internal static void LogWarning(object message) => Debug.unityLogger.LogWarning(k_Tag, message);
-        internal static void LogError(object message) => Debug.unityLogger.Log(k_Tag, $"<color=red>{message}</color>");
+
+        internal static void LogError(object message)
+        {
+
+#if UNITY_EDITOR
+            Debug.unityLogger.Log(k_Tag, $"<color=red>{message}</color>");
+#else
+            Debug.unityLogger.Log(k_Tag, message);
+#endif
+
+        }
         internal static void LogException(Exception exception) => Debug.unityLogger.Log(LogType.Exception, k_Tag, exception);
 
         [Conditional(k_GlobalVerboseLoggingDefine)]

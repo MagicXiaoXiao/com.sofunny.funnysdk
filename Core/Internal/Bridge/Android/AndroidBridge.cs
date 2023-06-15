@@ -5,52 +5,61 @@ using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK.Internal
 {
-    internal class AndroidBridge : IBridgeServiceBase
+    internal partial class AndroidBridge : IBridgeServiceBase
     {
+        private static readonly object _lock = new object();
+        private static AndroidBridge _instance;
+
+        internal static AndroidBridge GetInstance()
+        {
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = new AndroidBridge();
+                }
+            }
+
+            return _instance;
+        }
+
         private AndroidJavaObject Service;
 
-        internal AndroidBridge()
+        private AndroidBridge()
         {
             Service = new AndroidJavaObject("安卓类名路径 (后续确定)");
         }
 
+        public void Initialize()
+        {
+            Service.Call("Initialize", BridgeConfig.AppID);
+        }
+
         public void ContactUS()
         {
-            throw new NotImplementedException();
+            Service.Call("OpenFeedback"); // 打开问题反馈页
         }
 
         public void GetAppInfo(ServiceCompletedHandler<AppInfoConfig> handler)
         {
-            throw new NotImplementedException();
+            Service.Call("GetAppInfo", new AndroidCallBack<AppInfoConfig>(handler));
         }
 
-        public void Initialize()
+        public void OpenPrivacyProtocol()
         {
-            throw new NotImplementedException();
-        }
-
-        public void OpenPriacyProtocol()
-        {
-            throw new NotImplementedException();
+            Service.Call("OpenPrivacyProtocol");
         }
 
         public void OpenUserAgreenment()
         {
-            throw new NotImplementedException();
+            Service.Call("OpenUserAgreenment");
         }
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
         {
-            throw new NotImplementedException();
+            Service.Call("SendVerificationCode", account, codeAction, codeCategory, new AndroidCallBack<VoidObject>(handler));
         }
 
-        //public void Call<T>(string method, Dictionary<string, object> parameter, ServiceCompletedHandler<T> handler = null)
-        //{
-        //    var callback = handler == null ? null : new AndroidCallBack<T>(handler);
-        //    var param = JsonConvert.SerializeObject(parameter);
-
-        //    Service.Call("callMethod", method, param, callback);
-        //}
     }
 }
 
