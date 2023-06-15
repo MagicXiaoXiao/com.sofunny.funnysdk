@@ -55,6 +55,75 @@ namespace SoFunny.FunnySDK.UIModule
             retrieveButton.onClick.RemoveAllListeners();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (isRegister)
+                {
+                    if (emailOrPhoneInputField.isFocused)
+                    {
+                        pwdInputField.ActivateInputField();
+                        return;
+                    }
+
+                    if (pwdInputField.isFocused)
+                    {
+                        smsInputField.ActivateInputField();
+                        return;
+                    }
+
+                    if (smsInputField.isFocused)
+                    {
+                        emailOrPhoneInputField.ActivateInputField();
+                        return;
+                    }
+
+                    if (!emailOrPhoneInputField.isFocused)
+                    {
+                        emailOrPhoneInputField.ActivateInputField();
+                        return;
+                    }
+                }
+                else
+                {
+                    if (emailOrPhoneInputField.isFocused)
+                    {
+                        newPwdInputField.ActivateInputField();
+                        return;
+                    }
+
+                    if (newPwdInputField.isFocused)
+                    {
+                        retSmsInputField.ActivateInputField();
+                        return;
+                    }
+
+                    if (retSmsInputField.isFocused)
+                    {
+                        emailOrPhoneInputField.ActivateInputField();
+                        return;
+                    }
+
+                    if (!emailOrPhoneInputField.isFocused)
+                    {
+                        emailOrPhoneInputField.ActivateInputField();
+                        return;
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                if (isRegister)
+                    OnRegisterAction();
+                else
+                    OnRetrieveAction();
+            }
+
+
+        }
+
         internal void Show(bool isRegister)
         {
             this.isRegister = isRegister;
@@ -98,6 +167,13 @@ namespace SoFunny.FunnySDK.UIModule
             base.Show();
         }
 
+        public override void Hide()
+        {
+            ClearInputFields();
+
+            base.Hide();
+        }
+
         private void OnCloseViewAction()
         {
             Controller.CloseLoginController();
@@ -106,6 +182,16 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnBackAction()
         {
             Controller.OpenPage(UILoginPageState.EmailLoginPage);
+        }
+
+        private void ClearInputFields()
+        {
+            emailOrPhoneInputField.text = "";
+            pwdInputField.text = "";
+            newPwdInputField.text = "";
+
+            smsInputField.text = "";
+            retSmsInputField.text = "";
         }
 
         // 验证账号的方法

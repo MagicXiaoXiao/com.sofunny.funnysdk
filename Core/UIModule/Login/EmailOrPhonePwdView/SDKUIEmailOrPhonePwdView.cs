@@ -52,6 +52,36 @@ namespace SoFunny.FunnySDK.UIModule
             smsButton.onClick.RemoveAllListeners();
         }
 
+        private void Start()
+        {
+            emailOrPhoneInputField.ActivateInputField();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                // 按下了 Tab 键
+                if (emailOrPhoneInputField.isFocused)
+                {
+                    if (isPwd)
+                        pwdInputField.ActivateInputField();
+                    else
+                        smsInputField.ActivateInputField();
+                }
+                else
+                {
+                    emailOrPhoneInputField.ActivateInputField();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                OnLoginAction();
+            }
+
+        }
+
         public override void Show()
         {
             if (ConfigService.Config.IsMainland)
@@ -70,6 +100,13 @@ namespace SoFunny.FunnySDK.UIModule
             base.Show();
         }
 
+        public override void Hide()
+        {
+            ClearInputFields();
+
+            base.Hide();
+        }
+
         private void OnRetrieveAction()
         {
             Controller.OpenPage(UILoginPageState.RetrievePage);
@@ -78,6 +115,13 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnRegisterAction()
         {
             Controller.OpenPage(UILoginPageState.RegisterPage);
+        }
+
+        private void ClearInputFields()
+        {
+            emailOrPhoneInputField.text = "";
+            pwdInputField.text = "";
+            smsInputField.text = "";
         }
 
         // 验证账号的方法
