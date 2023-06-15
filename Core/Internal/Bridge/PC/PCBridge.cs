@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Threading;
+using UnityEngine;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -63,12 +63,14 @@ namespace SoFunny.FunnySDK.Internal
 
         public void OpenPrivacyProtocol()
         {
-            Logger.Log("打开隐私政策暂未实现");
+            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
+            Application.OpenURL($"https://{host}/privacy-policy?hide_back_button=true");
         }
 
         public void OpenUserAgreenment()
         {
-            Logger.Log("打开用户协议暂未实现");
+            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
+            Application.OpenURL($"https://{host}/service-protocol?hide_back_button=true");
         }
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)

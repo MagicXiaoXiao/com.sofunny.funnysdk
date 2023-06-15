@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
 
@@ -171,7 +172,7 @@ namespace SoFunny.FunnySDK
                     // 关闭 UI 以及后续逻辑
                     UIService.Login.CloseView();
 
-                    AccessToken token = FunnyDataStore.GetCurrentToken();
+                    AccessToken token = LoginBridgeService.GetCurrentAccessToken();
                     LoginDelegate?.OnLoginSuccess(token);
                     LoginDelegate = null;
                     break;
@@ -331,11 +332,11 @@ namespace SoFunny.FunnySDK
 
         public void OnActivationCodeCommit(string code)
         {
-            if (FunnyDataStore.HasToken)
+            if (LoginBridgeService.GetCurrentAccessToken() != null)
             {
                 Loader.ShowIndicator();
 
-                AccessToken accessToken = FunnyDataStore.GetCurrentToken();
+                AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
                 LoginBridgeService.ActivationCodeCommit(accessToken.Value, code, (limitResult, error) =>
                 {
@@ -351,11 +352,11 @@ namespace SoFunny.FunnySDK
 
         public void OnRealnameInfoCommit(string realname, string cardID)
         {
-            if (FunnyDataStore.HasToken)
+            if (LoginBridgeService.GetCurrentAccessToken() != null)
             {
                 Loader.ShowIndicator();
 
-                AccessToken accessToken = FunnyDataStore.GetCurrentToken();
+                AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
                 LoginBridgeService.RealnameInfoCommit(accessToken.Value, realname, cardID, (limitResult, error) =>
                 {
@@ -381,7 +382,7 @@ namespace SoFunny.FunnySDK
             {
                 Loader.ShowIndicator();
 
-                AccessToken accessToken = FunnyDataStore.GetCurrentToken();
+                AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
                 LoginBridgeService.RecallAccountDelete(accessToken.Value, (_, error) =>
                 {

@@ -20,6 +20,7 @@ namespace SoFunny.FunnySDK
         /// </summary>
         [JsonProperty("picture_url")] public string PictureURL;
 
+        [JsonProperty("status_message")] public string StatusMessage;
 
         [JsonProperty("amr")] internal string Amr;
 

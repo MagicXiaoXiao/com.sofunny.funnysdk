@@ -30,7 +30,11 @@ namespace SoFunny.FunnySDK.Internal
             var acceptLanguage = new StringWithQualityHeaderValue(BridgeConfig.IsMainland ? "zh" : "en");
             Client.DefaultRequestHeaders.AcceptLanguage.Add(acceptLanguage);
             Client.DefaultRequestHeaders.Add("mainland", BridgeConfig.IsMainland ? "true" : "false");
-            Client.DefaultRequestHeaders.Host = "apisix-gateway.zh-cn.xmfunny.com";
+
+            if (!string.IsNullOrEmpty(BridgeConfig.Host))
+            {
+                Client.DefaultRequestHeaders.Host = BridgeConfig.Host;
+            }
         }
 
         internal static async void Send(RequestBase request, RequestCompletedHandler completedHandler)

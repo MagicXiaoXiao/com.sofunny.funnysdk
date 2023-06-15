@@ -35,6 +35,13 @@ namespace SoFunny.FunnySDK
 
         internal static void UpdateToken(AccessToken accessToken)
         {
+            if (Application.platform == RuntimePlatform.Android ||
+                Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                // 移动端平台不做储存
+                return;
+            }
+
             string tokenJson = JsonConvert.SerializeObject(accessToken);
             PlayerPrefs.SetString(FunnyAccessTokenKey, tokenJson);
             PlayerPrefs.Save();

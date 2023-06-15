@@ -10,8 +10,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <summary>
         /// 服务器地址
         /// </summary>
-        //internal virtual string BaseURL => "http://10.30.30.93:9080/v1";
-        internal virtual string BaseURL => "https://apisix-gateway.zh-cn.xmfunny.com/v1";//"http://10.30.30.93:9080/v1";
+        internal virtual string BaseURL => BridgeConfig.BaseURL;
 
         /// <summary>
         /// 请求方法

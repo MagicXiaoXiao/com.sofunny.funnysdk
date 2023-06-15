@@ -25,7 +25,6 @@ namespace SoFunny.FunnySDK
 
             internal static void Initialize()
             {
-                Logger.Log("初始化调用 Initialize 2");
                 if (internalService != null) { return; }
 
                 internalService = new FunnyService(ConfigService.Config);
@@ -39,8 +38,7 @@ namespace SoFunny.FunnySDK
         /// </summary>
         public static void Initialize()
         {
-            Logger.Log("初始化调用 Initialize 1");
-            // 初始化桥接服务对象
+            // 核心服务模块
             Core.Initialize();
 
             // UI 服务模块
