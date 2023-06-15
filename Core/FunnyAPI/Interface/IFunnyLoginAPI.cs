@@ -15,10 +15,6 @@ namespace SoFunny.FunnySDK
         /// </summary>
         /// <param name="serviceDelegate"></param>
         void GetUserProfile(IUserServiceDelegate serviceDelegate);
-        /// <summary>
-        /// 登出当前账户
-        /// </summary>
-        void Logout();
     }
 }
 

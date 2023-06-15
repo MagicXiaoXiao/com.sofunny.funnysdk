@@ -59,6 +59,14 @@ namespace SoFunny.FunnySDK
                 return Core.Service.LoginAPI;
             }
         }
+
+        /// <summary>
+        /// 登出当前账号
+        /// </summary>
+        public static void Logout()
+        {
+            Core.Service.Logout();
+        }
     }
 }
 

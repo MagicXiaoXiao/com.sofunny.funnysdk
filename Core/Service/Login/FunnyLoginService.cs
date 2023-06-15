@@ -35,11 +35,6 @@ namespace SoFunny.FunnySDK
             });
         }
 
-        public void Logout()
-        {
-            LoginBridgeService.Logout();
-        }
-
         public void StartFlow(ILoginServiceDelegate serviceDelegate)
         {
             Loader.ShowIndicator();

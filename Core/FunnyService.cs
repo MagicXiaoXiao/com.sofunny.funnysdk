@@ -23,6 +23,14 @@ namespace SoFunny.FunnySDK
         {
             bridgeService.Common.Initialize();
         }
+
+        /// <summary>
+        /// 登出当前账号
+        /// </summary>
+        internal void Logout()
+        {
+            bridgeService.Login.Logout();
+        }
     }
 }
 
