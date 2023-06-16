@@ -75,19 +75,29 @@ namespace SoFunny.FunnySDK.Internal
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
         {
-            Network.Send(new TicketRequest(), (data, error) =>
+            if (BridgeConfig.IsMainland)
             {
-                if (error == null)
+                // 国内获取票据
+                Network.Send(new TicketRequest(), (data, error) =>
                 {
-                    var json = JObject.Parse(data);
-                    string ticket = json["ticket"].ToString();
-                    CreateCode(account, codeAction, codeCategory, ticket, handler);
-                }
-                else
-                {
-                    handler?.Invoke(null, error);
-                }
-            });
+                    if (error == null)
+                    {
+                        var json = JObject.Parse(data);
+                        string ticket = json["ticket"].ToString();
+                        // 发送验证码
+                        CreateCode(account, codeAction, codeCategory, ticket, handler);
+                    }
+                    else
+                    {
+                        handler?.Invoke(null, error);
+                    }
+                });
+            }
+            else
+            {
+                // 海外直接发送验证码
+                CreateCode(account, codeAction, codeCategory, "", handler);
+            }
         }
 
         private void CreateCode(string account, CodeAction codeAction, CodeCategory codeCategory, string ticket, ServiceCompletedHandler<VoidObject> handler)
