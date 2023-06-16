@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUICoolDownTipsView : SDKUILoginBase
+    internal class SDKUICoolDownTipsView : SDKUILoginBase
     {
         public Button closeButton;
         public Text contentLabel;
@@ -33,7 +33,6 @@ namespace SoFunny.FunnySDK.UIModule
         {
             loginViewEvent?.OnReCallDelete();
         }
-
     }
 }
 

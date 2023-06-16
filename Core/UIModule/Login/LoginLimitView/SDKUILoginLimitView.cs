@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUILoginLimitView : SDKUILoginBase
+    internal class SDKUILoginLimitView : SDKUILoginBase
     {
 
         public Button closeButton;

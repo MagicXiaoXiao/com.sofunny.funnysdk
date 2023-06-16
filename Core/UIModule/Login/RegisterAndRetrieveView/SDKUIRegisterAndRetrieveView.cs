@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUIRegisterAndRetrieveView : SDKUILoginBase
+    internal class SDKUIRegisterAndRetrieveView : SDKUILoginBase
     {
         public Button backButton;
         public Button closeButton;

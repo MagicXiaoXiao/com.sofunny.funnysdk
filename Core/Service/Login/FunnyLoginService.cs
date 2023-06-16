@@ -7,12 +7,12 @@ namespace SoFunny.FunnySDK
 {
     internal partial class FunnyLoginService : IFunnyLoginAPI
     {
-        private readonly SDKConfig Config;
+        private readonly FunnySDKConfig Config;
         private readonly IBridgeServiceLogin LoginBridgeService;
         private readonly IBridgeServiceBase BaseBridgeService;
         private ILoginServiceDelegate LoginDelegate;
 
-        internal FunnyLoginService(SDKConfig config, IBridgeServiceBase baseBridgeService, IBridgeServiceLogin loginBridgeService)
+        internal FunnyLoginService(FunnySDKConfig config, IBridgeServiceBase baseBridgeService, IBridgeServiceLogin loginBridgeService)
         {
             Config = config;
             BaseBridgeService = baseBridgeService;
@@ -281,7 +281,7 @@ namespace SoFunny.FunnySDK
                             else
                             {
                                 UIService.Login.TimerReset(pageState); // 失败还原状态
-                                Toast.ShowFail("发送失败");
+                                Toast.ShowFail(error.Message);
                             }
                         });
                     }
@@ -300,7 +300,7 @@ namespace SoFunny.FunnySDK
                             else
                             {
                                 UIService.Login.TimerReset(pageState); // 失败还原状态
-                                Toast.ShowFail("发送失败");
+                                Toast.ShowFail(error.Message);
                             }
                         });
                     }
@@ -320,7 +320,7 @@ namespace SoFunny.FunnySDK
                             else
                             {
                                 UIService.Login.TimerReset(pageState); // 失败还原状态
-                                Toast.ShowFail("发送失败");
+                                Toast.ShowFail(error.Message);
                             }
                         });
                     }

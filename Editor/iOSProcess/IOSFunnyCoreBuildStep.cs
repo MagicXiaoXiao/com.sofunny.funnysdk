@@ -7,11 +7,12 @@ using UnityEditor;
 using UnityEditor.iOS.Xcode;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.Editor {
+namespace SoFunny.FunnySDK.Editor
+{
 
     public class IOSFunnyCoreBuildStep : FunnyXcodeBuildStep
     {
-        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
 
         public override bool IsEnabled => true;
 

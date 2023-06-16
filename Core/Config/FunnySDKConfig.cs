@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.UIModule
+namespace SoFunny.FunnySDK
 {
-    public class SDKConfig : ScriptableObject
+    public class FunnySDKConfig : ScriptableObject
     {
-        /// <summary>
-        /// 是否国内版本, 默认 true
-        /// </summary>
-        public bool IsMainland = true;
-
         /// <summary>
         /// 游戏应用 ID
         /// </summary>
         public string AppID;
-
+        /// <summary>
+        /// 是否国内版本, 默认 true
+        /// </summary>
+        public bool IsMainland = true;
 
         #region 第三方平台配置
 
@@ -35,6 +32,7 @@ namespace SoFunny.FunnySDK.UIModule
         public TapTapConfig TapTap;
 
         #endregion
+
     }
 }
 

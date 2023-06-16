@@ -14,6 +14,7 @@ namespace SoFunny.FunnySDK.UIModule
         private Timer timer;
         private int seconds;
         private string smsTextValue;
+        private float inBackgroundSeconds = 0f;
 
         private void Awake()
         {
@@ -22,6 +23,34 @@ namespace SoFunny.FunnySDK.UIModule
 
             timer = Timer.Register(1f, OnTimerUpdate, isLooped: true, useRealTime: true);
             timer.Pause();
+        }
+
+        private void OnApplicationFocus(bool focus)
+        {
+            if (timer.isPaused || timer.isCancelled) { return; }
+
+            if (focus)
+            {
+                // 应用回到前台
+                inBackgroundSeconds = Time.realtimeSinceStartup - inBackgroundSeconds;
+
+                if (inBackgroundSeconds >= seconds)
+                {
+                    ResetTimer();
+                }
+                else
+                {
+                    seconds = (int)(seconds - inBackgroundSeconds);
+                }
+
+                inBackgroundSeconds = 0;
+            }
+            else
+            {
+                // 应用切换至后台
+                // 记录时间
+                inBackgroundSeconds = Time.realtimeSinceStartup;
+            }
         }
 
         private void OnTimerUpdate()

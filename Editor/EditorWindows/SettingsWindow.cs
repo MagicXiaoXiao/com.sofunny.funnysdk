@@ -13,16 +13,40 @@ namespace SoFunny.FunnySDK.Editor
         [MenuItem("SoFunnySDK/FunnySDK Settings", priority = 1)]
         public static void AttackWindowMethod()
         {
+
+            if (!FunnyEditorConfig.CheckConfigFile())
+            {
+                FunnyEditorConfig.CreateConfigFile();
+            }
+
             SettingsWindow.Show();
         }
 
-        private static SDKConfig sdkConfig;
+        [MenuItem("SoFunnySDK/Create Config", priority = 99)]
+        public static void OnCreateSOConfig()
+        {
+            if (FunnyEditorConfig.CheckConfigFile())
+            {
+                if (EditorUtility.DisplayDialog("提示", "当前项目 Assets/Resources/FunnySDK 目录下已存在配置文件，是否重新创建?", "重新创建", "取消"))
+                {
+                    FunnyEditorConfig.CreateConfigFile();
+                }
+            }
+            else
+            {
+                FunnyEditorConfig.CreateConfigFile();
+
+                EditorUtility.DisplayDialog("创建成功", "配置文件已创建完毕", "好的");
+            }
+        }
+
+        private static FunnySDKConfig sdkConfig;
 
         // Add menu named "My Window" to the Window menu
         internal static new void Show()
         {
 
-            sdkConfig = FunnyEditorConfig.Get();
+            sdkConfig = FunnyEditorConfig.GetConfig();
 
             if (sdkConfig == null)
             {

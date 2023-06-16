@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUILoginSelectView : SDKUILoginBase
+    internal class SDKUILoginSelectView : SDKUILoginBase
     {
 
         public Button closeButton;

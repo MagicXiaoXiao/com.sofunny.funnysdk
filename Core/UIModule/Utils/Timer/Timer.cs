@@ -14,7 +14,7 @@ using Object = UnityEngine.Object;
 /// </summary>
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class Timer
+    internal class Timer
     {
         #region internal Properties/Fields
 

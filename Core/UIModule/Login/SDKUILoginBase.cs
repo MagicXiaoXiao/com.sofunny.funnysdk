@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace SoFunny.FunnySDK.UIModule
 {
 
-    public abstract class SDKUILoginBase : MonoBehaviour
+    internal abstract class SDKUILoginBase : MonoBehaviour
     {
 
         protected SDKUILoginController Controller;

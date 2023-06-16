@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUIActivationKeyView : SDKUILoginBase
+    internal class SDKUIActivationKeyView : SDKUILoginBase
     {
         public Button closeButton;
         public InputField activationKeyInputField;

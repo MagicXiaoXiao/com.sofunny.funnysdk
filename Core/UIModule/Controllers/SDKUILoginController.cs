@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUILoginController : MonoBehaviour
+    internal class SDKUILoginController : MonoBehaviour
     {
 
         public SDKUILoginSelectView loginSelectView;

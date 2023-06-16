@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace SoFunny.FunnySDK.UIModule
 {
 
-    public class SDKUIEmailOrPhonePwdView : SDKUILoginBase
+    internal class SDKUIEmailOrPhonePwdView : SDKUILoginBase
     {
 
         public InputField emailOrPhoneInputField;

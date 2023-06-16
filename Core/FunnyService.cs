@@ -11,7 +11,7 @@ namespace SoFunny.FunnySDK
 
         internal IFunnyLoginAPI LoginAPI;
 
-        internal FunnyService(SDKConfig config)
+        internal FunnyService(FunnySDKConfig config)
         {
             // 实例化桥接服务类
             bridgeService = new BridgeService(config.AppID, config.IsMainland);

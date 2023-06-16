@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUILoading : MonoBehaviour
+    internal class SDKUILoading : MonoBehaviour
     {
         public Image circleView;
         public float rotationSpeed = 200f;

@@ -9,7 +9,7 @@ namespace SoFunny.FunnySDK.UIModule
     {
         private GameObject LoginPrefab;
         private SDKUILoginController Controller;
-        private HashSet<LoginProvider> Providers;
+        private HashSet<LoginProvider> Providers = new HashSet<LoginProvider>();
         private ILoginViewEvent ViewDelegate;
 
         internal bool Display = false;

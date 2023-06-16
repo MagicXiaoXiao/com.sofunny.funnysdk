@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUIAlert : MonoBehaviour
+    internal class SDKUIAlert : MonoBehaviour
     {
         public Text titleLabel;
         public Text contentLabel;

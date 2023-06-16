@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class UIController : MonoBehaviour
+    internal class UIController : MonoBehaviour
     {
 
         internal static UIController Instance;

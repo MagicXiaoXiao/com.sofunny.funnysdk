@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace SoFunny.FunnySDK.UIModule
 {
-    public class SDKUIToast : MonoBehaviour
+    internal class SDKUIToast : MonoBehaviour
     {
 
         [Header("UI References :")]

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.UIModule
+namespace SoFunny.FunnySDK
 {
     [Serializable]
     public struct AppleSignIn

@@ -10,7 +10,7 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TapTapIOSBuildStep : FunnyXcodeBuildStep
     {
-        private FunnySDK.Internal.SDKConfig Config => FunnyEditorConfig.Get();
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
 
         public override bool IsEnabled
         {
@@ -23,13 +23,16 @@ namespace SoFunny.FunnySDK.Editor
         public override DirectoryInfo[] OnProcessBundles(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject)
         {
             var allBundles = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
-                                 .Where((dirPath) => {
+                                 .Where((dirPath) =>
+                                 {
                                      return Path.GetExtension(dirPath) == ".bundle";
                                  })
-                                 .Select((dirPath) => {
+                                 .Select((dirPath) =>
+                                 {
                                      return new DirectoryInfo(dirPath);
                                  })
-                                 .Where((framework) => {
+                                 .Where((framework) =>
+                                 {
                                      return framework.Name == "AntiAdictionResources.bundle";
                                  });
 
@@ -40,13 +43,16 @@ namespace SoFunny.FunnySDK.Editor
         {
 
             var allXCFramework = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
-                                 .Where((dirPath) => {
+                                 .Where((dirPath) =>
+                                 {
                                      return Path.GetExtension(dirPath) == FUNNY_FRAMEWORK_EXTENSION;
                                  })
-                                 .Select((dirPath) => {
+                                 .Select((dirPath) =>
+                                 {
                                      return new DirectoryInfo(dirPath);
                                  })
-                                 .Where((framework) => {
+                                 .Where((framework) =>
+                                 {
                                      return framework.Name == "FTapTapOpenAPI.framework";
                                  });
 
