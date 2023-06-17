@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_STANDALONE
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -116,4 +117,4 @@ namespace SoFunny.FunnySDK.Internal
         }
     }
 }
-
+#endif

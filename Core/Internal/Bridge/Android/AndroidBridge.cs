@@ -27,7 +27,7 @@ namespace SoFunny.FunnySDK.Internal
 
         private AndroidBridge()
         {
-            Service = new AndroidJavaObject("安卓类名路径 (后续确定)");
+            Service = new AndroidJavaObject("com.xmfunny.funnysdk.unitywrapper.internal.unity.FunnySdkWrapper4Unity");
         }
 
         public void Initialize()
@@ -57,7 +57,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
         {
-            Service.Call("SendVerificationCode", account, codeAction, codeCategory, new AndroidCallBack<VoidObject>(handler));
+            Service.Call("SendVerificationCode", account, ((int)codeAction), ((int)codeCategory), new AndroidCallBack<VoidObject>(handler));
         }
 
     }

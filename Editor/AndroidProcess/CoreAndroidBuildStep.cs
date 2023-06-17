@@ -47,6 +47,13 @@ namespace SoFunny.FunnySDK.Editor
             depNode.AppendContentNode("implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'");
             depNode.AppendContentNode("implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'");
             depNode.AppendContentNode("implementation 'androidx.constraintlayout:constraintlayout:2.1.4'");
+
+            depNode.AppendContentNode("implementation 'com.squareup.retrofit2:retrofit:2.9.0'");
+            depNode.AppendContentNode("implementation 'com.squareup.okhttp3:okhttp:4.7.2'");
+            depNode.AppendContentNode("implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'");
+            depNode.AppendContentNode("implementation 'com.squareup.retrofit2:converter-gson:2.9.0'");
+            depNode.AppendContentNode("implementation 'com.aliyun.ams:alicloud-android-httpdns:2.3.0'");
+
         }
 
 

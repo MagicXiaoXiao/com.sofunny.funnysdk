@@ -174,7 +174,7 @@ namespace SoFunny.FunnySDK
                     UIService.Login.CloseView();
 
                     AccessToken token = LoginBridgeService.GetCurrentAccessToken();
-                    LoginDelegate?.OnLoginSuccess(token);
+                    LoginDelegate?.OnLoginSuccessAsync(token);
                     LoginDelegate = null;
                     break;
                 case LimitStatus.StatusType.AccountBannedFailed:

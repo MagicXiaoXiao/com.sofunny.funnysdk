@@ -42,7 +42,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<AccessToken> handler)
         {
-            Service.Call("LoginWithProvider", provider, new AndroidCallBack<AccessToken>(handler));
+            Service.Call("LoginWithProvider", ((int)provider), new AndroidCallBack<AccessToken>(handler));
         }
 
         public void Logout()
@@ -72,7 +72,8 @@ namespace SoFunny.FunnySDK.Internal
 
         public void RetrievePassword(string account, string password, string chkCode, ServiceCompletedHandler<VoidObject> handler)
         {
-            Service.Call("RetrievePassword", account, password, chkCode, new AndroidCallBack<VoidObject>(handler));
+            CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
+            Service.Call("RetrievePassword", account, password, chkCode, ((int)category), new AndroidCallBack<VoidObject>(handler));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_IOS
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,4 +38,4 @@ namespace SoFunny.FunnySDK.Internal
         }
     }
 }
-
+#endif
