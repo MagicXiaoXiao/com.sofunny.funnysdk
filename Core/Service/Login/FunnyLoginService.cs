@@ -197,6 +197,10 @@ namespace SoFunny.FunnySDK
                     // 跳转邀请码页面
                     UIService.Login.JumpTo(UILoginPageState.ActivationKeyPage);
                     break;
+                case LimitStatus.StatusType.RealnameVerifyFailed:
+                    // 跳转实名页面
+                    UIService.Login.JumpTo(UILoginPageState.AntiAddictionPage);
+                    break;
                 default:
                     Toast.ShowFail("未知限制");
                     UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
