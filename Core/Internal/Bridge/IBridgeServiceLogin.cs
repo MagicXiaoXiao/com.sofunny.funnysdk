@@ -92,6 +92,12 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         /// <param name="handler"></param>
         void GetUserProfile(ServiceCompletedHandler<UserProfile> handler);
+
+        /// <summary>
+        /// 获取个人中心用户信息
+        /// </summary>
+        /// <param name="handler"></param>
+        void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler);
     }
 }
 

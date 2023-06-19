@@ -284,6 +284,46 @@ namespace SoFunny.FunnySDK.Internal
         {
             FunnyDataStore.DeleteToken();
         }
+
+        /// <summary>
+        /// 获取 PC Info 内容
+        /// </summary>
+        /// <param name="handler"></param>
+        public void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler)
+        {
+            AccessToken accessToken = GetCurrentAccessToken();
+
+            Network.Send(new PCTokenRequest(accessToken.Value), (data, error) =>
+            {
+                if (error == null)
+                {
+                    JObject bodyJson = JObject.Parse(data);
+                    string pcToken = bodyJson["access_token"].Value<string>();
+                    FetchPCInfo(pcToken, handler);
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        private void FetchPCInfo(string pcToken, ServiceCompletedHandler<WebPCInfo> handler)
+        {
+
+            Network.Send(new PCInfoRequest(pcToken), (data, error) =>
+            {
+                if (error == null)
+                {
+                    WebPCInfo info = JsonConvert.DeserializeObject<WebPCInfo>(data);
+                    handler?.Invoke(info, null);
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
     }
 }
 
