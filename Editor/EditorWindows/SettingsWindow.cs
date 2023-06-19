@@ -148,7 +148,6 @@ namespace SoFunny.FunnySDK.Editor
             EditorGUILayout.BeginVertical(boxStyle);
 
             EditorGUILayout.BeginHorizontal();
-            isWebUI = EditorGUILayout.ToggleLeft("Web", isWebUI, funnyToggleStyle, GUILayout.Width(60));
             overseaValue = EditorGUILayout.ToggleLeft("海外", overseaValue, funnyToggleStyle, GUILayout.Width(60));
             mainlandValue = EditorGUILayout.ToggleLeft("国内", mainlandValue, funnyToggleStyle, GUILayout.Width(60));
             EditorGUILayout.EndHorizontal();
@@ -162,6 +161,8 @@ namespace SoFunny.FunnySDK.Editor
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Separator();
+
+            isWebUI = EditorGUILayout.ToggleLeft("勾选登录主流程 UI 为 Web 反之为 UGUI", isWebUI, funnyToggleStyle, GUILayout.Width(60));
 
             if (EditorGUI.actionKey)
             {

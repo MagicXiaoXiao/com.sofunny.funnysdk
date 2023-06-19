@@ -57,13 +57,17 @@ namespace SoFunny.FunnySDK
                     }
                     else
                     {
+#if !UNITY_ANDROID
                         Loader.HideIndicator();
+#endif
                         UIService.Login.Open();
                     }
                 }
                 else
                 {
+#if !UNITY_ANDROID
                     Loader.HideIndicator();
+#endif
                     LoginDelegate?.OnLoginFailure(error);
                 }
             });
