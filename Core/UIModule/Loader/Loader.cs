@@ -30,6 +30,8 @@ namespace SoFunny.FunnySDK.UIModule
 
         public static void HideIndicator()
         {
+            if (!isLoaded) { return; }
+
             loadingUI.Dismiss();
         }
     }

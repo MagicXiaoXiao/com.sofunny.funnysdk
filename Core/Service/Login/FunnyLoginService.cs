@@ -37,7 +37,11 @@ namespace SoFunny.FunnySDK
 
         public void StartFlow(ILoginServiceDelegate serviceDelegate)
         {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            // Android 平台暂不显示指示器 UI
+#else
             Loader.ShowIndicator();
+#endif
 
             // 设置代理对象
             LoginDelegate = serviceDelegate;
