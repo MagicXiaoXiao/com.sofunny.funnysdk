@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 #if UNITY_ANDROID
 using System.Collections;
 using System.Collections.Generic;
@@ -88,6 +88,11 @@ namespace SoFunny.FunnySDK.Editor
             XmlElement channelNode = manifestXML.CreateElement("meta-data");
             channelNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.Mainland");
             channelNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_mainland");
+            applicationNode.AppendChild(channelNode);
+
+            XmlElement isWebUINode = manifestXML.CreateElement("meta-data");
+            channelNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.isWebUI");
+            channelNode.SetAttribute("value", NamespaceURI, Config.IsWebUI.ToString());
             applicationNode.AppendChild(channelNode);
         }
 

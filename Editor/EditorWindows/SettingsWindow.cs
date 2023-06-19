@@ -125,6 +125,18 @@ namespace SoFunny.FunnySDK.Editor
         }
 
 
+        private bool isWebUI
+        {
+            get
+            {
+                return sdkConfig.IsWebUI;
+            }
+            set
+            {
+                sdkConfig.IsWebUI = value;
+            }
+        }
+
         void BasicSettingsUI()
         {
 
@@ -136,6 +148,7 @@ namespace SoFunny.FunnySDK.Editor
             EditorGUILayout.BeginVertical(boxStyle);
 
             EditorGUILayout.BeginHorizontal();
+            isWebUI = EditorGUILayout.ToggleLeft("Web", isWebUI, funnyToggleStyle, GUILayout.Width(60));
             overseaValue = EditorGUILayout.ToggleLeft("海外", overseaValue, funnyToggleStyle, GUILayout.Width(60));
             mainlandValue = EditorGUILayout.ToggleLeft("国内", mainlandValue, funnyToggleStyle, GUILayout.Width(60));
             EditorGUILayout.EndHorizontal();
