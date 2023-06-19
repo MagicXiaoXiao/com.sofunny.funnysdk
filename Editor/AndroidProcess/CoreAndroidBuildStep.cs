@@ -91,9 +91,9 @@ namespace SoFunny.FunnySDK.Editor
             applicationNode.AppendChild(channelNode);
 
             XmlElement isWebUINode = manifestXML.CreateElement("meta-data");
-            channelNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.isWebUI");
-            channelNode.SetAttribute("value", NamespaceURI, Config.IsWebUI.ToString());
-            applicationNode.AppendChild(channelNode);
+            isWebUINode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.isWebUI");
+            isWebUINode.SetAttribute("value", NamespaceURI, Config.IsWebUI.ToString());
+            applicationNode.AppendChild(isWebUINode);
         }
 
         public override void OnProcessLauncherGradle(GradleConfig gradle)
