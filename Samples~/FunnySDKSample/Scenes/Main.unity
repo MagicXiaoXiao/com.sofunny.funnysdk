@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: d8a53524162b0477ea439be39ab111f3, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: d8a53524162b0477ea439be39ab111f3,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2372,6 +2373,7 @@ MonoBehaviour:
   displayNameText: {fileID: 616217208}
   statusMessageText: {fileID: 2125596663}
   rawJsonText: {fileID: 435869330}
+  loginText: {fileID: 1054752680}
   layoutGroup: {fileID: 314272276}
 --- !u!4 &929457498
 Transform:
@@ -2841,7 +2843,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 929457497}
         m_TargetAssemblyTypeName: MainController, Assembly-CSharp
-        m_MethodName: LoginUGUI
+        m_MethodName: LoginEntrance
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

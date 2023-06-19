@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using SoFunny;
 using UnityEngine.UI;
@@ -7,10 +6,9 @@ using UnityEngine.Networking;
 using System.Net;
 using System.Linq;
 using SoFunny.Tools;
-using UnityEngine.SceneManagement;
 using SoFunny.FunnySDKPreview;
-using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK;
+using System.Threading;
 
 public class MainController : MonoBehaviour {
 
@@ -18,7 +16,9 @@ public class MainController : MonoBehaviour {
     public Text displayNameText;
     public Text statusMessageText;
     public Text rawJsonText;
+    public Text loginText;
     public VerticalLayoutGroup layoutGroup;
+    private SynchronizationContext OriginalContext;
 
     private bool launchValue = false;
 
@@ -45,6 +45,10 @@ public class MainController : MonoBehaviour {
         FunnySDK.OnCloseBillboardEvent += FunnySDK_OnCloseBillboardEvent;
         FunnySDK.OnOpenFeedbackEvent += FunnySDK_OnOpenFeedbackEvent;
         FunnySDK.OnCloseFeedbackEvent += FunnySDK_OnCloseFeedbackEvent;
+        OriginalContext = SynchronizationContext.Current;
+        bool isWebUi = Funny.IsWebUi();
+        loginText.text = "登录" + (isWebUi ? " [Web]" : " [UGUI]");
+
     }
 
     private void FunnySDK_OnCloseFeedbackEvent()
@@ -92,8 +96,10 @@ public class MainController : MonoBehaviour {
 
     private void OnLoginEvent(SoFunny.FunnySDKPreview.AccessToken token) {
         FunnyUtils.ShowToast("账号已登录");
-        GetProfile();
-
+        OriginalContext.Post(_=>
+        {
+            GetProfile();
+        }, null);
         //try
         //{
         //    var privacy = await FunnySDK.AuthPrivacyProfile();
@@ -121,8 +127,21 @@ public class MainController : MonoBehaviour {
 #endif
     }
 
+    
 
     #region 两种登录方式
+
+    public void LoginEntrance()
+    {
+        if (Funny.IsWebUi())
+        {
+            Login();
+        } else
+        {
+            LoginUGUI();
+        }
+    }
+
     public async void Login() {
         try {
             await FunnySDK.Login();
@@ -333,11 +352,14 @@ public class MainController : MonoBehaviour {
     }
 
     void ResetProfile() {
-        userIconImage.color = Color.gray;
-        userIconImage.sprite = null;
-        displayNameText.text = "Display Name";
-        statusMessageText.text = "Status Message";
-        rawJsonText.text = "";
+        OriginalContext.Post(_ =>
+        {
+            userIconImage.color = Color.gray;
+            userIconImage.sprite = null;
+            displayNameText.text = "Display Name";
+            statusMessageText.text = "Status Message";
+            rawJsonText.text = "";
+        }, null);
     }
 
     void UpdateRawSection(object obj) {
