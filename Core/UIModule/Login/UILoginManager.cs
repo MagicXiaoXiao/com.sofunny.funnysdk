@@ -33,10 +33,10 @@ namespace SoFunny.FunnySDK.UIModule
             }
         }
 
-        public void JumpTo(UILoginPageState pageState)
+        public void JumpTo(UILoginPageState pageState, object param = null)
         {
             Prepare();
-            Controller.OpenPage(pageState);
+            Controller.OpenPage(pageState, param);
         }
 
         public void Open()
@@ -65,7 +65,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         public void CloseView()
         {
-            if (Controller == null) { return; }
+            if (Controller is null) { return; }
 
             Controller.CloseLoginController(false);
         }

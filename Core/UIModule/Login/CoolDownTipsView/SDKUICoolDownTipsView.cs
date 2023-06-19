@@ -12,8 +12,15 @@ namespace SoFunny.FunnySDK.UIModule
 
         internal ILoginViewEvent loginViewEvent;
 
+        internal string Content;
+
         protected override void Init()
         {
+            if (!string.IsNullOrEmpty(Content))
+            {
+                contentLabel.text = Content;
+            }
+
             closeButton.onClick.AddListener(OnCloseViewAction);
             recallButton.onClick.AddListener(OnRecallAction);
         }

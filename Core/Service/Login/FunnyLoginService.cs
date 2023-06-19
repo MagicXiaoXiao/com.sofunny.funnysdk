@@ -172,26 +172,81 @@ namespace SoFunny.FunnySDK
             switch (limitStatus.Status)
             {
                 case LimitStatus.StatusType.Success:
-                    // UI 展示逻辑
-                    Toast.ShowSuccess("登录成功");
-                    // 关闭 UI 以及后续逻辑
-                    UIService.Login.CloseView();
+                    {
+                        // UI 展示逻辑
+                        Toast.ShowSuccess("登录成功");
+                        // 关闭 UI 以及后续逻辑
+                        UIService.Login.CloseView();
 
-                    AccessToken token = LoginBridgeService.GetCurrentAccessToken();
-                    LoginDelegate?.OnLoginSuccess(token);
-                    LoginDelegate = null;
+                        AccessToken token = LoginBridgeService.GetCurrentAccessToken();
+                        LoginDelegate?.OnLoginSuccess(token);
+                        LoginDelegate = null;
+                    }
                     break;
                 case LimitStatus.StatusType.AccountBannedFailed:
-                    // 账号已被封禁处理
-                    UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
+                    {
+                        Loader.ShowIndicator();
+
+                        LoginBridgeService.GetWebPCInfo((pcInfo, error) =>
+                        {
+                            Loader.HideIndicator();
+
+                            WebPCInfo info;
+
+                            if (error == null)
+                            {
+                                info = pcInfo;
+                            }
+                            else
+                            {
+                                info = new WebPCInfo();
+                                Toast.ShowFail(error.Message);
+                                Logger.LogError(error.Message);
+                            }
+
+                            string tips = $"您的账号已被封停，账号将在 {info.BanDate} 之后解除封停。如有疑问，请联系客服";
+
+                            if (pcInfo.UnblockedAt == -1)
+                            {
+                                tips = "您的账号已永久封停，如有疑问，请联系客服";
+                            }
+                            // 账号已被封禁处理
+                            UIService.Login.JumpTo(UILoginPageState.LoginLimitPage, tips);
+                        });
+                    }
+
                     break;
                 case LimitStatus.StatusType.AllowFailed:
                     // IP 限制页面
                     UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
                     break;
                 case LimitStatus.StatusType.AccountInCooldownFailed:
-                    // 账号冷静期页面
-                    UIService.Login.JumpTo(UILoginPageState.CoolDownTipsPage);
+                    {
+                        Loader.ShowIndicator();
+
+                        LoginBridgeService.GetWebPCInfo((pcInfo, error) =>
+                        {
+                            Loader.HideIndicator();
+
+                            WebPCInfo info;
+
+                            if (error == null)
+                            {
+                                info = pcInfo;
+                            }
+                            else
+                            {
+                                info = new WebPCInfo();
+                                Logger.LogError(error.Message);
+                                Toast.ShowFail(error.Message);
+                            }
+
+                            string tips = $"账号 {info.Account} 于 {info.StartDate} 提交了永久删除账号申请，将于 {info.DeadlineDate} 永久删除。如需要保留账号，请点击下方按钮撤回申请";
+
+                            // 账号冷静期页面
+                            UIService.Login.JumpTo(UILoginPageState.CoolDownTipsPage, tips);
+                        });
+                    }
                     break;
                 case LimitStatus.StatusType.ActivationFailed:
                     Toast.ShowFail("无效邀请码");
@@ -206,6 +261,14 @@ namespace SoFunny.FunnySDK
                     UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
                     break;
             }
+        }
+
+        /// <summary>
+        /// 获取冷静期显示相关信息
+        /// </summary>
+        private void CooldownVerifyHandler()
+        {
+
         }
 
         public void OnLoginWithProvider(LoginProvider provider)

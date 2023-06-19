@@ -13,9 +13,15 @@ namespace SoFunny.FunnySDK.UIModule
         public Button contactButton;
 
         internal ILoginViewEvent loginViewEvent;
+        internal string Content;
 
         protected override void Init()
         {
+            if (!string.IsNullOrEmpty(Content))
+            {
+                contentText.text = Content;
+            }
+
             closeButton.onClick.AddListener(OnCloseViewAction);
             otherLoginButton.onClick.AddListener(OnOtherLoginAction);
             contactButton.onClick.AddListener(OnContactAction);

@@ -12,7 +12,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         void CloseView();
 
-        void JumpTo(UILoginPageState pageState);
+        void JumpTo(UILoginPageState pageState, object param = null);
 
         void TimerSending(UILoginPageState pageState);
         void TimerStart(UILoginPageState pageState);

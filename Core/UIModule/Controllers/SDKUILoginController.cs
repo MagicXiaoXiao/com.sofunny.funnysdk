@@ -47,7 +47,7 @@ namespace SoFunny.FunnySDK.UIModule
             antiAddictionView.loginViewEvent = loginViewEvent;
         }
 
-        public void OpenPage(UILoginPageState pageState)
+        public void OpenPage(UILoginPageState pageState, object param = null)
         {
             if (currentPageState == pageState) { return; }
 
@@ -68,6 +68,10 @@ namespace SoFunny.FunnySDK.UIModule
                     registerAndRetrieveView.Show(false);
                     break;
                 case UILoginPageState.LoginLimitPage:
+                    if (!(param is null))
+                    {
+                        loginLimitView.Content = (string)param;
+                    }
                     loginLimitView.Show();
                     break;
                 case UILoginPageState.ActivationKeyPage:
@@ -77,6 +81,10 @@ namespace SoFunny.FunnySDK.UIModule
                     antiAddictionView.Show();
                     break;
                 case UILoginPageState.CoolDownTipsPage:
+                    if (!(param is null))
+                    {
+                        coolDownTipsView.Content = (string)param;
+                    }
                     coolDownTipsView.Show();
                     break;
                 case UILoginPageState.PhoneLoginPage:
