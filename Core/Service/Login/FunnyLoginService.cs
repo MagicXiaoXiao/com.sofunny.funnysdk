@@ -37,8 +37,9 @@ namespace SoFunny.FunnySDK
 
         public void StartFlow(ILoginServiceDelegate serviceDelegate)
         {
+#if !UNITY_ANDROID
             Loader.ShowIndicator();
-
+#endif
             // 设置代理对象
             LoginDelegate = serviceDelegate;
             AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
@@ -69,7 +70,7 @@ namespace SoFunny.FunnySDK
         }
     }
 
-    #region 登录服务接口实现
+#region 登录服务接口实现
 
     internal partial class FunnyLoginService : ILoginViewEvent
     {
