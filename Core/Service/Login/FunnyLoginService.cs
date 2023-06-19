@@ -37,9 +37,12 @@ namespace SoFunny.FunnySDK
 
         public void StartFlow(ILoginServiceDelegate serviceDelegate)
         {
-#if !UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
+            // Android 平台暂不显示指示器 UI
+#else
             Loader.ShowIndicator();
 #endif
+
             // 设置代理对象
             LoginDelegate = serviceDelegate;
             AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
@@ -57,24 +60,20 @@ namespace SoFunny.FunnySDK
                     }
                     else
                     {
-#if !UNITY_ANDROID
                         Loader.HideIndicator();
-#endif
                         UIService.Login.Open();
                     }
                 }
                 else
                 {
-#if !UNITY_ANDROID
                     Loader.HideIndicator();
-#endif
                     LoginDelegate?.OnLoginFailure(error);
                 }
             });
         }
     }
 
-#region 登录服务接口实现
+    #region 登录服务接口实现
 
     internal partial class FunnyLoginService : ILoginViewEvent
     {
@@ -179,7 +178,7 @@ namespace SoFunny.FunnySDK
                     UIService.Login.CloseView();
 
                     AccessToken token = LoginBridgeService.GetCurrentAccessToken();
-                    LoginDelegate?.OnLoginSuccessAsync(token);
+                    LoginDelegate?.OnLoginSuccess(token);
                     LoginDelegate = null;
                     break;
                 case LimitStatus.StatusType.AccountBannedFailed:
@@ -201,10 +200,6 @@ namespace SoFunny.FunnySDK
                 case LimitStatus.StatusType.ActivationUnfilled:
                     // 跳转邀请码页面
                     UIService.Login.JumpTo(UILoginPageState.ActivationKeyPage);
-                    break;
-                case LimitStatus.StatusType.RealnameVerifyFailed:
-                    // 跳转实名页面
-                    UIService.Login.JumpTo(UILoginPageState.AntiAddictionPage);
                     break;
                 default:
                     Toast.ShowFail("未知限制");
@@ -426,7 +421,7 @@ namespace SoFunny.FunnySDK
         }
     }
 
-#endregion
+    #endregion
 
 }
 
