@@ -268,14 +268,6 @@ namespace SoFunny.FunnySDK
             }
         }
 
-        /// <summary>
-        /// 获取冷静期显示相关信息
-        /// </summary>
-        private void CooldownVerifyHandler()
-        {
-
-        }
-
         public void OnLoginWithProvider(LoginProvider provider)
         {
             Logger.Log("发起了第三方登录 - " + provider);
@@ -405,49 +397,48 @@ namespace SoFunny.FunnySDK
 
         public void OnActivationCodeCommit(string code)
         {
-            if (LoginBridgeService.GetCurrentAccessToken() != null)
-            {
-                Loader.ShowIndicator();
 
-                AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
-
-                LoginBridgeService.ActivationCodeCommit(accessToken.Value, code, (limitResult, error) =>
-                {
-                    Loader.HideIndicator();
-                    if (error == null)
-                    {
-                        LimitResultHandler(limitResult);
-                    }
-                    else
-                    {
-                        Toast.ShowFail(error.Message);
-                    }
-                });
-            }
-            else
+            if (LoginBridgeService.GetCurrentAccessToken() is null)
             {
                 Toast.ShowFail("当前未登录账号");
+                return;
             }
+
+            Loader.ShowIndicator();
+
+            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
+
+            LoginBridgeService.ActivationCodeCommit(accessToken.Value, code, (limitResult, error) =>
+            {
+                Loader.HideIndicator();
+                if (error == null)
+                {
+                    LimitResultHandler(limitResult);
+                }
+                else
+                {
+                    Toast.ShowFail(error.Message);
+                }
+            });
         }
 
         public void OnRealnameInfoCommit(string realname, string cardID)
         {
-            if (LoginBridgeService.GetCurrentAccessToken() != null)
-            {
-                Loader.ShowIndicator();
-
-                AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
-
-                LoginBridgeService.RealnameInfoCommit(accessToken.Value, realname, cardID, (limitResult, error) =>
-                {
-                    Loader.HideIndicator();
-                    LimitResultHandler(limitResult);
-                });
-            }
-            else
+            if (LoginBridgeService.GetCurrentAccessToken() is null)
             {
                 Toast.ShowFail("当前未登录账号");
+                return;
             }
+
+            Loader.ShowIndicator();
+
+            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
+
+            LoginBridgeService.RealnameInfoCommit(accessToken.Value, realname, cardID, (limitResult, error) =>
+            {
+                Loader.HideIndicator();
+                LimitResultHandler(limitResult);
+            });
         }
 
         public void OnClickContactUS()
@@ -458,34 +449,28 @@ namespace SoFunny.FunnySDK
 
         public void OnReCallDelete()
         {
-#if UNITY_ANDROID
-            bool hasToken = LoginBridgeService.GetCurrentAccessToken() != null;
-#elif UNITY_EDITOR || UNITY_STANDALONE
-            bool hasToken = FunnyDataStore.HasToken;
-#endif
-            if (hasToken)
-            {
-                Loader.ShowIndicator();
-
-                AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
-
-                LoginBridgeService.RecallAccountDelete(accessToken.Value, (_, error) =>
-                {
-                    if (error == null)
-                    {
-                        VerifyLimit(accessToken);
-                    }
-                    else
-                    {
-                        Loader.HideIndicator();
-                        Toast.ShowFail(error.Message);
-                    }
-                });
-            }
-            else
+            if (LoginBridgeService.GetCurrentAccessToken() is null)
             {
                 Toast.ShowFail("当前未登录账号");
+                return;
             }
+
+            Loader.ShowIndicator();
+
+            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
+
+            LoginBridgeService.RecallAccountDelete(accessToken.Value, (_, error) =>
+            {
+                if (error == null)
+                {
+                    VerifyLimit(accessToken);
+                }
+                else
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+                }
+            });
         }
     }
 
