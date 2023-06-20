@@ -125,6 +125,18 @@ namespace SoFunny.FunnySDK.Editor
         }
 
 
+        private bool isWebUI
+        {
+            get
+            {
+                return sdkConfig.IsWebUI;
+            }
+            set
+            {
+                sdkConfig.IsWebUI = value;
+            }
+        }
+
         void BasicSettingsUI()
         {
 
@@ -149,6 +161,8 @@ namespace SoFunny.FunnySDK.Editor
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Separator();
+
+            isWebUI = EditorGUILayout.ToggleLeft("勾选登录主流程 UI 为 Web 反之为 UGUI", isWebUI, funnyToggleStyle, GUILayout.Width(60));
 
             if (EditorGUI.actionKey)
             {

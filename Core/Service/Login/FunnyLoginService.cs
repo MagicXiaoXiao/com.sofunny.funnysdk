@@ -409,7 +409,14 @@ namespace SoFunny.FunnySDK
                 LoginBridgeService.ActivationCodeCommit(accessToken.Value, code, (limitResult, error) =>
                 {
                     Loader.HideIndicator();
-                    LimitResultHandler(limitResult);
+                    if (error == null)
+                    {
+                        LimitResultHandler(limitResult);
+                    }
+                    else
+                    {
+                        Toast.ShowFail(error.Message);
+                    }
                 });
             }
             else
@@ -446,7 +453,12 @@ namespace SoFunny.FunnySDK
 
         public void OnReCallDelete()
         {
-            if (FunnyDataStore.HasToken)
+#if UNITY_ANDROID
+            bool hasToken = LoginBridgeService.GetCurrentAccessToken() != null;
+#elif UNITY_EDITOR || UNITY_STANDALONE
+            bool hasToken = FunnyDataStore.HasToken;
+#endif
+            if (hasToken)
             {
                 Loader.ShowIndicator();
 

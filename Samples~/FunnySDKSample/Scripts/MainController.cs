@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using SoFunny;
 using UnityEngine.UI;
@@ -7,9 +6,9 @@ using UnityEngine.Networking;
 using System.Net;
 using System.Linq;
 using SoFunny.Tools;
-using UnityEngine.SceneManagement;
 using SoFunny.FunnySDKPreview;
-using SoFunny.FunnySDK.UIModule;
+using SoFunny.FunnySDK;
+using System.Threading;
 
 public class MainController : MonoBehaviour {
 
@@ -17,7 +16,9 @@ public class MainController : MonoBehaviour {
     public Text displayNameText;
     public Text statusMessageText;
     public Text rawJsonText;
+    public Text loginText;
     public VerticalLayoutGroup layoutGroup;
+    private SynchronizationContext OriginalContext;
 
     private bool launchValue = false;
 
@@ -28,7 +29,7 @@ public class MainController : MonoBehaviour {
         {
             Debug.Log("开屏动画完成");
         });
-
+        Funny.Initialize();
         FunnySDK.Initialize();
         /// SDK 事件监听
         FunnySDK.OnLogoutEvent += OnLogoutEvent;
@@ -44,6 +45,10 @@ public class MainController : MonoBehaviour {
         FunnySDK.OnCloseBillboardEvent += FunnySDK_OnCloseBillboardEvent;
         FunnySDK.OnOpenFeedbackEvent += FunnySDK_OnOpenFeedbackEvent;
         FunnySDK.OnCloseFeedbackEvent += FunnySDK_OnCloseFeedbackEvent;
+        OriginalContext = SynchronizationContext.Current;
+        bool isWebUi = Funny.IsWebUi();
+        loginText.text = "登录" + (isWebUi ? " [Web]" : " [UGUI]");
+
     }
 
     private void FunnySDK_OnCloseFeedbackEvent()
@@ -66,7 +71,7 @@ public class MainController : MonoBehaviour {
         FunnyUtils.ShowToast("公告面板被打开了");
     }
 
-    private void OnSwitchAccountEvent(AccessToken token) {
+    private void OnSwitchAccountEvent(SoFunny.FunnySDKPreview.AccessToken token) {
         FunnyUtils.ShowToast("切换到新账号了");
         GetProfile();
     }
@@ -76,7 +81,7 @@ public class MainController : MonoBehaviour {
         ResetProfile();
     }
 
-    private void OnGuestDidBindEvent(AccessToken token) {
+    private void OnGuestDidBindEvent(SoFunny.FunnySDKPreview.AccessToken token) {
         FunnyUtils.ShowToast("当前游客用户已绑定至新账号");
         Debug.Log($"当前游客用户已绑定");
     }
@@ -89,10 +94,12 @@ public class MainController : MonoBehaviour {
         Debug.Log("用户中心被关闭了");
     }
 
-    private void OnLoginEvent(AccessToken token) {
+    private void OnLoginEvent(SoFunny.FunnySDKPreview.AccessToken token) {
         FunnyUtils.ShowToast("账号已登录");
-        GetProfile();
-
+        OriginalContext.Post(_=>
+        {
+            GetProfile();
+        }, null);
         //try
         //{
         //    var privacy = await FunnySDK.AuthPrivacyProfile();
@@ -120,9 +127,22 @@ public class MainController : MonoBehaviour {
 #endif
     }
 
+    
 
     #region 两种登录方式
-    public async void LoginWeb() {
+
+    public void LoginEntrance()
+    {
+        if (Funny.IsWebUi())
+        {
+            Login();
+        } else
+        {
+            LoginUGUI();
+        }
+    }
+
+    public async void Login() {
         try {
             await FunnySDK.Login();
         }
@@ -135,7 +155,33 @@ public class MainController : MonoBehaviour {
     }
 
     public void LoginUGUI() {
-        LoginUIService.OpenLoginSelectView();
+        Funny.Login.StartFlow(new LoginServiceDelegate(this));
+    }
+
+    class LoginServiceDelegate: ILoginServiceDelegate
+    {
+        private MainController MainController;
+
+        public LoginServiceDelegate(MainController main)
+        {
+            MainController = main;
+        }
+
+        public void OnLoginCancel()
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        public void OnLoginFailure(ServiceError error)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        public void OnLoginSuccessAsync(SoFunny.FunnySDK.AccessToken accessToken)
+        {
+            //throw new System.NotImplementedException();
+            MainController.GetProfile();
+        }
     }
     #endregion
 
@@ -236,7 +282,7 @@ public class MainController : MonoBehaviour {
         });
     }
 
-    IEnumerator UpdateProfile(UserProfile profile) {
+    IEnumerator UpdateProfile(SoFunny.FunnySDKPreview.UserProfile profile) {
         if (profile.PictureUrl != null) {
             var www = UnityWebRequestTexture.GetTexture(profile.PictureUrl);
             yield return www.SendWebRequest();
@@ -306,11 +352,14 @@ public class MainController : MonoBehaviour {
     }
 
     void ResetProfile() {
-        userIconImage.color = Color.gray;
-        userIconImage.sprite = null;
-        displayNameText.text = "Display Name";
-        statusMessageText.text = "Status Message";
-        rawJsonText.text = "";
+        OriginalContext.Post(_ =>
+        {
+            userIconImage.color = Color.gray;
+            userIconImage.sprite = null;
+            displayNameText.text = "Display Name";
+            statusMessageText.text = "Status Message";
+            rawJsonText.text = "";
+        }, null);
     }
 
     void UpdateRawSection(object obj) {

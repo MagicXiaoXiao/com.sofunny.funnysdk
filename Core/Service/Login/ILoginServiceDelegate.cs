@@ -11,7 +11,7 @@ namespace SoFunny.FunnySDK
         /// 登录成功
         /// </summary>
         /// <param name="accessToken"></param>
-        void OnLoginSuccess(AccessToken accessToken);
+        void OnLoginSuccessAsync(AccessToken accessToken);
         /// <summary>
         /// 登录被用户取消
         /// </summary>

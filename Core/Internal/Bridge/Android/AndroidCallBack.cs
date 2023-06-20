@@ -2,6 +2,7 @@
 using System.Threading;
 using UnityEngine;
 using Newtonsoft.Json;
+using SoFunny.FunnySDK.UIModule;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -13,10 +14,10 @@ namespace SoFunny.FunnySDK.Internal
         private readonly ServiceCompletedHandler<T> CallbackHandler;
         private readonly SynchronizationContext OriginalContext;
 
-        internal AndroidCallBack(ServiceCompletedHandler<T> handler) : base("安卓 Java 回调接口对象路径 (后续确定)")
+        internal AndroidCallBack(ServiceCompletedHandler<T> handler) : base("com.xmfunny.funnysdk.unitywrapper.internal.unity.FunnyUnityCallBack")
         {
             OriginalContext = SynchronizationContext.Current;
-
+            
             CallbackHandler = handler;
         }
 
@@ -26,9 +27,9 @@ namespace SoFunny.FunnySDK.Internal
 
             try
             {
-                var model = JsonConvert.DeserializeObject<T>(jsonModel);
+               var model = JsonConvert.DeserializeObject<T>(jsonModel);
 
-                OriginalContext.Post(_ =>
+               OriginalContext.Post(_ =>
                 {
                     CallbackHandler?.Invoke(model, null);
 
