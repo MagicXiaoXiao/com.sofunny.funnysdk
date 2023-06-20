@@ -68,10 +68,6 @@ namespace SoFunny.FunnySDK
             Core.Service.Logout();
         }
 
-        public static bool IsWebUi()
-        {
-            return ConfigService.Config.IsWebUI;
-        }
     }
 }
 

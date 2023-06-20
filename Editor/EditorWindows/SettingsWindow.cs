@@ -124,19 +124,6 @@ namespace SoFunny.FunnySDK.Editor
             }
         }
 
-
-        private bool isWebUI
-        {
-            get
-            {
-                return sdkConfig.IsWebUI;
-            }
-            set
-            {
-                sdkConfig.IsWebUI = value;
-            }
-        }
-
         void BasicSettingsUI()
         {
 
@@ -161,8 +148,6 @@ namespace SoFunny.FunnySDK.Editor
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Separator();
-
-            isWebUI = EditorGUILayout.ToggleLeft("勾选登录主流程 UI 为 Web 反之为 UGUI", isWebUI, funnyToggleStyle, GUILayout.Width(60));
 
             if (EditorGUI.actionKey)
             {
@@ -327,7 +312,12 @@ namespace SoFunny.FunnySDK.Editor
                     switch (selectedBuildTargetGroup)
                     {
                         case BuildTargetGroup.Android:
-                            // Android 平台配置项，待处理
+                            EditorGUILayout.Space();
+
+                            // Android 平台配置项
+                            sdkConfig.Android.IsWebUI = EditorGUILayout.ToggleLeft("勾选登录主流程 UI 为 Web 反之为 UGUI", sdkConfig.Android.IsWebUI, funnyToggleStyle);
+
+                            EditorGUILayout.Space();
                             break;
                         case BuildTargetGroup.iOS:
                             // iOS 平台配置项，待处理

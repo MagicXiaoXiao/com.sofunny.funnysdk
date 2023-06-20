@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 #if UNITY_ANDROID
 using System.Collections;
 using System.Collections.Generic;
@@ -92,7 +92,7 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement isWebUINode = manifestXML.CreateElement("meta-data");
             isWebUINode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.isWebUI");
-            isWebUINode.SetAttribute("value", NamespaceURI, Config.IsWebUI.ToString());
+            isWebUINode.SetAttribute("value", NamespaceURI, Config.Android.IsWebUI.ToString());
             applicationNode.AppendChild(isWebUINode);
         }
 

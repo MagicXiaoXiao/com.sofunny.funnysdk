@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace SoFunny.FunnySDK
         /// </summary>
         public bool IsMainland = true;
 
-        public bool IsWebUI = true;
+        public AndroidPlatform Android;
 
         #region 第三方平台配置
 
