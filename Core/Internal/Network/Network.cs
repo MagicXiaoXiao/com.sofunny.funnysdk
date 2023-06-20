@@ -66,7 +66,7 @@ namespace SoFunny.FunnySDK.Internal
                 {
                     case HttpStatusCode.OK:
                         var body = await response.Content.ReadAsStringAsync();
-                        Logger.Log($"请求成功！<color=green>{body}</color>");
+                        Logger.Log($"请求成功！{body}", Logger.ColorStyle.Green);
                         completedHandler(body, null);
                         break;
                     case HttpStatusCode.BadRequest:

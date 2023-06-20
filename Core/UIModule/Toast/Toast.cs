@@ -23,7 +23,7 @@ namespace SoFunny.FunnySDK.UIModule
             if (!isLoaded)
             {
                 var prefab = Resources.Load<GameObject>("FunnySDK/UI/Toast");
-                GameObject instance = Object.Instantiate(prefab, UIController.Instance.UIContainer.transform);
+                GameObject instance = Object.Instantiate(prefab);
                 instance.name = "Toast";
                 toastUI = instance.GetComponent<SDKUIToast>();
                 isLoaded = true;

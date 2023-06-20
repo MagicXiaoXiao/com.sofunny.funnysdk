@@ -9,6 +9,7 @@ namespace SoFunny.FunnySDK.UIModule
         public Button closeButton;
         public Text contentLabel;
         public Button recallButton;
+        public Button switchButton;
 
         internal ILoginViewEvent loginViewEvent;
 
@@ -23,12 +24,14 @@ namespace SoFunny.FunnySDK.UIModule
 
             closeButton.onClick.AddListener(OnCloseViewAction);
             recallButton.onClick.AddListener(OnRecallAction);
+            switchButton.onClick.AddListener(OnSwitchAccount);
         }
 
         protected override void DeInit()
         {
             closeButton.onClick.RemoveAllListeners();
             recallButton.onClick.RemoveAllListeners();
+            switchButton.onClick.RemoveAllListeners();
         }
 
         private void OnCloseViewAction()
@@ -39,6 +42,16 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnRecallAction()
         {
             loginViewEvent?.OnReCallDelete();
+        }
+
+        private void OnSwitchAccount()
+        {
+            Controller.OpenPage(UILoginPageState.LoginSelectPage);
+        }
+
+        public override void SetConfig(ILoginViewEvent loginViewEvent)
+        {
+            this.loginViewEvent = loginViewEvent;
         }
     }
 }

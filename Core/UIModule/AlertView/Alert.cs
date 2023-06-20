@@ -16,7 +16,7 @@ namespace SoFunny.FunnySDK.UIModule
                 isLoaded = true;
             }
 
-            GameObject instance = Object.Instantiate(prefab, UIController.Instance.UIContainer.transform);
+            GameObject instance = Object.Instantiate(prefab);
             instance.name = "AlertView";
             return instance.GetComponent<SDKUIAlert>();
         }

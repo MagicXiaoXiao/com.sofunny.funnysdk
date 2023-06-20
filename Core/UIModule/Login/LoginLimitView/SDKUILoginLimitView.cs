@@ -12,7 +12,7 @@ namespace SoFunny.FunnySDK.UIModule
         public Button otherLoginButton;
         public Button contactButton;
 
-        internal ILoginViewEvent loginViewEvent;
+        private ILoginViewEvent loginViewEvent;
         internal string Content;
 
         protected override void Init()
@@ -47,6 +47,11 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnContactAction()
         {
             loginViewEvent?.OnClickContactUS();
+        }
+
+        public override void SetConfig(ILoginViewEvent loginViewEvent)
+        {
+            this.loginViewEvent = loginViewEvent;
         }
     }
 }

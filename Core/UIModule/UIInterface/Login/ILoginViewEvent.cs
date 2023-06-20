@@ -4,17 +4,38 @@ namespace SoFunny.FunnySDK.UIModule
 {
     internal interface ILoginViewEvent
     {
-        // 密码登录
+        /// <summary>
+        /// 打开登录相关界面
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="prev"></param>
+        void OnOpenView(UILoginPageState current, UILoginPageState prev);
+
+        /// <summary>
+        /// 关闭登录相关界面
+        /// </summary>
+        /// <param name="pageState"></param>
+        void OnCloseView(UILoginPageState pageState);
+
+        /// <summary>
+        /// 密码登录
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
         void OnLoginWithPassword(string account, string password);
 
-        // 验证码登录
+        /// <summary>
+        /// 验证码登录
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="code"></param>
         void OnLoginWithCode(string account, string code);
 
-        // 第三方登录
+        /// <summary>
+        /// 第三方登录
+        /// </summary>
+        /// <param name="provider"></param>
         void OnLoginWithProvider(LoginProvider provider);
-
-        // 关闭页面
-        void OnCloseView(UILoginPageState pageState);
 
         /// <summary>
         /// 点击用户协议

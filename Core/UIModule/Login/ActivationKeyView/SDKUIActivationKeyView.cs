@@ -10,7 +10,7 @@ namespace SoFunny.FunnySDK.UIModule
         public InputField activationKeyInputField;
         public Button commitButton;
 
-        internal ILoginViewEvent loginViewEvent;
+        private ILoginViewEvent loginViewEvent;
 
         protected override void Init()
         {
@@ -42,6 +42,10 @@ namespace SoFunny.FunnySDK.UIModule
             Controller.CloseLoginController();
         }
 
+        public override void SetConfig(ILoginViewEvent loginViewEvent)
+        {
+            this.loginViewEvent = loginViewEvent;
+        }
     }
 }
 

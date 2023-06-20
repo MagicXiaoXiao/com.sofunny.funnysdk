@@ -87,6 +87,11 @@ namespace SoFunny.FunnySDK
             BaseBridgeService.OpenUserAgreenment();
         }
 
+        public void OnOpenView(UILoginPageState current, UILoginPageState prev)
+        {
+            Logger.Log($"打开了登录页: 当前页面 - {current}, 上一个页面 - {prev}");
+        }
+
         public void OnCloseView(UILoginPageState pageState)
         {
             Logger.Log("关闭了登录页" + pageState);

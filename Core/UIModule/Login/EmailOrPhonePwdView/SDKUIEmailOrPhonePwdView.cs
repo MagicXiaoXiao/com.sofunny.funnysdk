@@ -26,7 +26,7 @@ namespace SoFunny.FunnySDK.UIModule
         public InputField smsInputField;
         public Button smsButton;
 
-        internal ILoginViewEvent loginViewEvent;
+        private ILoginViewEvent loginViewEvent;
         private bool isPwd = true;
 
         protected override void Init()
@@ -257,6 +257,10 @@ namespace SoFunny.FunnySDK.UIModule
             timerHandler.ResetTimer();
         }
 
+        public override void SetConfig(ILoginViewEvent loginViewEvent)
+        {
+            this.loginViewEvent = loginViewEvent;
+        }
     }
 }
 

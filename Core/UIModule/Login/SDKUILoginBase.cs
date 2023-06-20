@@ -8,7 +8,6 @@ namespace SoFunny.FunnySDK.UIModule
 
     internal abstract class SDKUILoginBase : MonoBehaviour
     {
-
         protected SDKUILoginController Controller;
 
         private void Awake()
@@ -24,6 +23,8 @@ namespace SoFunny.FunnySDK.UIModule
 
         protected abstract void Init();
         protected virtual void DeInit() { }
+
+        public abstract void SetConfig(ILoginViewEvent loginViewEvent);
 
         public virtual void Show()
         {

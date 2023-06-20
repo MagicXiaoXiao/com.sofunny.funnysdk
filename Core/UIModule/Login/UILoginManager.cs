@@ -7,15 +7,17 @@ namespace SoFunny.FunnySDK.UIModule
 {
     internal class UILoginManager : IServiceLoginView
     {
-        private GameObject LoginPrefab;
+        private readonly GameObject Container;
+        private readonly GameObject LoginPrefab;
         private SDKUILoginController Controller;
-        private HashSet<LoginProvider> Providers = new HashSet<LoginProvider>();
-        private ILoginViewEvent ViewDelegate;
+        private HashSet<LoginProvider> LoginProviders;
+        private ILoginViewEvent LoginViewEvent;
 
         internal bool Display = false;
 
-        internal UILoginManager()
+        internal UILoginManager(GameObject container)
         {
+            Container = container;
             LoginPrefab = Resources.Load<GameObject>("FunnySDK/UI/LoginView/LoginController");
         }
 
@@ -23,12 +25,12 @@ namespace SoFunny.FunnySDK.UIModule
         {
             if (!Display)
             {
-                GameObject instance = Object.Instantiate(LoginPrefab, UIController.Instance.UIContainer.transform);
+                GameObject instance = Object.Instantiate(LoginPrefab, Container.transform);
                 instance.name = "LoginController";
                 Controller = instance.GetComponent<SDKUILoginController>();
                 Controller.manager = this;
-                Controller.SetLoginProviders(Providers);
-                Controller.SetLoginViewEvent(ViewDelegate);
+                Controller.SetLoginProviders(LoginProviders);
+                Controller.SetLoginConfig(LoginViewEvent);
                 Display = true;
             }
         }
@@ -36,31 +38,31 @@ namespace SoFunny.FunnySDK.UIModule
         public void JumpTo(UILoginPageState pageState, object param = null)
         {
             Prepare();
-            Controller.OpenPage(pageState, param);
+            Controller?.OpenPage(pageState, param);
         }
 
         public void Open()
         {
             Prepare();
-            Controller.OpenPage(UILoginPageState.LoginSelectPage);
+            Controller?.OpenPage(UILoginPageState.LoginSelectPage);
         }
 
         public void TimerSending(UILoginPageState pageState)
         {
             // 发送中
-            Controller.UpdateTimerToSending(pageState);
+            Controller?.UpdateTimerToSending(pageState);
         }
 
         public void TimerStart(UILoginPageState pageState)
         {
             // 开始倒计时
-            Controller.UpdateTimerToStarted(pageState);
+            Controller?.UpdateTimerToStarted(pageState);
         }
 
         public void TimerReset(UILoginPageState pageState)
         {
             // 还原倒计时
-            Controller.UpdateTimerToReset(pageState);
+            Controller?.UpdateTimerToReset(pageState);
         }
 
         public void CloseView()
@@ -68,12 +70,14 @@ namespace SoFunny.FunnySDK.UIModule
             if (Controller is null) { return; }
 
             Controller.CloseLoginController(false);
+
+            LoginViewEvent = null;
         }
 
         public void SetupLoginConfig(ILoginViewEvent loginViewEvent, HashSet<LoginProvider> providers)
         {
-            ViewDelegate = loginViewEvent;
-            Providers = providers;
+            LoginViewEvent = loginViewEvent;
+            LoginProviders = providers;
         }
 
     }

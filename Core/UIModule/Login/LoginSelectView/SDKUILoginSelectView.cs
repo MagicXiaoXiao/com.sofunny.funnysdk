@@ -27,8 +27,8 @@ namespace SoFunny.FunnySDK.UIModule
         public Button taptapButton;
 
 
-        internal ILoginViewEvent loginViewEvent;
-        private HashSet<LoginProvider> Providers;
+        private ILoginViewEvent loginViewEvent;
+        private HashSet<LoginProvider> Providers = new HashSet<LoginProvider>();
 
         protected override void Init()
         {
@@ -134,6 +134,8 @@ namespace SoFunny.FunnySDK.UIModule
 
         internal void SetProvider(HashSet<LoginProvider> providers)
         {
+            if (providers is null) return;
+
             Providers = providers;
         }
 
@@ -238,6 +240,11 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnClickPrivacyProtocolAction()
         {
             loginViewEvent?.OnClickPriacyProtocol();
+        }
+
+        public override void SetConfig(ILoginViewEvent loginViewEvent)
+        {
+            this.loginViewEvent = loginViewEvent;
         }
     }
 }

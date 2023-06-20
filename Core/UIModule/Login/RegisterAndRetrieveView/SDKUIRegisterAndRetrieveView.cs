@@ -31,7 +31,7 @@ namespace SoFunny.FunnySDK.UIModule
         public Button registerButton;
         public Button retrieveButton;
 
-        internal ILoginViewEvent loginViewEvent;
+        private ILoginViewEvent loginViewEvent;
         private bool isRegister = false;
 
         protected override void Init()
@@ -338,6 +338,11 @@ namespace SoFunny.FunnySDK.UIModule
                 retTimerHandler.ResetTimer();
             }
 
+        }
+
+        public override void SetConfig(ILoginViewEvent loginViewEvent)
+        {
+            this.loginViewEvent = loginViewEvent;
         }
     }
 }

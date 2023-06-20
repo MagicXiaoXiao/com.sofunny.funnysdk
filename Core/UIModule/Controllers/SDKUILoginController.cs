@@ -35,16 +35,16 @@ namespace SoFunny.FunnySDK.UIModule
             loginSelectView.SetProvider(providers);
         }
 
-        internal void SetLoginViewEvent(ILoginViewEvent loginViewEvent)
+        internal void SetLoginConfig(ILoginViewEvent loginViewEvent)
         {
             this.loginViewEvent = loginViewEvent;
-            loginSelectView.loginViewEvent = loginViewEvent;
-            registerAndRetrieveView.loginViewEvent = loginViewEvent;
-            emailOrPhonePwdView.loginViewEvent = loginViewEvent;
-            loginLimitView.loginViewEvent = loginViewEvent;
-            coolDownTipsView.loginViewEvent = loginViewEvent;
-            activationKeyView.loginViewEvent = loginViewEvent;
-            antiAddictionView.loginViewEvent = loginViewEvent;
+            loginSelectView.SetConfig(loginViewEvent);
+            registerAndRetrieveView.SetConfig(loginViewEvent);
+            emailOrPhonePwdView.SetConfig(loginViewEvent);
+            loginLimitView.SetConfig(loginViewEvent);
+            coolDownTipsView.SetConfig(loginViewEvent);
+            activationKeyView.SetConfig(loginViewEvent);
+            antiAddictionView.SetConfig(loginViewEvent);
         }
 
         public void OpenPage(UILoginPageState pageState, object param = null)
@@ -68,10 +68,7 @@ namespace SoFunny.FunnySDK.UIModule
                     registerAndRetrieveView.Show(false);
                     break;
                 case UILoginPageState.LoginLimitPage:
-                    if (!(param is null))
-                    {
-                        loginLimitView.Content = (string)param;
-                    }
+                    loginLimitView.Content = (string)param;
                     loginLimitView.Show();
                     break;
                 case UILoginPageState.ActivationKeyPage:
@@ -81,10 +78,7 @@ namespace SoFunny.FunnySDK.UIModule
                     antiAddictionView.Show();
                     break;
                 case UILoginPageState.CoolDownTipsPage:
-                    if (!(param is null))
-                    {
-                        coolDownTipsView.Content = (string)param;
-                    }
+                    coolDownTipsView.Content = (string)param;
                     coolDownTipsView.Show();
                     break;
                 case UILoginPageState.PhoneLoginPage:
@@ -94,6 +88,8 @@ namespace SoFunny.FunnySDK.UIModule
                     Logger.LogWarning("无法打开未知页面");
                     break;
             }
+
+            loginViewEvent?.OnOpenView(pageState, currentPageState);
 
             currentPageState = pageState;
         }

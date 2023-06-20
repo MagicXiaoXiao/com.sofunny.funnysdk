@@ -15,7 +15,7 @@ namespace SoFunny.FunnySDK.UIModule
             if (!isLoaded)
             {
                 var prefab = Resources.Load<GameObject>("FunnySDK/UI/LoadingIndicator");
-                GameObject instance = Object.Instantiate(prefab, UIController.Instance.UIContainer.transform);
+                GameObject instance = Object.Instantiate(prefab);
                 instance.name = "Loading";
                 loadingUI = instance.GetComponent<SDKUILoading>();
                 isLoaded = true;

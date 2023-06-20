@@ -12,7 +12,7 @@ namespace SoFunny.FunnySDK.UIModule
         public Button commitButton;
         public Button otherLoginButton;
 
-        internal ILoginViewEvent loginViewEvent;
+        private ILoginViewEvent loginViewEvent;
 
         protected override void Init()
         {
@@ -47,6 +47,10 @@ namespace SoFunny.FunnySDK.UIModule
             Controller.OpenPage(UILoginPageState.LoginSelectPage);
         }
 
+        public override void SetConfig(ILoginViewEvent loginViewEvent)
+        {
+            this.loginViewEvent = loginViewEvent;
+        }
     }
 }
 
