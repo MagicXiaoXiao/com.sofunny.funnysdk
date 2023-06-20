@@ -14,7 +14,7 @@ namespace SoFunny.FunnySDK.Internal
         {
             BridgeConfig.Init(appID, isMainland);
 
-#if UNITY_ANDROID || UNITY_EDITOR
+#if UNITY_ANDROID
             Common = AndroidBridge.GetInstance();
             Login = AndroidBridge.GetInstance();
 #elif UNITY_STANDALONE
