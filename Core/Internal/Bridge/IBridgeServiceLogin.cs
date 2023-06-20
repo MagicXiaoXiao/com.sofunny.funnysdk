@@ -98,6 +98,12 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         /// <param name="handler"></param>
         void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler);
+        /// <summary>
+        /// 数据埋点
+        /// </summary>
+        /// <param name="data">Json 格式的上报数据</param>
+        /// <param name="eventName">上报事件名称</param>
+        void TrackData(string data, string eventName);
     }
 }
 

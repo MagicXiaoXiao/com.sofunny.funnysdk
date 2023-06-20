@@ -325,6 +325,11 @@ namespace SoFunny.FunnySDK.Internal
                 }
             });
         }
+
+        public void TrackData(string data, string eventName)
+        {
+            // TODO
+        }
     }
 }
 #endif

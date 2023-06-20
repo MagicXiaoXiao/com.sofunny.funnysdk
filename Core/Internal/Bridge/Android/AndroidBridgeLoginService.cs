@@ -75,6 +75,16 @@ namespace SoFunny.FunnySDK.Internal
             CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
             Service.Call("RetrievePassword", account, password, chkCode, ((int)category), new AndroidCallBack<VoidObject>(handler));
         }
+
+        public void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler)
+        {
+            Service.Call("GetWebPCInfo",new AndroidCallBack<WebPCInfo>(handler));
+        }
+
+        public void TrackData(string data, string eventName)
+        {
+            Service.Call("TrackData", data, eventName);
+        }
     }
 }
 
