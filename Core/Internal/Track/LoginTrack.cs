@@ -78,7 +78,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="pageID"></param>
         internal void SdkPageClose(int pageID)
         {
-            Track track = Track.Event("sdk_send_code")
+            Track track = Track.Event("sdk_close_window")
                                .AddData(GlobalData())
                                .Add("page", pageID);
 
@@ -261,7 +261,7 @@ namespace SoFunny.FunnySDK.Internal
             Track track = Track.Event("sdk_login_result")
                                .AddData(GlobalData())
                                .Add("is_auto", IsAuto)
-                               .Add("is_register", isRegister)
+                               .Add("is_register", isRegister ? 1 : 0)
                                .Add("status", 1);
 
             if (LoginFrom > 0)
@@ -284,7 +284,7 @@ namespace SoFunny.FunnySDK.Internal
             Track track = Track.Event("sdk_login_result")
                                .AddData(GlobalData())
                                .Add("is_auto", IsAuto)
-                               .Add("is_register", isRegister)
+                               .Add("is_register", isRegister ? 1 : 0)
                                .Add("status", 0)
                                .Add("error_code", error.Code)
                                .Add("error_msg", error.Message);

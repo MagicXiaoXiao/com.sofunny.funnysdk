@@ -61,6 +61,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void TrackEvent(Track track)
         {
+            Debug.Log("TrackEvent: " + track.Name + " json: " + track.JsonData());
             Service.Call("TrackData", track.JsonData(), track.Name);
         }
 
