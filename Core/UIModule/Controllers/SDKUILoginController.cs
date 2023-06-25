@@ -18,7 +18,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         internal UILoginManager manager;
         private ILoginViewEvent loginViewEvent;
-        private UILoginPageState currentPageState;
+        private UILoginPageState currentPageState = UILoginPageState.UnknownPage;
 
         private void Awake()
         {
@@ -58,8 +58,11 @@ namespace SoFunny.FunnySDK.UIModule
                 case UILoginPageState.LoginSelectPage:
                     loginSelectView.Show();
                     break;
-                case UILoginPageState.EmailLoginPage:
-                    emailOrPhonePwdView.Show();
+                case UILoginPageState.PwdLoginPage:
+                    emailOrPhonePwdView.Show(true);
+                    break;
+                case UILoginPageState.CodeLoginPage:
+                    emailOrPhonePwdView.Show(false);
                     break;
                 case UILoginPageState.RegisterPage:
                     registerAndRetrieveView.Show(true);
@@ -80,9 +83,6 @@ namespace SoFunny.FunnySDK.UIModule
                 case UILoginPageState.CoolDownTipsPage:
                     coolDownTipsView.Content = (string)param;
                     coolDownTipsView.Show();
-                    break;
-                case UILoginPageState.PhoneLoginPage:
-                    emailOrPhonePwdView.Show();
                     break;
                 default:
                     Logger.LogWarning("无法打开未知页面");
@@ -125,7 +125,8 @@ namespace SoFunny.FunnySDK.UIModule
                 case UILoginPageState.LoginSelectPage:
                     loginSelectView.Hide();
                     break;
-                case UILoginPageState.EmailLoginPage:
+                case UILoginPageState.PwdLoginPage:
+                case UILoginPageState.CodeLoginPage:
                     emailOrPhonePwdView.Hide();
                     break;
                 case UILoginPageState.RegisterPage:
@@ -146,10 +147,6 @@ namespace SoFunny.FunnySDK.UIModule
                 case UILoginPageState.CoolDownTipsPage:
                     coolDownTipsView.Hide();
                     break;
-                case UILoginPageState.PhoneLoginPage:
-                    emailOrPhonePwdView.Hide();
-                    break;
-
                 default: break;
             }
         }
@@ -162,8 +159,7 @@ namespace SoFunny.FunnySDK.UIModule
                 case UILoginPageState.RetrievePage:
                     registerAndRetrieveView.TimerSending();
                     break;
-                case UILoginPageState.EmailLoginPage:
-                case UILoginPageState.PhoneLoginPage:
+                case UILoginPageState.CodeLoginPage:
                     emailOrPhonePwdView.TimerSending();
                     break;
                 default:
@@ -179,8 +175,7 @@ namespace SoFunny.FunnySDK.UIModule
                 case UILoginPageState.RetrievePage:
                     registerAndRetrieveView.TimerStart();
                     break;
-                case UILoginPageState.EmailLoginPage:
-                case UILoginPageState.PhoneLoginPage:
+                case UILoginPageState.CodeLoginPage:
                     emailOrPhonePwdView.TimerStart();
                     break;
                 default:
@@ -196,8 +191,7 @@ namespace SoFunny.FunnySDK.UIModule
                 case UILoginPageState.RetrievePage:
                     registerAndRetrieveView.TimerReset();
                     break;
-                case UILoginPageState.EmailLoginPage:
-                case UILoginPageState.PhoneLoginPage:
+                case UILoginPageState.CodeLoginPage:
                     emailOrPhonePwdView.TimerReset();
                     break;
                 default:

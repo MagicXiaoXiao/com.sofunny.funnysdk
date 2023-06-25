@@ -82,8 +82,10 @@ namespace SoFunny.FunnySDK.UIModule
 
         }
 
-        public override void Show()
+        public void Show(bool isPwd)
         {
+            this.isPwd = isPwd;
+
             if (ConfigService.Config.IsMainland)
             {
                 emailOrPhonePlaceholder.text = "手机号";
@@ -96,6 +98,8 @@ namespace SoFunny.FunnySDK.UIModule
                 emailOrPhoneInputField.contentType = InputField.ContentType.EmailAddress;
                 emailOrPhoneInputField.characterLimit = 0;
             }
+
+            SwitchPwdOrCodeUI();
 
             base.Show();
         }
@@ -123,6 +127,25 @@ namespace SoFunny.FunnySDK.UIModule
             pwdInputField.text = "";
             smsInputField.text = "";
         }
+
+        private void SwitchPwdOrCodeUI()
+        {
+            if (isPwd)
+            {
+                // 密码
+                pwdContainer.SetActive(true);
+                verifyCodeContainer.SetActive(false);
+                smsOrPwdButton.GetComponentInChildren<Text>().text = "验证码登录";
+            }
+            else
+            {
+                // 验证码
+                pwdContainer.SetActive(false);
+                verifyCodeContainer.SetActive(true);
+                smsOrPwdButton.GetComponentInChildren<Text>().text = "账号密码登录";
+            }
+        }
+
 
         // 验证账号的方法
         private bool ValidateAccount(string account)
@@ -201,22 +224,20 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnSmsOrPwdSwitchAction()
         {
+            bool mainland = ConfigService.Config.IsMainland;
+
             if (isPwd)
             {
-                // 验证码
-                pwdContainer.SetActive(false);
-                verifyCodeContainer.SetActive(true);
-                smsOrPwdButton.GetComponentInChildren<Text>().text = "账号密码登录";
+                Controller.OpenPage(UILoginPageState.CodeLoginPage);
             }
             else
             {
-                // 密码
-                pwdContainer.SetActive(true);
-                verifyCodeContainer.SetActive(false);
-                smsOrPwdButton.GetComponentInChildren<Text>().text = "验证码登录";
+                Controller.OpenPage(UILoginPageState.PwdLoginPage);
             }
 
-            isPwd = !isPwd;
+            //isPwd = !isPwd;
+
+            //SwitchPwdOrCodeUI();
         }
 
         private void OnCloseViewAction()
@@ -232,14 +253,14 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnSendSMSAction()
         {
             // 数据格式效验逻辑
-            UILoginPageState page = ConfigService.Config.IsMainland ? UILoginPageState.PhoneLoginPage : UILoginPageState.EmailLoginPage;
+            //UILoginPageState page = ConfigService.Config.IsMainland ? UILoginPageState.CodeLoginPage : UILoginPageState.CodeLoginPage;
 
             // 验证账号
             string account = emailOrPhoneInputField.text.Trim();
 
             if (!ValidateAccount(account)) { return; }
 
-            loginViewEvent?.OnSendVerifcationCode(account, page);
+            loginViewEvent?.OnSendVerifcationCode(account, UILoginPageState.CodeLoginPage);
         }
 
         internal void TimerSending()

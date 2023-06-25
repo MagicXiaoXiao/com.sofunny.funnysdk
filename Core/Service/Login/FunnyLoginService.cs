@@ -8,16 +8,24 @@ namespace SoFunny.FunnySDK
     internal partial class FunnyLoginService : IFunnyLoginAPI
     {
         private readonly FunnySDKConfig Config;
+        private readonly LoginTrack Analysis;
+
         private readonly IBridgeServiceLogin LoginBridgeService;
         private readonly IBridgeServiceBase BaseBridgeService;
         private ILoginServiceDelegate LoginDelegate;
 
-        internal FunnyLoginService(FunnySDKConfig config, IBridgeServiceBase baseBridgeService, IBridgeServiceLogin loginBridgeService)
+
+        internal FunnyLoginService(
+            FunnySDKConfig config,
+            IBridgeServiceBase baseBridgeService,
+            IBridgeServiceLogin loginBridgeService,
+            IBridgeServiceTrack trackService
+            )
         {
             Config = config;
+            Analysis = new LoginTrack(trackService);
             BaseBridgeService = baseBridgeService;
             LoginBridgeService = loginBridgeService;
-
         }
 
         public void GetUserProfile(IUserServiceDelegate serviceDelegate)
@@ -37,15 +45,15 @@ namespace SoFunny.FunnySDK
 
         public void StartFlow(ILoginServiceDelegate serviceDelegate)
         {
+            Analysis.StartFlow();
+
 #if UNITY_ANDROID && !UNITY_EDITOR
             // Android 平台暂不显示指示器 UI
 #else
             Loader.ShowIndicator();
 #endif
-
             // 设置代理对象
             LoginDelegate = serviceDelegate;
-            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
             BaseBridgeService.GetAppInfo((appConfig, error) =>
             {
@@ -53,10 +61,13 @@ namespace SoFunny.FunnySDK
                 {
                     UIService.Login.SetupLoginConfig(this, appConfig.GetLoginProviders());
 
+                    AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
+
                     if (accessToken != null)
                     {
+                        Analysis.SetLoginFrom(1);
                         // 已登录，验证 Token
-                        VerifyLimit(accessToken);
+                        VerifyLimit(accessToken, true);
                     }
                     else
                     {
@@ -66,7 +77,10 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    Analysis.SdkLoginResultFailure(false, error);
+
                     Loader.HideIndicator();
+
                     LoginDelegate?.OnLoginFailure(error);
                 }
             });
@@ -89,12 +103,22 @@ namespace SoFunny.FunnySDK
 
         public void OnOpenView(UILoginPageState current, UILoginPageState prev)
         {
+            if (prev == UILoginPageState.UnknownPage)
+            {
+                Analysis.SdkPageOpen((int)current);
+                return;
+            }
+
             Logger.Log($"打开了登录页: 当前页面 - {current}, 上一个页面 - {prev}");
+            Analysis.SdkPageLoad((int)current, (int)prev);
         }
 
         public void OnCloseView(UILoginPageState pageState)
         {
             Logger.Log("关闭了登录页" + pageState);
+            Analysis.SdkPageClose((int)pageState);
+            Analysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录被取消"));
+
             LoginDelegate?.OnLoginCancel();
             LoginDelegate = null;
         }
@@ -104,10 +128,15 @@ namespace SoFunny.FunnySDK
             Logger.Log($"发起了验证码登录 - {account} - {code}");
             Loader.ShowIndicator();
 
+            Analysis.SetLoginFrom(3);
+            Analysis.SetLoginWay(Config.IsMainland ? 103 : 101);
+
             LoginBridgeService.LoginWithCode(account, code, (token, error) =>
             {
                 if (error == null)
                 {
+                    Analysis.SdkVerifyCodeSuccess(1, 202);
+                    Analysis.SdkStartLoginSuccess(false, true);
                     // 数据存储
                     FunnyDataStore.UpdateToken(token);
                     // 验证 Token
@@ -115,6 +144,9 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    Analysis.SdkVerifyCodeFailure(1, 202, error);
+                    Analysis.SdkStartLoginFailure(false, true, error);
+
                     Loader.HideIndicator();
                     Toast.ShowFail(error.Message);
                 }
@@ -126,10 +158,15 @@ namespace SoFunny.FunnySDK
         {
             Logger.Log($"发起了账号密码登录 - {account} - {password}");
             Loader.ShowIndicator();
+
+            Analysis.SetLoginFrom(1);
+            Analysis.SetLoginWay(Config.IsMainland ? 103 : 101);
+
             LoginBridgeService.LoginWithPassword(account, password, (token, error) =>
             {
                 if (error == null)
                 {
+                    Analysis.SdkStartLoginSuccess(false, true);
                     // 数据存储
                     FunnyDataStore.UpdateToken(token);
                     // 验证 Token
@@ -137,6 +174,8 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    Analysis.SdkStartLoginFailure(false, true, error);
+
                     Loader.HideIndicator();
                     Toast.ShowFail(error.Message);
                 }
@@ -154,6 +193,11 @@ namespace SoFunny.FunnySDK
                 Loader.HideIndicator();
                 if (error == null)
                 {
+                    if (auto)
+                    {
+                        Analysis.SdkStartLoginSuccess(auto, true);
+                    }
+
                     LimitResultHandler(limitStatus);
                 }
                 else
@@ -162,6 +206,8 @@ namespace SoFunny.FunnySDK
 
                     if (auto)
                     {
+                        Analysis.SdkStartLoginFailure(auto, true, error);
+
                         LoginDelegate?.OnLoginFailure(error);
                     }
                 }
@@ -184,6 +230,9 @@ namespace SoFunny.FunnySDK
                         UIService.Login.CloseView();
 
                         AccessToken token = LoginBridgeService.GetCurrentAccessToken();
+
+                        Analysis.SdkLoginResultSuccess(token.NewUser);
+
                         LoginDelegate?.OnLoginSuccess(token);
                         LoginDelegate = null;
                     }
@@ -255,6 +304,7 @@ namespace SoFunny.FunnySDK
                     break;
                 case LimitStatus.StatusType.ActivationFailed:
                     Toast.ShowFail("无效邀请码");
+                    Analysis.SdkVerifyCodeFailure(2, 402, new ServiceError(limitStatus.StatusCode, "无效邀请码"));
                     UIService.Login.JumpTo(UILoginPageState.ActivationKeyPage);
                     break;
                 case LimitStatus.StatusType.ActivationUnfilled:
@@ -272,15 +322,43 @@ namespace SoFunny.FunnySDK
         {
             Logger.Log("发起了第三方登录 - " + provider);
             Loader.ShowIndicator();
+
+            if (provider == LoginProvider.Guest)
+            {
+                Analysis.SetLoginFrom(5);
+            }
+            else
+            {
+                Analysis.SetLoginFrom(4);
+            }
+
+            Analysis.SetLoginWay((int)provider);
+
             LoginBridgeService.LoginWithProvider(provider, (accessToken, error) =>
             {
+
                 Loader.HideIndicator();
                 if (error == null)
                 {
+                    Analysis.SdkStartLoginSuccess(false, true);
+
                     VerifyLimit(accessToken);
                 }
                 else
                 {
+                    if (error.Code == -3000)// 暂定取消
+                    {
+                        Analysis.SdkTPAuthCancel();
+                    }
+                    else if (error.Code == -3001)// 暂定失败
+                    {
+                        Analysis.SdkTPAuthFailure(error);
+                    }
+                    else
+                    {
+                        Analysis.SdkStartLoginFailure(false, true, error);
+                    }
+
                     Toast.ShowFail(error.Message);
                 }
             });
@@ -289,10 +367,14 @@ namespace SoFunny.FunnySDK
         public void OnRegisterAccount(string account, string pwd, string code)
         {
             Loader.ShowIndicator();
+
+            Analysis.SetLoginFrom(2);
+
             LoginBridgeService.RegisterAccount(account, pwd, code, (accessToken, error) =>
             {
                 if (error == null)
                 {
+                    Analysis.SdkVerifyCodeSuccess(1, 203);
                     // 数据存储
                     FunnyDataStore.UpdateToken(accessToken);
                     // 验证 Token
@@ -300,6 +382,7 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    Analysis.SdkVerifyCodeFailure(1, 203, error);
                     Loader.HideIndicator();
                     Toast.ShowFail(error.Message);
                 }
@@ -315,12 +398,16 @@ namespace SoFunny.FunnySDK
                 Loader.HideIndicator();
                 if (error == null)
                 {
+                    Analysis.SdkVerifyCodeSuccess(1, 301);
+
                     Toast.ShowSuccess("修改成功");
                     // 跳转页面
-                    UIService.Login.JumpTo(Config.IsMainland ? UILoginPageState.PhoneLoginPage : UILoginPageState.EmailLoginPage);
+                    UIService.Login.JumpTo(UILoginPageState.PwdLoginPage);
                 }
                 else
                 {
+                    Analysis.SdkVerifyCodeFailure(1, 301, error);
+
                     Toast.ShowFail(error.Message);
                 }
             });
@@ -340,10 +427,12 @@ namespace SoFunny.FunnySDK
                         {
                             if (error == null)
                             {
+                                Analysis.SdkSendCodeSuccess((int)pageState);
                                 UIService.Login.TimerStart(pageState); // 成功开始倒计时
                             }
                             else
                             {
+                                Analysis.SdkSendCodeFailure((int)pageState, error);
                                 UIService.Login.TimerReset(pageState); // 失败还原状态
                                 Toast.ShowFail(error.Message);
                             }
@@ -359,18 +448,19 @@ namespace SoFunny.FunnySDK
                         {
                             if (error == null)
                             {
+                                Analysis.SdkSendCodeSuccess((int)pageState);
                                 UIService.Login.TimerStart(pageState); // 成功开始倒计时
                             }
                             else
                             {
+                                Analysis.SdkSendCodeFailure((int)pageState, error);
                                 UIService.Login.TimerReset(pageState); // 失败还原状态
                                 Toast.ShowFail(error.Message);
                             }
                         });
                     }
                     break;
-                case UILoginPageState.PhoneLoginPage:
-                case UILoginPageState.EmailLoginPage:
+                case UILoginPageState.CodeLoginPage:
                     {
                         UIService.Login.TimerSending(pageState); // 显示发送中状态
 
@@ -379,10 +469,12 @@ namespace SoFunny.FunnySDK
                         {
                             if (error == null)
                             {
+                                Analysis.SdkSendCodeSuccess((int)pageState);
                                 UIService.Login.TimerStart(pageState); // 成功开始倒计时
                             }
                             else
                             {
+                                Analysis.SdkSendCodeFailure((int)pageState, error);
                                 UIService.Login.TimerReset(pageState); // 失败还原状态
                                 Toast.ShowFail(error.Message);
                             }
@@ -397,16 +489,15 @@ namespace SoFunny.FunnySDK
 
         public void OnActivationCodeCommit(string code)
         {
+            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
-            if (LoginBridgeService.GetCurrentAccessToken() is null)
+            if (accessToken is null)
             {
                 Toast.ShowFail("当前未登录账号");
                 return;
             }
 
             Loader.ShowIndicator();
-
-            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
             LoginBridgeService.ActivationCodeCommit(accessToken.Value, code, (limitResult, error) =>
             {
@@ -417,6 +508,7 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    Analysis.SdkVerifyCodeFailure(2, 402, error);
                     Toast.ShowFail(error.Message);
                 }
             });
@@ -449,15 +541,15 @@ namespace SoFunny.FunnySDK
 
         public void OnReCallDelete()
         {
-            if (LoginBridgeService.GetCurrentAccessToken() is null)
+            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
+
+            if (accessToken is null)
             {
                 Toast.ShowFail("当前未登录账号");
                 return;
             }
 
             Loader.ShowIndicator();
-
-            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
             LoginBridgeService.RecallAccountDelete(accessToken.Value, (_, error) =>
             {

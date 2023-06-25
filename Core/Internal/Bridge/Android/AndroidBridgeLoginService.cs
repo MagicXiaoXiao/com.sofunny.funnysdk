@@ -78,13 +78,9 @@ namespace SoFunny.FunnySDK.Internal
 
         public void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler)
         {
-            Service.Call("GetWebPCInfo",new AndroidCallBack<WebPCInfo>(handler));
+            Service.Call("GetWebPCInfo", new AndroidCallBack<WebPCInfo>(handler));
         }
 
-        public void TrackData(string data, string eventName)
-        {
-            Service.Call("TrackData", data, eventName);
-        }
     }
 }
 

@@ -1,5 +1,4 @@
-﻿#if UNITY_STANDALONE
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -325,11 +324,5 @@ namespace SoFunny.FunnySDK.Internal
                 }
             });
         }
-
-        public void TrackData(string data, string eventName)
-        {
-            // TODO
-        }
     }
 }
-#endif

@@ -181,7 +181,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnBackAction()
         {
-            Controller.OpenPage(UILoginPageState.EmailLoginPage);
+            Controller.OpenPage(UILoginPageState.PwdLoginPage);
         }
 
         private void ClearInputFields()

@@ -42,6 +42,7 @@ namespace SoFunny.FunnySDK.Internal
         /// 联系客服
         /// </summary>
         void ContactUS();
+
     }
 }
 

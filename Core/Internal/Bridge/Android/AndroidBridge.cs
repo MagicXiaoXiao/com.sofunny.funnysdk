@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK.Internal
 {
-    internal partial class AndroidBridge : IBridgeServiceBase
+    internal partial class AndroidBridge : IBridgeServiceBase, IBridgeServiceTrack
     {
         private static readonly object _lock = new object();
         private static AndroidBridge _instance;
@@ -58,6 +57,11 @@ namespace SoFunny.FunnySDK.Internal
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
         {
             Service.Call("SendVerificationCode", account, ((int)codeAction), ((int)codeCategory), new AndroidCallBack<VoidObject>(handler));
+        }
+
+        public void TrackEvent(Track track)
+        {
+            Service.Call("TrackData", track.JsonData(), track.Name);
         }
 
     }

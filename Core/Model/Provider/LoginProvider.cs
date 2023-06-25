@@ -7,20 +7,20 @@ namespace SoFunny.FunnySDK
     /// </summary>
     public enum LoginProvider
     {
-        Unknown,
+        Unknown = -1,
 
-        Email,
-        Phone,
-        Guest,
+        Email = 101,
+        Phone = 103,
+        Guest = 102,
 
-        Google,
-        Apple,
-        Facebook,
-        Twitter,
+        Google = 204,
+        Apple = 201,
+        Facebook = 205,
+        Twitter = 206,
 
-        WeChat,
-        QQ,
-        TapTap
+        WeChat = 202,
+        QQ = 203,
+        TapTap = 207
     }
 }
 

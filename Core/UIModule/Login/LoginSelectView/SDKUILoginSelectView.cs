@@ -164,14 +164,7 @@ namespace SoFunny.FunnySDK.UIModule
         {
             if (!CheckAgreement()) { return; }
 
-            if (ConfigService.Config.IsMainland)
-            {
-                Controller.OpenPage(UILoginPageState.PhoneLoginPage);
-            }
-            else
-            {
-                Controller.OpenPage(UILoginPageState.EmailLoginPage);
-            }
+            Controller.OpenPage(UILoginPageState.PwdLoginPage);
         }
 
         private void OnGuestLoginAction()

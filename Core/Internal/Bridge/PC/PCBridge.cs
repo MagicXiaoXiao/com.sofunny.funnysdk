@@ -115,6 +115,11 @@ namespace SoFunny.FunnySDK.Internal
                 }
             });
         }
+
+        public void TrackEvent(Track track)
+        {
+            // PC 埋点暂不实现
+        }
     }
 }
 #endif
