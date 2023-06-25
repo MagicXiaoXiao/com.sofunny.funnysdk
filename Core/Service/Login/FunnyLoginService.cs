@@ -202,6 +202,16 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    if (error.Code == 401) // Token 过期处理
+                    {
+                        Analysis.SdkLoginResultFailure(token.NewUser, error);
+
+                        Toast.ShowFail("授权已过期，请重新登录");
+                        Analysis.StartFlow();// 重新发起流程
+                        UIService.Login.Open();
+                        return;
+                    }
+
                     Toast.ShowFail(error.Message);
 
                     if (auto)

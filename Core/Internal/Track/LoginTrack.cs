@@ -8,7 +8,7 @@ namespace SoFunny.FunnySDK.Internal
         private readonly IBridgeServiceTrack TrackService;
 
         private Guid LoginID;
-        private int IsAuto = -1;
+        private int IsAuto = 0;
         private int LoginWay = -1;
         private int LoginFrom = -1;
 
@@ -34,7 +34,7 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         private void EndFlow()
         {
-            IsAuto = -1;
+            IsAuto = 0;
             LoginWay = -1;
             LoginFrom = -1;
             LoginID = Guid.Empty;
