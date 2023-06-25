@@ -312,12 +312,7 @@ namespace SoFunny.FunnySDK.Editor
                     switch (selectedBuildTargetGroup)
                     {
                         case BuildTargetGroup.Android:
-                            EditorGUILayout.Space();
-
-                            // Android 平台配置项
-                            sdkConfig.Android.IsWebUI = EditorGUILayout.ToggleLeft("勾选登录主流程 UI 为 Web 反之为 UGUI", sdkConfig.Android.IsWebUI, funnyToggleStyle);
-
-                            EditorGUILayout.Space();
+                            // Android 平台配置项，待处理
                             break;
                         case BuildTargetGroup.iOS:
                             // iOS 平台配置项，待处理

@@ -15,8 +15,6 @@ namespace SoFunny.FunnySDK
         /// </summary>
         public bool IsMainland = true;
 
-        public AndroidPlatform Android;
-
         #region 第三方平台配置
 
         public GoogleConfig Google;
