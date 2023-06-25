@@ -26,7 +26,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (Exception ex)
                     {
                         Logger.LogError("数据解析失败。" + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
@@ -51,7 +51,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.LogError("数据解析失败。" + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
 
                 }
@@ -80,7 +80,7 @@ namespace SoFunny.FunnySDK.Internal
                     else
                     {
                         Logger.LogError("数据解析失败");
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
@@ -104,7 +104,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.LogError("数据解析失败。" + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
@@ -128,7 +128,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.LogError("数据解析失败。" + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
@@ -157,7 +157,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.LogError("数据解析失败。" + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
@@ -191,7 +191,7 @@ namespace SoFunny.FunnySDK.Internal
             AccessToken token = GetCurrentAccessToken();
             if (token == null)
             {
-                handler?.Invoke(null, new ServiceError(-1, "当前未登录账号"));
+                handler?.Invoke(null, ServiceError.Make(ServiceErrorType.NoLoginError));
                 return;
             }
 
@@ -207,7 +207,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.Log("数据解析出错 - " + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
@@ -231,7 +231,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.LogError("数据解析失败。" + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
@@ -255,7 +255,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.LogError("数据解析失败。" + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else

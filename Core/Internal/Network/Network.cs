@@ -43,7 +43,7 @@ namespace SoFunny.FunnySDK.Internal
 
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
-                completedHandler?.Invoke(null, new ServiceError(-1, "当前无网络"));
+                completedHandler?.Invoke(null, ServiceError.Make(ServiceErrorType.ConnectToServerFailed));
                 return;
             }
 
@@ -65,47 +65,49 @@ namespace SoFunny.FunnySDK.Internal
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.OK:
-                        var body = await response.Content.ReadAsStringAsync();
-                        Logger.Log($"请求成功！{body}", Logger.ColorStyle.Green);
-                        completedHandler(body, null);
+                        Logger.Log($"请求成功！{responseBody}", Logger.ColorStyle.Green);
+                        completedHandler(responseBody, null);
                         break;
                     case HttpStatusCode.BadRequest:
                         Logger.LogError($"请求失败！StatusCode = 400, Response = {responseBody}");
                         ServiceError error = JsonConvert.DeserializeObject<ServiceError>(responseBody);
                         completedHandler(null, error);
                         break;
+                    case HttpStatusCode.Unauthorized:
+                        completedHandler(null, ServiceError.Make(ServiceErrorType.InvalidAccessToken));
+                        break;
                     case HttpStatusCode.InternalServerError:
                         Logger.LogError($"请求失败！StatusCode = 500, Response = {responseBody}");
-                        completedHandler(null, new ServiceError(500, "服务器响应失败，请稍后再试"));
+                        completedHandler(null, ServiceError.Make(ServiceErrorType.ServerOccurredFailed));
                         break;
                     default:
-                        Logger.LogError($"请求失败！StatusCode: {(int)response.StatusCode} Response: {responseBody}");
-                        completedHandler(null, new ServiceError((int)response.StatusCode, $"请求失败"));
+                        Logger.LogError($"请求发生未知错误！StatusCode: {(int)response.StatusCode} Response: {responseBody}");
+                        completedHandler(null, ServiceError.Make(ServiceErrorType.UnknownError));
                         break;
                 }
             }
             catch (HttpRequestException ex)
             {
                 Logger.LogError($"请求失败: {ex.Message}");
-                completedHandler(null, new ServiceError(-1000, $"请求发生异常: {ex.Message}"));
+                completedHandler(null, new ServiceError(-1, ex.Message));
             }
             catch (TaskCanceledException ex)
             {
                 if (timeOutToken.Token.IsCancellationRequested)
                 {
                     Logger.LogError("请求超时: " + ex.Message);
-                    completedHandler(null, new ServiceError(-1003, $"请求超时"));
+                    completedHandler(null, ServiceError.Make(ServiceErrorType.ConnectToServerFailed));
                 }
                 else
                 {
                     Logger.LogError($"未知异常. {ex.Message}");
-                    completedHandler(null, new ServiceError(-1, $"未知异常. {ex.Message}"));
+                    completedHandler(null, ServiceError.Make(ServiceErrorType.UnknownError));
                 }
             }
             catch (JsonException ex)
             {
                 Logger.LogError($"数据解析失败 - {ex.Message}");
-                completedHandler(null, ServiceError.ModelDeserializationError);
+                completedHandler(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
             }
         }
 

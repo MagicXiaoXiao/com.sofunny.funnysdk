@@ -17,7 +17,7 @@ namespace SoFunny.FunnySDK.Internal
         internal AndroidCallBack(ServiceCompletedHandler<T> handler) : base("com.xmfunny.funnysdk.unitywrapper.internal.unity.FunnyUnityCallBack")
         {
             OriginalContext = SynchronizationContext.Current;
-            
+
             CallbackHandler = handler;
         }
 
@@ -27,13 +27,13 @@ namespace SoFunny.FunnySDK.Internal
 
             try
             {
-               var model = JsonConvert.DeserializeObject<T>(jsonModel);
+                var model = JsonConvert.DeserializeObject<T>(jsonModel);
 
-               OriginalContext.Post(_ =>
-                {
-                    CallbackHandler?.Invoke(model, null);
+                OriginalContext.Post(_ =>
+                 {
+                     CallbackHandler?.Invoke(model, null);
 
-                }, null);
+                 }, null);
             }
             catch (JsonException ex)
             {
@@ -41,7 +41,7 @@ namespace SoFunny.FunnySDK.Internal
 
                 OriginalContext.Post(_ =>
                 {
-                    CallbackHandler?.Invoke(default, ServiceError.ModelDeserializationError);
+                    CallbackHandler?.Invoke(default, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
 
                 }, null);
             }

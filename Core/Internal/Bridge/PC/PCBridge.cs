@@ -47,7 +47,7 @@ namespace SoFunny.FunnySDK.Internal
                     catch (JsonException ex)
                     {
                         Logger.LogError("数据解析出错 - " + ex.Message);
-                        handler?.Invoke(null, ServiceError.ModelDeserializationError);
+                        handler?.Invoke(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     }
                 }
                 else
