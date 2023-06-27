@@ -16,6 +16,7 @@ namespace SoFunny.FunnySDK.UIModule
         public SDKUIActivationKeyView activationKeyView;
         public SDKUIAntiAddictionView antiAddictionView;
 
+        internal UILoginManager Manager;
         private ILoginViewEvent loginViewEvent;
         private UILoginPageState currentPageState = UILoginPageState.UnknownPage;
 
@@ -94,7 +95,7 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (callEvent)
             {
-                loginViewEvent?.OnCloseView(currentPageState);
+                Manager?.UserCloseView(currentPageState);
             }
 
             Destroy(gameObject);
