@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,7 +17,11 @@ namespace SoFunny.FunnySDK.UIModule
         public SDKUIActivationKeyView activationKeyView;
         public SDKUIAntiAddictionView antiAddictionView;
 
-        internal UILoginManager Manager;
+        /// <summary>
+        /// 用户主动取消行为
+        /// </summary>
+        internal Action<UILoginPageState> OnCloseViewAction;
+
         private ILoginViewEvent loginViewEvent;
         private UILoginPageState currentPageState = UILoginPageState.UnknownPage;
 
@@ -89,16 +94,19 @@ namespace SoFunny.FunnySDK.UIModule
             currentPageState = pageState;
         }
 
-        public void CloseLoginController(bool callEvent = true)
+        internal void Close()
         {
             gameObject.SetActive(false);
 
-            if (callEvent)
-            {
-                Manager?.UserCloseView(currentPageState);
-            }
-
             Destroy(gameObject);
+        }
+
+        internal void CloseLoginController()
+        {
+            Close();
+
+            OnCloseViewAction?.Invoke(currentPageState);
+            OnCloseViewAction = null;
         }
 
         private void HideAllView()

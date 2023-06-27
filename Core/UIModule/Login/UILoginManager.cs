@@ -28,7 +28,7 @@ namespace SoFunny.FunnySDK.UIModule
                 GameObject instance = Object.Instantiate(LoginPrefab, Container.transform);
                 instance.name = "LoginController";
                 Controller = instance.GetComponent<SDKUILoginController>();
-                Controller.Manager = this;
+                Controller.OnCloseViewAction = OnUserCloseView;
                 Controller.SetLoginProviders(LoginProviders);
                 Controller.SetLoginConfig(LoginViewEvent);
                 Display = true;
@@ -65,7 +65,7 @@ namespace SoFunny.FunnySDK.UIModule
             Controller?.UpdateTimerToReset(pageState);
         }
 
-        internal void UserCloseView(UILoginPageState pageState)
+        private void OnUserCloseView(UILoginPageState pageState)
         {
             Display = false;
 
@@ -79,7 +79,7 @@ namespace SoFunny.FunnySDK.UIModule
         {
             Display = false;
 
-            Controller?.CloseLoginController(false);
+            Controller?.Close();
             Controller = null;
 
             LoginViewEvent = null;
