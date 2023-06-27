@@ -28,7 +28,6 @@ namespace SoFunny.FunnySDK.UIModule
                 GameObject instance = Object.Instantiate(LoginPrefab, Container.transform);
                 instance.name = "LoginController";
                 Controller = instance.GetComponent<SDKUILoginController>();
-                Controller.manager = this;
                 Controller.SetLoginProviders(LoginProviders);
                 Controller.SetLoginConfig(LoginViewEvent);
                 Display = true;
@@ -67,10 +66,10 @@ namespace SoFunny.FunnySDK.UIModule
 
         public void CloseView()
         {
-            if (Controller is null) { return; }
+            Display = false;
 
-            Controller.CloseLoginController(false);
-
+            Controller?.CloseLoginController(false);
+            Controller = null;
             LoginViewEvent = null;
         }
 

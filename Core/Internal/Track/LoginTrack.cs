@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -11,11 +12,14 @@ namespace SoFunny.FunnySDK.Internal
         private int IsAuto = 0;
         private int LoginWay = -1;
         private int LoginFrom = -1;
+        private Stopwatch Watch;
+
 
         internal LoginTrack(IBridgeServiceTrack service)
         {
             TrackService = service;
             LoginID = Guid.Empty;
+            Watch = new Stopwatch();
         }
 
         /// <summary>
@@ -27,6 +31,8 @@ namespace SoFunny.FunnySDK.Internal
             {
                 LoginID = Guid.NewGuid();
             }
+
+            Watch.Start();
         }
 
         /// <summary>
@@ -258,11 +264,14 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="isRegister"></param>
         internal void SdkLoginResultSuccess(bool isRegister)
         {
+            Watch.Stop();
+
             Track track = Track.Event("sdk_login_result")
                                .AddData(GlobalData())
                                .Add("is_auto", IsAuto)
                                .Add("is_register", isRegister ? 1 : 0)
-                               .Add("status", 1);
+                               .Add("status", 1)
+                               .Add("duration", Watch.Elapsed.Milliseconds);
 
             if (LoginFrom > 0)
             {
@@ -281,11 +290,14 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="error"></param>
         internal void SdkLoginResultFailure(bool isRegister, ServiceError error)
         {
+            Watch.Stop();
+
             Track track = Track.Event("sdk_login_result")
                                .AddData(GlobalData())
                                .Add("is_auto", IsAuto)
                                .Add("is_register", isRegister ? 1 : 0)
                                .Add("status", 0)
+                               .Add("duration", Watch.Elapsed.Milliseconds)
                                .Add("error_code", error.Code)
                                .Add("error_msg", error.Message);
 

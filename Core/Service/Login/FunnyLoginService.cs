@@ -46,6 +46,7 @@ namespace SoFunny.FunnySDK
         public void StartFlow(ILoginServiceDelegate serviceDelegate)
         {
             Analysis.StartFlow();
+            Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             // Android 平台暂不显示指示器 UI
@@ -103,12 +104,6 @@ namespace SoFunny.FunnySDK
 
         public void OnOpenView(UILoginPageState current, UILoginPageState prev)
         {
-            if (prev == UILoginPageState.UnknownPage)
-            {
-                Analysis.SdkPageOpen((int)current);
-                return;
-            }
-
             Logger.Log($"打开了登录页: 当前页面 - {current}, 上一个页面 - {prev}");
             Analysis.SdkPageLoad((int)current, (int)prev);
         }
@@ -202,12 +197,16 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
-                    if (error.Code == 401) // Token 过期处理
+                    if (error.Error == ServiceErrorType.InvalidAccessToken) // Token 过期处理
                     {
                         Analysis.SdkLoginResultFailure(token.NewUser, error);
 
                         Toast.ShowFail("授权已过期，请重新登录");
-                        Analysis.StartFlow();// 重新发起流程
+
+                        // 重新发起流程
+                        Analysis.StartFlow();
+                        Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
+
                         UIService.Login.Open();
                         return;
                     }
@@ -545,7 +544,8 @@ namespace SoFunny.FunnySDK
 
         public void OnClickContactUS()
         {
-            Toast.Show("功能开发中");
+            Analysis.SdkPageOpen(702);
+
             BaseBridgeService.ContactUS();
         }
 

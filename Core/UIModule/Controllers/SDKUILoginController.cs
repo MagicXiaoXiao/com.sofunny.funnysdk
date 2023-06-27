@@ -16,18 +16,12 @@ namespace SoFunny.FunnySDK.UIModule
         public SDKUIActivationKeyView activationKeyView;
         public SDKUIAntiAddictionView antiAddictionView;
 
-        internal UILoginManager manager;
         private ILoginViewEvent loginViewEvent;
         private UILoginPageState currentPageState = UILoginPageState.UnknownPage;
 
         private void Awake()
         {
             HideAllView();
-        }
-
-        private void OnDestroy()
-        {
-            manager.Display = false;
         }
 
         internal void SetLoginProviders(HashSet<LoginProvider> providers)

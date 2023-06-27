@@ -19,6 +19,8 @@ namespace SoFunny.FunnySDK
         {
             HashSet<LoginProvider> providers = new HashSet<LoginProvider>();
 
+            if (AuthItems is null) { return providers; }
+
             foreach (var item in AuthItems)
             {
                 if (item.Enable)
