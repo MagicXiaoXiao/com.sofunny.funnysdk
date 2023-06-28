@@ -66,7 +66,6 @@ namespace SoFunny.FunnySDK
 
                     if (accessToken != null)
                     {
-                        Analysis.SetLoginFrom(1);
                         // 已登录，验证 Token
                         VerifyLimit(accessToken, true);
                     }
