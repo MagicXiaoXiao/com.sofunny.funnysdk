@@ -5,7 +5,12 @@ namespace SoFunny.FunnySDK.UIModule
     internal interface ILoginViewEvent
     {
         /// <summary>
-        /// 打开登录相关界面
+        /// 切换其他账号行为
+        /// </summary>
+        void OnSwitchOtherAccount();
+
+        /// <summary>
+        /// 打开登录相关界面行为
         /// </summary>
         /// <param name="current"></param>
         /// <param name="prev"></param>

@@ -45,7 +45,6 @@ namespace SoFunny.FunnySDK
 
         public void StartFlow(ILoginServiceDelegate serviceDelegate)
         {
-            Analysis.StartFlow();
             Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -99,6 +98,14 @@ namespace SoFunny.FunnySDK
         public void OnClickUserAgreenment()
         {
             BaseBridgeService.OpenUserAgreenment();
+        }
+
+        public void OnSwitchOtherAccount()
+        {
+            Analysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录账号被限制"));
+            Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
+
+            UIService.Login.JumpTo(UILoginPageState.LoginSelectPage);
         }
 
         public void OnOpenView(UILoginPageState current, UILoginPageState prev)
@@ -203,7 +210,6 @@ namespace SoFunny.FunnySDK
                         Toast.ShowFail("授权已过期，请重新登录");
 
                         // 重新发起流程
-                        Analysis.StartFlow();
                         Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
 
                         UIService.Login.Open();

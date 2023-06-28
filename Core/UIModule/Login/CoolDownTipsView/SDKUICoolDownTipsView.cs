@@ -46,7 +46,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnSwitchAccount()
         {
-            Controller.OpenPage(UILoginPageState.LoginSelectPage);
+            loginViewEvent?.OnSwitchOtherAccount();
         }
 
         public override void SetConfig(ILoginViewEvent loginViewEvent)

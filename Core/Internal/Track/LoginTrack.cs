@@ -25,7 +25,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <summary>
         /// 发起登录流程
         /// </summary>
-        internal void StartFlow()
+        private void StartFlow()
         {
             if (LoginID == Guid.Empty)
             {
@@ -71,6 +71,8 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="pageID"></param>
         internal void SdkPageOpen(int pageID)
         {
+            StartFlow();
+
             Track track = Track.Event("sdk_page_open")
                                .AddData(GlobalData())
                                .Add("page", pageID);
