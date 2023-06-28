@@ -134,7 +134,7 @@ namespace SoFunny.FunnySDK
                     // 数据存储
                     FunnyDataStore.UpdateToken(token);
                     // 验证 Token
-                    VerifyLimit(token, true);
+                    VerifyLimit(token);
                 }
                 else
                 {
