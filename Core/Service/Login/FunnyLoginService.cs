@@ -103,8 +103,9 @@ namespace SoFunny.FunnySDK
         public void OnSwitchOtherAccount()
         {
             Analysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录账号被限制"));
-            Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
+            LoginBridgeService.Logout();
 
+            Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
             UIService.Login.JumpTo(UILoginPageState.LoginSelectPage);
         }
 
@@ -555,6 +556,16 @@ namespace SoFunny.FunnySDK
         }
 
         public void OnReCallDelete()
+        {
+            Alert.Show("提示", "您将撤回账号永久删除申请，解除账号锁定状态",
+                new AlertActionItem("取消"),
+                new AlertActionItem("确定", () =>
+                {
+                    ReCallDeleteHandler();
+                }));
+        }
+
+        private void ReCallDeleteHandler()
         {
             AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
 
