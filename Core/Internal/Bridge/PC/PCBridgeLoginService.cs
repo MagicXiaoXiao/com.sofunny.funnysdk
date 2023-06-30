@@ -348,7 +348,7 @@ namespace SoFunny.FunnySDK.Internal
                     JObject bodyJson = JObject.Parse(data);
                     string pcToken = bodyJson["access_token"].Value<string>();
 
-                    Network.Send(new PrivateInfoRequest(pcToken, sex, birthday), (_, commitError) =>
+                    Network.Send(new PutPrivateInfoRequest(pcToken, sex, birthday), (_, commitError) =>
                     {
                         if (commitError == null)
                         {
@@ -357,6 +357,43 @@ namespace SoFunny.FunnySDK.Internal
                         else
                         {
                             handler?.Invoke(null, commitError);
+                        }
+                    });
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        public void GetPrivateProfile(ServiceCompletedHandler<UserPrivateInfo> handler)
+        {
+            AccessToken accessToken = GetCurrentAccessToken();
+
+            if (accessToken is null)
+            {
+                handler?.Invoke(null, ServiceError.Make(ServiceErrorType.NoLoginError));
+                return;
+            }
+
+            Network.Send(new ProfileTokenRequest(accessToken.Value), (data, error) =>
+            {
+                if (error == null)
+                {
+                    JObject bodyJson = JObject.Parse(data);
+                    string pcToken = bodyJson["access_token"].Value<string>();
+
+                    Network.Send(new GetPrivateInfoRequest(pcToken), (profileData, profileError) =>
+                    {
+                        if (profileError == null)
+                        {
+                            var info = JsonConvert.DeserializeObject<UserPrivateInfo>(profileData);
+                            handler?.Invoke(info, null);
+                        }
+                        else
+                        {
+                            handler?.Invoke(null, profileError);
                         }
                     });
                 }

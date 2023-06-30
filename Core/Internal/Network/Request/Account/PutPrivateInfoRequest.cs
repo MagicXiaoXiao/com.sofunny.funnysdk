@@ -7,16 +7,16 @@ namespace SoFunny.FunnySDK.Internal
     /// <summary>
     /// 提交隐私信息
     /// </summary>
-    internal class PrivateInfoRequest : RequestBase
+    internal class PutPrivateInfoRequest : RequestBase
     {
 
         private readonly string TokenValue;
         private readonly string Sex;
         private readonly string Birthday;
 
-        internal PrivateInfoRequest(string token, string sex, string birthday)
+        internal PutPrivateInfoRequest(string prToken, string sex, string birthday)
         {
-            TokenValue = token;
+            TokenValue = prToken;
             Sex = sex;
             Birthday = birthday;
         }
@@ -29,7 +29,6 @@ namespace SoFunny.FunnySDK.Internal
         {
             return new Dictionary<string, object>()
             {
-                //{"access_token", TokenValue},
                 {"birthday", Birthday},
                 {"sex", Sex},
             };

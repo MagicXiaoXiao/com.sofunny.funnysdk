@@ -86,6 +86,12 @@ namespace SoFunny.FunnySDK.Internal
             // TODO: 提交用户隐私信息功能
             throw new NotImplementedException();
         }
+
+        public void GetPrivateProfile(ServiceCompletedHandler<UserPrivateInfo> handler)
+        {
+            // TODO: 获取用户隐私信息数据
+            throw new NotImplementedException();
+        }
     }
 }
 

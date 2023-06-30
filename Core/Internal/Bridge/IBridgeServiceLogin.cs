@@ -97,6 +97,12 @@ namespace SoFunny.FunnySDK.Internal
         void GetUserProfile(ServiceCompletedHandler<UserProfile> handler);
 
         /// <summary>
+        /// 获取隐私信息
+        /// </summary>
+        /// <param name="handler"></param>
+        void GetPrivateProfile(ServiceCompletedHandler<UserPrivateInfo> handler);
+
+        /// <summary>
         /// 提交隐私信息
         /// </summary>
         /// <param name="birthday"></param>
