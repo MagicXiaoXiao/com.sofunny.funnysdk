@@ -19,8 +19,12 @@ namespace SoFunny.FunnySDK
         /// 用户头像 URL
         /// </summary>
         [JsonProperty("picture_url")] public string PictureURL;
-
+        /// <summary>
+        /// 状态消息
+        /// </summary>
         [JsonProperty("status_message")] public string StatusMessage;
+
+        [JsonProperty("private_info")] internal UserPrivateInfo PrivateInfo;
 
         [JsonProperty("amr")] internal string Amr;
 
@@ -34,6 +38,8 @@ namespace SoFunny.FunnySDK
         [JsonProperty("mainland")] internal bool Mainland;
 
         [JsonProperty("correlated_name")] internal string CorrelatedName;
+
+
     }
 
 }

@@ -74,6 +74,7 @@ namespace SoFunny.FunnySDK.Internal
                         completedHandler(null, error);
                         break;
                     case HttpStatusCode.Unauthorized:
+                        Logger.LogError($"请求失败！StatusCode = 401, Response = {responseBody}");
                         completedHandler(null, ServiceError.Make(ServiceErrorType.InvalidAccessToken));
                         break;
                     case HttpStatusCode.InternalServerError:
@@ -129,7 +130,7 @@ namespace SoFunny.FunnySDK.Internal
                 parameters.Add("app_id", BridgeConfig.AppID);
             }
 
-            if (request.Method == HttpMethod.Post)
+            if (request.Method == HttpMethod.Post || request.Method == HttpMethod.Put)
             {
                 message.RequestUri = new Uri($"{request.BaseURL}{request.Path}");
                 string bodyString = JsonConvert.SerializeObject(parameters);

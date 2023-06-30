@@ -5,7 +5,7 @@ using SoFunny.FunnySDK.Internal;
 
 namespace SoFunny.FunnySDK
 {
-    internal partial class FunnyLoginService : IFunnyLoginAPI
+    internal partial class FunnyLoginService
     {
         private readonly FunnySDKConfig Config;
         private readonly LoginTrack Analysis;
@@ -28,22 +28,12 @@ namespace SoFunny.FunnySDK
             LoginBridgeService = loginBridgeService;
         }
 
-        public void GetUserProfile(IUserServiceDelegate serviceDelegate)
+        internal void Logout()
         {
-            LoginBridgeService.GetUserProfile((userProfile, error) =>
-            {
-                if (error == null)
-                {
-                    serviceDelegate?.OnUserProfileSuccess(userProfile);
-                }
-                else
-                {
-                    serviceDelegate?.OnUserProfileFailure(error);
-                }
-            });
+            LoginBridgeService.Logout();
         }
 
-        public void StartFlow(ILoginServiceDelegate serviceDelegate)
+        internal void StartLogin(ILoginServiceDelegate serviceDelegate)
         {
             Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
 
@@ -84,6 +74,9 @@ namespace SoFunny.FunnySDK
                 }
             });
         }
+
+
+
     }
 
     #region 登录服务接口实现

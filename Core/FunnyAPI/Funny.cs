@@ -50,23 +50,9 @@ namespace SoFunny.FunnySDK
     public partial class Funny
     {
         /// <summary>
-        /// 登录服务
+        /// 账号相关服务
         /// </summary>
-        public static IFunnyLoginAPI Login
-        {
-            get
-            {
-                return Core.Service.LoginAPI;
-            }
-        }
-
-        /// <summary>
-        /// 登出当前账号
-        /// </summary>
-        public static void Logout()
-        {
-            Core.Service.Logout();
-        }
+        public static IFunnyAccountAPI Account => Core.Service.AccountAPI;
 
     }
 }

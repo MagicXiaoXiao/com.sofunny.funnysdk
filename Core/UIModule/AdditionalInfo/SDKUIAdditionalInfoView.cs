@@ -1,0 +1,81 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace SoFunny.FunnySDK.UIModule
+{
+    internal class SDKUIAdditionalInfoView : MonoBehaviour
+    {
+        public Toggle maleToggle;
+        public Toggle femaleToggle;
+        public Button dateButton;
+        public Text dateText;
+        public Button commitButton;
+        public Button nextTimeButton;
+
+        internal IAdditionalInfoDelegate InfoDelegate;
+
+        void Awake()
+        {
+            dateButton.onClick.AddListener(OnShowDateSelectAction);
+            commitButton.onClick.AddListener(OnCommitAction);
+            nextTimeButton.onClick.AddListener(OnNextTimeAction);
+        }
+
+        void OnDestroy()
+        {
+            InfoDelegate = null;
+
+            dateButton.onClick.RemoveAllListeners();
+            commitButton.onClick.RemoveAllListeners();
+            nextTimeButton.onClick.RemoveAllListeners();
+        }
+
+        internal void SetDateValue(string date)
+        {
+            dateText.text = date;
+        }
+
+        private bool VerifyContent()
+        {
+            if (maleToggle.isOn == false && femaleToggle.isOn == false)
+            {
+                Toast.ShowFail("请选择性别");
+                return false;
+            }
+
+            string value = dateText.text.Trim();
+
+            if (string.IsNullOrEmpty(value))
+            {
+                Toast.ShowFail("请选择出生日期");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void OnShowDateSelectAction()
+        {
+            InfoDelegate?.OnShowDateView();
+        }
+
+        private void OnCommitAction()
+        {
+            if (!VerifyContent()) { return; }
+
+            string sexFlag = maleToggle.isOn ? "MALE" : "FEMALE";
+            string dateValue = dateText.text.Trim();
+
+            InfoDelegate?.OnCommit(sexFlag, dateValue);
+        }
+
+        private void OnNextTimeAction()
+        {
+            InfoDelegate?.OnNextTime();
+        }
+    }
+}
+
+

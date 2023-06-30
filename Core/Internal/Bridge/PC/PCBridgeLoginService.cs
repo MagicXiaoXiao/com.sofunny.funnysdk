@@ -293,6 +293,12 @@ namespace SoFunny.FunnySDK.Internal
         {
             AccessToken accessToken = GetCurrentAccessToken();
 
+            if (accessToken is null)
+            {
+                handler?.Invoke(null, ServiceError.Make(ServiceErrorType.NoLoginError));
+                return;
+            }
+
             Network.Send(new PCTokenRequest(accessToken.Value), (data, error) =>
             {
                 if (error == null)
@@ -317,6 +323,42 @@ namespace SoFunny.FunnySDK.Internal
                 {
                     WebPCInfo info = JsonConvert.DeserializeObject<WebPCInfo>(data);
                     handler?.Invoke(info, null);
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
+        }
+
+        public void CommitPrivateInfo(string birthday, string sex, ServiceCompletedHandler<VoidObject> handler)
+        {
+            AccessToken accessToken = GetCurrentAccessToken();
+
+            if (accessToken is null)
+            {
+                handler?.Invoke(null, ServiceError.Make(ServiceErrorType.NoLoginError));
+                return;
+            }
+
+            Network.Send(new ProfileTokenRequest(accessToken.Value), (data, error) =>
+            {
+                if (error == null)
+                {
+                    JObject bodyJson = JObject.Parse(data);
+                    string pcToken = bodyJson["access_token"].Value<string>();
+
+                    Network.Send(new PrivateInfoRequest(pcToken, sex, birthday), (_, commitError) =>
+                    {
+                        if (commitError == null)
+                        {
+                            handler?.Invoke(new VoidObject(), null);
+                        }
+                        else
+                        {
+                            handler?.Invoke(null, commitError);
+                        }
+                    });
                 }
                 else
                 {

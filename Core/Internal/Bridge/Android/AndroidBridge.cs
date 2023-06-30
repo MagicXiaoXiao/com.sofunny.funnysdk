@@ -65,6 +65,11 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("TrackData", track.JsonData(), track.Name);
         }
 
+        public void ShowDatePicker(ServiceCompletedHandler<string> handler)
+        {
+            // Tips: 取消则传值空字符串
+            Service.Call("ShowDatePicker", new AndroidCallBack<string>(handler));
+        }
     }
 }
 

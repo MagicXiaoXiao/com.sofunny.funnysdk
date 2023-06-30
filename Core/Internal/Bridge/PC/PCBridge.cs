@@ -120,6 +120,13 @@ namespace SoFunny.FunnySDK.Internal
         {
             // PC 埋点暂不实现
         }
+
+        public void ShowDatePicker(ServiceCompletedHandler<string> handler)
+        {
+            // PC 暂不实现
+            Logger.Log("PC 版本后续实现");
+            handler?.Invoke("2000-01-01", null);
+        }
     }
 }
 #endif

@@ -1,5 +1,4 @@
-﻿#if UNITY_IOS
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,6 +35,10 @@ namespace SoFunny.FunnySDK.Internal
         {
             throw new NotImplementedException();
         }
+
+        public void ShowDatePicker(ServiceCompletedHandler<string> handler)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
-#endif

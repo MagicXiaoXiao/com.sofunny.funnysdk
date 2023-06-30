@@ -81,6 +81,11 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("GetWebPCInfo", new AndroidCallBack<WebPCInfo>(handler));
         }
 
+        public void CommitPrivateInfo(string birthday, string sex, ServiceCompletedHandler<VoidObject> handler)
+        {
+            // TODO: 提交用户隐私信息功能
+            throw new NotImplementedException();
+        }
     }
 }
 
