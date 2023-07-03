@@ -19,6 +19,12 @@ namespace SoFunny.FunnySDK
         /// 隐私授权服务未开启（平台未开启该服务）
         /// </summary>
         void OnUnenabledService();
+
+        /// <summary>
+        /// 隐私信息授权失败
+        /// </summary>
+        /// <param name="error"></param>
+        void OnPrivateInfoFailure(ServiceError error);
     }
 }
 

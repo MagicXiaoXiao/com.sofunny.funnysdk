@@ -45,7 +45,7 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
-                    UserInfoDelegate?.OnUnenabledService();
+                    UserInfoDelegate?.OnPrivateInfoFailure(error);
                     UserInfoDelegate = null;
                 }
             });

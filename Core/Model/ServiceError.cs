@@ -55,7 +55,7 @@ namespace SoFunny.FunnySDK
             switch (errorType)
             {
                 case ServiceErrorType.InvalidAccessToken:
-                    message = "令牌已失效，请重新登录";
+                    message = "当前登录信息已失效，请重新登录";
                     break;
                 case ServiceErrorType.ServerOccurredFailed:
                     message = "服务器响应失败，请稍后再试";
@@ -67,7 +67,7 @@ namespace SoFunny.FunnySDK
                     message = "数据解析失败";
                     break;
                 case ServiceErrorType.NoLoginError:
-                    message = "请先进行登录操作";
+                    message = "未登录，请先进行登录操作";
                     break;
                 default: break;
             }
