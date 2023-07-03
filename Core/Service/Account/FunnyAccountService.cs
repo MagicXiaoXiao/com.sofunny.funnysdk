@@ -10,17 +10,22 @@ namespace SoFunny.FunnySDK
         private readonly FunnyLoginService LoginService;
 
         private IPrivateUserInfoDelegate UserInfoDelegate;
+        private PrivateInfoAuthTrack PrivateInfoTrack;
 
         internal FunnyAccountService(FunnyLoginService loginService, BridgeService bridgeService)
         {
             Service = bridgeService;
             LoginService = loginService;
+            PrivateInfoTrack = new PrivateInfoAuthTrack(bridgeService.Analysis);
         }
 
         public void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate)
         {
+
             Loader.ShowIndicator();
             UserInfoDelegate = serviceDelegate;
+
+            PrivateInfoTrack.Start();
 
             Service.Login.GetUserProfile((userProfile, error) =>
             {
@@ -30,11 +35,15 @@ namespace SoFunny.FunnySDK
                 {
                     if (userProfile.PrivateInfo is null) // 开关判断
                     {
+                        PrivateInfoTrack.NotEnabled();
+
                         UserInfoDelegate?.OnUnenabledService();
                         UserInfoDelegate = null;
                     }
                     else if (userProfile.PrivateInfo.Filled) // 信息完整判断
                     {
+                        PrivateInfoTrack.SuccessResult();
+
                         UserInfoDelegate?.OnConsentAuthPrivateInfo(userProfile.PrivateInfo);
                         UserInfoDelegate = null;
                     }
@@ -45,6 +54,8 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    PrivateInfoTrack.FailureResult(error);
+
                     UserInfoDelegate?.OnPrivateInfoFailure(error);
                     UserInfoDelegate = null;
                 }
@@ -65,6 +76,8 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
+                    PrivateInfoTrack.FailureResult(error);
+
                     Logger.LogVerbose($"获取账号隐私信息失败: {error.Code} - {error.Message}");
                     UIService.AdditionalInfo.Open(this);
                 }
@@ -112,12 +125,15 @@ namespace SoFunny.FunnySDK
 
                     UIService.AdditionalInfo.Close();
 
+                    PrivateInfoTrack.SuccessResult();
+
                     UserInfoDelegate?.OnConsentAuthPrivateInfo(info);
                     UserInfoDelegate = null;
                 }
                 else
                 {
                     Toast.ShowFail(error.Message);
+                    PrivateInfoTrack.FailureResult(error);
                 }
             });
         }
@@ -125,6 +141,8 @@ namespace SoFunny.FunnySDK
         public void OnNextTime()
         {
             UIService.AdditionalInfo.Close();
+
+            PrivateInfoTrack.Cancel();
 
             UserInfoDelegate?.OnNextTime();
             UserInfoDelegate = null;
