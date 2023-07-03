@@ -40,13 +40,33 @@ namespace SoFunny.FunnySDK
                     }
                     else
                     {
-                        UIService.AdditionalInfo.Open(this);
+                        FetchPrivateInfoHandler();
                     }
                 }
                 else
                 {
                     UserInfoDelegate?.OnUnenabledService();
                     UserInfoDelegate = null;
+                }
+            });
+        }
+
+        private void FetchPrivateInfoHandler()
+        {
+            Loader.ShowIndicator();
+
+            Service.Login.GetPrivateProfile((info, error) =>
+            {
+                Loader.HideIndicator();
+
+                if (error == null)
+                {
+                    UIService.AdditionalInfo.Open(this, info.Gender, info.Birthday);
+                }
+                else
+                {
+                    Logger.LogVerbose($"获取账号隐私信息失败: {error.Code} - {error.Message}");
+                    UIService.AdditionalInfo.Open(this);
                 }
             });
         }
@@ -88,7 +108,7 @@ namespace SoFunny.FunnySDK
                 {
                     var info = new UserPrivateInfo();
                     info.Birthday = date;
-                    info.Sex = sex;
+                    info.Gender = sex;
 
                     UIService.AdditionalInfo.Close();
 

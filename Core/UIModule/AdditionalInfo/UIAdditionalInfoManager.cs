@@ -28,13 +28,15 @@ namespace SoFunny.FunnySDK.UIModule
             View = instance.GetComponent<SDKUIAdditionalInfoView>();
         }
 
-        public void Open(IAdditionalInfoDelegate infoDelegate)
+        public void Open(IAdditionalInfoDelegate infoDelegate, string gender = "", string date = "")
         {
             if (Display) { return; }
 
             Prepare();
 
             View.InfoDelegate = infoDelegate;
+            View.SetGender(gender);
+            View.SetDateValue(date);
 
             Display = true;
         }

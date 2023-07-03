@@ -32,8 +32,26 @@ namespace SoFunny.FunnySDK.UIModule
             nextTimeButton.onClick.RemoveAllListeners();
         }
 
+        internal void SetGender(string genderValue)
+        {
+            if (string.IsNullOrEmpty(genderValue)) { return; }
+
+            switch (genderValue)
+            {
+                case "MALE":
+                    maleToggle.isOn = true;
+                    break;
+                case "FEMALE":
+                    femaleToggle.isOn = true;
+                    break;
+                default: return;
+            }
+        }
+
         internal void SetDateValue(string date)
         {
+            if (string.IsNullOrEmpty(date)) { return; }
+
             dateText.text = date;
         }
 

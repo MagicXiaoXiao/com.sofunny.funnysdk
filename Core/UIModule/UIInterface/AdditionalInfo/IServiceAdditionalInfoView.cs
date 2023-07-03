@@ -8,7 +8,9 @@ namespace SoFunny.FunnySDK.UIModule
         /// 打开界面
         /// </summary>
         /// <param name="infoDelegate"></param>
-        void Open(IAdditionalInfoDelegate infoDelegate);
+        /// <param name="gender"></param>
+        /// <param name="date"></param>
+        void Open(IAdditionalInfoDelegate infoDelegate, string gender = "", string date = "");
 
         /// <summary>
         /// 关闭界面

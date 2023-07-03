@@ -11,6 +11,7 @@ namespace SoFunny.FunnySDK
 
         internal const string k_GlobalVerboseLoggingDefine = "ENABLE_FUNNYSDK_DEBUG";
 
+        [Conditional(k_GlobalVerboseLoggingDefine)]
         internal static void Log(object message, ColorStyle style = ColorStyle.Normal)
         {
 #if UNITY_EDITOR
@@ -37,8 +38,10 @@ namespace SoFunny.FunnySDK
 #endif
         }
 
+        [Conditional(k_GlobalVerboseLoggingDefine)]
         internal static void LogWarning(object message) => Debug.unityLogger.LogWarning(k_Tag, message);
 
+        [Conditional(k_GlobalVerboseLoggingDefine)]
         internal static void LogError(object message)
         {
 
@@ -49,6 +52,8 @@ namespace SoFunny.FunnySDK
 #endif
 
         }
+
+        [Conditional(k_GlobalVerboseLoggingDefine)]
         internal static void LogException(Exception exception) => Debug.unityLogger.Log(LogType.Exception, k_Tag, exception);
 
         [Conditional(k_GlobalVerboseLoggingDefine)]

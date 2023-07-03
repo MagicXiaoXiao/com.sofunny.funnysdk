@@ -6,11 +6,15 @@ namespace SoFunny.FunnySDK
     [JsonObject(MemberSerialization.OptIn)]
     public class UserPrivateInfo
     {
-        [JsonProperty("sex")]
-        public string Sex;
+        /// <summary>
+        /// 性别 MALE 或 FEMALE
+        /// </summary>
+        [JsonProperty("sex")] public string Gender;
 
-        [JsonProperty("birthday")]
-        public string Birthday;
+        /// <summary>
+        /// 出生日期 yyyy-MM-dd
+        /// </summary>
+        [JsonProperty("birthday")] public string Birthday;
 
         /// <summary>
         /// 信息是否填写完整
@@ -19,7 +23,7 @@ namespace SoFunny.FunnySDK
         {
             get
             {
-                return !string.IsNullOrEmpty(Birthday) && !string.IsNullOrEmpty(Sex) && Sex != "SECRET";
+                return !string.IsNullOrEmpty(Birthday) && !string.IsNullOrEmpty(Gender) && Gender != "SECRET";
             }
         }
     }
