@@ -13,7 +13,7 @@ namespace SoFunny.FunnySDK
         private readonly IBridgeServiceLogin LoginBridgeService;
         private readonly IBridgeServiceBase BaseBridgeService;
         private ILoginServiceDelegate LoginDelegate;
-
+        private bool StartFlag = false;
 
         internal FunnyLoginService(
             FunnySDKConfig config,
@@ -35,6 +35,14 @@ namespace SoFunny.FunnySDK
 
         internal void StartLogin(ILoginServiceDelegate serviceDelegate)
         {
+            if (StartFlag)
+            {
+                Logger.LogWarning("已有登录正在进行中，请等待完成。");
+                return;
+            }
+
+            StartFlag = true;
+
             Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -70,6 +78,7 @@ namespace SoFunny.FunnySDK
 
                     Loader.HideIndicator();
 
+                    StartFlag = false;
                     LoginDelegate?.OnLoginFailure(error);
                 }
             });
@@ -114,6 +123,7 @@ namespace SoFunny.FunnySDK
             Analysis.SdkPageClose((int)pageState);
             Analysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录被取消"));
 
+            StartFlag = false;
             LoginDelegate?.OnLoginCancel();
             LoginDelegate = null;
         }
@@ -216,6 +226,7 @@ namespace SoFunny.FunnySDK
                     {
                         Analysis.SdkStartLoginFailure(auto, true, error);
 
+                        StartFlag = false;
                         LoginDelegate?.OnLoginFailure(error);
                     }
                 }
@@ -241,6 +252,7 @@ namespace SoFunny.FunnySDK
 
                         Analysis.SdkLoginResultSuccess(token.NewUser);
 
+                        StartFlag = false;
                         LoginDelegate?.OnLoginSuccess(token);
                         LoginDelegate = null;
                     }
