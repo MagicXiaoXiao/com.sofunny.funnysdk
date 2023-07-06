@@ -46,8 +46,9 @@ namespace SoFunny.FunnySDK.Internal
         /// <summary>
         /// 唤起原生日期选择器
         /// </summary>
+        /// <param name="date"></param>
         /// <param name="handler"></param>
-        void ShowDatePicker(ServiceCompletedHandler<string> handler);
+        void ShowDatePicker(string date, ServiceCompletedHandler<string> handler);
 
     }
 }

@@ -83,14 +83,12 @@ namespace SoFunny.FunnySDK.Internal
 
         public void CommitPrivateInfo(string birthday, string sex, ServiceCompletedHandler<VoidObject> handler)
         {
-            // TODO: 提交用户隐私信息功能
-            throw new NotImplementedException();
+            Service.Call("CommitPrivateInfo", birthday, sex, new AndroidCallBack<VoidObject>(handler));
         }
 
         public void GetPrivateProfile(ServiceCompletedHandler<UserPrivateInfo> handler)
         {
-            // TODO: 获取用户隐私信息数据
-            throw new NotImplementedException();
+            Service.Call("GetPrivateProfile", new AndroidCallBack<UserPrivateInfo>(handler));
         }
     }
 }

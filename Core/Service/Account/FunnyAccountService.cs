@@ -18,7 +18,7 @@ namespace SoFunny.FunnySDK
             LoginService = loginService;
             PrivateInfoTrack = new PrivateInfoAuthTrack(bridgeService.Analysis);
         }
-
+        // FIXME Android 移动端待处理: Google 账号要从 Google People Api 获取用户年龄性别信息直接返回
         public void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate)
         {
 
@@ -72,6 +72,7 @@ namespace SoFunny.FunnySDK
 
                 if (error == null)
                 {
+                    PrivateInfoTrack.SuccessResult();
                     UIService.AdditionalInfo.Open(this, info.Gender, info.Birthday);
                 }
                 else
@@ -148,9 +149,9 @@ namespace SoFunny.FunnySDK
             UserInfoDelegate = null;
         }
 
-        public void OnShowDateView()
+        public void OnShowDateView(string date)
         {
-            Service.Common.ShowDatePicker((date, _) =>
+            Service.Common.ShowDatePicker(date, (date, _) =>
             {
                 if (string.IsNullOrEmpty(date)) { return; }
 

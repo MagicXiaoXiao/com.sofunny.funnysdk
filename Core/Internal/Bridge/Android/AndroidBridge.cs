@@ -61,14 +61,14 @@ namespace SoFunny.FunnySDK.Internal
 
         public void TrackEvent(Track track)
         {
-            Debug.Log("TrackEvent: " + track.Name + " json: " + track.JsonData());
+            Debug.Log("reportEvent TrackEvent: " + track.Name + " json: " + track.JsonData());
             Service.Call("TrackData", track.JsonData(), track.Name);
         }
 
-        public void ShowDatePicker(ServiceCompletedHandler<string> handler)
+        public void ShowDatePicker(string date, ServiceCompletedHandler<string> handler)
         {
             // Tips: 取消则传值空字符串
-            Service.Call("ShowDatePicker", new AndroidCallBack<string>(handler));
+            Service.Call("ShowDatePicker", date, new AndroidCallBack<string>(handler));
         }
     }
 }

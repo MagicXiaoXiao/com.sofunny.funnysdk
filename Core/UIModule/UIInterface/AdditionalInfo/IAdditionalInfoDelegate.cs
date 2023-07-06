@@ -7,7 +7,7 @@ namespace SoFunny.FunnySDK.UIModule
         /// <summary>
         /// 选择日期
         /// </summary>
-        void OnShowDateView();
+        void OnShowDateView(string data);
 
         /// <summary>
         /// 提交信息

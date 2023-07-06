@@ -76,7 +76,8 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnShowDateSelectAction()
         {
-            InfoDelegate?.OnShowDateView();
+            string value = dateText.text.Trim();
+            InfoDelegate?.OnShowDateView(value);
         }
 
         private void OnCommitAction()
