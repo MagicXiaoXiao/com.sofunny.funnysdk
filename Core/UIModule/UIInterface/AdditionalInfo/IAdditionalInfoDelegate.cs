@@ -6,8 +6,9 @@ namespace SoFunny.FunnySDK.UIModule
     {
         /// <summary>
         /// 选择日期
+        /// <param name="date">yyyy-MM-dd</param>
         /// </summary>
-        void OnShowDateView(string data);
+        void OnShowDateView(string date);
 
         /// <summary>
         /// 提交信息
