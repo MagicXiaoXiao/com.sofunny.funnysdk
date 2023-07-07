@@ -72,7 +72,6 @@ namespace SoFunny.FunnySDK
 
                 if (error == null)
                 {
-                    PrivateInfoTrack.SuccessResult();
                     UIService.AdditionalInfo.Open(this, info.Gender, info.Birthday);
                 }
                 else
@@ -151,11 +150,11 @@ namespace SoFunny.FunnySDK
 
         public void OnShowDateView(string date)
         {
-            Service.Common.ShowDatePicker(date, (date, _) =>
+            Service.Common.ShowDatePicker(date, (selectDate, _) =>
             {
-                if (string.IsNullOrEmpty(date)) { return; }
+                if (string.IsNullOrEmpty(selectDate)) { return; }
 
-                UIService.AdditionalInfo.SetDateValue(date);
+                UIService.AdditionalInfo.SetDateValue(selectDate);
 
             });
         }
