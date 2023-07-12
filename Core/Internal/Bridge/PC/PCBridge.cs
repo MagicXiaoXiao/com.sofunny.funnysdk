@@ -1,5 +1,4 @@
-﻿#if UNITY_STANDALONE
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -76,29 +75,20 @@ namespace SoFunny.FunnySDK.Internal
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
         {
-            if (BridgeConfig.IsMainland)
+            Network.Send(new TicketRequest(), (data, error) =>
             {
-                // 国内获取票据
-                Network.Send(new TicketRequest(), (data, error) =>
+                if (error == null)
                 {
-                    if (error == null)
-                    {
-                        var json = JObject.Parse(data);
-                        string ticket = json["ticket"].ToString();
-                        // 发送验证码
-                        CreateCode(account, codeAction, codeCategory, ticket, handler);
-                    }
-                    else
-                    {
-                        handler?.Invoke(null, error);
-                    }
-                });
-            }
-            else
-            {
-                // 海外直接发送验证码
-                CreateCode(account, codeAction, codeCategory, "", handler);
-            }
+                    var json = JObject.Parse(data);
+                    string ticket = json["ticket"].ToString();
+                    // 发送验证码
+                    CreateCode(account, codeAction, codeCategory, ticket, handler);
+                }
+                else
+                {
+                    handler?.Invoke(null, error);
+                }
+            });
         }
 
         private void CreateCode(string account, CodeAction codeAction, CodeCategory codeCategory, string ticket, ServiceCompletedHandler<VoidObject> handler)
@@ -121,7 +111,7 @@ namespace SoFunny.FunnySDK.Internal
             // PC 埋点暂不实现
         }
 
-        public void ShowDatePicker(ServiceCompletedHandler<string> handler)
+        public void ShowDatePicker(string date, ServiceCompletedHandler<string> handler)
         {
             // PC 暂不实现
             Logger.Log("PC 版本后续实现");
@@ -129,4 +119,3 @@ namespace SoFunny.FunnySDK.Internal
         }
     }
 }
-#endif

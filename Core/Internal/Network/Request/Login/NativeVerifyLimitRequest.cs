@@ -12,7 +12,7 @@ namespace SoFunny.FunnySDK.Internal
             TokenValue = token;
         }
 
-        internal override HttpMethod Method => HttpMethod.Get;
+        internal override HttpMethod Method => HttpMethod.Post;
 
         internal override string Path => "/native/verify_limits";
 
