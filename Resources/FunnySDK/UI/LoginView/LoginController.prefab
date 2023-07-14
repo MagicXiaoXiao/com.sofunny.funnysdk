@@ -2584,8 +2584,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 52.67891, y: -22.8156}
-  m_SizeDelta: {x: 105.35782, y: 1.5}
+  m_AnchoredPosition: {x: 51.957592, y: -22.642271}
+  m_SizeDelta: {x: 103.915184, y: 1.5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5710029735860111844
 CanvasRenderer:
@@ -4131,7 +4131,7 @@ MonoBehaviour:
   closeButton: {fileID: 3318420750552200004}
   contentLabel: {fileID: 4393495447566460544}
   recallButton: {fileID: 4129197734668462433}
-  switchButton: {fileID: 0}
+  switchButton: {fileID: 4856169605107100618}
 --- !u!1 &2576913737827144057
 GameObject:
   m_ObjectHideFlags: 0
@@ -8071,8 +8071,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 52.67891, y: -9.6578}
-  m_SizeDelta: {x: 105.35782, y: 19.3156}
+  m_AnchoredPosition: {x: 51.957592, y: -9.5711355}
+  m_SizeDelta: {x: 103.915184, y: 19.142271}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8304050030811660661
 CanvasRenderer:
@@ -16241,7 +16241,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 18}
-  m_SizeDelta: {x: 105.35782, y: 30}
+  m_SizeDelta: {x: 103.915184, y: 30}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &9007814457138471817
 CanvasRenderer:
