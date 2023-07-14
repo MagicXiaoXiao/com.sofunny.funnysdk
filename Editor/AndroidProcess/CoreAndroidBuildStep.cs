@@ -42,7 +42,7 @@ namespace SoFunny.FunnySDK.Editor
             depNode.AppendChildNode(jjwtNode);
 
             depNode.AppendContentNode("implementation 'com.google.android.material:material:1.0.0'");
-            depNode.AppendContentNode("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.11'");
+            depNode.AppendContentNode("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32'");
             depNode.AppendContentNode("implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'");
             depNode.AppendContentNode("implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'");
             depNode.AppendContentNode("implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'");
@@ -52,7 +52,7 @@ namespace SoFunny.FunnySDK.Editor
             depNode.AppendContentNode("implementation 'com.squareup.okhttp3:okhttp:4.7.2'");
             depNode.AppendContentNode("implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'");
             depNode.AppendContentNode("implementation 'com.squareup.retrofit2:converter-gson:2.9.0'");
-            depNode.AppendContentNode("implementation 'com.aliyun.ams:alicloud-android-httpdns:2.3.0'");
+            //depNode.AppendContentNode("implementation 'com.aliyun.ams:alicloud-android-httpdns:2.3.0'");
 
         }
 
