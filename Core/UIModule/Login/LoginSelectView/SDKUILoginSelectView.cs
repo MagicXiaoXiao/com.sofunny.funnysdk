@@ -150,7 +150,7 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 if (!protocolToggle.isOn)
                 {
-                    Toast.ShowFail("请先阅读并勾选同意后再操作", 1f);
+                    Toast.ShowFail(Locale.LoadText("form.protocol.tips"), 1f);
                 }
                 return protocolToggle.isOn;
             }

@@ -30,7 +30,7 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (string.IsNullOrEmpty(code))
             {
-                Toast.ShowFail("请输入邀请码");
+                Toast.ShowFail(Locale.LoadText("page.activeCode.title"));
                 return;
             }
 

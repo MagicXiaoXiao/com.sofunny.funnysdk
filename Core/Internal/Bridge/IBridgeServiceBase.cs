@@ -50,6 +50,12 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="handler"></param>
         void ShowDatePicker(string date, ServiceCompletedHandler<string> handler);
 
+        /// <summary>
+        /// 设置语言
+        /// </summary>
+        /// <param name="language"></param>
+        void SetLanguage(string language);
+
     }
 }
 

@@ -1,0 +1,143 @@
+message.code.send.succeeded=Verification code sent successfully
+message.code.send.failed=Failed to send verification code
+message.box.title=Tips
+message.btn.reLogin=Relogin
+message.paramsError=The parameter is wrong
+message.operation.succeeded=The operation was successful
+message.operation.failed=Operation failed
+message.login.params.error=Incorrect login parameter configuration (signinMethod)
+message.verify.succeeded=Verification succeeded
+message.bind.success=Binding succeeded
+message.update.success=Update successful
+message.update.operating=Updating...
+message.delete.success=Delete successful
+message.login.status.expire=The data is abnormal, please reopen the personal center
+message.password.change.success=Password changed successfully, will login again
+message.account.email.change.success=Bind new email successfully, will login again
+message.account.phone.change.success=Binding new phone successfully, will login again
+message.account.switch.success=Switch success
+message.copy.success=Copy success
+message.error.unknown=Unknown error
+message.error.network=Network error
+message.error.version=System version error
+message.error.cancelLogin=Cancel login
+message.error.cancelBind=Cancel binding
+message.login.waiting=Logging in...
+message.bind.waiting=Binding. . . 
+message.bind.waitingGetUserInfo=Bind successfully, get user information
+message.errorCodeIs=error code is:
+message.account.expired=The account login status has expired, please login again
+message.account.delete.tipsAfterLogin=The account {0} submitted an application for permanent account deletion on {1} and will be permanently deleted on {2}. If you need to keep the account, please click the button below to withdraw the application
+message.account.none=Not login
+
+button.login.otherAccount=Login to other accounts
+button.feedback=Feedback
+button.pay.confirm=Confirm payment
+button.submit=Submit
+button.bind=Bind
+
+page.login.chooseLogin.guest=Guest Login
+page.login.chooseLogin.account=SoFunny Account Login
+page.login.chooseLogin.third=Other Methods
+
+page.login.tab.login-credentials=Login with account and password
+page.login.tab.login-code=Verification code login
+page.login.tab.signup=Account Registration
+page.login.form.signup=Login
+page.login.code.title=Please fill in the verification code
+page.login.code.sendTo.label=Sent To
+page.login.findPassword.label=Find Password
+page.login.toSignup.question.label=No account?
+page.login.toSignup.label=Signup now
+page.login.deleteAccount.withdraw=Withdraw Application
+
+page.regist.succeeded=Registration succeeded
+page.regist.signupAndSignin=Signup And Signin
+
+page.guest.bindAndSignin=Bind and Signin
+
+page.pay.chooseMethod.placeholder=Select a payment method
+
+page.activeCode.title=Enter your invitation code
+page.activeCode.placeholder=Invitation Code
+page.activeCode.tip=The code will expire after use
+page.activeCode.invalid=Invalid code
+
+page.whiteList.loginLimit=Your login request is limited, if you have any questions, please contact customer service
+
+page.block.forever=Your account has been permanently blocked, if you have any questions, please contact customer service
+page.block.hours=Your account has been blocked and will be unblocked after {0}. If you have any questions, please contact customer service
+
+page.bindAfterLogin.tips=Bind accounts to prevent data loss and can be used to log in
+
+page.realname.limit.title=Game Health Alert
+page.realname.limit.content=Your current login account is a minor account and has been included in the anti-addiction system. According to relevant national regulations, Fridays, Saturdays, Sundays, and statutory holidays are health protection periods other than 20:00 to 21:00. You cannot play during the current period. Please arrange your time reasonably.
+page.realname.limit.logout=Login to other accounts
+
+page.realname.form.title=Real Name Authentication
+page.realname.form.content=Please cooperate with relevant national regulations to improve rinformation
+page.realname.form.realname=Real name
+page.realname.form.idCard=Real ID Number
+
+page.userInfo.form.content=In the test, we hope to obtain the following information to provide better content services in the feature
+page.userInfo.form.nextTime=Next time
+page.userInfo.form.sex=Gender:
+page.userInfo.form.birthday=Birthday:
+page.userInfo.form.male=Male
+page.userInfo.form.female=Female
+page.userInfo.tips.sex=Please select gender
+page.userInfo.tips.birthday=Please select date of birth
+
+alert.title.tips=Tips
+alert.account.delete.content=You will withdraw your application for permanent account deletion and unlock the account
+
+form.passport.id=Passport ID:
+form.email.required=Please enter your email address
+form.phone.required=Please enter your phone number
+form.account.forbid.whiteSpace=The account cannot contain spaces
+form.email.verify=Email format error
+form.phone.verify=Incorrect phone number format
+form.email.placeholder=Email
+form.phone.placeholder=Phone number
+form.code.placeholder=Verification code
+form.code.required=Please enter code
+form.password.placeholder=Password
+form.newPassword.placeholder=New password
+form.password.strength.weak=Weak password strength
+form.password.required=Please enter your password
+form.password.strength.length=Please enter at least 8 characters
+form.password.length.require=The minimum password is 8 characters
+form.password.forbid.whiteSpace=Password cannot contain spaces
+form.button.getCode=Get Code
+form.button.sendingCode=Sending
+form.button.reGetCode=Resend
+form.button.confirm=OK
+form.button.confirmNoSpace=OK
+form.button.edit=Edit
+form.button.save=Save
+form.button.cancel=Cancel
+form.button.next=Next
+form.button.modifyPassword=Modify Password
+form.button.iKnow=I know
+form.nickname.label=Nickname
+form.sex.label=Sex
+form.birthday.label=Birthday
+form.protocol.tips=Please read and tick to agree before proceeding
+form.realname.required=Please enter your real name first
+form.idCard.required=Please enter the real ID number first
+form.sex.required=Please select gender first
+form.birthday.required=Please select your birthday first
+
+page.infoEdit.nickname.hint=Modifiable 1 times / 30 days
+
+protocols.usage=User Agreement
+protocols.privacy=Privacy Policy
+protocols.checkHint=Agree
+
+page.feedback.title=Problem Feedback
+page.feedback.email=Connect email (optional)
+page.feedback.phone=Connect phone (optional)
+page.feedback.roleId=Your game role ID (optional)
+page.feedback.description=The problem you encountered
+page.feedback.description.require=Please fill in the problem description
+page.feedback.success.tips=Your question has been submitted successfully, please wait patiently for customer service feedback

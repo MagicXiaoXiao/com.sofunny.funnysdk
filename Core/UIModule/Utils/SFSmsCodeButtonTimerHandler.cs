@@ -69,7 +69,8 @@ namespace SoFunny.FunnySDK.UIModule
         public void SendingStatus()
         {
             smsButton.interactable = false;
-            smsText.text = "发送中";
+            smsTextValue = smsText.text;
+            smsText.text = Locale.LoadText("form.button.sendingCode");//"发送中";
         }
 
         public void ResetTimer()

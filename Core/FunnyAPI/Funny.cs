@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SoFunny.FunnySDK.UIModule;
+using UnityEngine;
 
 namespace SoFunny.FunnySDK
 {
@@ -30,19 +31,41 @@ namespace SoFunny.FunnySDK
                 internalService = new FunnyService(ConfigService.Config);
 
                 internalService.Initialize();
+                internalService.SetLanguage(Locale.PlayerLanguage);
             }
         }
+
+        private static bool SdkSetup = false;
 
         /// <summary>
         /// FunnySDK 核心初始化
         /// </summary>
         public static void Initialize()
         {
+            if (SdkSetup) { return; }
+
             // 核心服务模块
             Core.Initialize();
 
             // UI 服务模块
             UIService.Initialize();
+
+            // 初始化结束标记
+            SdkSetup = true;
+        }
+
+        /// <summary>
+        /// 设置 SDK 语言（暂时只支持简体中文与英文）
+        /// </summary>
+        /// <param name="language"></param>
+        public static void SetLanguage(SystemLanguage language)
+        {
+            if (SdkSetup)
+            {
+                Core.Service.SetLanguage(language);
+            }
+
+            Locale.SetCurrentLanguage(language);
         }
 
     }

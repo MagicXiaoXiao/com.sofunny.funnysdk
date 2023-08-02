@@ -211,7 +211,7 @@ namespace SoFunny.FunnySDK
                     {
                         Analysis.SdkLoginResultFailure(token.NewUser, error);
 
-                        Toast.ShowFail("授权已过期，请重新登录");
+                        Toast.ShowFail(Locale.LoadText("message.account.expired"));
 
                         // 重新发起流程
                         Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
@@ -244,7 +244,7 @@ namespace SoFunny.FunnySDK
                 case LimitStatus.StatusType.Success:
                     {
                         // UI 展示逻辑
-                        Toast.ShowSuccess("登录成功");
+                        //Toast.ShowSuccess("登录成功");
                         // 关闭 UI 以及后续逻辑
                         UIService.Login.CloseView();
 
@@ -278,11 +278,12 @@ namespace SoFunny.FunnySDK
                                 Logger.LogError(error.Message);
                             }
 
-                            string tips = $"您的账号已被封停，账号将在 {info.BanDate} 之后解除封停。如有疑问，请联系客服";
+                            //string tips = $"您的账号已被封停，账号将在 {info.BanDate} 之后解除封停。如有疑问，请联系客服";
+                            string tips = string.Format(Locale.LoadText("page.block.hours"), info.BanDate);
 
                             if (pcInfo.UnblockedAt == -1)
                             {
-                                tips = "您的账号已永久封停，如有疑问，请联系客服";
+                                tips = Locale.LoadText("page.block.forever");//"您的账号已永久封停，如有疑问，请联系客服";
                             }
                             // 账号已被封禁处理
                             UIService.Login.JumpTo(UILoginPageState.LoginLimitPage, tips);
@@ -315,15 +316,16 @@ namespace SoFunny.FunnySDK
                                 Toast.ShowFail(error.Message);
                             }
 
-                            string tips = $"账号 {info.Account} 于 {info.StartDate} 提交了永久删除账号申请，将于 {info.DeadlineDate} 永久删除。如需要保留账号，请点击下方按钮撤回申请";
-
+                            //string tips = $"账号 {info.Account} 于 {info.StartDate} 提交了永久删除账号申请，将于 {info.DeadlineDate} 永久删除。如需要保留账号，请点击下方按钮撤回申请";
+                            string tips = string.Format(Locale.LoadText("message.account.delete.tipsAfterLogin"), info.Account, info.StartDate, info.DeadlineDate);
                             // 账号冷静期页面
                             UIService.Login.JumpTo(UILoginPageState.CoolDownTipsPage, tips);
                         });
                     }
                     break;
                 case LimitStatus.StatusType.ActivationFailed:
-                    Toast.ShowFail("无效邀请码");
+                    Toast.ShowFail(Locale.LoadText("page.activeCode.invalid"));
+
                     Analysis.SdkVerifyCodeFailure(2, 402, new ServiceError(limitStatus.StatusCode, "无效邀请码"));
                     UIService.Login.JumpTo(UILoginPageState.ActivationKeyPage);
                     break;
@@ -332,7 +334,7 @@ namespace SoFunny.FunnySDK
                     UIService.Login.JumpTo(UILoginPageState.ActivationKeyPage);
                     break;
                 default:
-                    Toast.ShowFail("未知限制");
+                    Toast.ShowFail(Locale.LoadText("message.error.unknown"));
                     UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
                     break;
             }
@@ -420,7 +422,7 @@ namespace SoFunny.FunnySDK
                 {
                     Analysis.SdkVerifyCodeSuccess(1, 301);
 
-                    Toast.ShowSuccess("修改成功");
+                    Toast.ShowSuccess(Locale.LoadText("message.password.change.success"));
                     // 跳转页面
                     UIService.Login.JumpTo(UILoginPageState.PwdLoginPage);
                 }
@@ -513,7 +515,7 @@ namespace SoFunny.FunnySDK
 
             if (accessToken is null)
             {
-                Toast.ShowFail("当前未登录账号");
+                Toast.ShowFail(Locale.LoadText("message.account.none"));
                 return;
             }
 
@@ -538,7 +540,7 @@ namespace SoFunny.FunnySDK
         {
             if (LoginBridgeService.GetCurrentAccessToken() is null)
             {
-                Toast.ShowFail("当前未登录账号");
+                Toast.ShowFail(Locale.LoadText("message.account.none"));
                 return;
             }
 
@@ -562,9 +564,14 @@ namespace SoFunny.FunnySDK
 
         public void OnReCallDelete()
         {
-            Alert.Show("提示", "您将撤回账号永久删除申请，解除账号锁定状态",
-                new AlertActionItem("取消"),
-                new AlertActionItem("确定", () =>
+            string title = Locale.LoadText("alert.title.tips");
+            string content = Locale.LoadText("alert.account.delete.content");
+            string ok = Locale.LoadText("form.button.confirmNoSpace");
+            string cancel = Locale.LoadText("form.button.cancel");
+
+            Alert.Show(title, content,
+                new AlertActionItem(cancel),
+                new AlertActionItem(ok, () =>
                 {
                     ReCallDeleteHandler();
                 }));
@@ -576,7 +583,7 @@ namespace SoFunny.FunnySDK
 
             if (accessToken is null)
             {
-                Toast.ShowFail("当前未登录账号");
+                Toast.ShowFail(Locale.LoadText("message.account.none"));
                 return;
             }
 

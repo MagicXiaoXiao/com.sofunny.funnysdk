@@ -37,8 +37,8 @@ namespace SoFunny.FunnySDK.UIModule
             smsOrPwdButton.onClick.AddListener(OnSmsOrPwdSwitchAction);
             closeButton.onClick.AddListener(OnCloseViewAction);
             backButton.onClick.AddListener(OnBackViewAction);
-
             smsButton.onClick.AddListener(OnSendSMSAction);
+
         }
 
         protected override void DeInit()
@@ -82,22 +82,28 @@ namespace SoFunny.FunnySDK.UIModule
 
         }
 
-        public void Show(bool isPwd)
+        private void SwitchAccountInputField()
         {
-            this.isPwd = isPwd;
-
             if (ConfigService.Config.IsMainland)
             {
-                emailOrPhonePlaceholder.text = "手机号";
+
+                emailOrPhonePlaceholder.text = Locale.LoadText("form.phone.placeholder");
                 emailOrPhoneInputField.contentType = InputField.ContentType.IntegerNumber;
                 emailOrPhoneInputField.characterLimit = 11;
             }
             else
             {
-                emailOrPhonePlaceholder.text = "邮箱";
+                emailOrPhonePlaceholder.text = Locale.LoadText("form.email.placeholder");
                 emailOrPhoneInputField.contentType = InputField.ContentType.EmailAddress;
                 emailOrPhoneInputField.characterLimit = 0;
             }
+        }
+
+        public void Show(bool isPwd)
+        {
+            this.isPwd = isPwd;
+
+            SwitchAccountInputField();
 
             SwitchPwdOrCodeUI();
 
@@ -135,14 +141,16 @@ namespace SoFunny.FunnySDK.UIModule
                 // 密码
                 pwdContainer.SetActive(true);
                 verifyCodeContainer.SetActive(false);
-                smsOrPwdButton.GetComponentInChildren<Text>().text = "验证码登录";
+
+                smsOrPwdButton.GetComponentInChildren<Text>().text = Locale.LoadText("page.login.tab.login-code");//"验证码登录";
             }
             else
             {
                 // 验证码
                 pwdContainer.SetActive(false);
                 verifyCodeContainer.SetActive(true);
-                smsOrPwdButton.GetComponentInChildren<Text>().text = "账号密码登录";
+
+                smsOrPwdButton.GetComponentInChildren<Text>().text = Locale.LoadText("page.login.tab.login-credentials");//"账号密码登录";
             }
         }
 
@@ -154,13 +162,13 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 if (string.IsNullOrEmpty(account))
                 {
-                    Toast.ShowFail("请填写手机号码");
+                    Toast.ShowFail(Locale.LoadText("form.phone.required"));
                     return false;
                 }
 
                 if (!account.IsMatchPhone())
                 {
-                    Toast.ShowFail("手机号格式错误");
+                    Toast.ShowFail(Locale.LoadText("form.phone.verify"));
                     return false;
                 }
             }
@@ -168,13 +176,13 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 if (string.IsNullOrEmpty(account))
                 {
-                    Toast.ShowFail("请填写邮箱");
+                    Toast.ShowFail(Locale.LoadText("form.email.required"));
                     return false;
                 }
 
                 if (!account.IsMatchEmail())
                 {
-                    Toast.ShowFail("邮箱格式错误");
+                    Toast.ShowFail(Locale.LoadText("form.email.verify"));
                     return false;
                 }
             }
@@ -197,13 +205,13 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 if (string.IsNullOrEmpty(pwd))
                 {
-                    Toast.ShowFail("请输入密码");
+                    Toast.ShowFail(Locale.LoadText("form.password.required"));
                     return;
                 }
 
                 if (pwd.Length < 8)
                 {
-                    Toast.ShowFail("密码最少为 8 个字符");
+                    Toast.ShowFail(Locale.LoadText("form.password.length.require"));
                     return;
                 }
 
@@ -213,7 +221,7 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 if (string.IsNullOrEmpty(code))
                 {
-                    Toast.ShowFail("请输入验证码");
+                    Toast.ShowFail(Locale.LoadText("form.code.required"));
                     return;
                 }
 

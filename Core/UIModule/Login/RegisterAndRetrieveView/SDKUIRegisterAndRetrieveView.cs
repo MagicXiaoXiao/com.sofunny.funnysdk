@@ -130,13 +130,13 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (ConfigService.Config.IsMainland)
             {
-                emailOrPhonePlaceholder.text = "手机号";
+                emailOrPhonePlaceholder.text = Locale.LoadText("form.phone.placeholder");
                 emailOrPhoneInputField.characterLimit = 11;
                 emailOrPhoneInputField.contentType = InputField.ContentType.IntegerNumber;
             }
             else
             {
-                emailOrPhonePlaceholder.text = "邮箱";
+                emailOrPhonePlaceholder.text = Locale.LoadText("form.email.placeholder");
                 emailOrPhoneInputField.characterLimit = 0;
                 emailOrPhoneInputField.contentType = InputField.ContentType.EmailAddress;
             }
@@ -201,13 +201,13 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 if (string.IsNullOrEmpty(account))
                 {
-                    Toast.ShowFail("请填写手机号码");
+                    Toast.ShowFail(Locale.LoadText("form.phone.required"));
                     return false;
                 }
 
                 if (!account.IsMatchPhone())
                 {
-                    Toast.ShowFail("手机号格式错误");
+                    Toast.ShowFail(Locale.LoadText("form.phone.verify"));
                     return false;
                 }
             }
@@ -215,13 +215,13 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 if (string.IsNullOrEmpty(account))
                 {
-                    Toast.ShowFail("请填写邮箱");
+                    Toast.ShowFail(Locale.LoadText("form.email.required"));
                     return false;
                 }
 
                 if (!account.IsMatchEmail())
                 {
-                    Toast.ShowFail("邮箱格式错误");
+                    Toast.ShowFail(Locale.LoadText("form.email.verify"));
                     return false;
                 }
             }
@@ -250,19 +250,19 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (string.IsNullOrEmpty(pwd))
             {
-                Toast.ShowFail("请输入密码");
+                Toast.ShowFail(Locale.LoadText("form.password.required"));
                 return;
             }
 
             if (pwd.Length < 8)
             {
-                Toast.ShowFail("密码最少为 8 个字符");
+                Toast.ShowFail(Locale.LoadText("form.password.length.require"));
                 return;
             }
 
             if (string.IsNullOrEmpty(code))
             {
-                Toast.ShowFail("请输入验证码");
+                Toast.ShowFail(Locale.LoadText("form.code.required"));
                 return;
             }
 
@@ -281,19 +281,19 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (string.IsNullOrEmpty(newPwd))
             {
-                Toast.ShowFail("请输入新密码");
+                Toast.ShowFail(Locale.LoadText("form.password.required"));
                 return;
             }
 
             if (newPwd.Length < 8)
             {
-                Toast.ShowFail("新密码最少为 8 个字符");
+                Toast.ShowFail(Locale.LoadText("form.password.length.require"));
                 return;
             }
 
             if (string.IsNullOrEmpty(code))
             {
-                Toast.ShowFail("请输入验证码");
+                Toast.ShowFail(Locale.LoadText("form.code.required"));
                 return;
             }
 

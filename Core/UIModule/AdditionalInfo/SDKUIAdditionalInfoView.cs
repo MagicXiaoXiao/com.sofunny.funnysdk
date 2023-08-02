@@ -59,7 +59,7 @@ namespace SoFunny.FunnySDK.UIModule
         {
             if (maleToggle.isOn == false && femaleToggle.isOn == false)
             {
-                Toast.ShowFail("请选择性别");
+                Toast.ShowFail(Locale.LoadText("page.userInfo.tips.sex"));
                 return false;
             }
 
@@ -67,7 +67,7 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (string.IsNullOrEmpty(value))
             {
-                Toast.ShowFail("请选择出生日期");
+                Toast.ShowFail(Locale.LoadText("page.userInfo.tips.birthday"));
                 return false;
             }
 

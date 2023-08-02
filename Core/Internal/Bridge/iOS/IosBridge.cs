@@ -36,6 +36,11 @@ namespace SoFunny.FunnySDK.Internal
             throw new NotImplementedException();
         }
 
+        public void SetLanguage(string language)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ShowDatePicker(string date, ServiceCompletedHandler<string> handler)
         {
             // FIXME Not Implementation

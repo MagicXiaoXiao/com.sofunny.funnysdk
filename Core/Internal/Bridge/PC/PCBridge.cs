@@ -117,5 +117,10 @@ namespace SoFunny.FunnySDK.Internal
             Logger.Log("PC 版本后续实现");
             handler?.Invoke("2000-01-01", null);
         }
+
+        public void SetLanguage(string language)
+        {
+            Logger.Log("PC 语言已设置为 - " + language);
+        }
     }
 }

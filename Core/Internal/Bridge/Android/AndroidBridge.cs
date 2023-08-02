@@ -70,6 +70,12 @@ namespace SoFunny.FunnySDK.Internal
             // Tips: 取消则传值空字符串
             Service.Call("ShowDatePicker", date, new AndroidCallBack<string>(handler));
         }
+
+        public void SetLanguage(string language)
+        {
+            // language 参数，英文 = en , 简体中文 = zh
+            // TODO: Android 语言设置实现逻辑
+        }
     }
 }
 
