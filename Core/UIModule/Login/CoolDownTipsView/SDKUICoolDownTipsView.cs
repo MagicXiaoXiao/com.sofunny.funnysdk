@@ -17,11 +17,6 @@ namespace SoFunny.FunnySDK.UIModule
 
         protected override void Init()
         {
-            if (!string.IsNullOrEmpty(Content))
-            {
-                contentLabel.text = Content;
-            }
-
             closeButton.onClick.AddListener(OnCloseViewAction);
             recallButton.onClick.AddListener(OnRecallAction);
             switchButton.onClick.AddListener(OnSwitchAccount);
@@ -32,6 +27,16 @@ namespace SoFunny.FunnySDK.UIModule
             closeButton.onClick.RemoveAllListeners();
             recallButton.onClick.RemoveAllListeners();
             switchButton.onClick.RemoveAllListeners();
+        }
+
+        public override void Show()
+        {
+            if (!string.IsNullOrEmpty(Content))
+            {
+                contentLabel.text = Content;
+            }
+
+            base.Show();
         }
 
         private void OnCloseViewAction()

@@ -27,7 +27,7 @@ message.bind.waiting=绑定中。。。
 message.bind.waitingGetUserInfo=绑定成功，获取用户信息
 message.errorCodeIs=错误码为：
 message.account.expired=账号登录状态已过期，请重新登录
-message.account.delete.tipsAfterLogin=账号 {0} 于 {1} 提交了永久删除账号申请，将于 {2} 永久删除。如需要保留账号，请点击下方按钮撤回申请
+message.account.delete.tipsAfterLogin=账号 {0} 于{1}提交了永久删除账号申请，将于{2}永久删除。如需要保留账号，请点击下方按钮撤回申请
 message.account.none=当前未登录账号
 
 button.login.otherAccount=登录其他账号

@@ -1,18 +1,18 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace SoFunny.Tools
+namespace SoFunny.FunnySDK
 {
 
     public static class FunnyLaunch
     {
+        internal static string LaunchPath = "FunnySDK/Launch/FunnyLaunch";
 
         internal static Action completionHandler;
         internal static bool isMainland;
 
-        internal static string scenePath = "Packages/com.sofunny.funnysdk/Scenes/FunnySDKLaunchLogo";
-        internal static string sceneName = "FunnySDKLaunchLogo";
+        private static bool start = false;
+        private static GameObject launch;
 
         /// <summary>
         /// 显示 SoFunny 开屏动画
@@ -21,25 +21,31 @@ namespace SoFunny.Tools
         /// <param name="finish"></param>
         public static void Show(bool mainland, Action finish)
         {
+            if (start) { return; }
+
+            start = true;
+
             completionHandler = finish;
             isMainland = mainland;
-            SceneManager.sceneUnloaded += UnloadLaunchScene;
-            SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
+
+            GameObject prefab = Resources.Load<GameObject>(LaunchPath);
+            launch = GameObject.Instantiate(prefab);
+
+            var controller = launch.GetComponentInChildren<FunnyLaunchController>();
+            controller.Show();
+
         }
 
-        private static void UnloadLaunchScene(Scene scene)
-        {
-            if (scene.name == sceneName)
-            {
-                SceneManager.sceneUnloaded -= UnloadLaunchScene;
-                CallFinish();
-            }
-        }
 
         internal static void CallFinish()
         {
+            GameObject.Destroy(launch);
+
+            start = false;
+
             completionHandler?.Invoke();
             completionHandler = null;
+            launch = null;
         }
     }
 

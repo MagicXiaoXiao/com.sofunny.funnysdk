@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 
-namespace SoFunny.Tools {
+namespace SoFunny.FunnySDK
+{
 
-    public enum FadeType {
+    public enum FadeType
+    {
         FadeInOut,
         FadeOutIn
     }
 
-    public class FunnyLaunchController : MonoBehaviour {
+    internal class FunnyLaunchController : MonoBehaviour
+    {
 
         [Tooltip("渐显形式")]
         [SerializeField] private FadeType fadeType;
@@ -29,7 +31,8 @@ namespace SoFunny.Tools {
         [SerializeField] private Image oversea;
         [SerializeField] private GridLayoutGroup tipsGroup;
 
-        private void Awake() {
+        private void Awake()
+        {
             canvasGroup.alpha = 0;
             mainland.gameObject.SetActive(false);
             oversea.gameObject.SetActive(false);
@@ -42,20 +45,23 @@ namespace SoFunny.Tools {
 
         }
 
-        private void Start() {
-
-            if (FunnyLaunch.isMainland) {
+        public void Show()
+        {
+            if (FunnyLaunch.isMainland)
+            {
                 mainland.gameObject.SetActive(true);
                 logoGroup.padding.top = -80;
             }
-            else {
+            else
+            {
                 oversea.gameObject.SetActive(true);
                 logoGroup.padding.top = 0;
             }
 
             UpdateTipsStyle();
 
-            switch (fadeType) {
+            switch (fadeType)
+            {
                 case FadeType.FadeInOut:
                     StartCoroutine(FadeInAndOut());
                     break;
@@ -65,14 +71,23 @@ namespace SoFunny.Tools {
             }
         }
 
-        private void Update() {
+        private void Start()
+        {
+
+
+        }
+
+        private void Update()
+        {
             UpdateTipsStyle();
         }
 
-        private void UpdateTipsStyle() {
+        private void UpdateTipsStyle()
+        {
 #if UNITY_EDITOR
             // 编辑器模式下处理
-            if (Screen.width > Screen.height) {
+            if (Screen.width > Screen.height)
+            {
                 // 横屏样式
                 logoGroup.padding.left = 300;
                 logoGroup.padding.right = 300;
@@ -80,7 +95,8 @@ namespace SoFunny.Tools {
                 tipsGroup.constraintCount = 2;
                 tipsGroup.padding.bottom = 10;
             }
-            else {
+            else
+            {
                 // 竖屏样式
                 logoGroup.padding.left = 100;
                 logoGroup.padding.right = 100;
@@ -118,58 +134,57 @@ namespace SoFunny.Tools {
 
         }
 
-        private IEnumerator FadeInAndOut() {
+        private IEnumerator FadeInAndOut()
+        {
 
             yield return new WaitForSeconds(0.2f);
 
-            for (float i = 0; i <= 1; i += Time.deltaTime) {
+            for (float i = 0; i <= 1; i += Time.deltaTime)
+            {
                 canvasGroup.alpha = i;
                 yield return null;
             }
 
             yield return new WaitForSeconds(fadeTime);
 
-            for (float i = 1; i >= 0; i -= Time.deltaTime) {
+            for (float i = 1; i >= 0; i -= Time.deltaTime)
+            {
                 canvasGroup.alpha = i;
                 yield return null;
             }
 
             yield return new WaitForSeconds(0.2f);
 
-            yield return CompletionHandler();
+            CompletionHandler();
         }
 
-        private IEnumerator FadeOutAndIn() {
+        private IEnumerator FadeOutAndIn()
+        {
 
             yield return new WaitForSeconds(0.2f);
 
-            for (float i = 1; i >= 0; i -= Time.deltaTime) {
+            for (float i = 1; i >= 0; i -= Time.deltaTime)
+            {
                 canvasGroup.alpha = i;
                 yield return null;
             }
 
             yield return new WaitForSeconds(fadeTime);
 
-            for (float i = 0; i <= 1; i += Time.deltaTime) {
+            for (float i = 0; i <= 1; i += Time.deltaTime)
+            {
                 canvasGroup.alpha = i;
                 yield return null;
             }
 
             yield return new WaitForSeconds(0.2f);
 
-            yield return CompletionHandler();
+            CompletionHandler();
         }
 
-        private IEnumerator CompletionHandler() {
-            if (SceneManager.sceneCount > 1) {
-                var unload = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(FunnyLaunch.sceneName));
-                while (!unload.isDone) {
-                    yield return null;
-                }
-            }
-            else {
-                FunnyLaunch.CallFinish();
-            }
+        private void CompletionHandler()
+        {
+            FunnyLaunch.CallFinish();
         }
 
     }
