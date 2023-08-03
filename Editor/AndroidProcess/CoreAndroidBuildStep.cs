@@ -50,7 +50,7 @@ namespace SoFunny.FunnySDK.Editor
 
             depNode.AppendContentNode("implementation 'com.squareup.retrofit2:retrofit:2.9.0'");
             depNode.AppendContentNode("implementation 'com.squareup.okhttp3:okhttp:4.7.2'");
-            depNode.AppendContentNode("implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'");
+            //depNode.AppendContentNode("implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'");
             depNode.AppendContentNode("implementation 'com.squareup.retrofit2:converter-gson:2.9.0'");
             //depNode.AppendContentNode("implementation 'com.aliyun.ams:alicloud-android-httpdns:2.3.0'");
 
