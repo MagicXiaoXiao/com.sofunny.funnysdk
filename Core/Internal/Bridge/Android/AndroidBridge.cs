@@ -74,7 +74,7 @@ namespace SoFunny.FunnySDK.Internal
         public void SetLanguage(string language)
         {
             // language 参数，英文 = en , 简体中文 = zh
-            // TODO: Android 语言设置实现逻辑
+            Service.Call("SetLanguage", language);
         }
     }
 }
