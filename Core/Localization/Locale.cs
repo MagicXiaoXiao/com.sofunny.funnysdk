@@ -96,6 +96,11 @@ namespace SoFunny.FunnySDK
 
         public static string LoadText(string key)
         {
+            if (!CurrentLanguageHasBeenSet)
+            {
+                SetCurrentLanguage(PlayerLanguage);
+            }
+
             if (CurrentLanguageStrings.ContainsKey(key))
             {
                 return CurrentLanguageStrings[key];
