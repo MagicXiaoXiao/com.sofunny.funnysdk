@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SoFunny.FunnySDK.UIModule;
 using UnityEditor;
 
 namespace SoFunny.FunnySDK.Editor
@@ -32,6 +31,11 @@ namespace SoFunny.FunnySDK.Editor
         // 同步配置文件数据
         public static void SyncData()
         {
+            if (SDKConfig is null)
+            {
+                GetConfig();
+            }
+
             EditorUtility.SetDirty(SDKConfig);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
