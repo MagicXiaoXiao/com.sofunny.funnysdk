@@ -10,16 +10,13 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class QQAndroidBuildStep : AndroidBaseBuildStep
     {
-        public override bool IsEnabled {
-            get {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.QQ.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+
+        public override bool IsEnabled
+        {
+            get
+            {
+                return Config.IsMainland && Config.QQ.Enable;
             }
         }
 
@@ -57,7 +54,7 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement qqAppID = stringsXML.CreateElement("string");
             qqAppID.SetAttribute("name", "qq_app_id");
-            qqAppID.InnerText = FunnyConfig.Instance.QQ.appID;
+            qqAppID.InnerText = Config.QQ.appID;
 
             resources.AppendChild(qqAppID);
         }

@@ -7,12 +7,14 @@ using UnityEditor;
 using UnityEditor.iOS.Xcode;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.Editor {
+namespace SoFunny.FunnySDK.Editor
+{
 
     public class IOSFunnyCoreBuildStep : FunnyXcodeBuildStep
     {
-        public override bool IsEnabled => true;
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
 
+        public override bool IsEnabled => true;
 
         public override void OnProcessInfoPlist(BuildTarget buildTarget, string pathToBuiltTarget, PlistDocument infoPlist)
         {
@@ -35,10 +37,10 @@ namespace SoFunny.FunnySDK.Editor {
         public override void OnProcessSoFunnyInfoPlist(BuildTarget buildTarget, string pathToBuiltTarget, PlistDocument sofunnyPlist)
         {
             PlistElementDict sofunnyDict = sofunnyPlist.root;
-            bool isMainland = FunnyConfig.Instance.isMainland;
+            bool isMainland = Config.IsMainland;
 
             sofunnyDict.SetBoolean("MAINLAND", isMainland);
-            sofunnyDict.SetString("FUNNY_APP_ID", FunnyConfig.Instance.appID);
+            sofunnyDict.SetString("FUNNY_APP_ID", Config.AppID);
 
         }
 

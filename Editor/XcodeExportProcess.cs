@@ -22,7 +22,7 @@ namespace SoFunny.FunnySDK.Editor {
         {
             if (target != BuildTarget.iOS) { return; }
 
-            FunnyConfig.Instance.SyncToConfig();
+            FunnyEditorConfig.SyncData();
 
             var buildStepList = FunnyXcodeBuildStep.ProjectBuildStepObjects();
 

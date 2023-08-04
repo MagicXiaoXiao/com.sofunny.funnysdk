@@ -10,31 +10,29 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class QQIOSBuildStep : FunnyXcodeBuildStep
     {
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+
         public override bool IsEnabled
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.QQ.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+                return Config.IsMainland && Config.QQ.Enable;
             }
         }
 
         public override DirectoryInfo[] OnProcessFrameworks(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject)
         {
             var allXCFramework = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
-                                 .Where((dirPath) => {
+                                 .Where((dirPath) =>
+                                 {
                                      return Path.GetExtension(dirPath) == FUNNY_FRAMEWORK_EXTENSION;
                                  })
-                                 .Select((dirPath) => {
+                                 .Select((dirPath) =>
+                                 {
                                      return new DirectoryInfo(dirPath);
                                  })
-                                 .Where((framework) => {
+                                 .Where((framework) =>
+                                 {
                                      return framework.Name == "FTencentOpenAPI.framework";
                                  });
 
@@ -50,7 +48,7 @@ namespace SoFunny.FunnySDK.Editor
             qqURLScheme.SetString("CFBundleTypeRole", "Editor");
             qqURLScheme.SetString("CFBundleURLName", "QQ SDK");
             var qqSchemes = qqURLScheme.CreateArray("CFBundleURLSchemes");
-            qqSchemes.AddString($"tencent{FunnyConfig.Instance.QQ.appID}");
+            qqSchemes.AddString($"tencent{Config.QQ.appID}");
 
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
@@ -66,8 +64,8 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TENCENT_APPID", FunnyConfig.Instance.QQ.appID);
-            sofunnyDict.SetString("FUNNY_TENCENT_UNIVERSALLINK", FunnyConfig.Instance.QQ.universalLink);
+            sofunnyDict.SetString("FUNNY_TENCENT_APPID", Config.QQ.appID);
+            sofunnyDict.SetString("FUNNY_TENCENT_UNIVERSALLINK", Config.QQ.universalLink);
         }
     }
 }

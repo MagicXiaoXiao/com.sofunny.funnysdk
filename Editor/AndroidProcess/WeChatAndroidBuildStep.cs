@@ -9,29 +9,29 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class WeChatAndroidBuildStep : AndroidBaseBuildStep
     {
-        public override bool IsEnabled {
-            get {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.WeChat.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+
+        public override bool IsEnabled
+        {
+            get
+            {
+                return Config.IsMainland && Config.WeChat.Enable;
             }
         }
 
         public override FileInfo[] OnProcessPrepareAARFile(string unityLibraryPath)
         {
             var allAARFiles = Directory.GetFiles(AAR_ORIGIN_PATH)
-                                .Where((dirPath) => {
+                                .Where((dirPath) =>
+                                {
                                     return Path.GetExtension(dirPath) == ".aar";
                                 })
-                                .Select((dirPath) => {
+                                .Select((dirPath) =>
+                                {
                                     return new FileInfo(dirPath);
                                 })
-                                .Where((aar) => {
+                                .Where((aar) =>
+                                {
                                     if (aar.Name.Equals("funny-sdk-wechat.aar"))
                                     {
                                         return true;
@@ -55,7 +55,7 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement wechatAppID = stringsXML.CreateElement("string");
             wechatAppID.SetAttribute("name", "wechat_app_id");
-            wechatAppID.InnerText = FunnyConfig.Instance.WeChat.appID;
+            wechatAppID.InnerText = Config.WeChat.appID;
             resources.AppendChild(wechatAppID);
         }
 

@@ -14,13 +14,14 @@ namespace SoFunny.FunnySDK.Editor
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
+                var config = FunnyEditorConfig.GetConfig();
+                if (config.IsMainland)
                 {
-                    return FunnyConfig.Instance.Apple.mainlandEnable;
+                    return config.Apple.mainlandEnable;
                 }
                 else
                 {
-                    return FunnyConfig.Instance.Apple.overseaEnable;
+                    return config.Apple.overseaEnable;
                 }
             }
         }
@@ -41,13 +42,16 @@ namespace SoFunny.FunnySDK.Editor
             pBXProject.AddCapability(projectTargetGUID, PBXCapabilityType.SignInWithApple, entitlementsPath, false);
 
             var allFramework = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
-                                .Where((dirPath) => {
+                                .Where((dirPath) =>
+                                {
                                     return Path.GetExtension(dirPath) == FUNNY_FRAMEWORK_EXTENSION;
                                 })
-                                .Select((dirPath) => {
+                                .Select((dirPath) =>
+                                {
                                     return new DirectoryInfo(dirPath);
                                 })
-                                .Where((framework) => {
+                                .Where((framework) =>
+                                {
                                     return framework.Name == "FAppleServiceAPI.framework";
                                 });
 
