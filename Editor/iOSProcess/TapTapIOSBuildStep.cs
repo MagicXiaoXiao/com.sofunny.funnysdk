@@ -10,31 +10,29 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TapTapIOSBuildStep : FunnyXcodeBuildStep
     {
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+
         public override bool IsEnabled
         {
             get
             {
-                if (FunnyConfig.Instance.isMainland)
-                {
-                    return FunnyConfig.Instance.TapTap.Enable;
-                }
-                else
-                {
-                    return false;
-                }
+                return Config.IsMainland && Config.TapTap.Enable;
             }
         }
 
         public override DirectoryInfo[] OnProcessBundles(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject)
         {
             var allBundles = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
-                                 .Where((dirPath) => {
+                                 .Where((dirPath) =>
+                                 {
                                      return Path.GetExtension(dirPath) == ".bundle";
                                  })
-                                 .Select((dirPath) => {
+                                 .Select((dirPath) =>
+                                 {
                                      return new DirectoryInfo(dirPath);
                                  })
-                                 .Where((framework) => {
+                                 .Where((framework) =>
+                                 {
                                      return framework.Name == "AntiAdictionResources.bundle";
                                  });
 
@@ -45,13 +43,16 @@ namespace SoFunny.FunnySDK.Editor
         {
 
             var allXCFramework = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
-                                 .Where((dirPath) => {
+                                 .Where((dirPath) =>
+                                 {
                                      return Path.GetExtension(dirPath) == FUNNY_FRAMEWORK_EXTENSION;
                                  })
-                                 .Select((dirPath) => {
+                                 .Select((dirPath) =>
+                                 {
                                      return new DirectoryInfo(dirPath);
                                  })
-                                 .Where((framework) => {
+                                 .Where((framework) =>
+                                 {
                                      return framework.Name == "FTapTapOpenAPI.framework";
                                  });
 
@@ -67,7 +68,7 @@ namespace SoFunny.FunnySDK.Editor
             taptapURLScheme.SetString("CFBundleTypeRole", "Editor");
             taptapURLScheme.SetString("CFBundleURLName", "TapTap SDK");
             var taptapSchemes = taptapURLScheme.CreateArray("CFBundleURLSchemes");
-            taptapSchemes.AddString($"tt{FunnyConfig.Instance.TapTap.clientID}");
+            taptapSchemes.AddString($"tt{Config.TapTap.clientID}");
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("tapiosdk");
@@ -78,10 +79,10 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTID", FunnyConfig.Instance.TapTap.clientID);
-            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTTOKEN", FunnyConfig.Instance.TapTap.clientToken);
-            sofunnyDict.SetString("FUNNY_TAPTAP_SERVERURL", FunnyConfig.Instance.TapTap.serverURL);
-            sofunnyDict.SetBoolean("FUNNY_TAPTAP_BONFIRE", FunnyConfig.Instance.TapTap.isBonfire);
+            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTID", Config.TapTap.clientID);
+            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTTOKEN", Config.TapTap.clientToken);
+            sofunnyDict.SetString("FUNNY_TAPTAP_SERVERURL", Config.TapTap.serverURL);
+            sofunnyDict.SetBoolean("FUNNY_TAPTAP_BONFIRE", Config.TapTap.isBonfire);
         }
 
     }

@@ -22,7 +22,7 @@ namespace SoFunny.FunnySDK.Editor {
 
         public virtual string DisplayName => GetType().Name;
 
-        public virtual string FRAMEWORK_ORIGIN_PATH => Path.Combine(FunnyConfig.Instance._defaultPluginPath, "ExtPackage/iOS");
+        public virtual string FRAMEWORK_ORIGIN_PATH => "Packages/com.sofunny.funnysdk/ExtPackage/iOS";
 
         public virtual string FUNNY_FRAMEWORK_EXTENSION => ".framework";
 

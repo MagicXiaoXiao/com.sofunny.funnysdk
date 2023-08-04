@@ -1333,10 +1333,10 @@ RectTransform:
   m_Father: {fileID: 881315588}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 8, y: -8}
-  m_SizeDelta: {x: 0, y: 15}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &435869330
 MonoBehaviour:
@@ -2373,6 +2373,7 @@ MonoBehaviour:
   displayNameText: {fileID: 616217208}
   statusMessageText: {fileID: 2125596663}
   rawJsonText: {fileID: 435869330}
+  loginText: {fileID: 1054752680}
   layoutGroup: {fileID: 314272276}
 --- !u!4 &929457498
 Transform:
@@ -2747,7 +2748,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u767B\u5F55"
+  m_Text: "\u767B\u5F55 "
 --- !u!222 &1054752681
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2841,8 +2842,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 929457497}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Login
+        m_TargetAssemblyTypeName: MainController, Assembly-CSharp
+        m_MethodName: LoginEntrance
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4741,7 +4742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca8e01f6d0e74e93982bd703edf52f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 5001
 --- !u!20 &1845593228
 Camera:
   m_ObjectHideFlags: 0

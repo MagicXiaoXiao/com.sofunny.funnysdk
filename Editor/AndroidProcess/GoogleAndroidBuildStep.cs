@@ -8,22 +8,28 @@ using System.Linq;
 using System.Xml;
 using UnityEngine;
 
-namespace SoFunny.FunnySDK.Editor {
+namespace SoFunny.FunnySDK.Editor
+{
 
     /// <summary>
     /// 谷歌相关配置流程脚本
     /// </summary>
-    public class GoogleAndroidBuildStep: AndroidBaseBuildStep
+    public class GoogleAndroidBuildStep : AndroidBaseBuildStep
     {
-        public override bool IsEnabled {
-            get {
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+
+        public override bool IsEnabled
+        {
+            get
+            {
                 // 是否海外
-                if (FunnyConfig.Instance.isMainland)
+                if (Config.IsMainland)
                 {
                     return false;
                 }
-                else {
-                    return FunnyConfig.Instance.Google.Enable;
+                else
+                {
+                    return Config.Google.Enable;
                 }
             }
         }
@@ -31,13 +37,16 @@ namespace SoFunny.FunnySDK.Editor {
         public override FileInfo[] OnProcessPrepareAARFile(string unityLibraryPath)
         {
             var allAARFiles = Directory.GetFiles(AAR_ORIGIN_PATH)
-                                .Where((dirPath) => {
+                                .Where((dirPath) =>
+                                {
                                     return Path.GetExtension(dirPath) == ".aar";
                                 })
-                                .Select((dirPath) => {
+                                .Select((dirPath) =>
+                                {
                                     return new FileInfo(dirPath);
                                 })
-                                .Where((aar) => {
+                                .Where((aar) =>
+                                {
                                     return aar.Name.Equals("funny-sdk-googleplay.aar");
                                 });
 
@@ -61,7 +70,7 @@ namespace SoFunny.FunnySDK.Editor {
 
             XmlElement googleAppID = stringsXML.CreateElement("string");
             googleAppID.SetAttribute("name", "google_play_app_id");
-            googleAppID.InnerText = FunnyConfig.Instance.Google.idToken;
+            googleAppID.InnerText = Config.Google.idToken;
             resources.AppendChild(googleAppID);
         }
 

@@ -10,15 +10,19 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class FacebookIOSBuildStep : FunnyXcodeBuildStep
     {
-        public override bool IsEnabled {
-            get {
-                if (FunnyConfig.Instance.isMainland)
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+
+        public override bool IsEnabled
+        {
+            get
+            {
+                if (Config.IsMainland)
                 {
                     return false;
                 }
                 else
                 {
-                    return FunnyConfig.Instance.Facebook.Enable;
+                    return Config.Facebook.Enable;
                 }
             }
         }
@@ -26,13 +30,16 @@ namespace SoFunny.FunnySDK.Editor
         public override DirectoryInfo[] OnProcessFrameworks(BuildTarget buildTarget, string pathToBuiltTarget, PBXProject pBXProject)
         {
             var allXCFramework = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
-                                 .Where((dirPath) => {
+                                 .Where((dirPath) =>
+                                 {
                                      return Path.GetExtension(dirPath) == FUNNY_FRAMEWORK_EXTENSION;
                                  })
-                                 .Select((dirPath) => {
+                                 .Select((dirPath) =>
+                                 {
                                      return new DirectoryInfo(dirPath);
                                  })
-                                 .Where((framework) => {
+                                 .Where((framework) =>
+                                 {
                                      return framework.Name == "FFacebookOpenAPI.framework";
                                  });
 
@@ -48,7 +55,7 @@ namespace SoFunny.FunnySDK.Editor
             facebookURLScheme.SetString("CFBundleTypeRole", "Editor");
             facebookURLScheme.SetString("CFBundleURLName", "FACEBOOK SDK");
             var fbSchemes = facebookURLScheme.CreateArray("CFBundleURLSchemes");
-            fbSchemes.AddString($"fb{FunnyConfig.Instance.Facebook.appID}");
+            fbSchemes.AddString($"fb{Config.Facebook.appID}");
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("fbapi");
@@ -65,9 +72,9 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_FACEBOOK_APPID", FunnyConfig.Instance.Facebook.appID);
-            sofunnyDict.SetString("FUNNY_FACEBOOK_CLIENTTOKEN", FunnyConfig.Instance.Facebook.clientToken);
-            sofunnyDict.SetBoolean("FUNNY_FACEBOOK_TRACK", FunnyConfig.Instance.Facebook.trackEnable);
+            sofunnyDict.SetString("FUNNY_FACEBOOK_APPID", Config.Facebook.appID);
+            sofunnyDict.SetString("FUNNY_FACEBOOK_CLIENTTOKEN", Config.Facebook.clientToken);
+            sofunnyDict.SetBoolean("FUNNY_FACEBOOK_TRACK", Config.Facebook.trackEnable);
         }
 
     }

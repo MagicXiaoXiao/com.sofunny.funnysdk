@@ -9,16 +9,19 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TwitterAndroidBuildStep : AndroidBaseBuildStep
     {
+        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
 
-        public override bool IsEnabled {
-            get {
-                if (FunnyConfig.Instance.isMainland)
+        public override bool IsEnabled
+        {
+            get
+            {
+                if (Config.IsMainland)
                 {
                     return false;
                 }
                 else
                 {
-                    return FunnyConfig.Instance.Twitter.Enable;
+                    return Config.Twitter.Enable;
                 }
             }
         }
@@ -26,13 +29,16 @@ namespace SoFunny.FunnySDK.Editor
         public override FileInfo[] OnProcessPrepareAARFile(string unityLibraryPath)
         {
             var allAARFiles = Directory.GetFiles(AAR_ORIGIN_PATH)
-                                .Where((dirPath) => {
+                                .Where((dirPath) =>
+                                {
                                     return Path.GetExtension(dirPath) == ".aar";
                                 })
-                                .Select((dirPath) => {
+                                .Select((dirPath) =>
+                                {
                                     return new FileInfo(dirPath);
                                 })
-                                .Where((aar) => {
+                                .Where((aar) =>
+                                {
                                     return aar.Name.Equals("funny-sdk-twitter.aar");
                                 });
 
@@ -53,12 +59,12 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement twitterAppID = stringsXML.CreateElement("string");
             twitterAppID.SetAttribute("name", "twitter_app_id");
-            twitterAppID.InnerText = FunnyConfig.Instance.Twitter.consumerKey;
+            twitterAppID.InnerText = Config.Twitter.consumerKey;
             resources.AppendChild(twitterAppID);
 
             XmlElement twitterSecret = stringsXML.CreateElement("string");
             twitterSecret.SetAttribute("name", "twitter_secret");
-            twitterSecret.InnerText = FunnyConfig.Instance.Twitter.consumerSecret;
+            twitterSecret.InnerText = Config.Twitter.consumerSecret;
             resources.AppendChild(twitterSecret);
 
         }
