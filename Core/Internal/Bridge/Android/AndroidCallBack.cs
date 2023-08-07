@@ -25,8 +25,20 @@ namespace SoFunny.FunnySDK.Internal
         {
             Logger.Log($"AndroidBridgeCallback - Success - {jsonModel}");
 
+            if (string.IsNullOrEmpty(jsonModel))
+            {
+                OriginalContext.Post(_ =>
+                {
+                    CallbackHandler?.Invoke(default, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
+
+                }, null);
+
+                return;
+            }
+
             try
             {
+
                 var model = JsonConvert.DeserializeObject<T>(jsonModel);
 
                 OriginalContext.Post(_ =>
