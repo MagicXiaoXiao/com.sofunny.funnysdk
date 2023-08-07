@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace SoFunny.FunnySDK.UIModule
 {
@@ -73,7 +74,14 @@ namespace SoFunny.FunnySDK.UIModule
         {
             if (Providers.Count > 0)
             {
-                providerLoginContainer.SetActive(true);
+                var anyOther = Providers.Where((item) =>
+                {
+                    return item != LoginProvider.Phone &&
+                           item != LoginProvider.Email &&
+                           item != LoginProvider.Guest;
+                });
+
+                providerLoginContainer.SetActive(anyOther.Any());
 
                 foreach (var provider in Providers)
                 {
@@ -111,6 +119,7 @@ namespace SoFunny.FunnySDK.UIModule
                             break;
                     }
                 }
+
             }
             else
             {
