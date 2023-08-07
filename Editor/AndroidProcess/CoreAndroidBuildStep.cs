@@ -96,6 +96,9 @@ namespace SoFunny.FunnySDK.Editor
 
 #if UNITY_2022_1_OR_NEWER
             // 待定处理
+            var androidNode = gradle.ROOT.FindChildNodeByName("android");
+            string contentValue = File.ReadAllText(Path.Combine("Packages/com.sofunny.funnysdk/Editor/AndroidAppendExport_2022_1_newer.gradle"));
+            androidNode.AppendContentNode(contentValue);
 #else
             var androidNode = gradle.ROOT.FindChildNodeByName("android");
             string contentValue = File.ReadAllText(Path.Combine("Packages/com.sofunny.funnysdk/Editor/AndroidAppendExport.gradle"));
