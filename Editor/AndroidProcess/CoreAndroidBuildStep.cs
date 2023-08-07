@@ -93,10 +93,14 @@ namespace SoFunny.FunnySDK.Editor
 
         public override void OnProcessLauncherGradle(GradleConfig gradle)
         {
+
+#if UNITY_2022_1_OR_NEWER
+            // 待定处理
+#else
             var androidNode = gradle.ROOT.FindChildNodeByName("android");
             string contentValue = File.ReadAllText(Path.Combine("Packages/com.sofunny.funnysdk/Editor/AndroidAppendExport.gradle"));
             androidNode.AppendContentNode(contentValue);
-
+#endif
             var packagingOptions = gradle.ROOT.FindChildNodeByName("android").FindChildNodeByName("packagingOptions");
             packagingOptions.AppendContentNode("exclude 'META-INF/DEPENDENCIES'");
         }
