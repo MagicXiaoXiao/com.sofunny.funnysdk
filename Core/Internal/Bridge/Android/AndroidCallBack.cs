@@ -25,16 +25,7 @@ namespace SoFunny.FunnySDK.Internal
         {
             Logger.Log($"AndroidBridgeCallback - Success - {jsonModel}");
 
-            if (string.IsNullOrEmpty(jsonModel))
-            {
-                OriginalContext.Post(_ =>
-                {
-                    CallbackHandler?.Invoke(default, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
-
-                }, null);
-
-                return;
-            }
+            // 部分业务逻辑本身不需要有结果值，故此处无需做非空判断逻辑
 
             try
             {
