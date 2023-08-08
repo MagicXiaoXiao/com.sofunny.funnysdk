@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -34,7 +35,8 @@ namespace SoFunny.FunnySDK
                     break;
             }
 #else
-            Debug.unityLogger.Log(k_Tag, message);
+            string funnymsg = $"Thread={Thread.CurrentThread.ManagedThreadId} - {message}";
+            Debug.unityLogger.Log(k_Tag, funnymsg);
 #endif
         }
 
@@ -48,7 +50,8 @@ namespace SoFunny.FunnySDK
 #if UNITY_EDITOR
             Debug.unityLogger.Log(k_Tag, $"<color=red>{message}</color>");
 #else
-            Debug.unityLogger.Log(k_Tag, message);
+            string funnymsg = $"Thread={Thread.CurrentThread.ManagedThreadId} - {message}";
+            Debug.unityLogger.Log(k_Tag, funnymsg);
 #endif
 
         }

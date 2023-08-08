@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 using System.IO;
+using UnityEditor;
+using System.Linq;
 
 namespace SoFunny.FunnySDK.Editor
 {
@@ -50,9 +52,14 @@ namespace SoFunny.FunnySDK.Editor
 
             depNode.AppendContentNode("implementation 'com.squareup.retrofit2:retrofit:2.9.0'");
             depNode.AppendContentNode("implementation 'com.squareup.okhttp3:okhttp:4.7.2'");
-            //depNode.AppendContentNode("implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'");
+            if (IsDebug)
+            {
+                depNode.AppendContentNode("implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'");
+            }
             depNode.AppendContentNode("implementation 'com.squareup.retrofit2:converter-gson:2.9.0'");
             //depNode.AppendContentNode("implementation 'com.aliyun.ams:alicloud-android-httpdns:2.3.0'");
+            string aarName = IsDebug ? "funny-sdk-debug" : "funny-sdk";
+            depNode.AppendContentNode($"implementation(name: '{aarName}', ext:'aar')");
 
         }
 
@@ -104,6 +111,27 @@ namespace SoFunny.FunnySDK.Editor
             var packagingOptions = gradle.ROOT.FindChildNodeByName("android").FindChildNodeByName("packagingOptions");
             packagingOptions.AppendContentNode("exclude 'META-INF/DEPENDENCIES'");
         }
+
+        public override FileInfo[] OnProcessPrepareAARFile(string unityLibraryPath)
+        {
+            var allAARFiles = Directory.GetFiles(AAR_ORIGIN_PATH)
+                                .Where((dirPath) =>
+                                {
+                                    return Path.GetExtension(dirPath) == ".aar";
+                                })
+                                .Select((dirPath) =>
+                                {
+                                    return new FileInfo(dirPath);
+                                })
+                                .Where((aar) =>
+                                {
+                                    string matchName = IsDebug ? "funny-sdk-debug.aar" : "funny-sdk.aar";
+                                    return aar.Name.Equals(matchName);
+                                });
+
+            return allAARFiles.ToArray();
+        }
+
 
     }
 }
