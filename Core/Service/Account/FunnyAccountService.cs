@@ -31,9 +31,15 @@ namespace SoFunny.FunnySDK
             Service.Login.GetUserProfile((userProfile, error) =>
             {
                 Loader.HideIndicator();
-                Logger.Log($"用户信息授权回调结果 - pro ={userProfile} | er ={error}");
+
                 if (error == null)
                 {
+                    if (userProfile is null)
+                    {
+                        UserInfoDelegate?.OnPrivateInfoFailure(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
+                        return;
+                    }
+
                     if (userProfile.PrivateInfo is null) // 开关判断
                     {
                         PrivateInfoTrack.NotEnabled();
