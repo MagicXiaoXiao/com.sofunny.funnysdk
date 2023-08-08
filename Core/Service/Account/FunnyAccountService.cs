@@ -21,6 +21,7 @@ namespace SoFunny.FunnySDK
         // FIXME Android 移动端待处理: Google 账号要从 Google People Api 获取用户年龄性别信息直接返回
         public void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate)
         {
+            Logger.Log("发起用户信息授权 - GetPrivateUserInfo");
 
             Loader.ShowIndicator();
             UserInfoDelegate = serviceDelegate;
@@ -30,7 +31,7 @@ namespace SoFunny.FunnySDK
             Service.Login.GetUserProfile((userProfile, error) =>
             {
                 Loader.HideIndicator();
-
+                Logger.Log($"用户信息授权回调结果 - pro ={userProfile} | er ={error}");
                 if (error == null)
                 {
                     if (userProfile.PrivateInfo is null) // 开关判断

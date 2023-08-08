@@ -20,6 +20,7 @@ namespace SoFunny.FunnySDK.Editor {
         public virtual string DisplayName => GetType().Name;
         public virtual string NamespaceURI => "http://schemas.android.com/apk/res/android";
         public virtual string AAR_ORIGIN_PATH => "Packages/com.sofunny.funnysdk/ExtPackage/Android";
+        public virtual bool IsDebug => EditorUserBuildSettings.development || EditorUserBuildSettings.androidBuildType == AndroidBuildType.Debug;
 
         public static AndroidBaseBuildStep[] ProjectBuildStepObjects()
         {

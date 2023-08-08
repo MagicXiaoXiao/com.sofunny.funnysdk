@@ -40,7 +40,7 @@ namespace SoFunny.FunnySDK
                 Logger.LogWarning("已有登录正在进行中，请等待完成。");
                 return;
             }
-
+            Logger.Log($"发起登录 - StartLogin = {serviceDelegate}");
             StartFlag = true;
 
             Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
@@ -243,6 +243,7 @@ namespace SoFunny.FunnySDK
             {
                 case LimitStatus.StatusType.Success:
                     {
+                        Logger.Log($"登录成功回调结果处理");
                         // UI 展示逻辑
                         //Toast.ShowSuccess("登录成功");
                         // 关闭 UI 以及后续逻辑
