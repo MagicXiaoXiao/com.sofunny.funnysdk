@@ -177,6 +177,8 @@ namespace SoFunny.FunnySDK
                 yield return null;
             }
 
+            canvasGroup.alpha = 0;
+
             yield return new WaitForSeconds(0.2f);
 
             CompletionHandler();
