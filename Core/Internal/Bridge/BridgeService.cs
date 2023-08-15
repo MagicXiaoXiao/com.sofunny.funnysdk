@@ -30,7 +30,11 @@ namespace SoFunny.FunnySDK.Internal
             Common = AndroidBridge.GetInstance();
             Login = AndroidBridge.GetInstance();
             Analysis = AndroidBridge.GetInstance();
-#elif UNITY_STANDALONE
+#elif UNITY_IOS && !UNITY_EDITOR
+            Common = new FSDKCommon();
+            Login = new FSDKLoginService();
+            Analysis = new FSDKAnalysisService();
+#elif UNITY_STANDALONE || UNITY_EDITOR
             Common = PCBridge.GetInstance();
             Login = PCBridge.GetInstance();
             Analysis = new PCAnalysisService();
