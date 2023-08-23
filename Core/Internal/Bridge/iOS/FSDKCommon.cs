@@ -27,12 +27,20 @@ namespace SoFunny.FunnySDK.Internal
 
         public void OpenPrivacyProtocol()
         {
-            FSDKCall.Builder("OpenPrivacyProtocol").Invoke();
+            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
+
+            FSDKCall.Builder("OpenWebView")
+                    .Add("url", $"https://{host}/privacy-policy?hide_back_button=true")
+                    .Invoke();
         }
 
         public void OpenUserAgreenment()
         {
-            FSDKCall.Builder("OpenUserAgreenment").Invoke();
+            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
+
+            FSDKCall.Builder("OpenWebView")
+                    .Add("url", $"https://{host}/service-protocol?hide_back_button=true")
+                    .Invoke(); ;
         }
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
@@ -58,9 +66,13 @@ namespace SoFunny.FunnySDK.Internal
 
         public void ShowDatePicker(string date, ServiceCompletedHandler<string> handler)
         {
-            FSDKCall.Builder("ShowDatePicker")
-                    .Add("date", date)
-                    .Invoke();
+            FSDKCallAndBack.Builder("ShowDatePicker")
+                           .Add("date", date)
+                           .AddCallbackHandler((success, json) =>
+                           {
+                               IosHelper.HandlerServiceCallback(success, json, handler);
+                           })
+                           .Invoke();
         }
     }
 }

@@ -9,11 +9,12 @@ namespace SoFunny.FunnySDK.Internal
     {
         public void TrackEvent(Track track)
         {
-            FSDK_TrackEvent(track.JsonData());
+            // 后续开发
+            //FSDK_TrackEvent(track.JsonData());
         }
 
-        [DllImport("__Internal")]
-        private static extern void FSDK_TrackEvent(string json);
+        //[DllImport("__Internal")]
+        //private static extern void FSDK_TrackEvent(string json);
 
     }
 }

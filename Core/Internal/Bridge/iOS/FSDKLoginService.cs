@@ -91,8 +91,10 @@ namespace SoFunny.FunnySDK.Internal
 
         public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<AccessToken> handler)
         {
+            string value = provider.ToString().ToLower();
+
             FSDKCallAndBack.Builder("LoginWithProvider")
-                           .Add("provider", (int)provider)
+                           .Add("provider", value)
                            .AddCallbackHandler((success, json) =>
                            {
                                IosHelper.HandlerServiceCallback(success, json, handler);
@@ -155,10 +157,13 @@ namespace SoFunny.FunnySDK.Internal
 
         public void RetrievePassword(string account, string password, string chkCode, ServiceCompletedHandler<VoidObject> handler)
         {
+            CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
+
             FSDKCallAndBack.Builder("RetrievePassword")
                            .Add("account", account)
                            .Add("password", password)
                            .Add("chkCode", chkCode)
+                           .Add("category", (int)category)
                            .AddCallbackHandler((success, json) =>
                            {
                                IosHelper.HandlerServiceCallback(success, json, handler);
