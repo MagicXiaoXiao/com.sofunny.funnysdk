@@ -12,6 +12,9 @@ namespace SoFunny.FunnySDK
         private IPrivateUserInfoDelegate UserInfoDelegate;
         private PrivateInfoAuthTrack PrivateInfoTrack;
 
+        public event Action OnLogoutEvents;
+        public event Action<AccessToken> OnLoginEvents;
+
         internal FunnyAccountService(FunnyLoginService loginService, BridgeService bridgeService)
         {
             Service = bridgeService;
@@ -108,12 +111,30 @@ namespace SoFunny.FunnySDK
 
         public void Login(ILoginServiceDelegate serviceDelegate)
         {
-            LoginService.StartLogin(serviceDelegate);
+            LoginService.StartLogin((token, error) =>
+            {
+                if (error is null)
+                {
+                    serviceDelegate?.OnLoginSuccess(token);
+
+                    OnLoginEvents?.Invoke(token);
+                }
+                else if (error.Code == 0)
+                {
+                    serviceDelegate?.OnLoginCancel();
+                }
+                else
+                {
+                    serviceDelegate?.OnLoginFailure(error);
+                }
+
+            });
         }
 
         public void Logout()
         {
-            LoginService.Logout();
+            Service.Login.Logout();
+            OnLogoutEvents?.Invoke();
         }
 
         public void OnCommit(string sex, string date)
