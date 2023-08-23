@@ -2,6 +2,7 @@
 using UnityEngine;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
+using UnityEditor.PackageManager;
 
 namespace SoFunny.FunnySDK
 {
@@ -12,7 +13,7 @@ namespace SoFunny.FunnySDK
 
         private readonly IBridgeServiceLogin LoginBridgeService;
         private readonly IBridgeServiceBase BaseBridgeService;
-        private ILoginServiceDelegate LoginDelegate;
+        private ServiceCompletedHandler<AccessToken> LoginResultHandler;
         private bool StartFlag = false;
 
         internal FunnyLoginService(
@@ -33,14 +34,15 @@ namespace SoFunny.FunnySDK
             LoginBridgeService.Logout();
         }
 
-        internal void StartLogin(ILoginServiceDelegate serviceDelegate)
+        internal void StartLogin(ServiceCompletedHandler<AccessToken> handler)
         {
             if (StartFlag)
             {
                 Logger.LogWarning("已有登录正在进行中，请等待完成。");
                 return;
             }
-            Logger.Log($"发起登录 - StartLogin = {serviceDelegate}");
+            Logger.Log($"发起登录 - StartLogin");
+
             StartFlag = true;
 
             Analysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
@@ -51,7 +53,7 @@ namespace SoFunny.FunnySDK
             Loader.ShowIndicator();
 #endif
             // 设置代理对象
-            LoginDelegate = serviceDelegate;
+            LoginResultHandler = handler;
 
             BaseBridgeService.GetAppInfo((appConfig, error) =>
             {
@@ -79,12 +81,28 @@ namespace SoFunny.FunnySDK
                     Loader.HideIndicator();
 
                     StartFlag = false;
-                    LoginDelegate?.OnLoginFailure(error);
+                    LoginResultFailure(error);
                 }
             });
         }
 
+        private void LoginResultSuccess(AccessToken token)
+        {
+            LoginResultHandler?.Invoke(token, null);
+            LoginResultHandler = null;
+        }
 
+        private void LoginResultFailure(ServiceError error)
+        {
+            LoginResultHandler?.Invoke(null, error);
+            LoginResultHandler = null;
+        }
+
+        private void LoginResultCancel()
+        {
+            LoginResultHandler?.Invoke(null, new ServiceError(0, "登录已被主动取消"));
+            LoginResultHandler = null;
+        }
 
     }
 
@@ -124,8 +142,8 @@ namespace SoFunny.FunnySDK
             Analysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录被取消"));
 
             StartFlag = false;
-            LoginDelegate?.OnLoginCancel();
-            LoginDelegate = null;
+
+            LoginResultCancel();
         }
 
         public void OnLoginWithCode(string account, string code)
@@ -227,7 +245,8 @@ namespace SoFunny.FunnySDK
                         Analysis.SdkStartLoginFailure(auto, true, error);
 
                         StartFlag = false;
-                        LoginDelegate?.OnLoginFailure(error);
+
+                        LoginResultFailure(error);
                     }
                 }
             });
@@ -254,8 +273,8 @@ namespace SoFunny.FunnySDK
                         Analysis.SdkLoginResultSuccess(token.NewUser);
 
                         StartFlag = false;
-                        LoginDelegate?.OnLoginSuccess(token);
-                        LoginDelegate = null;
+
+                        LoginResultSuccess(token);
                     }
                     break;
                 case LimitStatus.StatusType.AccountBannedFailed:
