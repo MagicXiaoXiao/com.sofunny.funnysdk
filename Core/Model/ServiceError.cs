@@ -97,7 +97,7 @@ namespace SoFunny.FunnySDK
         /// <summary>
         /// 处于未登录状态
         /// </summary>
-        NoLoginError = -2000,
+        NoLoginError = -1002,
         /// <summary>
         /// 数据处理失败 (数据解析失败、或 SDK 内部处理发生错误)
         /// </summary>

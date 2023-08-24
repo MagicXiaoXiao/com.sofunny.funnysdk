@@ -86,7 +86,7 @@ namespace SoFunny.FunnySDK.Internal
 
             if (_callback.TryGetValue(serviceId, out var handler))
             {
-                Logger.Log($"收到服务{serviceId} 的回调结果 - {success} - {json}");
+                Logger.Log($"收到服务 {serviceId} 的回调结果 - {success} - {json}");
                 handler.Invoke(success, json);
 
                 _callback.Remove(serviceId);
