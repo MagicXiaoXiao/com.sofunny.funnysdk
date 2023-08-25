@@ -9,6 +9,7 @@
 
 "funnysdk.sub.module.error" = "未找到相关功能模块";
 
+"funnysdk.login.status.nologin" = "处于未登录状态，请先登录后操作";
 "funnysdk.login.button.login" = "登录真有趣账号";
 
 "funnysdk.login.status.expired" = "当前账号登录状态已过期，请重新登录";

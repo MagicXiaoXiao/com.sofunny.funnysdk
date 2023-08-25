@@ -6,6 +6,6 @@ framework module FunnySDK {
 }
 
 module FunnySDK.Swift {
-    header "FunnySDK-Swift.h"
-    requires objc
+  header "FunnySDK-Swift.h"
+  requires objc
 }

@@ -9,6 +9,7 @@
 
 "funnysdk.sub.module.error" = "The relevant function module was not found";
 
+"funnysdk.login.status.nologin" = "You are not logged in, please log in first before operating";
 "funnysdk.login.button.login" = "Login with Funny";
 
 "funnysdk.login.status.expired" = "The current account login status has expired, please log in again";

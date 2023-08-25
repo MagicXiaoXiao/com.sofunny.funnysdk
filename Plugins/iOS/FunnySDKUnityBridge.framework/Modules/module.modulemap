@@ -6,6 +6,6 @@ framework module FunnySDKUnityBridge {
 }
 
 module FunnySDKUnityBridge.Swift {
-    header "FunnySDKUnityBridge-Swift.h"
-    requires objc
+  header "FunnySDKUnityBridge-Swift.h"
+  requires objc
 }
