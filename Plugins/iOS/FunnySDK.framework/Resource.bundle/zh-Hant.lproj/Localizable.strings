@@ -9,6 +9,7 @@
 
 "funnysdk.sub.module.error" = "未找到相關功能模塊";
 
+"funnysdk.login.status.nologin" = "處於未登錄狀態，請先登錄後操作";
 "funnysdk.login.button.login" = "登錄真有趣賬號";
 
 "funnysdk.login.status.expired" = "當前賬號登錄狀態已過期，請重新登錄";

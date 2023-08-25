@@ -114,13 +114,18 @@ namespace SoFunny.FunnySDK.Internal
         public void ShowDatePicker(string date, ServiceCompletedHandler<string> handler)
         {
             // PC 暂不实现
-            Logger.Log("PC 版本后续实现");
+            Logger.Log("PC 暂未开发相关功能");
             handler?.Invoke("2000-01-01", null);
         }
 
         public void SetLanguage(string language)
         {
             Logger.Log("PC 语言已设置为 - " + language);
+        }
+
+        public void OpenAgreenment()
+        {
+            Logger.LogWarning("PC 或 Editor 暂未开发此功能");
         }
     }
 }

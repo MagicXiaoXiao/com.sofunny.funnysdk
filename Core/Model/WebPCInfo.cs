@@ -46,7 +46,7 @@ namespace SoFunny.FunnySDK
                 if (Deadline >= 0)
                 {
                     return DateTimeOffset.FromUnixTimeSeconds(Deadline)
-                            .DateTime
+                            .LocalDateTime
                             .AddDays(-16)
                             .ToString("yyyy-MM-dd");
                 }
@@ -63,7 +63,7 @@ namespace SoFunny.FunnySDK
             {
                 if (Deadline >= 0)
                 {
-                    return DateTimeOffset.FromUnixTimeSeconds(Deadline).DateTime.ToString("yyyy-MM-dd");
+                    return DateTimeOffset.FromUnixTimeSeconds(Deadline).LocalDateTime.ToString("yyyy-MM-dd");
                 }
                 return "";
             }
@@ -78,7 +78,7 @@ namespace SoFunny.FunnySDK
             {
                 if (UnblockedAt >= 0)
                 {
-                    return DateTimeOffset.FromUnixTimeSeconds(UnblockedAt).DateTime.ToString("yyyy-MM-dd HH:mm:ss");
+                    return DateTimeOffset.FromUnixTimeSeconds(UnblockedAt).LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss");
                 }
                 return "";
             }

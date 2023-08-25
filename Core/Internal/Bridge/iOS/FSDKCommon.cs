@@ -12,7 +12,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void ContactUS()
         {
-            FSDKCall.Builder("ContactUS").Invoke();
+            FSDKCall.Builder("OpenFeedback").Invoke();
         }
 
         public void GetAppInfo(ServiceCompletedHandler<AppInfoConfig> handler)
@@ -73,6 +73,11 @@ namespace SoFunny.FunnySDK.Internal
                                IosHelper.HandlerServiceCallback(success, json, handler);
                            })
                            .Invoke();
+        }
+
+        public void OpenAgreenment()
+        {
+            FSDKCall.Builder("OpenAgreenment").Invoke();
         }
     }
 }

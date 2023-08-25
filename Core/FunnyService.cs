@@ -10,11 +10,14 @@ namespace SoFunny.FunnySDK
         private readonly BridgeService bridgeService;
 
         internal IFunnyAccountAPI AccountAPI;
+        internal IFunnyUserCenterAPI UserCenterAPI;
+        internal IFunnyBillboardAPI BillboardAPI;
+        internal IFunnyFeedbackAPI FeedbackAPI;
 
-        internal FunnyService(FunnySDKConfig config)
+        internal FunnyService(FunnySDKConfig config, BridgeService bridge)
         {
             // 实例化桥接服务类
-            bridgeService = new BridgeService(config.AppID, config.IsMainland);
+            bridgeService = bridge;
             // 实例化登录服务 API
             FunnyLoginService login = new FunnyLoginService(
                 config,
@@ -25,6 +28,12 @@ namespace SoFunny.FunnySDK
 
             // 实例化账号服务 API
             AccountAPI = new FunnyAccountService(login, bridgeService);
+            // 实例化用户中心服务 API
+            UserCenterAPI = new FunnyUserCenterService(bridgeService.UserCenter);
+            // 实例化公告服务 API
+            BillboardAPI = new FunnyBillboardService(bridgeService.Billboard);
+            // 实例化问题反馈服务 API
+            FeedbackAPI = new FunnyFeedbackSerivce(bridgeService.Feedback);
         }
 
         internal void Initialize()

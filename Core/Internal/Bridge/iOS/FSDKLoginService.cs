@@ -6,6 +6,11 @@ namespace SoFunny.FunnySDK.Internal
 {
     internal class FSDKLoginService : IBridgeServiceLogin
     {
+        internal FSDKLoginService()
+        {
+
+        }
+
         public void ActivationCodeCommit(string tokenValue, string code, ServiceCompletedHandler<LimitStatus> handler)
         {
             FSDKCallAndBack.Builder("ActivationCodeCommit")

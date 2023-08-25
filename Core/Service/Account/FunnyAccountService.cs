@@ -14,13 +14,32 @@ namespace SoFunny.FunnySDK
 
         public event Action OnLogoutEvents;
         public event Action<AccessToken> OnLoginEvents;
+        public event Action<AccessToken> OnSwitchAccountEvents;
 
         internal FunnyAccountService(FunnyLoginService loginService, BridgeService bridgeService)
         {
             Service = bridgeService;
             LoginService = loginService;
             PrivateInfoTrack = new PrivateInfoAuthTrack(bridgeService.Analysis);
+
+            BridgeNotificationCenter.Default.AddObserver(this, "event.logout", () =>
+            {
+                OnLogoutEvents?.Invoke();
+            });
+
+            BridgeNotificationCenter.Default.AddObserver(this, "event.switch.account", (value) =>
+            {
+                if (value.TryGet<AccessToken>(out var accessToken))
+                {
+                    OnSwitchAccountEvents?.Invoke(accessToken);
+                }
+                else
+                {
+                    Logger.LogError($"Event value error - event.switch.account - {value.RawValue}");
+                }
+            });
         }
+
         // FIXME Android 移动端待处理: Google 账号要从 Google People Api 获取用户年龄性别信息直接返回
         public void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate)
         {
@@ -109,6 +128,21 @@ namespace SoFunny.FunnySDK
             });
         }
 
+        public void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler)
+        {
+            Service.Login.GetUserProfile((userProfile, error) =>
+            {
+                if (error == null)
+                {
+                    onSuccessHandler?.Invoke(userProfile);
+                }
+                else
+                {
+                    onFailureHandler?.Invoke(error);
+                }
+            });
+        }
+
         public void Login(ILoginServiceDelegate serviceDelegate)
         {
             LoginService.StartLogin((token, error) =>
@@ -126,6 +160,28 @@ namespace SoFunny.FunnySDK
                 else
                 {
                     serviceDelegate?.OnLoginFailure(error);
+                }
+
+            });
+        }
+
+        public void Login(Action<AccessToken> onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
+        {
+            LoginService.StartLogin((token, error) =>
+            {
+                if (error is null)
+                {
+                    onSuccessHandler?.Invoke(token);
+
+                    OnLoginEvents?.Invoke(token);
+                }
+                else if (error.Code == 0)
+                {
+                    onCancelHandler?.Invoke();
+                }
+                else
+                {
+                    onFailureHandler?.Invoke(error);
                 }
 
             });
@@ -186,6 +242,12 @@ namespace SoFunny.FunnySDK
 
             });
         }
+
+        public AccessToken GetCurrentAccessToken()
+        {
+            return Service.Login.GetCurrentAccessToken();
+        }
+
 
     }
 

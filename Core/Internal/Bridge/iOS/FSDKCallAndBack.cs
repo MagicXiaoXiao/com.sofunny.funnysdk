@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_IOS
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using AOT;
@@ -99,3 +100,4 @@ namespace SoFunny.FunnySDK.Internal
     }
 }
 
+#endif
