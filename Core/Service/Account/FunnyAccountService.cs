@@ -128,6 +128,21 @@ namespace SoFunny.FunnySDK
             });
         }
 
+        public void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler)
+        {
+            Service.Login.GetUserProfile((userProfile, error) =>
+            {
+                if (error == null)
+                {
+                    onSuccessHandler?.Invoke(userProfile);
+                }
+                else
+                {
+                    onFailureHandler?.Invoke(error);
+                }
+            });
+        }
+
         public void Login(ILoginServiceDelegate serviceDelegate)
         {
             LoginService.StartLogin((token, error) =>
@@ -145,6 +160,28 @@ namespace SoFunny.FunnySDK
                 else
                 {
                     serviceDelegate?.OnLoginFailure(error);
+                }
+
+            });
+        }
+
+        public void Login(Action<AccessToken> onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
+        {
+            LoginService.StartLogin((token, error) =>
+            {
+                if (error is null)
+                {
+                    onSuccessHandler?.Invoke(token);
+
+                    OnLoginEvents?.Invoke(token);
+                }
+                else if (error.Code == 0)
+                {
+                    onCancelHandler?.Invoke();
+                }
+                else
+                {
+                    onFailureHandler?.Invoke(error);
                 }
 
             });
@@ -210,6 +247,8 @@ namespace SoFunny.FunnySDK
         {
             return Service.Login.GetCurrentAccessToken();
         }
+
+
     }
 
 }

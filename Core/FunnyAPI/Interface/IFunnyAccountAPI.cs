@@ -32,6 +32,14 @@ namespace SoFunny.FunnySDK
         void Login(ILoginServiceDelegate serviceDelegate);
 
         /// <summary>
+        /// 登录账号 (发起登录流程，成功是将会触发 OnLoginEvents 事件)
+        /// </summary>
+        /// <param name="onSuccessHandler">成功处理</param>
+        /// <param name="onFailureHandler">失败处理</param>
+        /// <param name="onCancelHandler">取消处理</param>
+        void Login(Action<AccessToken> onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler);
+
+        /// <summary>
         /// 登出账号 (调用后会触发 OnLogoutEvents 事件)
         /// </summary>
         void Logout();
@@ -43,10 +51,18 @@ namespace SoFunny.FunnySDK
         void GetUserProfile(IUserServiceDelegate serviceDelegate);
 
         /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="onSuccessHandler">成功处理</param>
+        /// <param name="onFailureHandler">失败处理</param>
+        void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler);
+
+        /// <summary>
         /// 获取用户授权的隐私信息 (性别、生日等)
         /// </summary>
         /// <param name="serviceDelegate"></param>
         void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate);
+
     }
 }
 
