@@ -125,7 +125,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void OpenAgreenment()
         {
-            Logger.LogWarning("PC 暂未开发相关功能");
+            Logger.LogWarning("PC 或 Editor 暂未开发此功能");
         }
     }
 }

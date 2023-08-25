@@ -62,10 +62,15 @@ namespace SoFunny.FunnySDK.Internal
             UserCenter = new FSDKUserCenterService();
             Billboard = new FSDKBillboardService();
             Feedback = new FSDKFeedbackService();
+            Agreement = new FunnyAgreementService(Common);
 #elif UNITY_STANDALONE || UNITY_EDITOR
             Common = PCBridge.GetInstance();
             Login = PCBridge.GetInstance();
             Analysis = new PCAnalysisService();
+            UserCenter = new PCUserCenterService();
+            Billboard = new PCBillboardService();
+            Feedback = new PCFeedbackService();
+            Agreement = new FunnyAgreementService(Common);
 #endif
         }
 
