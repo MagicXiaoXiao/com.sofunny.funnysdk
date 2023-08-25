@@ -38,6 +38,12 @@ namespace SoFunny.FunnySDK.Internal
         /// 打开用户协议
         /// </summary>
         void OpenUserAgreenment();
+
+        /// <summary>
+        /// 打开用户协议与隐私政策提示界面
+        /// </summary>
+        void OpenAgreenment();
+
         /// <summary>
         /// 联系客服
         /// </summary>

@@ -22,18 +22,46 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         internal readonly IBridgeServiceTrack Analysis;
 
-        internal BridgeService(string appID, bool isMainland)
+        /// <summary>
+        /// 用户中心服务功能
+        /// </summary>
+        internal readonly IBridgeServiceUserCenter UserCenter;
+
+        /// <summary>
+        /// 公告服务功能
+        /// </summary>
+        internal readonly IBridgeServiceBillboard Billboard;
+
+        /// <summary>
+        /// 问题反馈服务功能
+        /// </summary>
+        internal readonly IBridgeServiceFeedback Feedback;
+
+        /// <summary>
+        /// 协议服务功能
+        /// </summary>
+        internal readonly IFunnyAgreementAPI Agreement;
+
+
+        internal BridgeService(FunnySDKConfig config)
         {
-            BridgeConfig.Init(appID, isMainland);
+            BridgeConfig.Init(config.AppID, config.IsMainland);
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             Common = AndroidBridge.GetInstance();
             Login = AndroidBridge.GetInstance();
             Analysis = AndroidBridge.GetInstance();
+            UserCenter = new AndroidUserCenterService(AndroidBridge.GetInstance().OldService);
+            Billboard = new AndroidBillboardService(AndroidBridge.GetInstance().OldService);
+            Feedback = new AndroidFeedbackService(AndroidBridge.GetInstance().OldService);
+            Agreement = new FunnyAgreementService(Common);
 #elif UNITY_IOS && !UNITY_EDITOR
             Common = new FSDKCommon();
             Login = new FSDKLoginService();
             Analysis = new FSDKAnalysisService();
+            UserCenter = new FSDKUserCenterService();
+            Billboard = new FSDKBillboardService();
+            Feedback = new FSDKFeedbackService();
 #elif UNITY_STANDALONE || UNITY_EDITOR
             Common = PCBridge.GetInstance();
             Login = PCBridge.GetInstance();

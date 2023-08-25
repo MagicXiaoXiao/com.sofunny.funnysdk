@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_ANDROID
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,15 +24,18 @@ namespace SoFunny.FunnySDK.Internal
         }
 
         private AndroidJavaObject Service;
+        internal AndroidOldService OldService;
 
         private AndroidBridge()
         {
             Service = new AndroidJavaObject("com.xmfunny.funnysdk.unitywrapper.internal.unity.FunnySdkWrapper4Unity");
+            OldService = new AndroidOldService();
         }
 
         public void Initialize()
         {
             Service.Call("Initialize", BridgeConfig.AppID);
+            OldService.Call("setupSDK");
         }
 
         public void ContactUS()
@@ -61,7 +65,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void TrackEvent(Track track)
         {
-            Debug.Log("reportEvent TrackEvent: " + track.Name + " json: " + track.JsonData());
+            // Debug.Log("reportEvent TrackEvent: " + track.Name + " json: " + track.JsonData());
             Service.Call("TrackData", track.JsonData(), track.Name);
         }
 
@@ -76,6 +80,12 @@ namespace SoFunny.FunnySDK.Internal
             // language 参数，英文 = en , 简体中文 = zh
             Service.Call("SetLanguage", language);
         }
+
+        public void OpenAgreenment()
+        {
+            OldService.Call("openProtocol");
+        }
     }
 }
 
+#endif

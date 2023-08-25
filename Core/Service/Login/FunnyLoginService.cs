@@ -2,7 +2,6 @@
 using UnityEngine;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
-using UnityEditor.PackageManager;
 
 namespace SoFunny.FunnySDK
 {
@@ -27,10 +26,14 @@ namespace SoFunny.FunnySDK
             Analysis = new LoginTrack(trackService);
             BaseBridgeService = baseBridgeService;
             LoginBridgeService = loginBridgeService;
+
         }
 
         internal void Logout()
         {
+            AccessToken token = LoginBridgeService.GetCurrentAccessToken();
+            if (token is null) { return; }
+
             LoginBridgeService.Logout();
         }
 

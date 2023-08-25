@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_ANDROID
+
+using System;
 using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK.Internal
@@ -93,3 +95,4 @@ namespace SoFunny.FunnySDK.Internal
     }
 }
 
+#endif

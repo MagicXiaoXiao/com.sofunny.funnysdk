@@ -1,17 +1,38 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SoFunny.FunnySDK.Internal;
 using SoFunny.FunnySDK.UIModule;
 using UnityEngine;
 
 namespace SoFunny.FunnySDK
 {
+    /// <summary>
+    /// Funny 服务核心类
+    /// </summary>
     public static partial class Funny
     {
         internal static class Core
         {
-            private static FunnyService internalService;
+            private static readonly object _lock = new object();
+            private static BridgeService bridgeService;
+            internal static BridgeService Bridge
+            {
+                get
+                {
+                    lock (_lock)
+                    {
+                        if (bridgeService == null)
+                        {
+                            bridgeService = new BridgeService(ConfigService.Config);
+                        }
+                    }
 
+                    return bridgeService;
+                }
+            }
+
+            private static FunnyService internalService;
             internal static FunnyService Service
             {
                 get
@@ -28,7 +49,7 @@ namespace SoFunny.FunnySDK
             {
                 if (internalService != null) { return; }
 
-                internalService = new FunnyService(ConfigService.Config);
+                internalService = new FunnyService(ConfigService.Config, Bridge);
 
                 internalService.Initialize();
                 internalService.SetLanguage(Locale.PlayerLanguage);
@@ -77,6 +98,25 @@ namespace SoFunny.FunnySDK
         /// </summary>
         public static IFunnyAccountAPI Account => Core.Service.AccountAPI;
 
+        /// <summary>
+        /// 个人中心相关服务
+        /// </summary>
+        public static IFunnyUserCenterAPI UserCenter => Core.Service.UserCenterAPI;
+
+        /// <summary>
+        /// 公告相关服务
+        /// </summary>
+        public static IFunnyBillboardAPI Billboard => Core.Service.BillboardAPI;
+
+        /// <summary>
+        /// 公告相关服务
+        /// </summary>
+        public static IFunnyFeedbackAPI Feedback => Core.Service.FeedbackAPI;
+
+        /// <summary>
+        /// 平台相关协议服务
+        /// </summary>
+        public static IFunnyAgreementAPI Agreement => Core.Bridge.Agreement;
     }
 }
 
