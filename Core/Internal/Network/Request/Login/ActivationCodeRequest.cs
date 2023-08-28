@@ -15,7 +15,7 @@ namespace SoFunny.FunnySDK.Internal
             Code = code;
         }
 
-        internal override HttpMethod Method => HttpMethod.Get;
+        internal override HttpMethod Method => HttpMethod.Post;
 
         internal override string Path => "/native/verify_limits";
 

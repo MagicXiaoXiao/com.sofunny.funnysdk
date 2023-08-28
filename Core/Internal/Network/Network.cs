@@ -53,7 +53,7 @@ namespace SoFunny.FunnySDK.Internal
             {
                 HttpRequestMessage requestMessage = CreateRequest(request);
 
-                Logger.Log($"开始发起请求: {requestMessage.RequestUri.AbsoluteUri}");
+                Logger.Log($"开始发起请求: {requestMessage.Method} - {requestMessage.RequestUri.AbsoluteUri}");
                 var parameters = JsonConvert.SerializeObject(request.Parameters());
 
                 Logger.Log($"请求参数: {parameters}");
