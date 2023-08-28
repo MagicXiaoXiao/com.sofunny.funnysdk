@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SoFunny.FunnySDKPreview;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using SoFunny.FunnySDK;
 using SoFunny.FunnySDK.UIModule;
+using System;
 
 public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserServiceDelegate, IPrivateUserInfoDelegate
 {
@@ -22,18 +22,65 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     {
 
         Funny.Initialize();
-        FunnySDK.Initialize();
 
-        Funny.SetLanguage(SystemLanguage.English);
+        Funny.Account.OnLoginEvents += Account_OnLoginEvents;
+        Funny.Account.OnLogoutEvents += Account_OnLogoutEvents;
+        Funny.Account.OnSwitchAccountEvents += Account_OnSwitchAccountEvents;
+    }
+
+
+    private void Account_OnSwitchAccountEvents(AccessToken obj)
+    {
+        // 账号被切换事件
+        Funny.Account.GetUserProfile(this);
+    }
+
+    private void Account_OnLogoutEvents()
+    {
+        // 登出事件
+        ResetProfile();
+    }
+
+    private void Account_OnLoginEvents(SoFunny.FunnySDK.AccessToken obj)
+    {
+        // 登录事件
+        Funny.Account.GetUserProfile(this);
     }
 
     private void Start()
     {
+        var token = Funny.Account.GetCurrentAccessToken();
+
+        if (token != null)
+        {
+            Funny.Account.GetUserProfile(this);
+
+        }
+
 #if UNITY_IOS
         layoutGroup.padding.top = (int)(Screen.safeArea.y / 2.5);
 #else
         layoutGroup.padding.top = 20;
 #endif
+    }
+
+    private SystemLanguage language = SystemLanguage.Chinese;
+
+    public void SwitchLanguage()
+    {
+        if (language == SystemLanguage.Chinese)
+        {
+            language = SystemLanguage.English;
+        }
+        else
+        {
+            language = SystemLanguage.Chinese;
+        }
+
+        Funny.SetLanguage(language);
+
+        rawJsonText.text = "切换成功！当前语言为 - " + language;
+
     }
 
     public void ShowNewLoginView()
@@ -45,38 +92,42 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     public void Logout()
     {
         Funny.Account.Logout();
-        Toast.Show("账号已登出");
-        ResetProfile();
     }
 
     public void CopyTokenValue()
     {
-        var token = FunnySDK.GetCurrentAccessToken();
-        if (token != null)
+        Funny.Agreement.Open();
+
+        var token = Funny.Account.GetCurrentAccessToken();
+
+        if (token is null)
         {
-            GUIUtility.systemCopyBuffer = token.Value;
-            FunnyUtils.ShowTipsAlert("提示", "已复制到粘贴板");
+            rawJsonText.text = "当前未登录，无法进行复制";
         }
         else
         {
-            FunnyUtils.ShowTipsAlert("提示", "未登录，无法复制");
+            GUIUtility.systemCopyBuffer = token.Value;
+
+            rawJsonText.text = "已复制到粘贴板 - " + token.Value;
         }
     }
 
     public void ShowBillboardH()
     {
-        FunnySDK.OpenBillboardUI(BillboardStyle.horizontal);
+        Funny.Billboard.Open();
     }
 
     public void ShowBillboardV()
     {
-        FunnySDK.OpenFeedbackUI();
+        Funny.Feedback.Open();
     }
 
-    public async void HasBillMessage()
+    public void HasBillMessage()
     {
-        bool has = await FunnySDK.AnyBillMessage();
-        FunnyUtils.ShowTipsAlert("消息", has ? "有公告内容" : "无公告内容");
+        Funny.Billboard.FetchAny((value) =>
+        {
+            rawJsonText.text = value ? "有公告内容" : "无公告内容";
+        });
     }
 
     public void CleanDatasView()
@@ -95,11 +146,15 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
 
     public void OpenUserCenter()
     {
-        FunnySDK.OpenUserCenterUI();
+        Funny.UserCenter.Open();
     }
 
     public void AuthPrivacyProfile()
     {
+        Funny.Billboard.FetchAny((has) =>
+        {
+
+        });
         Funny.Account.GetPrivateUserInfo(this);
     }
 
@@ -188,6 +243,7 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     public void OnLoginSuccess(SoFunny.FunnySDK.AccessToken accessToken)
     {
         rawJsonText.text = "登录成功 token 值为" + accessToken.Value;
+
         Funny.Account.GetUserProfile(this);
     }
 
