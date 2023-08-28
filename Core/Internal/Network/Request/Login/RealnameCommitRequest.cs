@@ -17,7 +17,7 @@ namespace SoFunny.FunnySDK.Internal
             CardID = cardID;
         }
 
-        internal override HttpMethod Method => HttpMethod.Get;
+        internal override HttpMethod Method => HttpMethod.Post;
 
         internal override string Path => "/native/verify_limits";
 
