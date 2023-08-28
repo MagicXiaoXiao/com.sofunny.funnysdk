@@ -87,8 +87,6 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     {
         // 发起登录
         Funny.Account.Login(this);
-
-        //Funny.Account.Login(OnLoginSuccess, OnLoginFailure, OnLoginCancel);
     }
 
     public void Logout()
@@ -116,13 +114,11 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
 
     public void ShowBillboardH()
     {
-        //FunnySDK.OpenBillboardUI(BillboardStyle.horizontal);
         Funny.Billboard.Open();
     }
 
     public void ShowBillboardV()
     {
-        //FunnySDK.OpenFeedbackUI();
         Funny.Feedback.Open();
     }
 
@@ -150,9 +146,7 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
 
     public void OpenUserCenter()
     {
-        //Funny.Feedback.OnCloseEvents
         Funny.UserCenter.Open();
-        //FunnySDK.OpenUserCenterUI();
     }
 
     public void AuthPrivacyProfile()
@@ -249,8 +243,8 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     public void OnLoginSuccess(SoFunny.FunnySDK.AccessToken accessToken)
     {
         rawJsonText.text = "登录成功 token 值为" + accessToken.Value;
-        //Funny.Account.GetUserProfile(this);
-        //Funny.Account.GetPrivateUserInfo(this);
+
+        Funny.Account.GetUserProfile(this);
     }
 
     public void OnLoginCancel()
