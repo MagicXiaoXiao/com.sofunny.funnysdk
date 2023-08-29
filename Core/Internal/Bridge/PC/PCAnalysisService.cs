@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_EDITOR || UNITY_STANDALONE
+
+using System;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -11,10 +13,9 @@ namespace SoFunny.FunnySDK.Internal
 
         void IBridgeServiceTrack.TrackEvent(Track track)
         {
-#if UNITY_EDITOR
             Logger.Log($"PC 埋点 - {track.Name} - {track.JsonData()}", Logger.ColorStyle.Blue);
-#endif
         }
     }
 }
 
+#endif
