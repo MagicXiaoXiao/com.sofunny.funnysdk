@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_EDITOR || UNITY_STANDALONE
+
+using System;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -14,4 +16,6 @@ namespace SoFunny.FunnySDK.Internal
         }
     }
 }
+
+#endif
 
