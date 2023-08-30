@@ -19,7 +19,6 @@ namespace SoFunny.FunnySDK.Internal
         {
             TrackService = service;
             LoginID = Guid.Empty;
-            Watch = new Stopwatch();
         }
 
         /// <summary>
@@ -32,7 +31,7 @@ namespace SoFunny.FunnySDK.Internal
                 LoginID = Guid.NewGuid();
             }
 
-            Watch.Start();
+            Watch = Stopwatch.StartNew();
         }
 
         /// <summary>
@@ -44,6 +43,7 @@ namespace SoFunny.FunnySDK.Internal
             LoginWay = -1;
             LoginFrom = -1;
             LoginID = Guid.Empty;
+            Watch = null;
         }
 
         private Dictionary<string, object> GlobalData()
@@ -273,7 +273,7 @@ namespace SoFunny.FunnySDK.Internal
                                .Add("is_auto", IsAuto)
                                .Add("is_register", isRegister ? 1 : 0)
                                .Add("status", 1)
-                               .Add("duration", Watch.Elapsed.Milliseconds);
+                               .Add("duration", Watch.ElapsedMilliseconds);
 
             if (LoginFrom > 0)
             {
@@ -294,12 +294,14 @@ namespace SoFunny.FunnySDK.Internal
         {
             Watch.Stop();
 
+            //int duration = 
+
             Track track = Track.Event("sdk_login_result")
                                .AddData(GlobalData())
                                .Add("is_auto", IsAuto)
                                .Add("is_register", isRegister ? 1 : 0)
                                .Add("status", 0)
-                               .Add("duration", Watch.Elapsed.Milliseconds)
+                               .Add("duration", Watch.ElapsedMilliseconds)
                                .Add("error_code", error.Code)
                                .Add("error_msg", error.Message);
 

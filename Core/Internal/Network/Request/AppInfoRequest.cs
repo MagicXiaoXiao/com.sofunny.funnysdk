@@ -16,6 +16,14 @@ namespace SoFunny.FunnySDK.Internal
 
         internal override bool AppID => true;
 
+        internal override Dictionary<string, object> Parameters()
+        {
+            return new Dictionary<string, object>()
+            {
+                {"device_category","pc" }
+            };
+        }
+
     }
 }
 
