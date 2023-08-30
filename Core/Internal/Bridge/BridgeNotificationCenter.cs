@@ -41,10 +41,6 @@ namespace SoFunny.FunnySDK.Internal
         internal BridgeNotificationCenter()
         {
             _actions = new Dictionary<string, Dictionary<int, Action<BridgeValue>>>();
-
-#if UNITY_IOS && !UNITY_EDITOR
-            FSDK_NotificationCenter(PostNotificationHandler);
-#endif
         }
 
         public void AddObserver(object observer, string name, Action action)
@@ -119,25 +115,6 @@ namespace SoFunny.FunnySDK.Internal
             }
         }
 
-#if UNITY_IOS && !UNITY_EDITOR
-
-        private delegate void NotificationMessage(string name, string jsonString);
-
-        [DllImport("__Internal")]
-        private static extern void FSDK_NotificationCenter(NotificationMessage message);
-
-        [MonoPInvokeCallback(typeof(NotificationMessage))]
-        protected static void PostNotificationHandler(string name, string jsonString)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                Logger.LogWarning("native event name is empty!");
-                return;
-            }
-            BridgeNotificationCenter.Default.Post(name, BridgeValue.Create(jsonString));
-        }
-
-#endif
     }
 }
 

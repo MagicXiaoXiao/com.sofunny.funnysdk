@@ -1,13 +1,39 @@
 ﻿#if UNITY_IOS
 using System;
+using AOT;
+using System.Runtime.InteropServices;
 
 namespace SoFunny.FunnySDK.Internal
 {
     internal class FSDKCommon : IBridgeServiceBase
     {
+        internal FSDKCommon()
+        {
+
+        }
+
+        private delegate void NotificationMessage(string name, string jsonString);
+
+        [DllImport("__Internal")]
+        private static extern void FSDK_NotificationCenter(NotificationMessage message);
+
+        [MonoPInvokeCallback(typeof(NotificationMessage))]
+        protected static void PostNotificationHandler(string name, string jsonString)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                Logger.LogWarning("native event name is empty!");
+                return;
+            }
+            BridgeNotificationCenter.Default.Post(name, BridgeValue.Create(jsonString));
+        }
+
         public void Initialize()
         {
+            // 初始化
             FSDKCall.Builder("Initialize").Invoke();
+            // 注册通知中心
+            FSDK_NotificationCenter(PostNotificationHandler);
         }
 
         public void ContactUS()
