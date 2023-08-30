@@ -47,7 +47,15 @@ namespace SoFunny.FunnySDK.Internal
         {
             BridgeConfig.Init(config.AppID, config.IsMainland);
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_STANDALONE || UNITY_EDITOR
+            Common = PCBridge.GetInstance();
+            Login = PCBridge.GetInstance();
+            Analysis = new PCAnalysisService();
+            UserCenter = new PCUserCenterService();
+            Billboard = new PCBillboardService();
+            Feedback = new PCFeedbackService();
+            Agreement = new FunnyAgreementService(Common);
+#elif UNITY_ANDROID
             Common = AndroidBridge.GetInstance();
             Login = AndroidBridge.GetInstance();
             Analysis = AndroidBridge.GetInstance();
@@ -55,21 +63,13 @@ namespace SoFunny.FunnySDK.Internal
             Billboard = new AndroidBillboardService(AndroidBridge.GetInstance().OldService);
             Feedback = new AndroidFeedbackService(AndroidBridge.GetInstance().OldService);
             Agreement = new FunnyAgreementService(Common);
-#elif UNITY_IOS && !UNITY_EDITOR
+#elif UNITY_IOS
             Common = new FSDKCommon();
             Login = new FSDKLoginService();
             Analysis = new FSDKAnalysisService();
             UserCenter = new FSDKUserCenterService();
             Billboard = new FSDKBillboardService();
             Feedback = new FSDKFeedbackService();
-            Agreement = new FunnyAgreementService(Common);
-#elif UNITY_STANDALONE || UNITY_EDITOR
-            Common = PCBridge.GetInstance();
-            Login = PCBridge.GetInstance();
-            Analysis = new PCAnalysisService();
-            UserCenter = new PCUserCenterService();
-            Billboard = new PCBillboardService();
-            Feedback = new PCFeedbackService();
             Agreement = new FunnyAgreementService(Common);
 #endif
         }
