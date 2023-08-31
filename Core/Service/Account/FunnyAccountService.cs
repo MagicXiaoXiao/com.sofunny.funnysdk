@@ -10,7 +10,7 @@ namespace SoFunny.FunnySDK
         private readonly FunnyLoginService LoginService;
 
         private IPrivateUserInfoDelegate UserInfoDelegate;
-        private PrivateInfoAuthTrack PrivateInfoTrack;
+        private readonly PrivateInfoAuthTrack PrivateInfoTrack;
 
         public event Action OnLogoutEvents;
         public event Action<AccessToken> OnLoginEvents;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_IOS
+
+using System;
 using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK.Internal
@@ -23,3 +25,4 @@ namespace SoFunny.FunnySDK.Internal
     }
 }
 
+#endif
