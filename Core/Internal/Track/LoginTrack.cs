@@ -294,8 +294,6 @@ namespace SoFunny.FunnySDK.Internal
         {
             Watch.Stop();
 
-            //int duration = 
-
             Track track = Track.Event("sdk_login_result")
                                .AddData(GlobalData())
                                .Add("is_auto", IsAuto)
