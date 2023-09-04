@@ -54,7 +54,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void Start()
         {
-            emailOrPhoneInputField.ActivateInputField();
+
         }
 
         private void Update()
