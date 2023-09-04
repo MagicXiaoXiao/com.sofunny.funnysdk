@@ -186,7 +186,6 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void ClearInputFields()
         {
-            emailOrPhoneInputField.text = "";
             pwdInputField.text = "";
             newPwdInputField.text = "";
 

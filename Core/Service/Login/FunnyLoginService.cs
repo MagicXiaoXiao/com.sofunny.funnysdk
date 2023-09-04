@@ -193,8 +193,11 @@ namespace SoFunny.FunnySDK
                 if (error == null)
                 {
                     Analysis.SdkStartLoginSuccess(false, true);
+
                     // 数据存储
+                    FunnyDataStore.AddAccountHistory(account);
                     FunnyDataStore.UpdateToken(token);
+
                     // 验证 Token
                     VerifyLimit(token);
                 }

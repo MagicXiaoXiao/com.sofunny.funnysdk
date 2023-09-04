@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK
 {
-    internal static class FunnyDataStore
+    internal static partial class FunnyDataStore
     {
         private const string FunnyAccessTokenKey = "com.funnysdk.datastore.token";
 

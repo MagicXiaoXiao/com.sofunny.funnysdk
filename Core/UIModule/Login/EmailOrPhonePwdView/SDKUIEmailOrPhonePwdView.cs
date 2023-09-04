@@ -54,7 +54,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void Start()
         {
-            emailOrPhoneInputField.ActivateInputField();
+
         }
 
         private void Update()
@@ -129,7 +129,6 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void ClearInputFields()
         {
-            emailOrPhoneInputField.text = "";
             pwdInputField.text = "";
             smsInputField.text = "";
         }
