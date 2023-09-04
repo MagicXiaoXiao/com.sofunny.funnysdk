@@ -119,6 +119,11 @@ namespace SoFunny.FunnySDK.UIModule
             UpdateEyeStatue(value);
         }
 
+        private void OnEnable()
+        {
+            UpdateEyeStatue(inputField.text);
+        }
+
         private void UpdateEyeStatue(string value)
         {
             if (!enableClear) { return; }
