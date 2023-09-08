@@ -1,11 +1,11 @@
 ﻿#if UNITY_ANDROID
-using System;
 
 namespace SoFunny.FunnySDK.Internal
 {
     internal class AndroidBillboardService : IBridgeServiceBillboard
     {
         private AndroidOldService Service;
+        private long CallBackTaskId = 0;
 
         internal AndroidBillboardService(AndroidOldService service)
         {
@@ -14,7 +14,9 @@ namespace SoFunny.FunnySDK.Internal
 
         public void FetchAnyData(ServiceCompletedHandler<bool> handler)
         {
-            var parameter = NativeParameter.Builder().TaskID("000");
+            CallBackTaskId ++;
+            Logger.Log($"callBackTaskId: " + CallBackTaskId);
+            var parameter = NativeParameter.Builder().TaskID("CallBackTaskId.ToString()");
             Service.Call("anyBillMessage", parameter, handler);
         }
 
