@@ -19,6 +19,7 @@ namespace SoFunny.FunnySDK.Internal
 
         internal void OnComplete(string taskID, string jsonResult)
         {
+            Logger.Log($"OnComplete - taskId - {taskID} - jsonResult: - {jsonResult}");
             if (!string.IsNullOrEmpty(jsonResult))
             {
                 OriginalContext.Post(_ =>
