@@ -9,6 +9,7 @@ namespace SoFunny.FunnySDK.UIModule
         public Button closeButton;
         public InputField activationKeyInputField;
         public Button commitButton;
+        public Button otherButton;
 
         private ILoginViewEvent loginViewEvent;
 
@@ -16,12 +17,14 @@ namespace SoFunny.FunnySDK.UIModule
         {
             closeButton.onClick.AddListener(OnCloseViewAction);
             commitButton.onClick.AddListener(OnCommitAction);
+            otherButton.onClick.AddListener(OnOtherLoginAction);
         }
 
         protected override void DeInit()
         {
             closeButton.onClick.RemoveAllListeners();
             commitButton.onClick.RemoveAllListeners();
+            otherButton.onClick.RemoveAllListeners();
         }
 
         private void OnCommitAction()
@@ -35,6 +38,11 @@ namespace SoFunny.FunnySDK.UIModule
             }
 
             loginViewEvent?.OnActivationCodeCommit(code);
+        }
+
+        private void OnOtherLoginAction()
+        {
+            loginViewEvent?.OnSwitchOtherAccount();
         }
 
         private void OnCloseViewAction()
