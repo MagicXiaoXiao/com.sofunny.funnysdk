@@ -56,7 +56,10 @@ namespace SoFunny.FunnySDK.UIModule
 
         public void UpdateMeunItem()
         {
-            SetupRecordButton();
+            if (enableRecord)
+            {
+                recordButton?.gameObject.SetActive(FunnyDataStore.HasRecord);
+            }
         }
 
         private void SetupClearButton()

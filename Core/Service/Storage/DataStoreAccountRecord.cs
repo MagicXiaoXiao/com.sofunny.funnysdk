@@ -31,9 +31,12 @@ namespace SoFunny.FunnySDK
 
             List<string> historyList = GetHistoryArray(key);
 
-            if (historyList.Contains(value)) { return; }
+            if (historyList.Contains(value))
+            {
+                historyList.Remove(value);
+            }
 
-            historyList.Add(value);
+            historyList.Insert(0, value);
 
             if (historyList.Count > recordCount)
             {
@@ -87,9 +90,9 @@ namespace SoFunny.FunnySDK
             return GetHistoryArray(kFunnySDKAccountHistory);
         }
 
-        internal static void AddAccountHistory(string phone)
+        internal static void AddAccountHistory(string account)
         {
-            AddHistory(kFunnySDKAccountHistory, phone);
+            AddHistory(kFunnySDKAccountHistory, account);
         }
 
     }
