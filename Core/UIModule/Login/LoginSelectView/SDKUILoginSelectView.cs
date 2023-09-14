@@ -172,8 +172,8 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnSoFunnyLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
-            Controller.OpenPage(UILoginPageState.PwdLoginPage);
+            string account = FunnyDataStore.GetAccountHistory().DefaultIfEmpty("").First();
+            Controller.OpenPage(UILoginPageState.PwdLoginPage, account);
         }
 
         private void OnGuestLoginAction()

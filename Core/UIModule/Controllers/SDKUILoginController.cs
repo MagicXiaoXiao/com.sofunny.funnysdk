@@ -59,7 +59,14 @@ namespace SoFunny.FunnySDK.UIModule
                     loginSelectView.Show();
                     break;
                 case UILoginPageState.PwdLoginPage:
-                    emailOrPhonePwdView.Show(true);
+                    if (param is null)
+                    {
+                        emailOrPhonePwdView.Show(true);
+                    }
+                    else
+                    {
+                        emailOrPhonePwdView.Show(true, (string)param);
+                    }
                     break;
                 case UILoginPageState.CodeLoginPage:
                     emailOrPhonePwdView.Show(false);

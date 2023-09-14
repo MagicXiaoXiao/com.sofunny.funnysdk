@@ -99,9 +99,14 @@ namespace SoFunny.FunnySDK.UIModule
             }
         }
 
-        public void Show(bool isPwd)
+        public void Show(bool isPwd, string defaultAccount = "")
         {
             this.isPwd = isPwd;
+
+            if (!string.IsNullOrEmpty(defaultAccount))
+            {
+                this.emailOrPhoneInputField.text = defaultAccount;
+            }
 
             SwitchAccountInputField();
 

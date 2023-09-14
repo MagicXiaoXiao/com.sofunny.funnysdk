@@ -164,6 +164,7 @@ namespace SoFunny.FunnySDK
                     Analysis.SdkVerifyCodeSuccess(1, 202);
                     Analysis.SdkStartLoginSuccess(false, true);
                     // 数据存储
+                    FunnyDataStore.AddAccountHistory(account);
                     FunnyDataStore.UpdateToken(token);
                     // 验证 Token
                     VerifyLimit(token);
@@ -424,6 +425,7 @@ namespace SoFunny.FunnySDK
                 {
                     Analysis.SdkVerifyCodeSuccess(1, 203);
                     // 数据存储
+                    FunnyDataStore.AddAccountHistory(account);
                     FunnyDataStore.UpdateToken(accessToken);
                     // 验证 Token
                     VerifyLimit(accessToken);
