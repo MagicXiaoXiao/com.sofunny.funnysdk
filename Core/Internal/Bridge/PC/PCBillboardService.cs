@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR || UNITY_STANDALONE
 
 using System;
+using SoFunny.FunnySDK.UIModule;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -19,6 +20,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void OpenBillboard()
         {
+            Toast.ShowFail("此功能暂未开放");
             Logger.LogError("PC 或 Editor 暂未开发此功能");
         }
     }
