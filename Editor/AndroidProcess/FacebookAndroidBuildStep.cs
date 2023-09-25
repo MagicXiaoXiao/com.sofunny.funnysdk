@@ -53,6 +53,7 @@ namespace SoFunny.FunnySDK.Editor
             var fbNode = new GradleNode("implementation ('com.facebook.android:facebook-android-sdk:15.0.0')");
             fbNode.AppendContentNode("exclude group: 'androidx.test', module: 'core'");
             fbNode.AppendContentNode("exclude group: 'androidx.test', module: 'monitor'");
+            fbNode.AppendContentNode("exclude group: 'org.robolectric'");
 
             depNode.AppendChildNode(fbNode);
             depNode.AppendContentNode("implementation(name: 'funny-sdk-facebook', ext:'aar')");
