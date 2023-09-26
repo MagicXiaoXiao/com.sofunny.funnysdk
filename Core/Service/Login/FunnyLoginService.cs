@@ -424,6 +424,8 @@ namespace SoFunny.FunnySDK
                 if (error == null)
                 {
                     Analysis.SdkVerifyCodeSuccess(1, 203);
+                    Analysis.SdkStartLoginSuccess(false, true);
+
                     // 数据存储
                     FunnyDataStore.AddAccountHistory(account);
                     FunnyDataStore.UpdateToken(accessToken);
@@ -433,6 +435,8 @@ namespace SoFunny.FunnySDK
                 else
                 {
                     Analysis.SdkVerifyCodeFailure(1, 203, error);
+                    Analysis.SdkStartLoginFailure(false, true, error);
+
                     Loader.HideIndicator();
                     Toast.ShowFail(error.Message);
                 }
