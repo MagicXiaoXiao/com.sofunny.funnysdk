@@ -9,7 +9,8 @@ namespace SoFunny.FunnySDK.Internal
     internal partial class PCBridge : IBridgeServiceLogin
     {
         private AccessToken _current;
-        // TODO: PC 版本待调整
+        private UserProfile _userProfile;
+
         public bool IsAuthorized => FunnyDataStore.HasToken;
 
         public AccessToken GetCurrentAccessToken()
@@ -134,7 +135,6 @@ namespace SoFunny.FunnySDK.Internal
 
         public void NativeVerifyLimit(ServiceCompletedHandler<LimitStatus> handler)
         {
-            //FIXME: PC 后续调整
             string token = FunnyDataStore.GetCurrentToken().Value;
 
             Network.Send(new NativeVerifyLimitRequest(token), (data, error) =>
@@ -150,9 +150,23 @@ namespace SoFunny.FunnySDK.Internal
                             AccessToken accessToken = JsonConvert.DeserializeObject<AccessToken>(data);
 
                             _current = accessToken;
-                        }
 
-                        handler?.Invoke(limitStatus, null);
+                            FetchUserProfile((profile, fetchError) =>
+                            {
+                                if (fetchError == null)
+                                {
+                                    handler?.Invoke(limitStatus, null);
+                                }
+                                else
+                                {
+                                    handler?.Invoke(null, fetchError);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            handler?.Invoke(limitStatus, null);
+                        }
                     }
                     catch (JsonException ex)
                     {
@@ -223,8 +237,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public UserProfile GetUserProfile()
         {
-            // TODO: PC 端后续调整
-            return null;
+            return _userProfile;
         }
 
         public void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler)
@@ -244,6 +257,9 @@ namespace SoFunny.FunnySDK.Internal
                     try
                     {
                         UserProfile userProfile = JsonConvert.DeserializeObject<UserProfile>(data);
+
+                        _userProfile = userProfile;
+
                         handler?.Invoke(userProfile, null);
                     }
                     catch (JsonException ex)
@@ -349,6 +365,7 @@ namespace SoFunny.FunnySDK.Internal
         public void Logout()
         {
             _current = null;
+            _userProfile = null;
             FunnyDataStore.DeleteToken();
         }
 
