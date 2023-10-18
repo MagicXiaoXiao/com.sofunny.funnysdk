@@ -11,10 +11,11 @@ namespace SoFunny.FunnySDK.Internal
 
         }
 
-        public void ActivationCodeCommit(string tokenValue, string code, ServiceCompletedHandler<LimitStatus> handler)
+        public bool IsAuthorized => FSDKCall.Builder("IsAuthorized").Invoke<bool>();
+
+        public void ActivationCodeCommit(string code, ServiceCompletedHandler<LimitStatus> handler)
         {
             FSDKCallAndBack.Builder("ActivationCodeCommit")
-                           .Add("tokenValue", tokenValue)
                            .Add("code", code)
                            .AddCallbackHandler((success, json) =>
                            {
@@ -50,7 +51,12 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
-        public void GetUserProfile(ServiceCompletedHandler<UserProfile> handler)
+        public UserProfile GetUserProfile()
+        {
+            return FSDKCall.Builder("GetUserProfile").Invoke<UserProfile>();
+        }
+
+        public void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler)
         {
             FSDKCallAndBack.Builder("GetUserProfile")
                            .AddCallbackHandler((success, json) =>
@@ -70,7 +76,7 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
-        public void LoginWithCode(string account, string code, ServiceCompletedHandler<AccessToken> handler)
+        public void LoginWithCode(string account, string code, ServiceCompletedHandler<LoginResult> handler)
         {
             FSDKCallAndBack.Builder("LoginWithCode")
                            .Add("account", account)
@@ -82,7 +88,7 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
-        public void LoginWithPassword(string account, string password, ServiceCompletedHandler<AccessToken> handler)
+        public void LoginWithPassword(string account, string password, ServiceCompletedHandler<LoginResult> handler)
         {
             FSDKCallAndBack.Builder("LoginWithPassword")
                            .Add("account", account)
@@ -94,7 +100,7 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
-        public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<AccessToken> handler)
+        public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<LoginResult> handler)
         {
             string value = provider.ToString().ToLower();
 
@@ -112,10 +118,9 @@ namespace SoFunny.FunnySDK.Internal
             FSDKCall.Builder("Logout").Invoke();
         }
 
-        public void NativeVerifyLimit(string tokenValue, ServiceCompletedHandler<LimitStatus> handler)
+        public void NativeVerifyLimit(ServiceCompletedHandler<LimitStatus> handler)
         {
             FSDKCallAndBack.Builder("NativeVerifyLimit")
-                           .Add("tokenValue", tokenValue)
                            .AddCallbackHandler((success, json) =>
                            {
                                IosHelper.HandlerServiceCallback(success, json, handler);
@@ -123,10 +128,9 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
-        public void RealnameInfoCommit(string tokenValue, string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
+        public void RealnameInfoCommit(string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
         {
             FSDKCallAndBack.Builder("RealnameInfoCommit")
-                           .Add("tokenValue", tokenValue)
                            .Add("realname", realname)
                            .Add("cardID", cardID)
                            .AddCallbackHandler((success, json) =>
@@ -136,10 +140,9 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
-        public void RecallAccountDelete(string tokenValue, ServiceCompletedHandler<VoidObject> handler)
+        public void RecallAccountDelete(ServiceCompletedHandler<VoidObject> handler)
         {
             FSDKCallAndBack.Builder("RecallAccountDelete")
-                           .Add("tokenValue", tokenValue)
                            .AddCallbackHandler((success, json) =>
                            {
                                IosHelper.HandlerServiceCallback(success, json, handler);
@@ -147,7 +150,7 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
-        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<AccessToken> handler)
+        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<LoginResult> handler)
         {
             FSDKCallAndBack.Builder("RegisterAccount")
                            .Add("account", account)

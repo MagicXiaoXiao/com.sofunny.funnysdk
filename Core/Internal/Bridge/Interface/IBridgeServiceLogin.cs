@@ -8,6 +8,11 @@ namespace SoFunny.FunnySDK.Internal
     internal interface IBridgeServiceLogin
     {
         /// <summary>
+        /// 是否进行过登录授权
+        /// </summary>
+        bool IsAuthorized { get; }
+
+        /// <summary>
         /// 获取当前登录 Token
         /// </summary>
         /// <returns></returns>
@@ -24,7 +29,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="account"></param>
         /// <param name="password"></param>
         /// <param name="handler"></param>
-        void LoginWithPassword(string account, string password, ServiceCompletedHandler<AccessToken> handler);
+        void LoginWithPassword(string account, string password, ServiceCompletedHandler<LoginResult> handler);
 
         /// <summary>
         /// 验证码登录
@@ -32,14 +37,14 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="account"></param>
         /// <param name="code"></param>
         /// <param name="handler"></param>
-        void LoginWithCode(string account, string code, ServiceCompletedHandler<AccessToken> handler);
+        void LoginWithCode(string account, string code, ServiceCompletedHandler<LoginResult> handler);
 
         /// <summary>
         /// 第三方登录
         /// </summary>
         /// <param name="provider"></param>
         /// <param name="handler"></param>
-        void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<AccessToken> handler);
+        void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<LoginResult> handler);
 
         /// <summary>
         /// 注册新账号
@@ -48,7 +53,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="password"></param>
         /// <param name="chkCode"></param>
         /// <param name="handler"></param>
-        void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<AccessToken> handler);
+        void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<LoginResult> handler);
 
         /// <summary>
         /// 找回密码
@@ -64,7 +69,7 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         /// <param name="tokenValue"></param>
         /// <param name="handler"></param>
-        void NativeVerifyLimit(string tokenValue, ServiceCompletedHandler<LimitStatus> handler);
+        void NativeVerifyLimit(ServiceCompletedHandler<LimitStatus> handler);
 
         /// <summary>
         /// 提交邀请码
@@ -72,7 +77,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="tokenValue"></param>
         /// <param name="code"></param>
         /// <param name="handler"></param>
-        void ActivationCodeCommit(string tokenValue, string code, ServiceCompletedHandler<LimitStatus> handler);
+        void ActivationCodeCommit(string code, ServiceCompletedHandler<LimitStatus> handler);
 
         /// <summary>
         /// 提交实名信息
@@ -81,20 +86,26 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="realname"></param>
         /// <param name="cardID"></param>
         /// <param name="handler"></param>
-        void RealnameInfoCommit(string tokenValue, string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler);
+        void RealnameInfoCommit(string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler);
 
         /// <summary>
         /// 撤销账号删除
         /// </summary>
         /// <param name="tokenValue"></param>
         /// <param name="handler"></param>
-        void RecallAccountDelete(string tokenValue, ServiceCompletedHandler<VoidObject> handler);
+        void RecallAccountDelete(ServiceCompletedHandler<VoidObject> handler);
 
         /// <summary>
         /// 获取用户信息
         /// </summary>
+        /// <returns></returns>
+        UserProfile GetUserProfile();
+
+        /// <summary>
+        /// 从远端拉取用户信息
+        /// </summary>
         /// <param name="handler"></param>
-        void GetUserProfile(ServiceCompletedHandler<UserProfile> handler);
+        void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler);
 
         /// <summary>
         /// 获取隐私信息

@@ -7,13 +7,16 @@ namespace SoFunny.FunnySDK.Internal
 {
     internal partial class AndroidBridge : IBridgeServiceLogin
     {
-        public void ActivationCodeCommit(string tokenValue, string code, ServiceCompletedHandler<LimitStatus> handler)
+        public void ActivationCodeCommit(string code, ServiceCompletedHandler<LimitStatus> handler)
         {
-            Service.Call("ActivationCodeCommit", tokenValue, code, new AndroidCallBack<LimitStatus>(handler));
+            Service.Call("ActivationCodeCommit", code, new AndroidCallBack<LimitStatus>(handler));
         }
+        // TODO: 新增 - 返回是否已进行过登录授权
+        public bool IsAuthorized => Service.Call<bool>("IsAuthorized");
 
         public AccessToken GetCurrentAccessToken()
         {
+            // TODO: 调整 - 该 Token 值为用户 Token，（oauth_access_token）
             string jsonToken = Service.Call<string>("GetCurrentAccessToken");
 
             try
@@ -27,24 +30,51 @@ namespace SoFunny.FunnySDK.Internal
             }
         }
 
+        public UserProfile GetUserProfile()
+        {
+            // TODO: 新增 - 直接获取用户信息，不走服务器请求
+            // 理想情况调整为 Service.Call<UserProfile>("GetUserProfile");
+            string jsonValue = Service.Call<string>("GetUserProfile");
+
+            try
+            {
+                return JsonConvert.DeserializeObject<UserProfile>(jsonValue);
+            }
+            catch (JsonException ex)
+            {
+                Logger.LogError("用户信息数据解析失败 - " + ex.Message);
+                return null;
+            }
+        }
+
+        public void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler)
+        {
+            // TODO: 新增 - 从服务器请求获取当前用户信息
+            Service.Call("FetchUserProfile", new AndroidCallBack<UserProfile>(handler));
+        }
+
         public void GetUserProfile(ServiceCompletedHandler<UserProfile> handler)
         {
-            Service.Call("GetUserProfile", new AndroidCallBack<UserProfile>(handler));
+            // TODO: 移除 - 后续版本将会移除 GetUserProfile 方法。当前使用 FetchUserProfile
+            FetchUserProfile(handler);
         }
 
-        public void LoginWithCode(string account, string code, ServiceCompletedHandler<AccessToken> handler)
+        public void LoginWithCode(string account, string code, ServiceCompletedHandler<LoginResult> handler)
         {
-            Service.Call("LoginWithCode", account, code, new AndroidCallBack<AccessToken>(handler));
+            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
+            Service.Call("LoginWithCode", account, code, new AndroidCallBack<LoginResult>(handler));
         }
 
-        public void LoginWithPassword(string account, string password, ServiceCompletedHandler<AccessToken> handler)
+        public void LoginWithPassword(string account, string password, ServiceCompletedHandler<LoginResult> handler)
         {
-            Service.Call("LoginWithPassword", account, password, new AndroidCallBack<AccessToken>(handler));
+            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
+            Service.Call("LoginWithPassword", account, password, new AndroidCallBack<LoginResult>(handler));
         }
 
-        public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<AccessToken> handler)
+        public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<LoginResult> handler)
         {
-            Service.Call("LoginWithProvider", ((int)provider), new AndroidCallBack<AccessToken>(handler));
+            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
+            Service.Call("LoginWithProvider", ((int)provider), new AndroidCallBack<LoginResult>(handler));
         }
 
         public void Logout()
@@ -52,24 +82,25 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("Logout");
         }
 
-        public void NativeVerifyLimit(string tokenValue, ServiceCompletedHandler<LimitStatus> handler)
+        public void NativeVerifyLimit(ServiceCompletedHandler<LimitStatus> handler)
         {
-            Service.Call("NativeVerifyLimit", tokenValue, new AndroidCallBack<LimitStatus>(handler));
+            Service.Call("NativeVerifyLimit", new AndroidCallBack<LimitStatus>(handler));
         }
 
-        public void RealnameInfoCommit(string tokenValue, string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
+        public void RealnameInfoCommit(string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
         {
-            Service.Call("RealnameInfoCommit", tokenValue, realname, cardID, new AndroidCallBack<LimitStatus>(handler));
+            Service.Call("RealnameInfoCommit", realname, cardID, new AndroidCallBack<LimitStatus>(handler));
         }
 
-        public void RecallAccountDelete(string tokenValue, ServiceCompletedHandler<VoidObject> handler)
+        public void RecallAccountDelete(ServiceCompletedHandler<VoidObject> handler)
         {
-            Service.Call("RecallAccountDelete", tokenValue, new AndroidCallBack<VoidObject>(handler));
+            Service.Call("RecallAccountDelete", new AndroidCallBack<VoidObject>(handler));
         }
 
-        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<AccessToken> handler)
+        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<LoginResult> handler)
         {
-            Service.Call("RegisterAccount", account, password, chkCode, new AndroidCallBack<AccessToken>(handler));
+            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
+            Service.Call("RegisterAccount", account, password, chkCode, new AndroidCallBack<LoginResult>(handler));
         }
 
         public void RetrievePassword(string account, string password, string chkCode, ServiceCompletedHandler<VoidObject> handler)
@@ -92,6 +123,7 @@ namespace SoFunny.FunnySDK.Internal
         {
             Service.Call("GetPrivateProfile", new AndroidCallBack<UserPrivateInfo>(handler));
         }
+
     }
 }
 

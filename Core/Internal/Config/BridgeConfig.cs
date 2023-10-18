@@ -17,7 +17,7 @@ namespace SoFunny.FunnySDK.Internal
         internal static string BaseURL { get; private set; }
         internal static string Host { get; private set; }
 
-        internal static void Init(string appID, bool isMainland, string env = Environment.Release)
+        internal static void Init(string appID, bool isMainland, string env = Environment.Develop)
         {
             AppID = appID;
             IsMainland = isMainland;
