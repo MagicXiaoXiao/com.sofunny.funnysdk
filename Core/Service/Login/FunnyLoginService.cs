@@ -2,6 +2,7 @@
 using UnityEngine;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
+using Newtonsoft.Json.Linq;
 
 namespace SoFunny.FunnySDK
 {
@@ -31,9 +32,6 @@ namespace SoFunny.FunnySDK
 
         internal void Logout()
         {
-            AccessToken token = LoginBridgeService.GetCurrentAccessToken();
-            if (token is null) { return; }
-
             LoginBridgeService.Logout();
         }
 
@@ -64,12 +62,10 @@ namespace SoFunny.FunnySDK
                 {
                     UIService.Login.SetupLoginConfig(this, appConfig.GetLoginProviders());
 
-                    AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
-
-                    if (accessToken != null)
+                    if (LoginBridgeService.IsAuthorized)
                     {
                         // 已登录，验证 Token
-                        VerifyLimit(accessToken, true);
+                        VerifyLimit(newUser: false, auto: true);
                     }
                     else
                     {
@@ -157,7 +153,7 @@ namespace SoFunny.FunnySDK
             Analysis.SetLoginFrom(3);
             Analysis.SetLoginWay(Config.IsMainland ? 103 : 101);
 
-            LoginBridgeService.LoginWithCode(account, code, (token, error) =>
+            LoginBridgeService.LoginWithCode(account, code, (loginResult, error) =>
             {
                 if (error == null)
                 {
@@ -165,9 +161,9 @@ namespace SoFunny.FunnySDK
                     Analysis.SdkStartLoginSuccess(false, true);
                     // 数据存储
                     FunnyDataStore.AddAccountHistory(account);
-                    FunnyDataStore.UpdateToken(token);
+                    //FunnyDataStore.UpdateToken(token);
                     // 验证 Token
-                    VerifyLimit(token);
+                    VerifyLimit(loginResult.NewUser);
                 }
                 else
                 {
@@ -189,18 +185,18 @@ namespace SoFunny.FunnySDK
             Analysis.SetLoginFrom(1);
             Analysis.SetLoginWay(Config.IsMainland ? 103 : 101);
 
-            LoginBridgeService.LoginWithPassword(account, password, (token, error) =>
+            LoginBridgeService.LoginWithPassword(account, password, (loginResult, error) =>
             {
                 if (error == null)
                 {
                     Analysis.SdkStartLoginSuccess(false, true);
 
+                    // 验证 Token
+                    VerifyLimit(loginResult.NewUser);
+
                     // 数据存储
                     FunnyDataStore.AddAccountHistory(account);
-                    FunnyDataStore.UpdateToken(token);
-
-                    // 验证 Token
-                    VerifyLimit(token);
+                    //FunnyDataStore.UpdateToken(token);
                 }
                 else
                 {
@@ -216,9 +212,9 @@ namespace SoFunny.FunnySDK
         /// 验证 Token
         /// </summary>
         /// <param name="token"></param>
-        private void VerifyLimit(AccessToken token, bool auto = false)
+        private void VerifyLimit(bool newUser = false, bool auto = false)
         {
-            LoginBridgeService.NativeVerifyLimit(token.Value, (limitStatus, error) =>
+            LoginBridgeService.NativeVerifyLimit((limitStatus, error) =>
             {
                 Loader.HideIndicator();
                 if (error == null)
@@ -228,13 +224,13 @@ namespace SoFunny.FunnySDK
                         Analysis.SdkStartLoginSuccess(auto, true);
                     }
 
-                    LimitResultHandler(limitStatus);
+                    LimitResultHandler(limitStatus, newUser);
                 }
                 else
                 {
                     if (error.Error == ServiceErrorType.InvalidAccessToken) // Token 过期处理
                     {
-                        Analysis.SdkLoginResultFailure(token.NewUser, error);
+                        Analysis.SdkLoginResultFailure(newUser, error);
 
                         Toast.ShowFail(Locale.LoadText("message.account.expired"));
 
@@ -263,7 +259,7 @@ namespace SoFunny.FunnySDK
         /// 限制结果处理
         /// </summary>
         /// <param name="limitStatus"></param>
-        private void LimitResultHandler(LimitStatus limitStatus)
+        private void LimitResultHandler(LimitStatus limitStatus, bool newUser = false)
         {
             switch (limitStatus.Status)
             {
@@ -277,7 +273,7 @@ namespace SoFunny.FunnySDK
 
                         AccessToken token = LoginBridgeService.GetCurrentAccessToken();
 
-                        Analysis.SdkLoginResultSuccess(token.NewUser);
+                        Analysis.SdkLoginResultSuccess(newUser);
 
                         StartFlag = false;
 
@@ -383,15 +379,25 @@ namespace SoFunny.FunnySDK
 
             Analysis.SetLoginWay((int)provider);
 
-            LoginBridgeService.LoginWithProvider(provider, (accessToken, error) =>
+            LoginBridgeService.LoginWithProvider(provider, (loginResult, error) =>
             {
 
                 Loader.HideIndicator();
                 if (error == null)
                 {
-                    Analysis.SdkStartLoginSuccess(false, true);
+                    if (loginResult.IsNeedBind)
+                    {
+                        // TODO: 需要进入绑定流程（后续开发）
+                        Alert.Show(
+                            "提示",
+                            "国内第三方登录需要绑定手机号流程，当前版本暂不支持");
+                    }
+                    else
+                    {
+                        Analysis.SdkStartLoginSuccess(false, true);
 
-                    VerifyLimit(accessToken);
+                        VerifyLimit(loginResult.NewUser);
+                    }
                 }
                 else
                 {
@@ -419,7 +425,7 @@ namespace SoFunny.FunnySDK
 
             Analysis.SetLoginFrom(2);
 
-            LoginBridgeService.RegisterAccount(account, pwd, code, (accessToken, error) =>
+            LoginBridgeService.RegisterAccount(account, pwd, code, (loginResult, error) =>
             {
                 if (error == null)
                 {
@@ -427,10 +433,10 @@ namespace SoFunny.FunnySDK
                     Analysis.SdkStartLoginSuccess(false, true);
 
                     // 数据存储
-                    FunnyDataStore.AddAccountHistory(account);
-                    FunnyDataStore.UpdateToken(accessToken);
+                    //FunnyDataStore.AddAccountHistory(account);
+                    //FunnyDataStore.UpdateToken(accessToken);
                     // 验证 Token
-                    VerifyLimit(accessToken);
+                    VerifyLimit(loginResult.NewUser);
                 }
                 else
                 {
@@ -543,17 +549,10 @@ namespace SoFunny.FunnySDK
 
         public void OnActivationCodeCommit(string code)
         {
-            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
-
-            if (accessToken is null)
-            {
-                Toast.ShowFail(Locale.LoadText("message.account.none"));
-                return;
-            }
 
             Loader.ShowIndicator();
 
-            LoginBridgeService.ActivationCodeCommit(accessToken.Value, code, (limitResult, error) =>
+            LoginBridgeService.ActivationCodeCommit(code, (limitResult, error) =>
             {
                 Loader.HideIndicator();
                 if (error == null)
@@ -578,9 +577,7 @@ namespace SoFunny.FunnySDK
 
             Loader.ShowIndicator();
 
-            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
-
-            LoginBridgeService.RealnameInfoCommit(accessToken.Value, realname, cardID, (limitResult, error) =>
+            LoginBridgeService.RealnameInfoCommit(realname, cardID, (limitResult, error) =>
             {
                 Loader.HideIndicator();
                 LimitResultHandler(limitResult);
@@ -621,11 +618,11 @@ namespace SoFunny.FunnySDK
 
             Loader.ShowIndicator();
 
-            LoginBridgeService.RecallAccountDelete(accessToken.Value, (_, error) =>
+            LoginBridgeService.RecallAccountDelete((_, error) =>
             {
                 if (error == null)
                 {
-                    VerifyLimit(accessToken);
+                    VerifyLimit();
                 }
                 else
                 {

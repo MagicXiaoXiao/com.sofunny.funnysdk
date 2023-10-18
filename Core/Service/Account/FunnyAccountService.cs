@@ -1,6 +1,7 @@
 ﻿using System;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace SoFunny.FunnySDK
 {
@@ -47,10 +48,37 @@ namespace SoFunny.FunnySDK
 
             Loader.ShowIndicator();
             UserInfoDelegate = serviceDelegate;
-
             PrivateInfoTrack.Start();
 
-            Service.Login.GetUserProfile((userProfile, error) =>
+            // TODO: 预留调整逻辑
+            //UserProfile userProfile = Service.Login.GetUserProfile();
+
+            //if (userProfile is null)
+            //{
+            //    UserInfoDelegate?.OnPrivateInfoFailure(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
+            //    return;
+            //}
+
+            //if (userProfile.PrivateInfo is null) // 开关判断
+            //{
+            //    PrivateInfoTrack.NotEnabled();
+
+            //    UserInfoDelegate?.OnUnenabledService();
+            //    UserInfoDelegate = null;
+            //}
+            //else if (userProfile.PrivateInfo.Filled) // 信息完整判断
+            //{
+            //    PrivateInfoTrack.SuccessResult();
+
+            //    UserInfoDelegate?.OnConsentAuthPrivateInfo(userProfile.PrivateInfo);
+            //    UserInfoDelegate = null;
+            //}
+            //else
+            //{
+            //    FetchPrivateInfoHandler();
+            //}
+
+            Service.Login.FetchUserProfile((userProfile, error) =>
             {
                 Loader.HideIndicator();
 
@@ -115,7 +143,7 @@ namespace SoFunny.FunnySDK
 
         public void GetUserProfile(IUserServiceDelegate serviceDelegate)
         {
-            Service.Login.GetUserProfile((userProfile, error) =>
+            Service.Login.FetchUserProfile((userProfile, error) =>
             {
                 if (error == null)
                 {
@@ -128,9 +156,10 @@ namespace SoFunny.FunnySDK
             });
         }
 
-        public void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler)
+        public void FetchUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler)
         {
-            Service.Login.GetUserProfile((userProfile, error) =>
+
+            Service.Login.FetchUserProfile((userProfile, error) =>
             {
                 if (error == null)
                 {
@@ -141,6 +170,11 @@ namespace SoFunny.FunnySDK
                     onFailureHandler?.Invoke(error);
                 }
             });
+        }
+
+        public void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler)
+        {
+            FetchUserProfile(onSuccessHandler, onFailureHandler);
         }
 
         public void Login(ILoginServiceDelegate serviceDelegate)
@@ -248,7 +282,10 @@ namespace SoFunny.FunnySDK
             return Service.Login.GetCurrentAccessToken();
         }
 
-
+        public UserProfile GetUserProfile()
+        {
+            return Service.Login.GetUserProfile();
+        }
     }
 
 }

@@ -48,6 +48,7 @@ namespace SoFunny.FunnySDK
         /// 获取用户信息
         /// </summary>
         /// <param name="serviceDelegate"></param>
+        [Obsolete("当前方法后续将会移除，请使用 FetchUserProfile 方法", false)]
         void GetUserProfile(IUserServiceDelegate serviceDelegate);
 
         /// <summary>
@@ -55,7 +56,21 @@ namespace SoFunny.FunnySDK
         /// </summary>
         /// <param name="onSuccessHandler">成功处理</param>
         /// <param name="onFailureHandler">失败处理</param>
+        [Obsolete("当前方法后续将会移除，请使用 FetchUserProfile 或者形参的 GetUserProfile 方法", false)]
         void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler);
+
+        /// <summary>
+        /// 获取当前用户信息。如未登录，则返回 null
+        /// </summary>
+        /// <returns></returns>
+        UserProfile GetUserProfile();
+
+        /// <summary>
+        /// 从远端拉取用户信息
+        /// </summary>
+        /// <param name="onSuccessHandler"></param>
+        /// <param name="onFailureHandler"></param>
+        void FetchUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler);
 
         /// <summary>
         /// 获取用户授权的隐私信息 (性别、生日等)
