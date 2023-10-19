@@ -569,11 +569,6 @@ namespace SoFunny.FunnySDK
 
         public void OnRealnameInfoCommit(string realname, string cardID)
         {
-            if (LoginBridgeService.GetCurrentAccessToken() is null)
-            {
-                Toast.ShowFail(Locale.LoadText("message.account.none"));
-                return;
-            }
 
             Loader.ShowIndicator();
 
@@ -600,22 +595,11 @@ namespace SoFunny.FunnySDK
 
             Alert.Show(title, content,
                 new AlertActionItem(cancel),
-                new AlertActionItem(ok, () =>
-                {
-                    ReCallDeleteHandler();
-                }));
+                new AlertActionItem(ok, ReCallDeleteHandler));
         }
 
         private void ReCallDeleteHandler()
         {
-            AccessToken accessToken = LoginBridgeService.GetCurrentAccessToken();
-
-            if (accessToken is null)
-            {
-                Toast.ShowFail(Locale.LoadText("message.account.none"));
-                return;
-            }
-
             Loader.ShowIndicator();
 
             LoginBridgeService.RecallAccountDelete((_, error) =>
