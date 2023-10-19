@@ -33,6 +33,7 @@ namespace SoFunny.FunnySDK
         /// <summary>
         /// 是否是游客身份
         /// </summary>
+        [JsonProperty("guest")]
         public bool IsGuest { get; internal set; } = false;
 
 
