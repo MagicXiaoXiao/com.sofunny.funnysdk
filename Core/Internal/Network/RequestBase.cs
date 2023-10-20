@@ -42,6 +42,11 @@ namespace SoFunny.FunnySDK.Internal
         internal virtual bool AppID => false;
 
         /// <summary>
+        /// 是否携带当前设备信息，默认 false
+        /// </summary>
+        internal virtual bool DeviceInfo => false;
+
+        /// <summary>
         /// 设置 Token 头
         /// </summary>
         internal virtual string Token => string.Empty;
