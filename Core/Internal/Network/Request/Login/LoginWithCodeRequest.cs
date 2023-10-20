@@ -20,6 +20,7 @@ namespace SoFunny.FunnySDK.Internal
         internal override string Path => "/account/login_by_chk_code";
 
         internal override bool AppID => true;
+        internal override bool DeviceInfo => true;
 
         internal override Dictionary<string, object> Parameters()
         {

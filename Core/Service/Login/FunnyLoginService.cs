@@ -2,7 +2,6 @@
 using UnityEngine;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
-using Newtonsoft.Json.Linq;
 
 namespace SoFunny.FunnySDK
 {
@@ -67,6 +66,10 @@ namespace SoFunny.FunnySDK
                         // 已登录，验证 Token
                         VerifyLimit(newUser: false, auto: true);
                     }
+                    else if (appConfig.EnableAutoGuest)
+                    {
+                        AutoLoginWithGuest();
+                    }
                     else
                     {
                         Loader.HideIndicator();
@@ -79,7 +82,6 @@ namespace SoFunny.FunnySDK
 
                     Loader.HideIndicator();
 
-                    StartFlag = false;
                     LoginResultFailure(error);
                 }
             });
@@ -87,18 +89,21 @@ namespace SoFunny.FunnySDK
 
         private void LoginResultSuccess(AccessToken token)
         {
+            StartFlag = false;
             LoginResultHandler?.Invoke(token, null);
             LoginResultHandler = null;
         }
 
         private void LoginResultFailure(ServiceError error)
         {
+            StartFlag = false;
             LoginResultHandler?.Invoke(null, error);
             LoginResultHandler = null;
         }
 
         private void LoginResultCancel()
         {
+            StartFlag = false;
             LoginResultHandler?.Invoke(null, new ServiceError(0, "登录已被主动取消"));
             LoginResultHandler = null;
         }
@@ -139,8 +144,6 @@ namespace SoFunny.FunnySDK
             Logger.Log("关闭了登录页" + pageState);
             Analysis.SdkPageClose((int)pageState);
             Analysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录被取消"));
-
-            StartFlag = false;
 
             LoginResultCancel();
         }
@@ -275,8 +278,6 @@ namespace SoFunny.FunnySDK
 
                         Analysis.SdkLoginResultSuccess(newUser);
 
-                        StartFlag = false;
-
                         LoginResultSuccess(token);
                     }
                     break;
@@ -361,6 +362,26 @@ namespace SoFunny.FunnySDK
                     UIService.Login.JumpTo(UILoginPageState.LoginLimitPage);
                     break;
             }
+        }
+
+        private void AutoLoginWithGuest()
+        {
+            Logger.Log("发起无感登录");
+            Analysis.SetLoginWay((int)LoginProvider.Guest);
+
+            LoginBridgeService.LoginWithProvider(LoginProvider.Guest, (loginResult, error) =>
+            {
+                if (error == null)
+                {
+                    VerifyLimit(loginResult.NewUser, false);
+                }
+                else
+                {
+                    UIService.Login.Open();
+
+                    Logger.LogWarning($"无感登录失败 - {error.Code} - {error.Message}");
+                }
+            });
         }
 
         public void OnLoginWithProvider(LoginProvider provider)

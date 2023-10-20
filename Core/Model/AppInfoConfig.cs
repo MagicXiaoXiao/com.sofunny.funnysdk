@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace SoFunny.FunnySDK
 {
@@ -14,6 +15,23 @@ namespace SoFunny.FunnySDK
         public bool ProvideUserInfo;
         [JsonProperty("app_auth_item")]
         public List<AppAuthItem> AuthItems;
+
+        internal bool EnableAutoGuest
+        {
+            get
+            {
+                AppAuthItem item = AuthItems.DefaultIfEmpty().FirstOrDefault(x => x.Category == 11);
+
+                if (item is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return item.Enable;
+                }
+            }
+        }
 
         internal HashSet<LoginProvider> GetLoginProviders()
         {

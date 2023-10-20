@@ -130,6 +130,12 @@ namespace SoFunny.FunnySDK.Internal
                 parameters.Add("app_id", BridgeConfig.AppID);
             }
 
+            if (request.DeviceInfo)
+            {
+                parameters.Add("device_id", SystemInfo.deviceUniqueIdentifier);
+                parameters.Add("device_name", SystemInfo.deviceName);
+            }
+
             if (request.Method == HttpMethod.Post || request.Method == HttpMethod.Put)
             {
                 message.RequestUri = new Uri($"{request.BaseURL}{request.Path}");
