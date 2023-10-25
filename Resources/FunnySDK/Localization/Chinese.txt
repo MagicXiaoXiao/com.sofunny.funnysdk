@@ -142,3 +142,8 @@ page.feedback.roleId=您的游戏角色ID（选填）
 page.feedback.description=您所遇到的问题
 page.feedback.description.require=请填写问题描述
 page.feedback.success.tips=您的问题已提交成功，请耐心等待客服反馈
+
+page.bind.view.title=绑定邮箱账号
+page.bind.view.button=绑 定
+form.bind.view.email.placeholder=邮箱
+form.bind.view.pwd.placeholder=设置您的密码

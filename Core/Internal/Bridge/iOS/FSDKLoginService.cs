@@ -58,7 +58,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler)
         {
-            FSDKCallAndBack.Builder("GetUserProfile")
+            FSDKCallAndBack.Builder("FetchUserProfile")
                            .AddCallbackHandler((success, json) =>
                            {
                                IosHelper.HandlerServiceCallback(success, json, handler);
