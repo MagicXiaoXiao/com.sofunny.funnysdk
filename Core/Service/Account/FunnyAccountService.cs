@@ -1,7 +1,6 @@
 ﻿using System;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace SoFunny.FunnySDK
 {
@@ -12,6 +11,9 @@ namespace SoFunny.FunnySDK
 
         private IPrivateUserInfoDelegate UserInfoDelegate;
         private readonly PrivateInfoAuthTrack PrivateInfoTrack;
+
+        private UserProfile CurrentUserProfile;
+        private BindInfo CurrentBindInfo;
 
         public event Action OnLogoutEvents;
         public event Action<AccessToken> OnLoginEvents;
@@ -25,6 +27,7 @@ namespace SoFunny.FunnySDK
 
             BridgeNotificationCenter.Default.AddObserver(this, "event.logout", () =>
             {
+                CurrentUserProfile = null;
                 OnLogoutEvents?.Invoke();
             });
 
@@ -32,6 +35,7 @@ namespace SoFunny.FunnySDK
             {
                 if (value.TryGet<AccessToken>(out var accessToken))
                 {
+                    CurrentUserProfile = GetUserProfile();
                     OnSwitchAccountEvents?.Invoke(accessToken);
                 }
                 else
@@ -46,77 +50,33 @@ namespace SoFunny.FunnySDK
         {
             Logger.Log("发起用户信息授权 - GetPrivateUserInfo");
 
-            Loader.ShowIndicator();
             UserInfoDelegate = serviceDelegate;
             PrivateInfoTrack.Start();
 
-            // TODO: 预留调整逻辑
-            //UserProfile userProfile = Service.Login.GetUserProfile();
-
-            //if (userProfile is null)
-            //{
-            //    UserInfoDelegate?.OnPrivateInfoFailure(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
-            //    return;
-            //}
-
-            //if (userProfile.PrivateInfo is null) // 开关判断
-            //{
-            //    PrivateInfoTrack.NotEnabled();
-
-            //    UserInfoDelegate?.OnUnenabledService();
-            //    UserInfoDelegate = null;
-            //}
-            //else if (userProfile.PrivateInfo.Filled) // 信息完整判断
-            //{
-            //    PrivateInfoTrack.SuccessResult();
-
-            //    UserInfoDelegate?.OnConsentAuthPrivateInfo(userProfile.PrivateInfo);
-            //    UserInfoDelegate = null;
-            //}
-            //else
-            //{
-            //    FetchPrivateInfoHandler();
-            //}
-
-            Service.Login.FetchUserProfile((userProfile, error) =>
+            if (CurrentUserProfile is null)
             {
-                Loader.HideIndicator();
+                UserInfoDelegate?.OnPrivateInfoFailure(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
+                return;
+            }
 
-                if (error == null)
-                {
-                    if (userProfile is null)
-                    {
-                        UserInfoDelegate?.OnPrivateInfoFailure(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
-                        return;
-                    }
+            if (CurrentUserProfile.PrivateInfo is null) // 开关判断
+            {
+                PrivateInfoTrack.NotEnabled();
 
-                    if (userProfile.PrivateInfo is null) // 开关判断
-                    {
-                        PrivateInfoTrack.NotEnabled();
+                UserInfoDelegate?.OnUnenabledService();
+                UserInfoDelegate = null;
+            }
+            else if (CurrentUserProfile.PrivateInfo.Filled) // 信息完整判断
+            {
+                PrivateInfoTrack.SuccessResult();
 
-                        UserInfoDelegate?.OnUnenabledService();
-                        UserInfoDelegate = null;
-                    }
-                    else if (userProfile.PrivateInfo.Filled) // 信息完整判断
-                    {
-                        PrivateInfoTrack.SuccessResult();
-
-                        UserInfoDelegate?.OnConsentAuthPrivateInfo(userProfile.PrivateInfo);
-                        UserInfoDelegate = null;
-                    }
-                    else
-                    {
-                        FetchPrivateInfoHandler();
-                    }
-                }
-                else
-                {
-                    PrivateInfoTrack.FailureResult(error);
-
-                    UserInfoDelegate?.OnPrivateInfoFailure(error);
-                    UserInfoDelegate = null;
-                }
-            });
+                UserInfoDelegate?.OnConsentAuthPrivateInfo(CurrentUserProfile.PrivateInfo);
+                UserInfoDelegate = null;
+            }
+            else
+            {
+                FetchPrivateInfoHandler();
+            }
         }
 
         private void FetchPrivateInfoHandler()
@@ -147,6 +107,7 @@ namespace SoFunny.FunnySDK
             {
                 if (error == null)
                 {
+                    CurrentUserProfile = userProfile;
                     serviceDelegate?.OnUserProfileSuccess(userProfile);
                 }
                 else
@@ -163,6 +124,7 @@ namespace SoFunny.FunnySDK
             {
                 if (error == null)
                 {
+                    CurrentUserProfile = userProfile;
                     onSuccessHandler?.Invoke(userProfile);
                 }
                 else
@@ -183,9 +145,20 @@ namespace SoFunny.FunnySDK
             {
                 if (error is null)
                 {
-                    serviceDelegate?.OnLoginSuccess(token);
-
-                    OnLoginEvents?.Invoke(token);
+                    Service.Bind.FetchBindInfo((bindInfo, infoError) =>
+                    {
+                        CurrentBindInfo = bindInfo;
+                        CurrentUserProfile = GetUserProfile();
+                        if (infoError is null)
+                        {
+                            serviceDelegate?.OnLoginSuccess(token);
+                            OnLoginEvents?.Invoke(token);
+                        }
+                        else
+                        {
+                            serviceDelegate?.OnLoginFailure(infoError);
+                        }
+                    });
                 }
                 else if (error.Code == 0)
                 {
@@ -205,9 +178,21 @@ namespace SoFunny.FunnySDK
             {
                 if (error is null)
                 {
-                    onSuccessHandler?.Invoke(token);
+                    Service.Bind.FetchBindInfo((bindInfo, infoError) =>
+                    {
+                        CurrentBindInfo = bindInfo;
+                        CurrentUserProfile = GetUserProfile();
 
-                    OnLoginEvents?.Invoke(token);
+                        if (infoError is null)
+                        {
+                            onSuccessHandler?.Invoke(token);
+                            OnLoginEvents?.Invoke(token);
+                        }
+                        else
+                        {
+                            onFailureHandler?.Invoke(infoError);
+                        }
+                    });
                 }
                 else if (error.Code == 0)
                 {
@@ -223,6 +208,9 @@ namespace SoFunny.FunnySDK
 
         public void Logout()
         {
+            CurrentBindInfo = null;
+            CurrentUserProfile = null;
+
             Service.Login.Logout();
             OnLogoutEvents?.Invoke();
         }
@@ -237,6 +225,8 @@ namespace SoFunny.FunnySDK
 
                 if (error == null)
                 {
+                    CurrentUserProfile = GetUserProfile();
+
                     var info = new UserPrivateInfo();
                     info.Birthday = date;
                     info.Gender = sex;
@@ -285,6 +275,117 @@ namespace SoFunny.FunnySDK
         public UserProfile GetUserProfile()
         {
             return Service.Login.GetUserProfile();
+        }
+
+        public void Bind(BindingType type, Action onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
+        {
+            if (!Service.Login.IsAuthorized)
+            {
+                onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.NoLoginError));
+                return;
+            }
+
+            IBindable bindable = null;
+
+            switch (type)
+            {
+                case BindingType.Email:
+                    // TODO: 后续需优化调整逻辑代码
+                    BindView.OnCancelAction = () =>
+                    {
+                        onCancelHandler?.Invoke();
+                    };
+
+                    BindView.OnCommitAction = (email, pwd, code) =>
+                    {
+                        Loader.ShowIndicator();
+                        bindable = new EmailBindable(email, pwd, code);
+
+                        Service.Bind.Binding(bindable, (_, error) =>
+                        {
+                            if (error is null)
+                            {
+                                Service.Bind.FetchBindInfo((info, infoError) =>
+                                {
+
+                                    CurrentUserProfile = GetUserProfile();
+                                    CurrentBindInfo = info;
+
+                                    Loader.HideIndicator();
+                                    BindView.Close();
+
+                                    if (infoError is null)
+                                    {
+                                        onSuccessHandler?.Invoke();
+                                    }
+                                    else
+                                    {
+                                        onFailureHandler?.Invoke(infoError);
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                Loader.HideIndicator();
+                                BindView.Close();
+
+                                onFailureHandler?.Invoke(error);
+                            }
+                        });
+                    };
+
+                    BindView.Open();
+
+                    return;
+                case BindingType.AppleID:
+                    bindable = new AppleIdBindable();
+                    break;
+                case BindingType.Google:
+                    bindable = new GoogleBindable();
+                    break;
+                default:
+                    onFailureHandler?.Invoke(new ServiceError(-1, "暂未支持该绑定类型"));
+                    return;
+            }
+
+            Service.Bind.Binding(bindable, (_, error) =>
+            {
+                if (error is null)
+                {
+                    Service.Bind.FetchBindInfo((info, infoError) =>
+                    {
+                        CurrentUserProfile = GetUserProfile();
+                        CurrentBindInfo = info;
+
+                        if (infoError is null)
+                        {
+                            onSuccessHandler?.Invoke();
+                        }
+                        else
+                        {
+                            onFailureHandler?.Invoke(infoError);
+                        }
+                    });
+                }
+                else if (error.Code == 0)
+                {
+                    onCancelHandler?.Invoke();
+                }
+                else
+                {
+                    onFailureHandler?.Invoke(error);
+                }
+            });
+        }
+
+        public BindStatusItem[] GetBindStatus()
+        {
+            if (CurrentBindInfo is null)
+            {
+                return new BindStatusItem[] { };
+            }
+
+            return CurrentBindInfo.Items.ToArray();
         }
     }
 

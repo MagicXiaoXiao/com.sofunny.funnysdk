@@ -78,6 +78,20 @@ namespace SoFunny.FunnySDK
         /// <param name="serviceDelegate"></param>
         void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate);
 
+        /// <summary>
+        /// 绑定对应渠道，调用前可以先使用 Binding 方法进行判断是否已绑定到目标渠道
+        /// </summary>
+        /// <param name="type">绑定类型</param>
+        /// <param name="onSuccessHandler">成功处理</param>
+        /// <param name="onFailureHandler">失败处理</param>
+        /// <param name="onCancelHandler">取消处理</param>
+        void Bind(BindingType type, Action onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler);
+
+        /// <summary>
+        /// 获取当前账号绑定状态数据列表，如未登录则返回空数组
+        /// </summary>
+        /// <returns></returns>
+        BindStatusItem[] GetBindStatus();
     }
 }
 

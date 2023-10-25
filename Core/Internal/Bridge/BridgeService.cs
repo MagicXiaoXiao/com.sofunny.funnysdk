@@ -18,6 +18,11 @@ namespace SoFunny.FunnySDK.Internal
         internal readonly IBridgeServiceLogin Login;
 
         /// <summary>
+        /// 账号绑定服务功能
+        /// </summary>
+        internal readonly IBridgeServiceBind Bind;
+
+        /// <summary>
         /// 数据收集服务功能
         /// </summary>
         internal readonly IBridgeServiceTrack Analysis;
@@ -50,6 +55,7 @@ namespace SoFunny.FunnySDK.Internal
 #if UNITY_STANDALONE || UNITY_EDITOR
             Common = PCBridge.GetInstance();
             Login = PCBridge.GetInstance();
+            Bind = new PCBindAccountService();
             Analysis = new PCAnalysisService();
             UserCenter = new PCUserCenterService();
             Billboard = new PCBillboardService();
@@ -58,6 +64,7 @@ namespace SoFunny.FunnySDK.Internal
 #elif UNITY_ANDROID
             Common = AndroidBridge.GetInstance();
             Login = AndroidBridge.GetInstance();
+            Bind = new AndroidBindAccountService();
             Analysis = AndroidBridge.GetInstance();
             UserCenter = new AndroidUserCenterService(AndroidBridge.GetInstance().OldService);
             Billboard = new AndroidBillboardService(AndroidBridge.GetInstance().OldService);
@@ -66,6 +73,7 @@ namespace SoFunny.FunnySDK.Internal
 #elif UNITY_IOS
             Common = new FSDKCommon();
             Login = new FSDKLoginService();
+            Bind = new FSDKBindAccountService();
             Analysis = new FSDKAnalysisService();
             UserCenter = new FSDKUserCenterService();
             Billboard = new FSDKBillboardService();

@@ -141,3 +141,8 @@ page.feedback.roleId=Your game role ID (optional)
 page.feedback.description=The problem you encountered
 page.feedback.description.require=Please fill in the problem description
 page.feedback.success.tips=Your question has been submitted successfully, please wait patiently for customer service feedback
+
+page.bind.view.title=Bind Email
+page.bind.view.button=Bind Email
+form.bind.view.email.placeholder=Email
+form.bind.view.pwd.placeholder=Password
