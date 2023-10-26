@@ -9,9 +9,13 @@ namespace SoFunny.FunnySDK
         [SerializeField]
         public string idToken;
 
-        public GoogleConfig(string idToken)
+        [SerializeField]
+        public string gmsGamesAppId;
+
+        public GoogleConfig(string idToken, string gmsGamesAppId)
         {
             this.idToken = idToken;
+            this.gmsGamesAppId = gmsGamesAppId;
         }
         /// <summary>
         /// 是否设置了 Google 相关参数
@@ -21,6 +25,14 @@ namespace SoFunny.FunnySDK
             get
             {
                 return !string.IsNullOrEmpty(idToken);
+            }
+        }
+
+        public bool GmsGamesEnable
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(gmsGamesAppId);
             }
         }
     }
