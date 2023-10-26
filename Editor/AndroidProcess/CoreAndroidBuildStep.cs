@@ -60,7 +60,10 @@ namespace SoFunny.FunnySDK.Editor
             //depNode.AppendContentNode("implementation 'com.aliyun.ams:alicloud-android-httpdns:2.3.0'");
             string aarName = IsDebug ? "funny-sdk-debug" : "funny-sdk";
             depNode.AppendContentNode($"implementation(name: '{aarName}', ext:'aar')");
-
+            if (Config.Google.GmsGamesEnable)
+            {
+                depNode.AppendContentNode("implementation 'com.google.android.gms:play-services-games-v2:19.0.0'");
+            }
         }
 
 
@@ -80,6 +83,14 @@ namespace SoFunny.FunnySDK.Editor
             appIDValue.SetAttribute("name", "funny_sdk_app_id");
             appIDValue.InnerText = Config.AppID;
             resources.AppendChild(appIDValue);
+
+            if (Config.Google.GmsGamesEnable)
+            {
+                XmlElement gmsGamesAppIDValue = stringsXML.CreateElement("string");
+                gmsGamesAppIDValue.SetAttribute("name", "funny_sdk_gms_games.app_id");
+                gmsGamesAppIDValue.InnerText = Config.Google.gmsGamesAppId;
+                resources.AppendChild(gmsGamesAppIDValue);
+            }
         }
 
         public override void OnProcessUnityLibraryManifest(XmlDocument manifestXML)
@@ -96,6 +107,19 @@ namespace SoFunny.FunnySDK.Editor
             channelNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.Mainland");
             channelNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_mainland");
             applicationNode.AppendChild(channelNode);
+
+            if (Config.Google.GmsGamesEnable)
+            {
+                XmlElement googleGMSGamesIdNode = manifestXML.CreateElement("meta-data");
+                googleGMSGamesIdNode.SetAttribute("name", NamespaceURI, "com.google.android.gms.games.APP_ID");
+                googleGMSGamesIdNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_gms_games.app_id");
+                applicationNode.AppendChild(googleGMSGamesIdNode);
+
+                XmlElement gmsVersion = manifestXML.CreateElement("meta-data");
+                gmsVersion.SetAttribute("name", NamespaceURI, "com.google.android.gms.version");
+                gmsVersion.SetAttribute("value", NamespaceURI, "@integer/google_play_services_version");
+                applicationNode.AppendChild(gmsVersion);
+            }
         }
 
         public override void OnProcessLauncherGradle(GradleConfig gradle)

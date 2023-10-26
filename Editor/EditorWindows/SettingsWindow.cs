@@ -248,6 +248,9 @@ namespace SoFunny.FunnySDK.Editor
                 case 0: // Google
                     EditorGUILayout.LabelField("Google IDToken");
                     sdkConfig.Google.idToken = EditorGUILayout.TextField(sdkConfig.Google.idToken);
+
+                    EditorGUILayout.LabelField("GMS Games AppId");
+                    sdkConfig.Google.gmsGamesAppId = EditorGUILayout.TextField(sdkConfig.Google.gmsGamesAppId);
                     break;
                 case 1: // Facebook
                     EditorGUILayout.LabelField("Facebook App ID");
