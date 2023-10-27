@@ -75,6 +75,7 @@ namespace SoFunny.FunnySDK
                         Loader.HideIndicator();
                         UIService.Login.Open();
                     }
+
                 }
                 else
                 {
@@ -378,7 +379,7 @@ namespace SoFunny.FunnySDK
                 else
                 {
                     UIService.Login.Open();
-
+                    Toast.ShowFail("登录失败，请重新操作");
                     Logger.LogWarning($"无感登录失败 - {error.Code} - {error.Message}");
                 }
             });
@@ -422,7 +423,7 @@ namespace SoFunny.FunnySDK
                 }
                 else
                 {
-                    if (error.Code == -3000)// 暂定取消
+                    if (error.Code == 0)
                     {
                         Analysis.SdkTPAuthCancel();
                     }

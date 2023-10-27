@@ -1,29 +1,25 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK
 {
     /// <summary>
     /// 错误信息对象
     /// </summary>
-    [JsonObject(MemberSerialization.OptIn)]
-    public class ServiceError
+    public class ServiceError : Exception
     {
-
-        [JsonProperty("code")]
         private readonly int errorCode;
 
-        [JsonProperty("message")]
         private readonly string errorMessage;
 
         /// <summary>
         /// 错误码
         /// </summary>
         public int Code => errorCode;
+
         /// <summary>
         /// 错误消息
         /// </summary>
-        public string Message => errorMessage;
+        public override string Message => errorMessage;
 
         /// <summary>
         /// 错误类型
@@ -69,6 +65,9 @@ namespace SoFunny.FunnySDK
                 case ServiceErrorType.NoLoginError:
                     message = "未登录，请先进行登录操作";
                     break;
+                case ServiceErrorType.AccountBindFailed:
+                    message = "账号绑定失败";
+                    break;
                 default: break;
             }
 
@@ -98,6 +97,10 @@ namespace SoFunny.FunnySDK
         /// 处于未登录状态
         /// </summary>
         NoLoginError = -1002,
+        /// <summary>
+        /// 绑定失败
+        /// </summary>
+        AccountBindFailed = -2000,
         /// <summary>
         /// 数据处理失败 (数据解析失败、或 SDK 内部处理发生错误)
         /// </summary>

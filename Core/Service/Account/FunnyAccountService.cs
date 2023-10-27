@@ -279,9 +279,15 @@ namespace SoFunny.FunnySDK
 
         public void Bind(BindingType type, Action onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
         {
-            if (!Service.Login.IsAuthorized)
+            if (!Service.Login.IsAuthorized) // 是否已授权登录
             {
                 onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.NoLoginError));
+                return;
+            }
+
+            if (CurrentBindInfo.Bounded(type)) // 当前类似是否已绑定
+            {
+                onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
                 return;
             }
 
@@ -327,9 +333,7 @@ namespace SoFunny.FunnySDK
                             else
                             {
                                 Loader.HideIndicator();
-                                BindView.Close();
-
-                                onFailureHandler?.Invoke(error);
+                                Toast.ShowFail(error.Message);
                             }
                         });
                     };
@@ -344,7 +348,7 @@ namespace SoFunny.FunnySDK
                     bindable = new GoogleBindable();
                     break;
                 default:
-                    onFailureHandler?.Invoke(new ServiceError(-1, "暂未支持该绑定类型"));
+                    onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.UnknownError));
                     return;
             }
 
