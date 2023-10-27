@@ -56,7 +56,7 @@ namespace SoFunny.FunnySDK
         /// </summary>
         /// <param name="onSuccessHandler">成功处理</param>
         /// <param name="onFailureHandler">失败处理</param>
-        [Obsolete("当前方法后续将会移除，请使用 FetchUserProfile 或者形参的 GetUserProfile 方法", false)]
+        [Obsolete("当前方法后续将会移除，请使用 FetchUserProfile 或者 GetUserProfile() 方法", false)]
         void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler);
 
         /// <summary>

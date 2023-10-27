@@ -53,10 +53,13 @@ namespace SoFunny.FunnySDK.UIModule
             }
 
             timerHandler.SendingStatus();
+            UserProfile profile = Funny.Account.GetUserProfile();
+
+            Internal.CodeAction action = profile.IsGuest ? Internal.CodeAction.GuestBindEmail : Internal.CodeAction.ConfirmEmail;
 
             Funny.Core.Bridge.Common.SendVerificationCode(
                 email,
-                Internal.CodeAction.BindEmail,
+                action,
                 Internal.CodeCategory.Email,
                 (_, error) =>
                 {
