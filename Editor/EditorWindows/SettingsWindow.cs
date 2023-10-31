@@ -246,11 +246,16 @@ namespace SoFunny.FunnySDK.Editor
             switch (osSelectIndex)
             {
                 case 0: // Google
-                    EditorGUILayout.LabelField("Google IDToken");
-                    sdkConfig.Google.idToken = EditorGUILayout.TextField(sdkConfig.Google.idToken);
-
-                    EditorGUILayout.LabelField("GMS Games AppId");
+                    EditorGUILayout.LabelField("Google Client ID (Android)");
+                    sdkConfig.Google.AndroidClientID = EditorGUILayout.TextField(sdkConfig.Google.AndroidClientID);
+                    EditorGUILayout.LabelField("Google Play Games Services App ID (Android)");
                     sdkConfig.Google.gmsGamesAppId = EditorGUILayout.TextField(sdkConfig.Google.gmsGamesAppId);
+
+                    EditorGUILayout.LabelField("Google Client ID (iOS)");
+                    sdkConfig.Google.iOSClientID = EditorGUILayout.TextField(sdkConfig.Google.iOSClientID);
+                    EditorGUILayout.LabelField("Google URL Scheme (iOS)");
+                    sdkConfig.Google.iOSURLScheme = EditorGUILayout.TextField(sdkConfig.Google.iOSURLScheme);
+
                     break;
                 case 1: // Facebook
                     EditorGUILayout.LabelField("Facebook App ID");
