@@ -79,7 +79,7 @@ namespace SoFunny.FunnySDK
         void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate);
 
         /// <summary>
-        /// 绑定对应渠道，调用前可以先使用 Binding 方法进行判断是否已绑定到目标渠道
+        /// 绑定当前账号至目标平台渠道
         /// </summary>
         /// <param name="type">绑定类型</param>
         /// <param name="onSuccessHandler">成功处理</param>

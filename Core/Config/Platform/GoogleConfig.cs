@@ -7,14 +7,20 @@ namespace SoFunny.FunnySDK
     public struct GoogleConfig
     {
         [SerializeField]
-        public string idToken;
+        public string AndroidClientID;
+        [SerializeField]
+        public string iOSClientID;
+        [SerializeField]
+        public string iOSURLScheme;
 
         [SerializeField]
         public string gmsGamesAppId;
 
-        public GoogleConfig(string idToken, string gmsGamesAppId)
+        public GoogleConfig(string androidClient, string iosClient, string iosURLScheme, string gmsGamesAppId)
         {
-            this.idToken = idToken;
+            this.AndroidClientID = androidClient;
+            this.iOSClientID = iosClient;
+            this.iOSURLScheme = iosURLScheme;
             this.gmsGamesAppId = gmsGamesAppId;
         }
         /// <summary>
@@ -24,7 +30,17 @@ namespace SoFunny.FunnySDK
         {
             get
             {
-                return !string.IsNullOrEmpty(idToken);
+#if UNITY_ANDROID
+                return !string.IsNullOrEmpty(AndroidClientID);
+#endif
+
+#if UNITY_IOS
+                return !string.IsNullOrEmpty(iOSClientID) && !string.IsNullOrEmpty(iOSURLScheme);
+#endif
+
+#if UNITY_STANDALONE
+                return false;
+#endif
             }
         }
 
