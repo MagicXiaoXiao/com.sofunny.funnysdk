@@ -12,8 +12,6 @@ namespace SoFunny.FunnySDK.UIModule
         public Button commitButton;
         public Button otherLoginButton;
 
-        private ILoginViewEvent loginViewEvent;
-
         protected override void Init()
         {
             closeButton.onClick.AddListener(OnCloseViewAction);
@@ -31,6 +29,7 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnCloseViewAction()
         {
             Controller.CloseLoginController();
+            LoginView.OnCancelAction?.Invoke(UILoginPageState.AntiAddictionPage);
         }
 
         private void OnCommitAction()
@@ -39,17 +38,17 @@ namespace SoFunny.FunnySDK.UIModule
             string name = nameInputField.text;
             string cardID = idInputField.text;
 
-            loginViewEvent?.OnRealnameInfoCommit(name, cardID);
+            Toast.ShowFail("实名认证功能暂未开发");
         }
 
         private void OnOtherLoginAction()
         {
-            loginViewEvent?.OnSwitchOtherAccount();
+            LoginView.OnSwitchOtherAction?.Invoke();
         }
 
         public override void SetConfig(ILoginViewEvent loginViewEvent)
         {
-            this.loginViewEvent = loginViewEvent;
+
         }
     }
 }

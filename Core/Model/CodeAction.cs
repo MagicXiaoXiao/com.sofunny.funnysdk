@@ -12,7 +12,7 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         Signup = 2,
         /// <summary>
-        /// 绑定邮箱
+        /// 绑定邮箱 - 已有邮箱绑定新邮箱
         /// </summary>
         BindEmail = 10,
         /// <summary>
@@ -28,7 +28,7 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         ConfirmPhone = 13,
         /// <summary>
-        /// 确认邮箱
+        /// 确认邮箱 - 无邮箱绑定邮箱
         /// </summary>
         ConfirmEmail = 15,
         /// <summary>

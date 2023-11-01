@@ -6,7 +6,7 @@ namespace SoFunny.FunnySDK.Internal
 {
     internal static partial class FunnyDataStore
     {
-        private const string FunnyAccessTokenKey = "com.funnysdk.datastore.token";
+        private static readonly string FunnyAccessTokenKey = $"com.funnysdk.datastore.token{BridgeConfig.AppID}";
 
         private static SSOToken _ssoToken;
 

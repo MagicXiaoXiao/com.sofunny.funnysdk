@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using SoFunny.FunnySDK.Promises;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -48,6 +49,14 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("GetAppInfo", new AndroidCallBack<AppInfoConfig>(handler));
         }
 
+        public Promise<AppInfoConfig> GetAppInfo()
+        {
+            return new Promise<AppInfoConfig>((resolve, reject) =>
+            {
+                Service.Call("GetAppInfo", new AndroidCallBack<AppInfoConfig>(resolve, reject));
+            });
+        }
+
         public void OpenPrivacyProtocol()
         {
             Service.Call("OpenPrivacyProtocol");
@@ -63,6 +72,14 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("SendVerificationCode", account, ((int)codeAction), ((int)codeCategory), new AndroidCallBack<VoidObject>(handler));
         }
 
+        public Promise SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory)
+        {
+            return new Promise((resolve, reject) =>
+            {
+                Service.Call("SendVerificationCode", account, ((int)codeAction), ((int)codeCategory), new AndroidCallBack(resolve, reject));
+            });
+        }
+
         public void TrackEvent(Track track)
         {
             // Debug.Log("reportEvent TrackEvent: " + track.Name + " json: " + track.JsonData());
@@ -73,6 +90,14 @@ namespace SoFunny.FunnySDK.Internal
         {
             // Tips: 取消则传值空字符串
             Service.Call("ShowDatePicker", date, new AndroidCallBack<string>(handler));
+        }
+
+        public Promise<string> ShowDatePicker(string date)
+        {
+            return new Promise<string>((resolve, reject) =>
+            {
+                Service.Call("ShowDatePicker", date, new AndroidCallBack<string>(resolve, reject));
+            });
         }
 
         public void SetLanguage(string language)

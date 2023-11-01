@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using AOT;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using UnityEditor;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -27,6 +29,7 @@ namespace SoFunny.FunnySDK.Internal
          */
 
         private static Dictionary<string, Action<bool, string>> _callback = new Dictionary<string, Action<bool, string>>();
+        private static Dictionary<string, Action<ServiceError>> _failureDic = new Dictionary<string, Action<ServiceError>>();
 
         [JsonProperty("method")]
         private readonly string rawValue;
@@ -41,7 +44,7 @@ namespace SoFunny.FunnySDK.Internal
         {
             this.rawValue = rawValue;
             this.parameters = new Dictionary<string, object>();
-            this.serviceId = "";
+            this.serviceId = Guid.NewGuid().ToString("N");
         }
 
         internal static FSDKCallAndBack Builder(string rawValue)
@@ -52,6 +55,67 @@ namespace SoFunny.FunnySDK.Internal
         internal FSDKCallAndBack Add(string key, object value)
         {
             parameters.Add(key, value);
+
+            return this;
+        }
+
+        internal FSDKCallAndBack Then(Action action)
+        {
+            _callback.Add(serviceId, (result, json) =>
+            {
+                if (result)
+                {
+                    action?.Invoke();
+                }
+                else
+                {
+                    if (_failureDic.TryGetValue(serviceId, out var failureAction))
+                    {
+                        var errorObj = JObject.Parse(json);
+                        int code = errorObj.Value<int>("code");
+                        string message = errorObj.Value<string>("message");
+
+                        var errorObject = new ServiceError(code, message);
+
+                        failureAction?.Invoke(errorObject);
+                    }
+                }
+            });
+
+            return this;
+        }
+
+        internal FSDKCallAndBack Then<T>(Action<T> action)
+        {
+            _callback.Add(serviceId, (result, json) =>
+            {
+                if (result)
+                {
+                    var jsonObject = JsonConvert.DeserializeObject<T>(json);
+
+                    action?.Invoke(jsonObject);
+                }
+                else
+                {
+                    if (_failureDic.TryGetValue(serviceId, out var failureAction))
+                    {
+                        var errorObj = JObject.Parse(json);
+                        int code = errorObj.Value<int>("code");
+                        string message = errorObj.Value<string>("message");
+
+                        var errorObject = new ServiceError(code, message);
+
+                        failureAction?.Invoke(errorObject);
+                    }
+                }
+            });
+
+            return this;
+        }
+
+        internal FSDKCallAndBack Catch(Action<ServiceError> action)
+        {
+            _failureDic.Add(serviceId, action);
 
             return this;
         }

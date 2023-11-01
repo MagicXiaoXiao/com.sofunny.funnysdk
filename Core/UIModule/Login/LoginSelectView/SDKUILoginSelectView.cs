@@ -151,6 +151,7 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnCloseViewAction()
         {
             Controller.CloseLoginController();
+            LoginView.OnCancelAction?.Invoke(UILoginPageState.LoginSelectPage);
         }
 
         private bool CheckAgreement()
@@ -179,56 +180,56 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnGuestLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.Guest);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Guest);
         }
 
         private void OnFacebookLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.Facebook);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Facebook);
         }
 
         private void OnTwitterLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.Twitter);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Twitter);
         }
 
         private void OnGoogleLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.Google);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Google);
         }
 
         private void OnAppleLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.Apple);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.Apple);
         }
 
         private void OnQQLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.QQ);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.QQ);
         }
 
         private void OnWeChatLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.WeChat);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.WeChat);
         }
 
         private void OnTapTapLoginAction()
         {
             if (!CheckAgreement()) { return; }
-
+            LoginView.OnLoginWithProviderAction?.Invoke(LoginProvider.TapTap);
             loginViewEvent?.OnLoginWithProvider(LoginProvider.TapTap);
         }
 
@@ -236,11 +237,13 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnClickAgreementAction()
         {
+            LoginView.OnClickUserAgreenment?.Invoke();
             loginViewEvent?.OnClickUserAgreenment();
         }
 
         private void OnClickPrivacyProtocolAction()
         {
+            LoginView.OnClickPriacyProtocol?.Invoke();
             loginViewEvent?.OnClickPriacyProtocol();
         }
 

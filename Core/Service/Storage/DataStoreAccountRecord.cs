@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using SoFunny.FunnySDK.Internal;
 
 namespace SoFunny.FunnySDK
 {
     internal static partial class FunnyDataStore
     {
 
-        private const string kFunnySDKAccountHistory = "com.sofunny.funnysdk.account.history";
+        private static readonly string kFunnySDKAccountHistory = $"funnysdk.account.history{BridgeConfig.AppID}";
 
         private const char splitFlag = ';';
         private const int recordCount = 5;

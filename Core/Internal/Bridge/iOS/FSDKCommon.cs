@@ -2,6 +2,8 @@
 using System;
 using AOT;
 using System.Runtime.InteropServices;
+using SoFunny.FunnySDK.Promises;
+using UnityEditor;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -51,22 +53,29 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
+        public Promise<AppInfoConfig> GetAppInfo()
+        {
+            return new Promise<AppInfoConfig>((resolve, reject) =>
+            {
+                FSDKCallAndBack.Builder("GetAppInfo")
+                               .Then(resolve)
+                               .Catch(reject)
+                               .Invoke();
+            });
+        }
+
         public void OpenPrivacyProtocol()
         {
-            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
-
             FSDKCall.Builder("OpenWebView")
-                    .Add("url", $"https://{host}/privacy-policy?hide_back_button=true")
+                    .Add("url", BridgeConfig.PrivacyProtocolURL)
                     .Invoke();
         }
 
         public void OpenUserAgreenment()
         {
-            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
-
             FSDKCall.Builder("OpenWebView")
-                    .Add("url", $"https://{host}/service-protocol?hide_back_button=true")
-                    .Invoke(); ;
+                    .Add("url", BridgeConfig.UserProtocolURL)
+                    .Invoke();
         }
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
@@ -82,6 +91,19 @@ namespace SoFunny.FunnySDK.Internal
                            .Invoke();
         }
 
+        public Promise SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory)
+        {
+            return new Promise((resolve, reject) =>
+            {
+                FSDKCallAndBack.Builder("SendVerificationCode")
+                               .Add("account", account)
+                               .Add("codeAction", (int)codeAction)
+                               .Add("codeCategory", (int)codeCategory)
+                               .Then(resolve)
+                               .Catch(reject)
+                               .Invoke();
+            });
+        }
 
         public void SetLanguage(string language)
         {
@@ -99,6 +121,18 @@ namespace SoFunny.FunnySDK.Internal
                                IosHelper.HandlerServiceCallback(success, json, handler);
                            })
                            .Invoke();
+        }
+
+        public Promise<string> ShowDatePicker(string date)
+        {
+            return new Promise<string>((resolve, reject) =>
+            {
+                FSDKCallAndBack.Builder("ShowDatePicker")
+                               .Add("date", date)
+                               .Then(resolve)
+                               .Catch(reject)
+                               .Invoke();
+            });
         }
 
         public void OpenAgreenment()

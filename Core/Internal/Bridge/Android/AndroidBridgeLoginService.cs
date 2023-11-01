@@ -2,6 +2,7 @@
 
 using System;
 using Newtonsoft.Json;
+using SoFunny.FunnySDK.Promises;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -11,12 +12,19 @@ namespace SoFunny.FunnySDK.Internal
         {
             Service.Call("ActivationCodeCommit", code, new AndroidCallBack<LimitStatus>(handler));
         }
-        // TODO: 新增 - 返回是否已进行过登录授权
+
+        public Promise<LimitStatus> ActivationCodeCommit(string code)
+        {
+            return new Promise<LimitStatus>((resolve, reject) =>
+            {
+                Service.Call("ActivationCodeCommit", code, new AndroidCallBack<LimitStatus>(resolve, reject));
+            });
+        }
+
         public bool IsAuthorized => Service.Call<bool>("IsAuthorized");
 
         public AccessToken GetCurrentAccessToken()
         {
-            // TODO: 调整 - 该 Token 值为用户 Token，（oauth_access_token）
             string jsonToken = Service.Call<string>("GetCurrentAccessToken");
 
             try
@@ -32,8 +40,6 @@ namespace SoFunny.FunnySDK.Internal
 
         public UserProfile GetUserProfile()
         {
-            // TODO: 新增 - 直接获取用户信息，不走服务器请求
-            // 理想情况调整为 Service.Call<UserProfile>("GetUserProfile");
             string jsonValue = Service.Call<string>("GetUserProfile");
 
             try
@@ -49,32 +55,54 @@ namespace SoFunny.FunnySDK.Internal
 
         public void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler)
         {
-            // TODO: 新增 - 从服务器请求获取当前用户信息
             Service.Call("FetchUserProfile", new AndroidCallBack<UserProfile>(handler));
         }
 
-        public void GetUserProfile(ServiceCompletedHandler<UserProfile> handler)
+        public Promise<UserProfile> FetchUserProfile()
         {
-            // TODO: 移除 - 后续版本将会移除 GetUserProfile 方法。当前使用 FetchUserProfile
-            FetchUserProfile(handler);
+            return new Promise<UserProfile>((resolve, reject) =>
+            {
+                Service.Call("FetchUserProfile", new AndroidCallBack<UserProfile>(resolve, reject));
+            });
         }
 
         public void LoginWithCode(string account, string code, ServiceCompletedHandler<LoginResult> handler)
         {
-            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
             Service.Call("LoginWithCode", account, code, new AndroidCallBack<LoginResult>(handler));
+        }
+
+        public Promise<LoginResult> LoginWithCode(string account, string code)
+        {
+            return new Promise<LoginResult>((resolve, reject) =>
+            {
+                Service.Call("LoginWithCode", account, code, new AndroidCallBack<LoginResult>(resolve, reject));
+            });
         }
 
         public void LoginWithPassword(string account, string password, ServiceCompletedHandler<LoginResult> handler)
         {
-            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
             Service.Call("LoginWithPassword", account, password, new AndroidCallBack<LoginResult>(handler));
+        }
+
+        public Promise<LoginResult> LoginWithPassword(string account, string password)
+        {
+            return new Promise<LoginResult>((resolve, reject) =>
+            {
+                Service.Call("LoginWithPassword", account, password, new AndroidCallBack<LoginResult>(resolve, reject));
+            });
         }
 
         public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<LoginResult> handler)
         {
-            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
             Service.Call("LoginWithProvider", ((int)provider), new AndroidCallBack<LoginResult>(handler));
+        }
+
+        public Promise<LoginResult> LoginWithProvider(LoginProvider provider)
+        {
+            return new Promise<LoginResult>((resolve, reject) =>
+            {
+                Service.Call("LoginWithProvider", (int)provider, new AndroidCallBack<LoginResult>(resolve, reject));
+            });
         }
 
         public void Logout()
@@ -87,9 +115,25 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("NativeVerifyLimit", new AndroidCallBack<LimitStatus>(handler));
         }
 
+        public Promise<LimitStatus> NativeVerifyLimit()
+        {
+            return new Promise<LimitStatus>((resolve, reject) =>
+            {
+                Service.Call("NativeVerifyLimit", new AndroidCallBack<LimitStatus>(resolve, reject));
+            });
+        }
+
         public void RealnameInfoCommit(string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
         {
             Service.Call("RealnameInfoCommit", realname, cardID, new AndroidCallBack<LimitStatus>(handler));
+        }
+
+        public Promise<LimitStatus> RealnameInfoCommit(string realname, string cardID)
+        {
+            return new Promise<LimitStatus>((resolve, reject) =>
+            {
+                Service.Call("RealnameInfoCommit", realname, cardID, new AndroidCallBack<LimitStatus>(resolve, reject));
+            });
         }
 
         public void RecallAccountDelete(ServiceCompletedHandler<VoidObject> handler)
@@ -97,10 +141,25 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("RecallAccountDelete", new AndroidCallBack<VoidObject>(handler));
         }
 
+        public Promise RecallAccountDelete()
+        {
+            return new Promise((resolve, reject) =>
+            {
+                Service.Call("RecallAccountDelete", new AndroidCallBack(resolve, reject));
+            });
+        }
+
         public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<LoginResult> handler)
         {
-            // TODO: 调整 - 将原为 AccessToken 类型调整为 LoginResult
             Service.Call("RegisterAccount", account, password, chkCode, new AndroidCallBack<LoginResult>(handler));
+        }
+
+        public Promise<LoginResult> RegisterAccount(string account, string password, string chkCode)
+        {
+            return new Promise<LoginResult>((resolve, reject) =>
+            {
+                Service.Call("RegisterAccount", account, password, chkCode, new AndroidCallBack<LoginResult>(resolve, reject));
+            });
         }
 
         public void RetrievePassword(string account, string password, string chkCode, ServiceCompletedHandler<VoidObject> handler)
@@ -109,9 +168,26 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("RetrievePassword", account, password, chkCode, ((int)category), new AndroidCallBack<VoidObject>(handler));
         }
 
+        public Promise RetrievePassword(string account, string password, string chkCode)
+        {
+            return new Promise((resolve, reject) =>
+            {
+                CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
+                Service.Call("RetrievePassword", account, password, chkCode, (int)category, new AndroidCallBack(resolve, reject));
+            });
+        }
+
         public void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler)
         {
             Service.Call("GetWebPCInfo", new AndroidCallBack<WebPCInfo>(handler));
+        }
+
+        public Promise<WebPCInfo> GetWebPCInfo()
+        {
+            return new Promise<WebPCInfo>((resolve, reject) =>
+            {
+                Service.Call("GetWebPCInfo", new AndroidCallBack<WebPCInfo>(resolve, reject));
+            });
         }
 
         public void CommitPrivateInfo(string birthday, string sex, ServiceCompletedHandler<VoidObject> handler)
@@ -119,9 +195,25 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("CommitPrivateInfo", birthday, sex, new AndroidCallBack<VoidObject>(handler));
         }
 
+        public Promise CommitPrivateInfo(string birthday, string sex)
+        {
+            return new Promise((resolve, reject) =>
+            {
+                Service.Call("CommitPrivateInfo", birthday, sex, new AndroidCallBack(resolve, reject));
+            });
+        }
+
         public void GetPrivateProfile(ServiceCompletedHandler<UserPrivateInfo> handler)
         {
             Service.Call("GetPrivateProfile", new AndroidCallBack<UserPrivateInfo>(handler));
+        }
+
+        public Promise<UserPrivateInfo> GetPrivateProfile()
+        {
+            return new Promise<UserPrivateInfo>((resolve, reject) =>
+            {
+                Service.Call("GetPrivateProfile", new AndroidCallBack<UserPrivateInfo>(resolve, reject));
+            });
         }
 
     }

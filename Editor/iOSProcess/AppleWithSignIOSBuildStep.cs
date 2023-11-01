@@ -5,11 +5,13 @@ using System.Linq;
 using System.IO;
 using UnityEditor;
 using UnityEditor.iOS.Xcode;
+using UnityEngine;
 
 namespace SoFunny.FunnySDK.Editor
 {
     public class AppleWithSignIOSBuildStep : FunnyXcodeBuildStep
     {
+
         public override bool IsEnabled
         {
             get
@@ -35,11 +37,17 @@ namespace SoFunny.FunnySDK.Editor
             pBXProject.AddFrameworkToProject(projectTargetGUID, "AuthenticationServices.framework", true);
             var entitlementsPath = $"{mainTargetName}/{mainTargetName}.entitlements";
 
-            var manager = new ProjectCapabilityManager(pathToBuiltTarget, entitlementsPath, targetGuid: projectTargetGUID);
-            manager.AddSignInWithApple();
-            manager.WriteToFile();
+            PlistDocument sofunnyPlist = new PlistDocument();
+            sofunnyPlist.Create();
+            sofunnyPlist.root.CreateArray("com.apple.developer.applesignin").AddString("Default");
+            sofunnyPlist.WriteToFile($"{pathToBuiltTarget}/{entitlementsPath}");
+
+            //var manager = new ProjectCapabilityManager(pathToBuiltTarget, entitlementsPath, targetGuid: projectTargetGUID);
+            //manager.AddSignInWithApple();
+            //manager.WriteToFile();
+
             pBXProject.AddFile(entitlementsPath, $"{mainTargetName}.entitlements");
-            pBXProject.AddCapability(projectTargetGUID, PBXCapabilityType.SignInWithApple, entitlementsPath, false);
+            pBXProject.AddCapability(projectTargetGUID, PBXCapabilityType.SignInWithApple, entitlementsPath, true);
 
             var allFramework = Directory.GetDirectories(FRAMEWORK_ORIGIN_PATH)
                                 .Where((dirPath) =>

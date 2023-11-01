@@ -36,18 +36,22 @@ namespace SoFunny.FunnySDK.UIModule
                 Toast.ShowFail(Locale.LoadText("page.activeCode.title"));
                 return;
             }
+            LoginView.OnCommitActivationAction?.Invoke(code);
 
             loginViewEvent?.OnActivationCodeCommit(code);
         }
 
         private void OnOtherLoginAction()
         {
+            LoginView.OnSwitchOtherAction?.Invoke();
             loginViewEvent?.OnSwitchOtherAccount();
         }
 
         private void OnCloseViewAction()
         {
             Controller.CloseLoginController();
+
+            LoginView.OnCancelAction?.Invoke(UILoginPageState.ActivationKeyPage);
         }
 
         public override void SetConfig(ILoginViewEvent loginViewEvent)

@@ -14,8 +14,6 @@ namespace SoFunny.FunnySDK.UIModule
         public Button commitButton;
         public Button nextTimeButton;
 
-        internal IAdditionalInfoDelegate InfoDelegate;
-
         void Awake()
         {
             dateButton.onClick.AddListener(OnShowDateSelectAction);
@@ -25,11 +23,17 @@ namespace SoFunny.FunnySDK.UIModule
 
         void OnDestroy()
         {
-            InfoDelegate = null;
 
             dateButton.onClick.RemoveAllListeners();
             commitButton.onClick.RemoveAllListeners();
             nextTimeButton.onClick.RemoveAllListeners();
+        }
+
+        internal void HideAndClose()
+        {
+            gameObject?.SetActive(false);
+            Destroy(gameObject);
+            AdditionalInfoView.isLoaded = false;
         }
 
         internal void SetGender(string genderValue)
@@ -77,7 +81,12 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnShowDateSelectAction()
         {
             string value = dateText.text.Trim();
-            InfoDelegate?.OnShowDateView(value);
+            Funny.Core.Bridge.Common.ShowDatePicker(value)
+                                    .Then(SetDateValue)
+                                    .Catch((error) =>
+                                    {
+                                        Toast.ShowFail(error.Message);
+                                    });
         }
 
         private void OnCommitAction()
@@ -87,12 +96,12 @@ namespace SoFunny.FunnySDK.UIModule
             string sexFlag = maleToggle.isOn ? "MALE" : "FEMALE";
             string dateValue = dateText.text.Trim();
 
-            InfoDelegate?.OnCommit(sexFlag, dateValue);
+            AdditionalInfoView.OnCommitAction?.Invoke(sexFlag, dateValue);
         }
 
         private void OnNextTimeAction()
         {
-            InfoDelegate?.OnNextTime();
+            AdditionalInfoView.OnNextTimeAction?.Invoke();
         }
     }
 }

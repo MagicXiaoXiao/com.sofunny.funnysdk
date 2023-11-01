@@ -19,15 +19,15 @@ namespace SoFunny.FunnySDK
             // 实例化桥接服务类
             bridgeService = bridge;
             // 实例化登录服务 API
-            FunnyLoginService login = new FunnyLoginService(
-                config,
-                bridgeService.Common,
-                bridgeService.Login,
-                bridgeService.Analysis
-                );
+            //FunnyLoginService login = new FunnyLoginService(
+            //    config,
+            //    bridgeService.Common,
+            //    bridgeService.Login,
+            //    bridgeService.Analysis
+            //    );
 
             // 实例化账号服务 API
-            AccountAPI = new FunnyAccountService(login, bridgeService);
+            AccountAPI = new FunnyAccountService(bridgeService);
             // 实例化用户中心服务 API
             UserCenterAPI = new FunnyUserCenterService(bridgeService.UserCenter);
             // 实例化公告服务 API

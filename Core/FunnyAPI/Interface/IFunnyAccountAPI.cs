@@ -29,6 +29,8 @@ namespace SoFunny.FunnySDK
         /// 登录账号 (发起登录流程，成功是将会触发 OnLoginEvents 事件)
         /// </summary>
         /// <param name="serviceDelegate"></param>
+        ///
+        [Obsolete("该方法后续将会删除，请使用其他重载方法", false)]
         void Login(ILoginServiceDelegate serviceDelegate);
 
         /// <summary>
@@ -76,7 +78,16 @@ namespace SoFunny.FunnySDK
         /// 获取用户授权的隐私信息 (性别、生日等)
         /// </summary>
         /// <param name="serviceDelegate"></param>
+        ///
+        [Obsolete("请使用 AuthPrivateUserInfo 方法将其替换，后续将会删除当前方法", false)]
         void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate);
+
+        /// <summary>
+        /// 获取用户授权的隐私信息 (性别、生日等)
+        /// </summary>
+        /// <param name="onSuccessAction">用户已授权</param>
+        /// <param name="onCancelAction">用户已取消， bool 表示为隐私服务是否已开启</param>
+        void AuthPrivateUserInfo(Action<UserPrivateInfo> onSuccessAction, Action<bool> onCancelAction);
 
         /// <summary>
         /// 绑定当前账号至目标平台渠道
