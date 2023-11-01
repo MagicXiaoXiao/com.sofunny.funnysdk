@@ -1,4 +1,6 @@
 ﻿using System;
+using SoFunny.FunnySDK.Promises;
+
 namespace SoFunny.FunnySDK.Internal
 {
     internal interface IBridgeServiceBind
@@ -9,6 +11,8 @@ namespace SoFunny.FunnySDK.Internal
         /// </summary>
         /// <param name="handler"></param>
         void FetchBindInfo(ServiceCompletedHandler<BindInfo> handler);
+
+        Promise<BindInfo> FetchBindInfo();
 
         void Binding(IBindable bindable, ServiceCompletedHandler<VoidObject> handler);
 

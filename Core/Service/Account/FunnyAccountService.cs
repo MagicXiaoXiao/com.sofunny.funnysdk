@@ -1,33 +1,37 @@
 ﻿using System;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
+using System.Threading.Tasks;
+using UnityEngine.Analytics;
+using UnityEditor;
+using UnityEditor.PackageManager;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 namespace SoFunny.FunnySDK
 {
-    internal partial class FunnyAccountService : IFunnyAccountAPI, IAdditionalInfoDelegate
+    internal partial class FunnyAccountService : IFunnyAccountAPI
     {
         private readonly BridgeService Service;
-        private readonly FunnyLoginService LoginService;
 
-        private IPrivateUserInfoDelegate UserInfoDelegate;
         private readonly PrivateInfoAuthTrack PrivateInfoTrack;
+        private readonly LoginTrack LoginAnalysis;
 
-        private UserProfile CurrentUserProfile;
-        private BindInfo CurrentBindInfo;
+        private UserProfile CurrentUserProfile => AccountInfo.Current.Profile;
+        private BindInfo CurrentBindInfo => AccountInfo.Current.BindInfo;
 
         public event Action OnLogoutEvents;
         public event Action<AccessToken> OnLoginEvents;
         public event Action<AccessToken> OnSwitchAccountEvents;
 
-        internal FunnyAccountService(FunnyLoginService loginService, BridgeService bridgeService)
+        internal FunnyAccountService(BridgeService bridgeService)
         {
             Service = bridgeService;
-            LoginService = loginService;
             PrivateInfoTrack = new PrivateInfoAuthTrack(bridgeService.Analysis);
+            LoginAnalysis = new LoginTrack(bridgeService.Analysis);
 
             BridgeNotificationCenter.Default.AddObserver(this, "event.logout", () =>
             {
-                CurrentUserProfile = null;
+                AccountInfo.Current.Clear();
                 OnLogoutEvents?.Invoke();
             });
 
@@ -35,7 +39,7 @@ namespace SoFunny.FunnySDK
             {
                 if (value.TryGet<AccessToken>(out var accessToken))
                 {
-                    CurrentUserProfile = GetUserProfile();
+                    AccountInfo.Current.Profile = GetUserProfile();
                     OnSwitchAccountEvents?.Invoke(accessToken);
                 }
                 else
@@ -45,93 +49,120 @@ namespace SoFunny.FunnySDK
             });
         }
 
-        // FIXME Android 移动端待处理: Google 账号要从 Google People Api 获取用户年龄性别信息直接返回
-        public void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate)
+        public void AuthPrivateUserInfo(Action<UserPrivateInfo> onSuccessAction, Action<bool> onCancelAction)
         {
-            Logger.Log("发起用户信息授权 - GetPrivateUserInfo");
-
-            UserInfoDelegate = serviceDelegate;
             PrivateInfoTrack.Start();
 
             if (CurrentUserProfile is null)
             {
-                UserInfoDelegate?.OnPrivateInfoFailure(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
+                PrivateInfoTrack.FailureResult(ServiceError.Make(ServiceErrorType.NoLoginError));
+                onCancelAction?.Invoke(false);
                 return;
             }
 
             if (CurrentUserProfile.PrivateInfo is null) // 开关判断
             {
                 PrivateInfoTrack.NotEnabled();
-
-                UserInfoDelegate?.OnUnenabledService();
-                UserInfoDelegate = null;
+                onCancelAction?.Invoke(false);
             }
             else if (CurrentUserProfile.PrivateInfo.Filled) // 信息完整判断
             {
                 PrivateInfoTrack.SuccessResult();
-
-                UserInfoDelegate?.OnConsentAuthPrivateInfo(CurrentUserProfile.PrivateInfo);
-                UserInfoDelegate = null;
+                onSuccessAction?.Invoke(CurrentUserProfile.PrivateInfo);
             }
             else
             {
-                FetchPrivateInfoHandler();
+                // 打开 UI 填写
+                FetchPrivateInfoHandler(CurrentUserProfile.PrivateInfo, onSuccessAction, onCancelAction);
             }
+
         }
 
-        private void FetchPrivateInfoHandler()
+        public void GetPrivateUserInfo(IPrivateUserInfoDelegate serviceDelegate)
         {
-            Loader.ShowIndicator();
+            Logger.Log("发起用户信息授权 - GetPrivateUserInfo");
 
-            Service.Login.GetPrivateProfile((info, error) =>
+            AuthPrivateUserInfo((info) =>
             {
-                Loader.HideIndicator();
+                serviceDelegate?.OnConsentAuthPrivateInfo(info);
 
-                if (error == null)
+            }, (enableService) =>
+            {
+                if (enableService)
                 {
-                    UIService.AdditionalInfo.Open(this, info.Gender, info.Birthday);
+                    serviceDelegate?.OnNextTime();
                 }
                 else
                 {
-                    PrivateInfoTrack.FailureResult(error);
-
-                    Logger.LogVerbose($"获取账号隐私信息失败: {error.Code} - {error.Message}");
-                    UIService.AdditionalInfo.Open(this);
+                    serviceDelegate?.OnUnenabledService();
                 }
             });
+        }
+
+        private void FetchPrivateInfoHandler(UserPrivateInfo info, Action<UserPrivateInfo> onSuccessAction, Action<bool> onCancelAction)
+        {
+
+            AdditionalInfoView.OnNextTimeAction = () =>
+            {
+                PrivateInfoTrack.Cancel();
+                AdditionalInfoView.Close();
+
+                onCancelAction?.Invoke(true);
+            };
+
+            AdditionalInfoView.OnCommitAction = async (sexValue, birthday) =>
+            {
+                Loader.ShowIndicator();
+                try
+                {
+                    await Service.Login.CommitPrivateInfo(birthday, sexValue).Async();
+                    AccountInfo.Current.Profile = await Service.Login.FetchUserProfile().Async();
+
+                    PrivateInfoTrack.SuccessResult();
+
+                    Loader.HideIndicator();
+                    AdditionalInfoView.Close();
+                    onSuccessAction?.Invoke(CurrentUserProfile.PrivateInfo);
+                }
+                catch (ServiceError error)
+                {
+                    PrivateInfoTrack.FailureResult(error);
+
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+                }
+
+            };
+
+            AdditionalInfoView.Open(info.Gender, info.Birthday);
         }
 
         public void GetUserProfile(IUserServiceDelegate serviceDelegate)
         {
-            Service.Login.FetchUserProfile((userProfile, error) =>
-            {
-                if (error == null)
-                {
-                    CurrentUserProfile = userProfile;
-                    serviceDelegate?.OnUserProfileSuccess(userProfile);
-                }
-                else
-                {
-                    serviceDelegate?.OnUserProfileFailure(error);
-                }
-            });
+            Service.Login.FetchUserProfile()
+                         .Then((userProfile) =>
+                         {
+                             AccountInfo.Current.Profile = userProfile;
+                             serviceDelegate?.OnUserProfileSuccess(userProfile);
+                         })
+                         .Catch((error) =>
+                         {
+                             serviceDelegate?.OnUserProfileFailure((ServiceError)error);
+                         });
         }
 
         public void FetchUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler)
         {
-
-            Service.Login.FetchUserProfile((userProfile, error) =>
-            {
-                if (error == null)
-                {
-                    CurrentUserProfile = userProfile;
-                    onSuccessHandler?.Invoke(userProfile);
-                }
-                else
-                {
-                    onFailureHandler?.Invoke(error);
-                }
-            });
+            Service.Login.FetchUserProfile()
+                         .Then((profile) =>
+                         {
+                             AccountInfo.Current.Profile = profile;
+                             onSuccessHandler(profile);
+                         })
+                         .Catch((error) =>
+                         {
+                             onFailureHandler((ServiceError)error);
+                         });
         }
 
         public void GetUserProfile(Action<UserProfile> onSuccessHandler, Action<ServiceError> onFailureHandler)
@@ -141,130 +172,483 @@ namespace SoFunny.FunnySDK
 
         public void Login(ILoginServiceDelegate serviceDelegate)
         {
-            LoginService.StartLogin((token, error) =>
+            Login((token) =>
             {
-                if (error is null)
-                {
-                    Service.Bind.FetchBindInfo((bindInfo, infoError) =>
-                    {
-                        CurrentBindInfo = bindInfo;
-                        CurrentUserProfile = GetUserProfile();
-                        if (infoError is null)
-                        {
-                            serviceDelegate?.OnLoginSuccess(token);
-                            OnLoginEvents?.Invoke(token);
-                        }
-                        else
-                        {
-                            serviceDelegate?.OnLoginFailure(infoError);
-                        }
-                    });
-                }
-                else if (error.Code == 0)
-                {
-                    serviceDelegate?.OnLoginCancel();
-                }
-                else
-                {
-                    serviceDelegate?.OnLoginFailure(error);
-                }
-
+                serviceDelegate?.OnLoginSuccess(token);
+            }, (error) =>
+            {
+                serviceDelegate?.OnLoginFailure(error);
+            }, () =>
+            {
+                serviceDelegate?.OnLoginCancel();
             });
         }
 
-        public void Login(Action<AccessToken> onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
+        private bool StartFlag = false;
+
+        public async void Login(Action<AccessToken> onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
         {
-            LoginService.StartLogin((token, error) =>
+
+            if (StartFlag)
             {
-                if (error is null)
+                Logger.LogWarning("已有登录正在进行中，请等待完成。");
+                return;
+            }
+
+            try
+            {
+                StartFlag = true;
+
+                LoginAnalysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
+
+                Loader.ShowIndicator();
+
+                AppInfoConfig appInfo = await Service.Common.GetAppInfo().Async();
+
+                LoginView.SetProviders(appInfo.GetLoginProviders());
+                LoginUIFlowSetup(onSuccessHandler, onCancelHandler);
+
+                if (Service.Login.IsAuthorized) // 快速登录
                 {
-                    Service.Bind.FetchBindInfo((bindInfo, infoError) =>
+                    LimitStatus limitStatus = await VerifyLimit();
+                    Loader.HideIndicator();
+
+                    LoginAnalysis.SdkStartLoginSuccess(true, true);
+
+                    LimitResultHandler(limitStatus, false, onSuccessHandler);
+                }
+                else if (appInfo.EnableAutoGuest) // 无感登录
+                {
+
+                    LoginResult loginResult = await Service.Login.LoginWithProvider(LoginProvider.Guest).Async();
+
+                    // TODO: 待定无感登录埋点
+                    //LoginAnalysis.SdkStartLoginSuccess(true, true);
+
+                    if (loginResult.IsNeedBind) // 需进行手机号绑定
                     {
-                        CurrentBindInfo = bindInfo;
-                        CurrentUserProfile = GetUserProfile();
+                        Toast.ShowFail("需要进行绑定流程");
+                        Loader.HideIndicator();
+                    }
+                    else
+                    {
+                        // 登录限制效验
+                        LimitStatus limitStatus = await VerifyLimit();
 
-                        if (infoError is null)
-                        {
-                            onSuccessHandler?.Invoke(token);
-                            OnLoginEvents?.Invoke(token);
-                        }
-                        else
-                        {
-                            onFailureHandler?.Invoke(infoError);
-                        }
-                    });
+                        Loader.HideIndicator();
+
+                        LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                    }
                 }
-                else if (error.Code == 0)
+                else // 打开登录 UI 界面流程
                 {
-                    onCancelHandler?.Invoke();
+                    Loader.HideIndicator();
+                    LoginView.Open();
                 }
-                else
-                {
-                    onFailureHandler?.Invoke(error);
-                }
-
-            });
-        }
-
-        public void Logout()
-        {
-            CurrentBindInfo = null;
-            CurrentUserProfile = null;
-
-            Service.Login.Logout();
-            OnLogoutEvents?.Invoke();
-        }
-
-        public void OnCommit(string sex, string date)
-        {
-            Loader.ShowIndicator();
-
-            Service.Login.CommitPrivateInfo(date, sex, (_, error) =>
+            }
+            catch (ServiceError error)
             {
                 Loader.HideIndicator();
 
-                if (error == null)
+                if (error.Error == ServiceErrorType.InvalidAccessToken)
                 {
-                    CurrentUserProfile = GetUserProfile();
+                    Toast.ShowFail(error.Message);
 
-                    var info = new UserPrivateInfo();
-                    info.Birthday = date;
-                    info.Gender = sex;
+                    LoginAnalysis.SdkLoginResultFailure(false, error);
+                    LoginAnalysis.SdkStartLoginFailure(true, true, error);
 
-                    UIService.AdditionalInfo.Close();
+                    LoginAnalysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
 
-                    PrivateInfoTrack.SuccessResult();
-
-                    UserInfoDelegate?.OnConsentAuthPrivateInfo(info);
-                    UserInfoDelegate = null;
+                    LoginView.Open();
                 }
                 else
                 {
-                    Toast.ShowFail(error.Message);
-                    PrivateInfoTrack.FailureResult(error);
+                    LoginAnalysis.SdkStartLoginFailure(true, true, error);
+
+                    StartFlag = false;
+                    onFailureHandler?.Invoke(error);
                 }
-            });
+            }
         }
 
-        public void OnNextTime()
+        internal async Task<LimitStatus> VerifyLimit()
         {
-            UIService.AdditionalInfo.Close();
+            LimitStatus status = await Service.Login.NativeVerifyLimit().Async();
 
-            PrivateInfoTrack.Cancel();
+            AccountInfo.Current.Profile = await Service.Login.FetchUserProfile().Async();
+            AccountInfo.Current.BindInfo = await Service.Bind.FetchBindInfo().Async();
+            AccountInfo.Current.Token = Service.Login.GetCurrentAccessToken();
 
-            UserInfoDelegate?.OnNextTime();
-            UserInfoDelegate = null;
+            return status;
         }
 
-        public void OnShowDateView(string date)
+        private void LimitResultHandler(LimitStatus limit, bool newUser, Action<AccessToken> onSuccessHandler)
         {
-            Service.Common.ShowDatePicker(date, (selectDate, _) =>
+            switch (limit.Status)
             {
-                if (string.IsNullOrEmpty(selectDate)) { return; }
+                case LimitStatus.StatusType.Success:
+                    {
+                        StartFlag = false;
 
-                UIService.AdditionalInfo.SetDateValue(selectDate);
+                        // 关闭 UI 以及后续逻辑
+                        LoginView.Close();
+                        AccessToken token = GetCurrentAccessToken();
 
-            });
+                        LoginAnalysis.SdkLoginResultSuccess(newUser);
+
+                        onSuccessHandler?.Invoke(token);
+                        OnLoginEvents?.Invoke(token);
+                    }
+                    break;
+                case LimitStatus.StatusType.AccountBannedFailed:
+                    {
+                        Loader.ShowIndicator();
+                        WebPCInfo info = new WebPCInfo();
+
+                        Service.Login.GetWebPCInfo()
+                                     .Then((pcInfo) =>
+                                     {
+                                         info = pcInfo;
+                                     })
+                                     .Catch((error) =>
+                                     {
+                                         Toast.ShowFail(error.Message);
+                                         Logger.LogError(error.Message);
+                                     })
+                                     .Finally(() =>
+                                     {
+                                         Loader.HideIndicator();
+                                         string tips = string.Format(Locale.LoadText("page.block.hours"), info.BanDate);
+
+                                         if (info.UnblockedAt == -1)
+                                         {
+                                             tips = Locale.LoadText("page.block.forever");//"您的账号已永久封停，如有疑问，请联系客服";
+                                         }
+                                         // 账号已被封禁处理
+                                         LoginView.JumpTo(UILoginPageState.LoginLimitPage, tips);
+                                     });
+                    }
+
+                    break;
+                case LimitStatus.StatusType.AllowFailed:
+                    // IP 限制页面
+                    LoginView.JumpTo(UILoginPageState.LoginLimitPage);
+                    break;
+                case LimitStatus.StatusType.AccountInCooldownFailed:
+                    {
+                        Loader.ShowIndicator();
+                        WebPCInfo info = new WebPCInfo();
+
+                        Service.Login.GetWebPCInfo()
+                                     .Then((pcInfo) =>
+                                     {
+                                         info = pcInfo;
+                                     })
+                                     .Catch((error) =>
+                                     {
+                                         Logger.LogError(error.Message);
+                                         Toast.ShowFail(error.Message);
+                                     })
+                                     .Finally(() =>
+                                     {
+                                         Loader.HideIndicator();
+                                         //string tips = $"账号 {info.Account} 于 {info.StartDate} 提交了永久删除账号申请，将于 {info.DeadlineDate} 永久删除。如需要保留账号，请点击下方按钮撤回申请";
+                                         string tips = string.Format(Locale.LoadText("message.account.delete.tipsAfterLogin"), info.Account, info.StartDate, info.DeadlineDate);
+                                         // 账号冷静期页面
+                                         LoginView.JumpTo(UILoginPageState.CoolDownTipsPage, tips);
+                                     });
+                    }
+                    break;
+                case LimitStatus.StatusType.ActivationFailed:
+                    Toast.ShowFail(Locale.LoadText("page.activeCode.invalid"));
+
+                    LoginAnalysis.SdkVerifyCodeFailure(2, 402, new ServiceError(limit.StatusCode, "无效邀请码"));
+                    LoginView.JumpTo(UILoginPageState.ActivationKeyPage);
+                    break;
+                case LimitStatus.StatusType.ActivationUnfilled:
+                    // 跳转邀请码页面
+                    LoginView.JumpTo(UILoginPageState.ActivationKeyPage);
+                    break;
+                default:
+                    Toast.ShowFail(Locale.LoadText("message.error.unknown"));
+                    LoginView.JumpTo(UILoginPageState.LoginLimitPage);
+                    break;
+            }
+        }
+
+        private void LoginUIFlowSetup(Action<AccessToken> onSuccessHandler, Action onCancelHandler)
+        {
+            LoginView.OnCancelAction = (pageState) =>
+            {
+                StartFlag = false;
+
+                LoginAnalysis.SdkPageClose((int)pageState);
+                LoginAnalysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录被取消"));
+
+                onCancelHandler?.Invoke();
+            };
+
+            LoginView.OnOpenViewAction = (current, prev) =>
+            {
+                LoginAnalysis.SdkPageLoad((int)current, (int)prev);
+            };
+
+            LoginView.OnLoginWithPasswordAction = async (account, password) =>
+            {
+                Loader.ShowIndicator();
+
+                LoginAnalysis.SetLoginFrom(1);
+                LoginAnalysis.SetLoginWay(BridgeConfig.IsMainland ? 103 : 101);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.LoginWithPassword(account, password).Async();
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    FunnyDataStore.AddAccountHistory(account);
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                }
+            };
+
+            LoginView.OnLoginWithCodeAction = async (account, code) =>
+            {
+                Loader.ShowIndicator();
+
+                LoginAnalysis.SetLoginFrom(3);
+                LoginAnalysis.SetLoginWay(BridgeConfig.IsMainland ? 103 : 101);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.LoginWithCode(account, code).Async();
+
+                    LoginAnalysis.SdkVerifyCodeSuccess(1, 202);
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    FunnyDataStore.AddAccountHistory(account);
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    LoginAnalysis.SdkVerifyCodeFailure(1, 202, error);
+                    LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                }
+
+            };
+
+            LoginView.OnLoginWithProviderAction = async (provider) =>
+            {
+                Loader.ShowIndicator();
+
+                if (provider == LoginProvider.Guest)
+                {
+                    LoginAnalysis.SetLoginFrom(5);
+                }
+                else
+                {
+                    LoginAnalysis.SetLoginFrom(4);
+                }
+
+                LoginAnalysis.SetLoginWay((int)provider);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.LoginWithProvider(provider).Async();
+
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    if (error.Code == 0)
+                    {
+                        LoginAnalysis.SdkTPAuthCancel();
+                    }
+                    else if (error.Code == -1)
+                    {
+                        LoginAnalysis.SdkTPAuthFailure(error);
+                    }
+                    else
+                    {
+                        LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                    }
+                }
+            };
+
+            LoginView.OnRegisterAccountAction = async (account, password, code) =>
+            {
+                Loader.ShowIndicator();
+
+                LoginAnalysis.SetLoginFrom(2);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.RegisterAccount(account, password, code).Async();
+
+                    LoginAnalysis.SdkVerifyCodeSuccess(1, 203);
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    FunnyDataStore.AddAccountHistory(account);
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    LoginAnalysis.SdkVerifyCodeFailure(1, 203, error);
+                    LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                }
+
+            };
+
+            LoginView.OnRetrievePasswordAction = async (account, newPassword, code) =>
+            {
+                Loader.ShowIndicator();
+                try
+                {
+                    await Service.Login.RetrievePassword(account, newPassword, code).Async();
+
+                    Loader.HideIndicator();
+                    Toast.ShowSuccess(Locale.LoadText("message.password.change.success"));
+                    LoginAnalysis.SdkVerifyCodeSuccess(1, 301);
+
+                    LoginView.JumpTo(UILoginPageState.PwdLoginPage);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+                    LoginAnalysis.SdkVerifyCodeFailure(1, 301, error);
+                }
+            };
+
+            LoginView.OnClickPriacyProtocol = () =>
+            {
+                Service.Common.OpenPrivacyProtocol();
+            };
+
+            LoginView.OnClickUserAgreenment = () =>
+            {
+                Service.Common.OpenUserAgreenment();
+            };
+
+            LoginView.OnClickContactUS = () =>
+            {
+                LoginAnalysis.SdkPageOpen(702);
+                Service.Common.ContactUS();
+            };
+
+            LoginView.OnSwitchOtherAction = () =>
+            {
+                LoginAnalysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录账号被限制"));
+
+                Logout();
+
+                LoginAnalysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
+
+                LoginView.JumpTo(UILoginPageState.LoginSelectPage);
+            };
+
+            LoginView.OnCommitActivationAction = (code) =>
+            {
+                Loader.ShowIndicator();
+                Service.Login.ActivationCodeCommit(code)
+                             .Then((limitStatus) =>
+                             {
+                                 Loader.HideIndicator();
+                                 LimitResultHandler(limitStatus, false, onSuccessHandler);
+                             })
+                             .Catch((error) =>
+                             {
+                                 Loader.HideIndicator();
+                                 Toast.ShowFail(error.Message);
+
+                                 LoginAnalysis.SdkVerifyCodeFailure(2, 402, (ServiceError)error);
+                             });
+            };
+
+            LoginView.OnReCallDeleteAction = () =>
+            {
+                string title = Locale.LoadText("alert.title.tips");
+                string content = Locale.LoadText("alert.account.delete.content");
+                string ok = Locale.LoadText("form.button.confirmNoSpace");
+                string cancel = Locale.LoadText("form.button.cancel");
+
+                Alert.Show(title, content,
+                    new AlertActionItem(cancel),
+                    new AlertActionItem(ok, async () =>
+                    {
+                        Loader.ShowIndicator();
+                        try
+                        {
+                            await Service.Login.RecallAccountDelete().Async();
+                            LimitStatus limitStatus = await VerifyLimit();
+
+                            Loader.HideIndicator();
+
+                            LimitResultHandler(limitStatus, false, onSuccessHandler);
+                        }
+                        catch (Exception error)
+                        {
+                            Loader.HideIndicator();
+                            Toast.ShowFail(error.Message);
+                        }
+                    }));
+            };
+
+            LoginView.OnSendVerifcationCodeAction = (page, error) =>
+            {
+                if (error is null)
+                {
+                    LoginAnalysis.SdkSendCodeSuccess((int)page);
+                }
+                else
+                {
+                    LoginAnalysis.SdkSendCodeFailure((int)page, error);
+                }
+            };
+
+        }
+
+
+        public void Logout()
+        {
+            AccountInfo.Current.Clear();
+
+            Service.Login.Logout();
+            OnLogoutEvents?.Invoke();
         }
 
         public AccessToken GetCurrentAccessToken()
@@ -314,8 +698,8 @@ namespace SoFunny.FunnySDK
                                 Service.Bind.FetchBindInfo((info, infoError) =>
                                 {
 
-                                    CurrentUserProfile = GetUserProfile();
-                                    CurrentBindInfo = info;
+                                    AccountInfo.Current.Profile = GetUserProfile();
+                                    AccountInfo.Current.BindInfo = info;
 
                                     Loader.HideIndicator();
                                     BindView.Close();
@@ -356,10 +740,11 @@ namespace SoFunny.FunnySDK
             {
                 if (error is null)
                 {
+
                     Service.Bind.FetchBindInfo((info, infoError) =>
                     {
-                        CurrentUserProfile = GetUserProfile();
-                        CurrentBindInfo = info;
+                        AccountInfo.Current.Profile = GetUserProfile();
+                        AccountInfo.Current.BindInfo = info;
 
                         if (infoError is null)
                         {

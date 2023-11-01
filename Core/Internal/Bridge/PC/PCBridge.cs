@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+using SoFunny.FunnySDK.Promises;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -57,6 +58,33 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
+        public Promise<AppInfoConfig> GetAppInfo()
+        {
+            return new Promise<AppInfoConfig>((resolve, reject) =>
+            {
+                Network.Send(new AppInfoRequest(), (data, error) =>
+                {
+                    if (error == null)
+                    {
+                        try
+                        {
+                            AppInfoConfig config = JsonConvert.DeserializeObject<AppInfoConfig>(data);
+                            resolve(config);
+                        }
+                        catch (JsonException ex)
+                        {
+                            Logger.LogError("数据解析出错 - " + ex.Message);
+                            reject(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
+                        }
+                    }
+                    else
+                    {
+                        reject(error);
+                    }
+                });
+            });
+        }
+
         public void Initialize()
         {
             Logger.Log("PC 端初始化完毕");
@@ -64,14 +92,12 @@ namespace SoFunny.FunnySDK.Internal
 
         public void OpenPrivacyProtocol()
         {
-            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
-            Application.OpenURL($"https://{host}/privacy-policy?hide_back_button=true");
+            Application.OpenURL(BridgeConfig.PrivacyProtocolURL);
         }
 
         public void OpenUserAgreenment()
         {
-            string host = BridgeConfig.IsMainland ? "account.zh-cn.xmfunny.com" : "account.sg.xmfunny.com";
-            Application.OpenURL($"https://{host}/service-protocol?hide_back_button=true");
+            Application.OpenURL(BridgeConfig.UserProtocolURL);
         }
 
         public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
@@ -92,6 +118,31 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
+        public Promise SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory)
+        {
+
+            return new Promise((resolve, reject) =>
+            {
+                Network.Send(new TicketRequest(), (data, error) =>
+                {
+                    if (error == null)
+                    {
+                        var json = JObject.Parse(data);
+                        string ticket = json["ticket"].ToString();
+                        // 发送验证码
+                        CreateCode(account, codeAction, codeCategory, ticket)
+                        .Then(resolve)
+                        .Catch(reject);
+                    }
+                    else
+                    {
+                        reject(error);
+                    }
+                });
+            });
+
+        }
+
         private void CreateCode(string account, CodeAction codeAction, CodeCategory codeCategory, string ticket, ServiceCompletedHandler<VoidObject> handler)
         {
             Network.Send(new SendCodeRequest(account, codeAction, codeCategory, ticket), (data, error) =>
@@ -107,6 +158,24 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
+        public Promise CreateCode(string account, CodeAction codeAction, CodeCategory codeCategory, string ticket)
+        {
+            return new Promise((resolve, reject) =>
+            {
+                Network.Send(new SendCodeRequest(account, codeAction, codeCategory, ticket), (data, error) =>
+                {
+                    if (error == null)
+                    {
+                        resolve();
+                    }
+                    else
+                    {
+                        reject(error);
+                    }
+                });
+            });
+        }
+
         public void TrackEvent(Track track)
         {
             // PC 埋点暂不实现
@@ -117,6 +186,14 @@ namespace SoFunny.FunnySDK.Internal
             // PC 暂不实现
             Logger.Log("PC 暂未开发相关功能");
             handler?.Invoke("2000-01-01", null);
+        }
+
+        public Promise<string> ShowDatePicker(string date)
+        {
+            return new Promise<string>((resolve, reject) =>
+            {
+                resolve("2000-01-01");
+            });
         }
 
         public void SetLanguage(string language)

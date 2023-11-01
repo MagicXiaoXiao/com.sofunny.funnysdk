@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace SoFunny.FunnySDK.Internal
@@ -70,7 +71,10 @@ namespace SoFunny.FunnySDK.Internal
                         break;
                     case HttpStatusCode.BadRequest:
                         Logger.LogError($"请求失败！StatusCode = 400, Response = {responseBody}");
-                        ServiceError error = JsonConvert.DeserializeObject<ServiceError>(responseBody);
+                        var resBody = JObject.Parse(responseBody);
+                        int errorCode = resBody.Value<int>("code");
+                        string errorMessage = resBody.Value<string>("message");
+                        ServiceError error = new ServiceError(errorCode, errorMessage);
                         completedHandler(null, error);
                         break;
                     case HttpStatusCode.Unauthorized:

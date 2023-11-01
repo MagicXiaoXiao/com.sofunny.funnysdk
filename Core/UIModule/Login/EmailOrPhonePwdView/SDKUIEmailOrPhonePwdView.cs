@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+using SoFunny.FunnySDK.Internal;
 
 namespace SoFunny.FunnySDK.UIModule
 {
@@ -219,6 +220,8 @@ namespace SoFunny.FunnySDK.UIModule
                     return;
                 }
 
+                LoginView.OnLoginWithPasswordAction(account, pwd);
+
                 loginViewEvent?.OnLoginWithPassword(account, pwd);
             }
             else
@@ -228,6 +231,8 @@ namespace SoFunny.FunnySDK.UIModule
                     Toast.ShowFail(Locale.LoadText("form.code.required"));
                     return;
                 }
+
+                LoginView.OnLoginWithCodeAction(account, code);
 
                 loginViewEvent?.OnLoginWithCode(account, code);
             }
@@ -255,6 +260,8 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnCloseViewAction()
         {
             Controller.CloseLoginController();
+
+            LoginView.OnCancelAction?.Invoke(isPwd ? UILoginPageState.PwdLoginPage : UILoginPageState.CodeLoginPage);
         }
 
         private void OnBackViewAction()
@@ -272,22 +279,40 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (!ValidateAccount(account)) { return; }
 
-            loginViewEvent?.OnSendVerifcationCode(account, UILoginPageState.CodeLoginPage);
+            CodeCategory category = ConfigService.Config.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
+
+            UILoginPageState pageState = isPwd ? UILoginPageState.PwdLoginPage : UILoginPageState.CodeLoginPage;
+
+            timerHandler.SendingStatus();
+
+            Funny.Core.Bridge.Common.SendVerificationCode(account, CodeAction.Login, category)
+                                    .Then(() =>
+                                    {
+                                        timerHandler.StartTimer();
+                                        LoginView.OnSendVerifcationCodeAction?.Invoke(pageState, null);
+                                    })
+                                    .Catch((error) =>
+                                    {
+                                        timerHandler.ResetTimer();
+                                        LoginView.OnSendVerifcationCodeAction?.Invoke(pageState, (ServiceError)error);
+                                    });
+
+            //loginViewEvent?.OnSendVerifcationCode(account, UILoginPageState.CodeLoginPage);
         }
 
         internal void TimerSending()
         {
-            timerHandler.SendingStatus();
+            //timerHandler.SendingStatus();
         }
 
         internal void TimerStart()
         {
-            timerHandler.StartTimer();
+            //timerHandler.StartTimer();
         }
 
         internal void TimerReset()
         {
-            timerHandler.ResetTimer();
+            //timerHandler.ResetTimer();
         }
 
         public override void SetConfig(ILoginViewEvent loginViewEvent)

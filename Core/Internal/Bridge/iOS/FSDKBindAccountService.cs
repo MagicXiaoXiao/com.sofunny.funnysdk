@@ -1,5 +1,6 @@
 ﻿#if UNITY_IOS
 using System;
+using SoFunny.FunnySDK.Promises;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -11,8 +12,23 @@ namespace SoFunny.FunnySDK.Internal
 
         public void FetchBindInfo(ServiceCompletedHandler<BindInfo> handler)
         {
-            // TODO: 暂不实现
-            throw new NotImplementedException();
+            FSDKCallAndBack.Builder("FetchBindInfo")
+                           .AddCallbackHandler((result, json) =>
+                           {
+                               IosHelper.HandlerServiceCallback(result, json, handler);
+                           })
+                           .Invoke();
+        }
+
+        public Promise<BindInfo> FetchBindInfo()
+        {
+            return new Promise<BindInfo>((resolve, reject) =>
+            {
+                FSDKCallAndBack.Builder("FetchBindInfo")
+                               .Then(resolve)
+                               .Catch(reject)
+                               .Invoke();
+            });
         }
 
         public void Binding(IBindable bindable, ServiceCompletedHandler<VoidObject> handler)
@@ -31,7 +47,13 @@ namespace SoFunny.FunnySDK.Internal
             }
             else
             {
-                // TODO: 待补充绑定第三方逻辑
+                FSDKCallAndBack.Builder("BindProvider")
+                               .Add("provider", bindable.Flag)
+                               .AddCallbackHandler((result, json) =>
+                               {
+                                   IosHelper.HandlerServiceCallback(result, json, handler);
+                               })
+                               .Invoke();
             }
         }
 

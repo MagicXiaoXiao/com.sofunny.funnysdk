@@ -57,23 +57,16 @@ namespace SoFunny.FunnySDK.UIModule
 
             Internal.CodeAction action = profile.IsGuest ? Internal.CodeAction.GuestBindEmail : Internal.CodeAction.ConfirmEmail;
 
-            Funny.Core.Bridge.Common.SendVerificationCode(
-                email,
-                action,
-                Internal.CodeCategory.Email,
-                (_, error) =>
-                {
-                    if (error is null)
-                    {
-                        timerHandler.StartTimer();
-                    }
-                    else
-                    {
-                        Toast.ShowFail(error.Message);
-                        timerHandler.ResetTimer();
-                    }
-                }
-            );
+            Funny.Core.Bridge.Common.SendVerificationCode(email, action, Internal.CodeCategory.Email)
+                                    .Then(() =>
+                                    {
+                                        timerHandler.StartTimer();
+                                    })
+                                    .Catch((error) =>
+                                    {
+                                        Toast.ShowFail(error.Message);
+                                        timerHandler.ResetTimer();
+                                    });
         }
 
         private void StartBinding()

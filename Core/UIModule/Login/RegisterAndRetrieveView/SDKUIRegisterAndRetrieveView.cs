@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using SoFunny.FunnySDK.Internal;
+using UnityEditor;
 
 namespace SoFunny.FunnySDK.UIModule
 {
@@ -177,6 +179,8 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnCloseViewAction()
         {
             Controller.CloseLoginController();
+
+            LoginView.OnCancelAction?.Invoke(isRegister ? UILoginPageState.RegisterPage : UILoginPageState.RetrievePage);
         }
 
         private void OnBackAction()
@@ -235,7 +239,25 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (!ValidateAccount(account)) { return; }
 
-            loginViewEvent?.OnSendVerifcationCode(account, isRegister ? UILoginPageState.RegisterPage : UILoginPageState.RetrievePage);
+            CodeAction codeAction = isRegister ? CodeAction.Signup : CodeAction.ChangePassword;
+            CodeCategory category = ConfigService.Config.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
+            UILoginPageState pageState = isRegister ? UILoginPageState.RegisterPage : UILoginPageState.RetrievePage;
+
+            SFSmsCodeButtonTimerHandler current = isRegister ? timerHandler : retTimerHandler;
+
+            current.SendingStatus();
+
+            Funny.Core.Bridge.Common.SendVerificationCode(account, codeAction, category)
+                                    .Then(() =>
+                                    {
+                                        LoginView.OnSendVerifcationCodeAction?.Invoke(pageState, null);
+                                        current.StartTimer();
+                                    })
+                                    .Catch((error) =>
+                                    {
+                                        LoginView.OnSendVerifcationCodeAction?.Invoke(pageState, (ServiceError)error);
+                                        current.ResetTimer();
+                                    });
         }
 
         private void OnRegisterAction()
@@ -265,6 +287,7 @@ namespace SoFunny.FunnySDK.UIModule
                 return;
             }
 
+            LoginView.OnRegisterAccountAction?.Invoke(account, pwd, code);
             // 发起账号注册
             loginViewEvent?.OnRegisterAccount(account, pwd, code);
         }
@@ -296,52 +319,53 @@ namespace SoFunny.FunnySDK.UIModule
                 return;
             }
 
-            // 发起账号注册
+            LoginView.OnRetrievePasswordAction?.Invoke(account, newPwd, code);
+            // 发起账号找回
             loginViewEvent?.OnRetrievePassword(account, newPwd, code);
         }
 
 
         internal void TimerSending()
         {
-            if (isRegister)
-            {
-                timerHandler.SendingStatus();
-            }
-            else
-            {
-                retTimerHandler.SendingStatus();
-            }
+            //if (isRegister)
+            //{
+            //    timerHandler.SendingStatus();
+            //}
+            //else
+            //{
+            //    retTimerHandler.SendingStatus();
+            //}
 
         }
 
         internal void TimerStart()
         {
-            if (isRegister)
-            {
-                timerHandler.StartTimer();
-            }
-            else
-            {
-                retTimerHandler.StartTimer();
-            }
+            //if (isRegister)
+            //{
+            //    timerHandler.StartTimer();
+            //}
+            //else
+            //{
+            //    retTimerHandler.StartTimer();
+            //}
         }
 
         internal void TimerReset()
         {
-            if (isRegister)
-            {
-                timerHandler.ResetTimer();
-            }
-            else
-            {
-                retTimerHandler.ResetTimer();
-            }
+            //if (isRegister)
+            //{
+            //    timerHandler.ResetTimer();
+            //}
+            //else
+            //{
+            //    retTimerHandler.ResetTimer();
+            //}
 
         }
 
         public override void SetConfig(ILoginViewEvent loginViewEvent)
         {
-            this.loginViewEvent = loginViewEvent;
+            //this.loginViewEvent = loginViewEvent;
         }
     }
 }

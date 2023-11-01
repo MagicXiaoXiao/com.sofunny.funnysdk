@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SoFunny.FunnySDK.Promises;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -18,8 +19,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <summary>
         /// 获取应用配置信息
         /// </summary>
-        /// <param name="handler"></param>
-        void GetAppInfo(ServiceCompletedHandler<AppInfoConfig> handler);
+        Promise<AppInfoConfig> GetAppInfo();
 
         /// <summary>
         /// 发送验证码接口
@@ -27,8 +27,7 @@ namespace SoFunny.FunnySDK.Internal
         /// <param name="account"></param>
         /// <param name="codeAction"></param>
         /// <param name="codeCategory"></param>
-        /// <param name="handler"></param>
-        void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler);
+        Promise SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory);
 
         /// <summary>
         /// 打开隐私政策
@@ -53,8 +52,7 @@ namespace SoFunny.FunnySDK.Internal
         /// 唤起原生日期选择器
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="handler"></param>
-        void ShowDatePicker(string date, ServiceCompletedHandler<string> handler);
+        Promise<string> ShowDatePicker(string date);
 
         /// <summary>
         /// 设置语言

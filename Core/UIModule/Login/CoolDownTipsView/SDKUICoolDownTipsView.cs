@@ -42,15 +42,19 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnCloseViewAction()
         {
             Controller.CloseLoginController();
+
+            LoginView.OnCancelAction?.Invoke(UILoginPageState.CoolDownTipsPage);
         }
 
         private void OnRecallAction()
         {
+            LoginView.OnReCallDeleteAction?.Invoke();
             loginViewEvent?.OnReCallDelete();
         }
 
         private void OnSwitchAccount()
         {
+            LoginView.OnSwitchOtherAction?.Invoke();
             loginViewEvent?.OnSwitchOtherAccount();
         }
 

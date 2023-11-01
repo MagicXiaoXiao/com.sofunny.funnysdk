@@ -7,6 +7,11 @@ using SoFunny.FunnySDK.UIModule;
 
 namespace SoFunny.FunnySDK.Internal
 {
+    internal class AndroidCallBack : AndroidCallBack<VoidObject>
+    {
+        internal AndroidCallBack(Action onSuccessAction, Action<ServiceError> onFailureAction) : base((_) => { onSuccessAction?.Invoke(); }, onFailureAction) { }
+    }
+
     /// <summary>
     /// Android 回调接口处理对象
     /// </summary>
@@ -15,11 +20,24 @@ namespace SoFunny.FunnySDK.Internal
         private readonly ServiceCompletedHandler<T> CallbackHandler;
         private readonly SynchronizationContext OriginalContext;
 
+        private readonly Action<T> OnSuccess;
+        private readonly Action<ServiceError> OnFailure;
+
         internal AndroidCallBack(ServiceCompletedHandler<T> handler) : base("com.xmfunny.funnysdk.unitywrapper.internal.unity.FunnyUnityCallBack")
         {
             OriginalContext = SynchronizationContext.Current;
 
             CallbackHandler = handler;
+        }
+
+        internal AndroidCallBack(Action<T> onSuccessAction, Action<ServiceError> onFailureAction) : base("com.xmfunny.funnysdk.unitywrapper.internal.unity.FunnyUnityCallBack")
+        {
+            OriginalContext = SynchronizationContext.Current;
+
+            OnSuccess = onSuccessAction;
+            OnFailure = onFailureAction;
+
+            CallbackHandler = null;
         }
 
         internal void OnSuccessHandler(string jsonModel)
@@ -35,6 +53,7 @@ namespace SoFunny.FunnySDK.Internal
 
                 OriginalContext.Post(_ =>
                  {
+                     OnSuccess?.Invoke(model);
                      CallbackHandler?.Invoke(model, null);
 
                  }, null);
@@ -45,6 +64,7 @@ namespace SoFunny.FunnySDK.Internal
 
                 OriginalContext.Post(_ =>
                 {
+                    OnFailure?.Invoke(ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
                     CallbackHandler?.Invoke(default, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
 
                 }, null);
@@ -57,10 +77,14 @@ namespace SoFunny.FunnySDK.Internal
 
             OriginalContext.Post(_ =>
             {
+                OnFailure?.Invoke(new ServiceError(code, message));
                 CallbackHandler?.Invoke(default, new ServiceError(code, message));
             }, null);
         }
     }
+
+
+
 }
 
 #endif

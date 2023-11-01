@@ -2,6 +2,7 @@
 
 using System;
 using UnityEngine;
+using SoFunny.FunnySDK.Promises;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -33,6 +34,14 @@ namespace SoFunny.FunnySDK.Internal
                 // Flag = google, facebook, twitter 等第三方名称
                 Service.Call("BindWithProvider", bindable.Flag, new AndroidCallBack<VoidObject>(handler));
             }
+        }
+
+        public Promise<BindInfo> FetchBindInfo()
+        {
+            return new Promise<BindInfo>((resolve, reject) =>
+            {
+                Service.Call("FetchBindInfo", new AndroidCallBack<BindInfo>(resolve, reject));
+            });
         }
     }
 }

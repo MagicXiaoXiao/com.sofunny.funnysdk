@@ -95,25 +95,21 @@ namespace SoFunny.FunnySDK.UIModule
                     Logger.LogWarning("无法打开未知页面");
                     break;
             }
-
+            //LoginView.OnOpenViewAction?.Invoke(pageState, currentPageState);
             loginViewEvent?.OnOpenView(pageState, currentPageState);
 
             currentPageState = pageState;
         }
 
-        internal void Close()
-        {
-            gameObject.SetActive(false);
-
-            Destroy(gameObject);
-        }
-
         internal void CloseLoginController()
         {
-            Close();
+            gameObject?.SetActive(false);
+            LoginView.isLoaded = false;
 
             OnCloseViewAction?.Invoke(currentPageState);
             OnCloseViewAction = null;
+
+            Destroy(gameObject);
         }
 
         private void HideAllView()

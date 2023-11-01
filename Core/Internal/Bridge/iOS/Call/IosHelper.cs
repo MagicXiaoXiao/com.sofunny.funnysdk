@@ -2,6 +2,7 @@
 
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -17,7 +18,11 @@ namespace SoFunny.FunnySDK.Internal
             }
             else
             {
-                var errorObject = JsonConvert.DeserializeObject<ServiceError>(json);
+                var errorObj = JObject.Parse(json);
+                int code = errorObj.Value<int>("code");
+                string message = errorObj.Value<string>("message");
+
+                var errorObject = new ServiceError(code, message);
                 handler.Invoke(default, errorObject);
             }
         }

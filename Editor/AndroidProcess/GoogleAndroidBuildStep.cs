@@ -70,7 +70,7 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement googleAppID = stringsXML.CreateElement("string");
             googleAppID.SetAttribute("name", "google_play_app_id");
-            googleAppID.InnerText = Config.Google.idToken;
+            googleAppID.InnerText = Config.Google.AndroidClientID;
             resources.AppendChild(googleAppID);
         }
 

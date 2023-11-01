@@ -79,7 +79,7 @@ namespace SoFunny.FunnySDK.UIModule
         {
             Display = false;
 
-            Controller?.Close();
+            Controller?.CloseLoginController();
             Controller = null;
 
             LoginViewEvent = null;
@@ -91,6 +91,10 @@ namespace SoFunny.FunnySDK.UIModule
             LoginProviders = providers;
         }
 
+        public void SetupConfig(HashSet<LoginProvider> providers)
+        {
+            LoginProviders = providers;
+        }
     }
 }
 
