@@ -229,6 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.password.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &288074074611173413
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,6 +773,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.form.signup
+  enKey: 
+  zhKey: 
 --- !u!1 &469569983231803366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.chooseLogin.account
+  enKey: page.login.chooseLogin.account.email
+  zhKey: page.login.chooseLogin.account.phone
 --- !u!1 &542087375323135989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,6 +1488,7 @@ GameObject:
   - component: {fileID: 1045239845729925310}
   - component: {fileID: 5945332732512329294}
   - component: {fileID: 6729192481952232178}
+  - component: {fileID: 323157842334702577}
   m_Layer: 5
   m_Name: Logo
   m_TagString: Untagged
@@ -1545,6 +1552,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &323157842334702577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804619305659132602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4df3cc039b443cab631020febf167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImgName: login_view_logo
 --- !u!114 &6082553589118602752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,6 +1578,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.password.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &993635053451959557
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,6 +2183,7 @@ GameObject:
   - component: {fileID: 4703816782857879736}
   - component: {fileID: 1997441972883232719}
   - component: {fileID: 5626699919891944121}
+  - component: {fileID: 7289703047033272310}
   m_Layer: 5
   m_Name: Logo
   m_TagString: Untagged
@@ -2224,6 +2247,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7289703047033272310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577409244587816353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4df3cc039b443cab631020febf167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImgName: login_view_logo
 --- !u!1 &1589596111584755987
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2352,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.findPassword.label
+  enKey: 
+  zhKey: 
 --- !u!1 &1696351077507570224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,6 +2446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.findPassword.label
+  enKey: 
+  zhKey: 
 --- !u!1 &1788627058559386323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,6 +2860,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.realname.form.content
+  enKey: 
+  zhKey: 
 --- !u!1 &2033937524905768710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,6 +3765,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.code.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &2445409607049926967
 GameObject:
   m_ObjectHideFlags: 0
@@ -4504,6 +4548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.chooseLogin.guest
+  enKey: 
+  zhKey: 
 --- !u!1 &2782116772095904885
 GameObject:
   m_ObjectHideFlags: 0
@@ -4596,6 +4642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: button.login.otherAccount
+  enKey: 
+  zhKey: 
 --- !u!1 &2825644790695872689
 GameObject:
   m_ObjectHideFlags: 0
@@ -4815,6 +4863,7 @@ GameObject:
   - component: {fileID: 1613578106009161801}
   - component: {fileID: 6350351208257834804}
   - component: {fileID: 999224142478387386}
+  - component: {fileID: 8753756980540106905}
   m_Layer: 5
   m_Name: Logo
   m_TagString: Untagged
@@ -4839,7 +4888,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -29}
-  m_SizeDelta: {x: 260, y: 60}
+  m_SizeDelta: {x: 260, y: 69}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6350351208257834804
 CanvasRenderer:
@@ -4878,6 +4927,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8753756980540106905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940382546465183520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4df3cc039b443cab631020febf167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImgName: login_view_logo
 --- !u!1 &3076434558486693908
 GameObject:
   m_ObjectHideFlags: 0
@@ -5033,6 +5095,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.realname.form.title
+  enKey: 
+  zhKey: 
 --- !u!1 &3157623106599100481
 GameObject:
   m_ObjectHideFlags: 0
@@ -5395,6 +5459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: protocols.privacy
+  enKey: 
+  zhKey: 
 --- !u!114 &7727162988925287900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6987,6 +7053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.tab.login-code
+  enKey: 
+  zhKey: 
 --- !u!1 &3915206793169853008
 GameObject:
   m_ObjectHideFlags: 0
@@ -7126,6 +7194,7 @@ GameObject:
   - component: {fileID: 7082173126309260560}
   - component: {fileID: 5034271240067631443}
   - component: {fileID: 155625754864212532}
+  - component: {fileID: 3606733757603740785}
   m_Layer: 5
   m_Name: Logo
   m_TagString: Untagged
@@ -7189,6 +7258,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3606733757603740785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940813082203398114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4df3cc039b443cab631020febf167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImgName: login_view_logo
 --- !u!1 &3966490954004020740
 GameObject:
   m_ObjectHideFlags: 0
@@ -7281,6 +7363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.button.getCode
+  enKey: 
+  zhKey: 
 --- !u!1 &3983631588109004642
 GameObject:
   m_ObjectHideFlags: 0
@@ -7689,6 +7773,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: button.login.otherAccount
+  enKey: 
+  zhKey: 
 --- !u!1 &4260133425469432580
 GameObject:
   m_ObjectHideFlags: 0
@@ -8080,6 +8166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.code.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &4551547326207819880
 GameObject:
   m_ObjectHideFlags: 0
@@ -8409,6 +8497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.regist.signupAndSignin
+  enKey: 
+  zhKey: 
 --- !u!1 &4809307139281348002
 GameObject:
   m_ObjectHideFlags: 0
@@ -8576,6 +8666,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: button.feedback
+  enKey: 
+  zhKey: 
 --- !u!1 &4876023956980304078
 GameObject:
   m_ObjectHideFlags: 0
@@ -8787,6 +8879,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.button.getCode
+  enKey: 
+  zhKey: 
 --- !u!1 &5104244204588057718
 GameObject:
   m_ObjectHideFlags: 0
@@ -8879,6 +8973,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.realname.form.idCard
+  enKey: 
+  zhKey: 
 --- !u!1 &5110076480053879599
 GameObject:
   m_ObjectHideFlags: 0
@@ -9085,6 +9181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.newPassword.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &5220794563761199912
 GameObject:
   m_ObjectHideFlags: 0
@@ -9436,6 +9534,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.activeCode.tip
+  enKey: 
+  zhKey: 
 --- !u!1 &5602307179504178565
 GameObject:
   m_ObjectHideFlags: 0
@@ -9528,6 +9628,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.deleteAccount.withdraw
+  enKey: 
+  zhKey: 
 --- !u!1 &5678301724281290569
 GameObject:
   m_ObjectHideFlags: 0
@@ -9717,6 +9819,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: protocols.usage
+  enKey: 
+  zhKey: 
 --- !u!114 &3605458867319085071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10151,6 +10255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: protocols.checkHint
+  enKey: 
+  zhKey: 
 --- !u!1 &5833347565339261957
 GameObject:
   m_ObjectHideFlags: 0
@@ -10317,6 +10423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: button.login.otherAccount
+  enKey: 
+  zhKey: 
 --- !u!1 &5959336581841578292
 GameObject:
   m_ObjectHideFlags: 0
@@ -10708,6 +10816,7 @@ GameObject:
   - component: {fileID: 1344748556961495775}
   - component: {fileID: 1906601492551529222}
   - component: {fileID: 7906562617086554597}
+  - component: {fileID: 5630737926959551586}
   m_Layer: 5
   m_Name: Logo
   m_TagString: Untagged
@@ -10771,6 +10880,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5630737926959551586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267794223160734792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4df3cc039b443cab631020febf167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImgName: login_view_logo
 --- !u!114 &7995540412786339360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10784,6 +10906,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.code.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &6334947104150465685
 GameObject:
   m_ObjectHideFlags: 0
@@ -11252,6 +11376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.chooseLogin.third
+  enKey: 
+  zhKey: 
 --- !u!1 &6784177480087945963
 GameObject:
   m_ObjectHideFlags: 0
@@ -11344,6 +11470,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.toSignup.label
+  enKey: 
+  zhKey: 
 --- !u!1 &6888924072079911556
 GameObject:
   m_ObjectHideFlags: 0
@@ -11355,6 +11483,7 @@ GameObject:
   - component: {fileID: 4669497218273247671}
   - component: {fileID: 5995039090653055330}
   - component: {fileID: 2271405981053016650}
+  - component: {fileID: 429259144485520227}
   m_Layer: 5
   m_Name: Logo
   m_TagString: Untagged
@@ -11418,6 +11547,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &429259144485520227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888924072079911556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4df3cc039b443cab631020febf167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImgName: login_view_logo
 --- !u!1 &6923019916276916637
 GameObject:
   m_ObjectHideFlags: 0
@@ -11748,6 +11890,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: button.submit
+  enKey: 
+  zhKey: 
 --- !u!1 &7051787324437066641
 GameObject:
   m_ObjectHideFlags: 0
@@ -12258,6 +12402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.activeCode.title
+  enKey: 
+  zhKey: 
 --- !u!1 &7357902337363347211
 GameObject:
   m_ObjectHideFlags: 0
@@ -13421,6 +13567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.activeCode.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &8114925860005927894
 GameObject:
   m_ObjectHideFlags: 0
@@ -13933,6 +14081,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.realname.limit.logout
+  enKey: 
+  zhKey: 
 --- !u!1 &8340355946547781457
 GameObject:
   m_ObjectHideFlags: 0
@@ -14025,6 +14175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.button.getCode
+  enKey: 
+  zhKey: 
 --- !u!1 &8379315507922077636
 GameObject:
   m_ObjectHideFlags: 0
@@ -14191,6 +14343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.login.toSignup.question.label
+  enKey: 
+  zhKey: 
 --- !u!1 &8404847793765071134
 GameObject:
   m_ObjectHideFlags: 0
@@ -14362,6 +14516,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.realname.form.realname
+  enKey: 
+  zhKey: 
 --- !u!1 &8458538341494124887
 GameObject:
   m_ObjectHideFlags: 0
@@ -15636,6 +15792,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: button.submit
+  enKey: 
+  zhKey: 
 --- !u!1001 &717730241216473783
 PrefabInstance:
   m_ObjectHideFlags: 0

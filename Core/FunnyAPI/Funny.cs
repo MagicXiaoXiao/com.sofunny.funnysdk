@@ -24,7 +24,7 @@ namespace SoFunny.FunnySDK
                     {
                         if (bridgeService == null)
                         {
-                            bridgeService = new BridgeService(ConfigService.Config);
+                            bridgeService = new BridgeService();
                         }
                     }
 
@@ -49,7 +49,7 @@ namespace SoFunny.FunnySDK
             {
                 if (internalService != null) { return; }
 
-                internalService = new FunnyService(ConfigService.Config, Bridge);
+                internalService = new FunnyService(Bridge);
 
                 internalService.Initialize();
                 internalService.SetLanguage(Locale.PlayerLanguage);

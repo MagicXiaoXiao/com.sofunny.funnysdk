@@ -90,6 +90,15 @@ namespace SoFunny.FunnySDK.Internal
             Logger.Log("PC 端初始化完毕");
         }
 
+        public NativeConfig GetNativeConfig()
+        {
+            NativeConfig config = new NativeConfig();
+            config.AppID = ConfigService.Config.AppID;
+            config.IsMainland = ConfigService.Config.IsMainland;
+
+            return config;
+        }
+
         public void OpenPrivacyProtocol()
         {
             Application.OpenURL(BridgeConfig.PrivacyProtocolURL);
@@ -205,6 +214,8 @@ namespace SoFunny.FunnySDK.Internal
         {
             Logger.LogWarning("PC 或 Editor 暂未开发此功能");
         }
+
+
     }
 }
 

@@ -1,6 +1,8 @@
 ﻿using System;
+using SoFunny.FunnySDK.Internal;
+using UnityEngine;
 
-namespace SoFunny.FunnySDK.Internal
+namespace SoFunny.FunnySDK
 {
     internal struct Environment
     {
@@ -47,6 +49,42 @@ namespace SoFunny.FunnySDK.Internal
                     break;
                 default: break;
             }
+        }
+
+        internal static void Init(NativeConfig config, string env = Environment.Develop)
+        {
+            AppID = config.AppID;
+            IsMainland = config.IsMainland;
+            string language = IsMainland ? "zh" : "en";
+
+            if (!string.IsNullOrEmpty(config.webURL))
+            {
+                UserProtocolURL = $"{config.webURL}/protocol/index.html?language={language}&client_id={AppID}&category=USER";
+                PrivacyProtocolURL = $"{config.webURL}//protocol/index.html?language={language}&client_id={AppID}&category=SECRET";
+            }
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+            string protocolHost = IsMainland ? "auth.zh-cn.xmfunny.com" : "auth.sg.xmfunny.com";
+
+            UserProtocolURL = $"https://{protocolHost}/protocol/index.html?language={language}&client_id={AppID}&category=USER";
+            PrivacyProtocolURL = $"https://{protocolHost}/protocol/index.html?language={language}&client_id={AppID}&category=SECRET";
+
+            switch (env)
+            {
+                case Environment.Release:
+                    BaseURL = IsMainland ? "https://apisix-gateway.zh-cn.xmfunny.com/v1" : "https://apisix-gateway.sg.xmfunny.com/v1";
+                    break;
+                case Environment.Preview:
+                    BaseURL = "https://apisix-api.sofunny.io/v1";
+                    Host = IsMainland ? "apisix-gateway.zh-cn.xmfunny.com" : "apisix-gateway.sg.xmfunny.com";
+                    break;
+                case Environment.Develop:
+                    BaseURL = "http://10.30.30.93:9080/v1";
+                    break;
+                default: break;
+            }
+
+#endif
         }
 
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SoFunny.FunnySDK.Promises;
+using Newtonsoft.Json;
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -37,6 +38,20 @@ namespace SoFunny.FunnySDK.Internal
         {
             Service.Call("Initialize", BridgeConfig.AppID);
             OldService.Call("setupSDK");
+        }
+
+        public NativeConfig GetNativeConfig()
+        {
+            try
+            {
+                string jsonString = Service.CallStatic<string>("GetNativeConfig");
+                return JsonConvert.DeserializeObject<NativeConfig>(jsonString);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"数据解析异常: {ex.Message}");
+                return null;
+            }
         }
 
         public void ContactUS()
@@ -110,6 +125,7 @@ namespace SoFunny.FunnySDK.Internal
         {
             OldService.Call("openProtocol");
         }
+
     }
 }
 

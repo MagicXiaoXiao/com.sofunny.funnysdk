@@ -17,6 +17,12 @@ namespace SoFunny.FunnySDK.Internal
         void Initialize();
 
         /// <summary>
+        /// 获取原生配置信息
+        /// </summary>
+        /// <returns></returns>
+        NativeConfig GetNativeConfig();
+
+        /// <summary>
         /// 获取应用配置信息
         /// </summary>
         Promise<AppInfoConfig> GetAppInfo();
