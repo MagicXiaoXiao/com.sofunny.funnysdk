@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using SoFunny.FunnySDK.Internal;
-using SoFunny.FunnySDK.UIModule;
 
 namespace SoFunny.FunnySDK
 {
@@ -14,7 +13,7 @@ namespace SoFunny.FunnySDK
         internal IFunnyBillboardAPI BillboardAPI;
         internal IFunnyFeedbackAPI FeedbackAPI;
 
-        internal FunnyService(FunnySDKConfig config, BridgeService bridge)
+        internal FunnyService(BridgeService bridge)
         {
             // 实例化桥接服务类
             bridgeService = bridge;

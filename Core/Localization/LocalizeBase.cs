@@ -8,6 +8,8 @@ namespace SoFunny.FunnySDK
         #region Public Fields
 
         public string localizationKey;
+        public string enKey;
+        public string zhKey;
 
         #endregion Public Fields
 
@@ -20,6 +22,13 @@ namespace SoFunny.FunnySDK
             {
                 Locale.CurrentLanguageHasBeenSet = true;
                 Locale.SetCurrentLanguage(Locale.PlayerLanguage);
+            }
+
+            string key = BridgeConfig.IsMainland ? zhKey : enKey;
+
+            if (!string.IsNullOrEmpty(key))
+            {
+                localizationKey = key;
             }
 
             UpdateLocale();

@@ -3,9 +3,6 @@ using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
 using System.Threading.Tasks;
 using UnityEngine.Analytics;
-using UnityEditor;
-using UnityEditor.PackageManager;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 namespace SoFunny.FunnySDK
 {

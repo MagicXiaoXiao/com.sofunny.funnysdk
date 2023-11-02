@@ -48,9 +48,8 @@ namespace SoFunny.FunnySDK.Internal
         internal readonly IFunnyAgreementAPI Agreement;
 
 
-        internal BridgeService(FunnySDKConfig config)
+        internal BridgeService()
         {
-            BridgeConfig.Init(config.AppID, config.IsMainland);
 
 #if UNITY_STANDALONE || UNITY_EDITOR
             Common = PCBridge.GetInstance();
@@ -61,6 +60,7 @@ namespace SoFunny.FunnySDK.Internal
             Billboard = new PCBillboardService();
             Feedback = new PCFeedbackService();
             Agreement = new FunnyAgreementService(Common);
+
 #elif UNITY_ANDROID
             Common = AndroidBridge.GetInstance();
             Login = AndroidBridge.GetInstance();
@@ -80,6 +80,7 @@ namespace SoFunny.FunnySDK.Internal
             Feedback = new FSDKFeedbackService();
             Agreement = new FunnyAgreementService(Common);
 #endif
+            BridgeConfig.Init(Common.GetNativeConfig());
         }
 
     }

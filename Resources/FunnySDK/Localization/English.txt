@@ -38,6 +38,8 @@ button.bind=Bind
 
 page.login.chooseLogin.guest=Guest Login
 page.login.chooseLogin.account=SoFunny Account Login
+page.login.chooseLogin.account.email=Login With Email
+page.login.chooseLogin.account.phone=Login With Phone
 page.login.chooseLogin.third=Other Methods
 
 page.login.tab.login-credentials=Login with account and password

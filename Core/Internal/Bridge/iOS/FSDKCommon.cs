@@ -38,6 +38,11 @@ namespace SoFunny.FunnySDK.Internal
             FSDK_NotificationCenter(PostNotificationHandler);
         }
 
+        public NativeConfig GetNativeConfig()
+        {
+            return FSDKCall.Builder("GetNativeConfig").Invoke<NativeConfig>();
+        }
+
         public void ContactUS()
         {
             FSDKCall.Builder("OpenFeedback").Invoke();
@@ -139,6 +144,7 @@ namespace SoFunny.FunnySDK.Internal
         {
             FSDKCall.Builder("OpenAgreenment").Invoke();
         }
+
     }
 }
 

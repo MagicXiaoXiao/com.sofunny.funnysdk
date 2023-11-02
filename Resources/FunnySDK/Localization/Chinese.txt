@@ -38,6 +38,8 @@ button.bind=绑定
 
 page.login.chooseLogin.guest=游客登录
 page.login.chooseLogin.account=真有趣账号登录
+page.login.chooseLogin.account.email=邮箱登录
+page.login.chooseLogin.account.phone=手机号登录
 page.login.chooseLogin.third=其他登录方式
 
 page.login.tab.login-credentials=账号密码登录
