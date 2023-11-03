@@ -130,7 +130,7 @@ namespace SoFunny.FunnySDK.UIModule
         {
             this.isRegister = isRegister;
 
-            if (ConfigService.Config.IsMainland)
+            if (BridgeConfig.IsMainland)
             {
                 emailOrPhonePlaceholder.text = Locale.LoadText("form.phone.placeholder");
                 emailOrPhoneInputField.characterLimit = 11;
@@ -200,7 +200,7 @@ namespace SoFunny.FunnySDK.UIModule
         // 验证账号的方法
         private bool ValidateAccount(string account)
         {
-            if (ConfigService.Config.IsMainland)
+            if (BridgeConfig.IsMainland)
             {
                 if (string.IsNullOrEmpty(account))
                 {
@@ -240,7 +240,7 @@ namespace SoFunny.FunnySDK.UIModule
             if (!ValidateAccount(account)) { return; }
 
             CodeAction codeAction = isRegister ? CodeAction.Signup : CodeAction.ChangePassword;
-            CodeCategory category = ConfigService.Config.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
+            CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
             UILoginPageState pageState = isRegister ? UILoginPageState.RegisterPage : UILoginPageState.RetrievePage;
 
             SFSmsCodeButtonTimerHandler current = isRegister ? timerHandler : retTimerHandler;

@@ -85,7 +85,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void SwitchAccountInputField()
         {
-            if (ConfigService.Config.IsMainland)
+            if (BridgeConfig.IsMainland)
             {
 
                 emailOrPhonePlaceholder.text = Locale.LoadText("form.phone.placeholder");
@@ -163,7 +163,7 @@ namespace SoFunny.FunnySDK.UIModule
         // 验证账号的方法
         private bool ValidateAccount(string account)
         {
-            if (ConfigService.Config.IsMainland)
+            if (BridgeConfig.IsMainland)
             {
                 if (string.IsNullOrEmpty(account))
                 {
@@ -241,8 +241,6 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnSmsOrPwdSwitchAction()
         {
-            bool mainland = ConfigService.Config.IsMainland;
-
             if (isPwd)
             {
                 Controller.OpenPage(UILoginPageState.CodeLoginPage);
@@ -251,10 +249,6 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 Controller.OpenPage(UILoginPageState.PwdLoginPage);
             }
-
-            //isPwd = !isPwd;
-
-            //SwitchPwdOrCodeUI();
         }
 
         private void OnCloseViewAction()
@@ -271,15 +265,12 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void OnSendSMSAction()
         {
-            // 数据格式效验逻辑
-            //UILoginPageState page = ConfigService.Config.IsMainland ? UILoginPageState.CodeLoginPage : UILoginPageState.CodeLoginPage;
-
             // 验证账号
             string account = emailOrPhoneInputField.text.Trim();
-
+            // 数据格式效验逻辑
             if (!ValidateAccount(account)) { return; }
 
-            CodeCategory category = ConfigService.Config.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
+            CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
 
             UILoginPageState pageState = isPwd ? UILoginPageState.PwdLoginPage : UILoginPageState.CodeLoginPage;
 
@@ -297,7 +288,6 @@ namespace SoFunny.FunnySDK.UIModule
                                         LoginView.OnSendVerifcationCodeAction?.Invoke(pageState, (ServiceError)error);
                                     });
 
-            //loginViewEvent?.OnSendVerifcationCode(account, UILoginPageState.CodeLoginPage);
         }
 
         internal void TimerSending()
