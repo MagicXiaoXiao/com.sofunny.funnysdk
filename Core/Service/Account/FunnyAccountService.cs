@@ -2,7 +2,6 @@
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
 using System.Threading.Tasks;
-using UnityEngine.Analytics;
 
 namespace SoFunny.FunnySDK
 {
@@ -15,6 +14,7 @@ namespace SoFunny.FunnySDK
 
         private UserProfile CurrentUserProfile => AccountInfo.Current.Profile;
         private BindInfo CurrentBindInfo => AccountInfo.Current.BindInfo;
+        private bool _allowAutoLogin = true;
 
         public event Action OnLogoutEvents;
         public event Action<AccessToken> OnLoginEvents;
@@ -43,6 +43,14 @@ namespace SoFunny.FunnySDK
                 {
                     Logger.LogError($"Event value error - event.switch.account - {value.RawValue}");
                 }
+            });
+
+            BridgeNotificationCenter.Default.AddObserver(this, "event.switch.new.account", () =>
+            {
+                // 切换其他账号
+                _allowAutoLogin = false;
+
+                Logout();
             });
 
             BridgeNotificationCenter.Default.AddObserver(this, "event.bind.status.change", async () =>
@@ -228,9 +236,8 @@ namespace SoFunny.FunnySDK
 
                     LimitResultHandler(limitStatus, false, onSuccessHandler);
                 }
-                else if (appInfo.EnableAutoGuest) // 无感登录
+                else if (appInfo.EnableAutoGuest && _allowAutoLogin) // 无感登录
                 {
-
                     LoginResult loginResult = await Service.Login.LoginWithProvider(LoginProvider.Guest).Async();
 
                     // TODO: 待定无感登录埋点
