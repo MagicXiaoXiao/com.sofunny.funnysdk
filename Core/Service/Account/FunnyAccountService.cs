@@ -44,6 +44,20 @@ namespace SoFunny.FunnySDK
                     Logger.LogError($"Event value error - event.switch.account - {value.RawValue}");
                 }
             });
+
+            BridgeNotificationCenter.Default.AddObserver(this, "event.bind.status.change", async () =>
+            {
+                try
+                {
+                    AccountInfo.Current.Profile = Service.Login.GetUserProfile();
+                    AccountInfo.Current.BindInfo = await Service.Bind.FetchBindInfo().Async();
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError($"Event value error - event.bind.status.change - {ex.Message}");
+                }
+            });
+
         }
 
         public void AuthPrivateUserInfo(Action<UserPrivateInfo> onSuccessAction, Action<bool> onCancelAction)

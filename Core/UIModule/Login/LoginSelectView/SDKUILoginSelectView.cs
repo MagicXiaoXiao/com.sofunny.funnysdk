@@ -36,7 +36,7 @@ namespace SoFunny.FunnySDK.UIModule
             HideAllProvider();
             SetupUI();
 
-            protocolContainer.SetActive(ConfigService.Config.IsMainland);
+            protocolContainer.SetActive(BridgeConfig.IsMainland);
 
             closeButton.onClick.AddListener(OnCloseViewAction);
             sofunnyLoginButton.onClick.AddListener(OnSoFunnyLoginAction);
@@ -156,7 +156,7 @@ namespace SoFunny.FunnySDK.UIModule
 
         private bool CheckAgreement()
         {
-            if (ConfigService.Config.IsMainland)
+            if (BridgeConfig.IsMainland)
             {
                 if (!protocolToggle.isOn)
                 {
