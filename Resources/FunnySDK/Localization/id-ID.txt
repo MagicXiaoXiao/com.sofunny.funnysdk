@@ -1,0 +1,150 @@
+message.code.send.succeeded=Kode verifikasi berhasil dikirim
+message.code.send.failed=Gagal mengirim kode verifikasi
+message.box.title=Kiat
+message.btn.reLogin=Masuk kembali
+message.paramsError=Parameter salah
+message.operation.succeeded=Operasi berhasil
+message.operation.failed=Operasi gagal
+message.login.params.error=Konfigurasi parameter login salah (signinMethod)
+message.verify.succeeded=Verifikasi berhasil
+message.bind.success=Pengikatan berhasil
+message.update.success=Pembaruan berhasil
+message.update.operating=Memperbarui. . .
+message.delete.success= Hapus berhasil
+message.login.status.expire=Data tidak normal, silakan buka kembali personal center
+message.password.change.success=Kata sandi berhasil diubah, akan login lagi
+message.account.email.change.success=Email baru telah berhasil diikat dan akan login kembali.
+message.account.phone.change.success=Telepon baru telah berhasil diikat dan Anda akan login kembali.
+message.account.switch.success=Beralih dengan sukses
+message.copy.success=Penyalinan berhasil
+message.error.unknown=Kesalahan tidak diketahui
+message.error.network=Kesalahan jaringan, silakan coba lagi nanti
+message.error.version=Kesalahan versi sistem
+message.error.cancelLogin=Batalkan login
+message.error.cancelBind=Batalkan pengikatan
+message.login.waiting=Masuk. . .
+message.bind.waiting=Mengikat. . .
+message.bind.waitingGetUserInfo=Pengikatan berhasil, mendapatkan informasi pengguna
+message.errorCodeIs=Kode kesalahannya adalah:
+message.account.expired=Status login akun telah kedaluwarsa, silakan login kembali
+message.account.delete.tipsAfterLogin=Akun {0} mengirimkan permintaan penghapusan akun permanen pada {1} dan akan dihapus secara permanen pada {2}. Jika Anda perlu mempertahankan akun Anda, silakan klik tombol di bawah untuk menarik permohonan Anda
+message.account.none=Saat ini akun belum masuk
+
+button.login.otherAccount=Masuk ke akun lain
+button.feedback=Hubungi layanan pelanggan
+button.pay.confirm=Konfirmasi pembayaran
+button.submit=Kirim
+tombol.bind=Ikat akun
+
+page.login.chooseLogin.guest=Login tamu
+page.login.chooseLogin.account=Login akun yang sangat menarik
+page.login.chooseLogin.account.email=Masuk ke Email
+page.login.chooseLogin.account.phone=Masuk dengan nomor ponsel
+page.login.chooseLogin.third=Metode login lainnya
+
+page.login.tab.login-credentials=Login akun dan kata sandi
+page.login.tab.login-code=Kode verifikasi login
+page.login.tab.signup=Pendaftaran akun
+page.login.form.signup=Masuk
+page.login.code.title=Silakan isi kode verifikasi
+page.login.code.sendTo.label=Dikirim ke
+page.login.findPassword.label=Temukan kata sandi
+page.login.toSignup.question.label=
+page.login.toSignup.label=Daftar sekarang
+page.login.deleteAccount.withdraw=Tarik permohonan
+
+page.regist.succeeded=Pendaftaran berhasil
+page.regist.signupAndSignin=Daftar dan masuk
+
+page.guest.bindAndSignin=Ikat dan masuk
+
+page.pay.chooseMethod.placeholder=Silakan pilih metode pembayaran
+
+page.activeCode.title=Silakan masukkan kode undangan Anda
+page.activeCode.placeholder=Kode undangan
+page.activeCode.tip=Kode undangan akan segera kedaluwarsa setelah digunakan.
+page.activeCode.invalid=Kode undangan tidak valid
+
+page.whiteList.loginLimit=Permintaan login Anda terbatas, jika Anda memiliki pertanyaan, silakan hubungi layanan pelanggan
+
+page.block.forever=Akun Anda telah diblokir secara permanen. Jika Anda memiliki pertanyaan, silakan hubungi layanan pelanggan
+page.block.hours=Akun Anda telah diblokir dan akan dibuka blokirnya setelah {0}. Jika Anda memiliki pertanyaan, silakan hubungi layanan pelanggan
+
+page.bindAfterLogin.tips=Untuk mencegah kehilangan data, harap ikat akun Anda terlebih dahulu
+
+page.realname.limit.title=Pengingat Kesehatan Game
+page.realname.limit.content=Akun login Anda saat ini adalah akun minor dan telah dimasukkan dalam sistem anti-kecanduan. Menurut peraturan nasional terkait, jam perlindungan kesehatan berada di luar pukul 20:00 hingga 21:00 pada hari Jumat, Sabtu, Minggu, dan hari libur resmi. Permainan tidak dapat dimainkan selama periode saat ini, harap atur waktu Anda sesuai dengan itu.
+page.realname.limit.logout=Masuk ke akun lain
+
+page.realname.form.title=Otentikasi nama asli game
+page.realname.form.content=Akun belum menyelesaikan otentikasi nama asli. Untuk mematuhi peraturan nasional yang relevan, harap lengkapi informasi nama asli.
+page.realname.form.realname=nama asli
+page.realname.form.idCard=Nomor ID asli
+
+page.userInfo.form.content=Kami adalah perusahaan game yang berfokus pada pengalaman pengguna. Dalam pengujian ini, kami berharap dapat memperoleh informasi berikut dari Anda sehingga kami dapat memberikan layanan konten game yang lebih baik di masa mendatang.
+page.userInfo.form.nextTime=Sampai jumpa lagi
+page.userInfo.form.sex=Jenis kelamin Anda:
+page.userInfo.form.birthday=Ulang tahun Anda:
+page.userInfo.form.male=Pria
+page.userInfo.form.female=Wanita
+page.userInfo.tips.sex=Silakan pilih jenis kelamin
+page.userInfo.tips.birthday=Silakan pilih tanggal lahir Anda
+
+alert.title.tips=Kiat
+alert.account.delete.content=Anda akan menarik permohonan penghapusan akun permanen dan membuka kunci akun.
+
+form.passport.id=Kartu identitas pas:
+form.email.required=Silakan masukkan alamat email Anda
+form.phone.required=Silakan masukkan nomor ponsel Anda
+form.account.forbid.whiteSpace=Akun tidak boleh berisi spasi
+form.email.verify=Format alamat email salah
+form.phone.verify=Format nomor ponsel salah
+form.email.placeholder=Surat Elektronik
+form.phone.placeholder=Nomor ponsel
+form.code.placeholder=Kode verifikasi
+form.code.required=Silakan masukkan kode verifikasi
+form.password.placeholder=Kata Sandi
+form.newPassword.placeholder=Kata Sandi Baru
+form.password.strength.weak=Kekuatan kata sandi lemah
+form.password.required=Silakan masukkan kata sandi
+form.password.strength.length=Harap masukkan minimal 8 karakter
+form.password.length.require=Panjang kata sandi minimal harus 8 karakter
+form.password.forbid.whiteSpace=Kata sandi tidak boleh mengandung spasi
+form.button.getCode=Dapatkan kode verifikasi
+form.button.sendingCode=Mengirim
+form.button.reGetCode=Kirim ulang
+form.button.confirm=Konfirmasi
+form.button.confirmNoSpace=Konfirmasi
+form.button.edit=Edit
+form.button.save=Simpan
+form.button.cancel=Batal
+form.button.next=Selanjutnya
+form.button.modifyPassword=Ubah kata sandi
+form.button.iKnow=Tahu
+form.nickname.label=nama panggilan
+form.sex.label=Jenis Kelamin
+form.birthday.label=Ulang Tahun
+form.protocol.tips=Harap baca dan centang kotak sebelum melanjutkan.
+form.realname.required=Silakan masukkan nama asli Anda terlebih dahulu
+form.idCard.required=Silakan masukkan nomor ID asli Anda terlebih dahulu
+form.sex.required=Silakan pilih jenis kelamin terlebih dahulu
+form.birthday.required=Silakan pilih tanggal lahir Anda terlebih dahulu
+
+page.infoEdit.nickname.hint=Dapat diubah lagi 30 hari setelah pengaturan berhasil.
+
+protokol.usage=Perjanjian Pengguna
+protokol.privacy=Kebijakan Privasi
+Protocols.checkHint=Periksa dan setujui protokol ini
+
+page.feedback.title=Masalah Masukan
+page.feedback.email=Alamat email Anda agar kami dapat memberi masukan (opsional)
+page.feedback.phone=Ponsel Anda agar kami dapat memberikan masukan terhadap hasilnya (opsional)
+page.feedback.roleId=ID karakter permainan Anda (opsional)
+page.feedback.description=Masalah yang Anda temui
+page.feedback.description.require=Silakan isi deskripsi masalah
+page.feedback.success.tips=Pertanyaan Anda telah berhasil dikirimkan, harap sabar menunggu tanggapan dari layanan pelanggan
+
+page.bind.view.title=Ikat akun email
+halaman.bind.view.button=Ikat akun
+form.bind.view.email.placeholder=Email
+form.bind.view.pwd.placeholder=Setel kata sandi Anda

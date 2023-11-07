@@ -1,0 +1,148 @@
+message.code.send.succeeded=驗證碼發送成功
+message.code.send.failed=驗證碼發送失敗
+message.box.title=提示
+message.btn.reLogin=重新登入
+message.paramsError=參數有誤
+message.operation.succeeded=操作成功
+message.operation.failed=操作失敗
+message.login.params.error=登入參數配置有誤
+message.verify.succeeded=驗證成功
+message.bind.success= 綁定成功
+message.update.success= 更新成功
+message.update.operating=更新中。 。 。
+message.delete.success= 刪除成功
+message.login.status.expire=資料異常，請重新開啟個人中心
+message.password.change.success=密碼修改成功，即將重新登入
+message.account.email.change.success=綁定新信箱成功，即將重新登入
+message.account.phone.change.success=綁定新手機成功，即將重新登入
+message.account.switch.success=切換成功
+message.copy.success=複製成功
+message.error.unknown=未知錯誤
+message.error.network=網路錯誤，請稍後再試
+message.error.version=系統版本錯誤
+message.error.cancelLogin=取消登入
+message.error.cancelBind=取消綁定
+message.login.waiting=登入中。 。 。
+message.bind.waiting=綁定中。 。 。
+message.bind.waitingGetUserInfo=綁定成功，取得使用者資訊
+message.errorCodeIs=錯誤碼為：
+message.account.expired=帳號登入狀態已過期，請重新登入
+message.account.delete.tipsAfterLogin=帳號 {0} 於{1}提交了永久刪除帳號申請，將於{2}永久刪除。 如需要保留帳號，請點選下方按鈕撤回申請
+message.account.none=目前未登入帳號
+
+button.login.otherAccount=登入其他帳號
+button.feedback=聯絡客服
+button.pay.confirm=確認支付
+button.submit=提交
+button.bind=綁定
+
+page.login.chooseLogin.guest=遊客登入
+page.login.chooseLogin.account=真有趣帳號登錄
+page.login.chooseLogin.account.email=郵箱登入
+page.login.chooseLogin.account.phone=手機號碼登錄
+page.login.chooseLogin.third=其他登入方式
+
+page.login.tab.login-credentials=帳號密碼登入
+page.login.tab.login-code=驗證碼登入
+page.login.tab.signup=帳號註冊
+page.login.form.signup=登入
+page.login.code.title=請填入驗證碼
+page.login.code.sendTo.label=已傳送到
+page.login.findPassword.label=找回密碼
+page.login.toSignup.question.label=沒有帳號？
+page.login.toSignup.label=立即註冊
+page.login.deleteAccount.withdraw=撤回申請
+
+page.regist.succeeded=註冊成功
+page.regist.signupAndSignin=註冊並登入
+
+page.guest.bindAndSignin=綁定並登入
+page.pay.chooseMethod.placeholder=請選擇付款方式
+
+page.activeCode.title=請輸入您的邀請碼
+page.activeCode.placeholder=邀請碼
+page.activeCode.tip=邀請碼使用後將立即失效
+page.activeCode.invalid=無效邀請碼
+
+page.whiteList.loginLimit=您的登入要求被限制，如有疑問請聯絡客服
+page.block.forever=您的帳號已永久封停，如有疑問，請聯絡客服
+page.block.hours=您的帳號已被封停，帳號將在 {0} 之後解除封停。 如有疑問，請聯絡客服
+
+page.bindAfterLogin.tips=為防止資料遺失，請先綁定帳號
+
+page.realname.limit.title=遊戲健康提醒
+page.realname.limit.content=您目前登入帳號為未成年帳號，已納入防沉迷系統。 根據國家相關規定，週五、週六、週日及法定假日 20 點 ～ 21 點之外為健康保護時段。 目前時段無法遊戲，請合理安排時間。
+page.realname.limit.logout=登入其他帳號
+
+page.realname.form.title=遊戲實名認證
+page.realname.form.content=帳號未完成實名認證，為了符合國家相關規定，請完善實名資訊。
+page.realname.form.realname=真實姓名
+page.realname.form.idCard=真實身分證號
+
+page.userInfo.form.content=我們是一家注重用戶體驗的遊戲公司，在本次測試中，希望獲取您以下信息，以便後續提供更優質的遊戲內容服務
+page.userInfo.form.nextTime=下次再說
+page.userInfo.form.sex=您的性別：
+page.userInfo.form.birthday=您的生日：
+page.userInfo.form.male=男
+page.userInfo.form.female=女
+page.userInfo.tips.sex=請選擇性別
+page.userInfo.tips.birthday=請選擇出生日期
+
+alert.title.tips=提示
+alert.account.delete.content=您將撤回帳號永久刪除申請，解除帳號鎖定狀態
+
+form.passport.id=通行證 ID：
+form.email.required=請輸郵件地址
+form.phone.required=請輸手機號碼
+form.account.forbid.whiteSpace=帳號不能包含空格
+form.email.verify=郵箱格式錯誤
+form.phone.verify=手機號碼格式錯誤
+form.email.placeholder=郵箱
+form.phone.placeholder=手機號
+form.code.placeholder=驗證碼
+form.code.required=請輸入驗證碼
+form.password.placeholder=密碼
+form.newPassword.placeholder=新密碼
+form.password.strength.weak=密碼強度較弱
+form.password.required=請輸入密碼
+form.password.strength.length=請至少輸入 8 個字符
+form.password.length.require=密碼最短為 8 個字符
+form.password.forbid.whiteSpace=密碼不能包含空格
+form.button.getCode=取得驗證碼
+form.button.sendingCode=傳送中
+form.button.reGetCode=重新傳送
+form.button.confirm=確 定
+form.button.confirmNoSpace=確定
+form.button.edit=修改
+form.button.save=儲存
+form.button.cancel=取消
+form.button.next=下一步
+form.button.modifyPassword=修改密碼
+form.button.iKnow=知道啦
+form.nickname.label=暱稱
+form.sex.label=性別
+form.birthday.label=生日
+form.protocol.tips=請先閱讀並勾選同意後再操作
+form.realname.required=請先輸入真實姓名
+form.idCard.required=請先輸入真實身分證號
+form.sex.required=請先選性別
+form.birthday.required=請先選生日
+
+page.infoEdit.nickname.hint=設定成功後30天才能再修改
+
+protocols.usage=使用者協議
+protocols.privacy=隱私權政策
+protocols.checkHint=勾選並同意該協議
+
+page.feedback.title=問題回饋
+page.feedback.email=您的信箱，方便我們回饋結果（選填）
+page.feedback.phone=您的手機，方便我們回饋結果（選填）
+page.feedback.roleId=您的遊戲角色ID（選填）
+page.feedback.description=您所遇到的問題
+page.feedback.description.require=請填入問題描述
+page.feedback.success.tips=您的問題已提交成功，請耐心等待客服回饋
+
+page.bind.view.title=綁定郵箱帳號
+page.bind.view.button=綁定 定
+form.bind.view.email.placeholder=郵箱
+form.bind.view.pwd.placeholder=設定您的密碼

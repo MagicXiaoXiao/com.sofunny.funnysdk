@@ -32,6 +32,7 @@ namespace SoFunny.FunnySDK.Internal
             var acceptLanguage = new StringWithQualityHeaderValue(BridgeConfig.IsMainland ? "zh" : "en");
             Client.DefaultRequestHeaders.AcceptLanguage.Add(acceptLanguage);
             Client.DefaultRequestHeaders.Add("mainland", BridgeConfig.IsMainland ? "true" : "false");
+            Client.DefaultRequestHeaders.Add("device_category", "pc");
 
             if (!string.IsNullOrEmpty(BridgeConfig.Host))
             {

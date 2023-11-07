@@ -1,0 +1,150 @@
+message.code.send.succeeded=Mã xác minh đã được gửi thành công
+message.code.send.failed=Không gửi được mã xác minh
+message.box.title=Mẹo
+message.btn.reLogin=Đăng nhập lại
+message.paramsError=Tham số không chính xác
+message.Operation.succeeded=Thao tác thành công
+message.Operation.failed=Thao tác thất bại
+message.login.params.error=Các thông số đăng nhập được cấu hình không đúng
+message.verify.succeeded=Xác minh thành công
+message.bind.success= Liên kết thành công
+message.update.success=Cập nhật thành công
+message.update.operating=Đang cập nhật. . .
+message.delete.success=Xóa thành công
+message.login.status.expire=Dữ liệu bất thường, vui lòng mở lại trung tâm cá nhân
+message.password.change.success=Mật khẩu đã được thay đổi thành công, sẽ đăng nhập lại
+message.account.email.change.success=Email mới đã được liên kết thành công và sẽ được đăng nhập lại.
+message.account.phone.change.success=Điện thoại mới đã được liên kết thành công và bạn sẽ đăng nhập lại.
+message.account.switch.success=Chuyển đổi thành công
+message.copy.success=Sao chép thành công
+message.error.unknown=Lỗi không xác định
+message.error.network=Lỗi mạng, vui lòng thử lại sau
+message.error.version=Lỗi phiên bản hệ thống
+message.error.cancelLogin=Hủy đăng nhập
+message.error.cancelBind=Hủy ràng buộc
+message.login.waiting=Đang đăng nhập. . .
+message.bind.waiting=Ràng buộc. . .
+message.bind.waitingGetUserInfo=Liên kết thành công, lấy thông tin người dùng
+message.errorCodeIs=Mã lỗi là:
+message.account.expired=Trạng thái đăng nhập tài khoản đã hết hạn, vui lòng đăng nhập lại
+message.account.delete.tipsAfterLogin=Tài khoản {0} đã gửi yêu cầu xóa tài khoản vĩnh viễn vào {1} và sẽ bị xóa vĩnh viễn vào {2}. Nếu bạn cần giữ lại tài khoản của mình, vui lòng nhấp vào nút bên dưới để rút đơn đăng ký
+message.account.none=Hiện tại chưa đăng nhập tài khoản
+
+Button.login.otherAccount=Đăng nhập vào tài khoản khác
+Button.feedback=Liên hệ với bộ phận dịch vụ khách hàng
+Button.pay.confirm=Xác nhận thanh toán
+nút.submit=Gửi
+Button.bind=Liên kết tài khoản
+
+page.login.chooseLogin.guest=Đăng nhập của khách
+page.login.chooseLogin.account=Đăng nhập tài khoản thực sự thú vị
+page.login.chooseLogin.account.email=Email đăng nhập
+page.login.chooseLogin.account.phone=Đăng nhập bằng số điện thoại di động
+page.login.chooseLogin.third=Các phương thức đăng nhập khác
+
+page.login.tab.login-credentials=Đăng nhập tài khoản và mật khẩu
+page.login.tab.login-code=Mã xác minh đăng nhập
+page.login.tab.signup=Đăng ký tài khoản
+page.login.form.signup=Đăng nhập
+page.login.code.title=Vui lòng điền mã xác minh
+page.login.code.sendTo.label=Đã gửi tới
+page.login.findPassword.label=Tìm mật khẩu
+page.login.toSignup.question.label=
+page.login.toSignup.label=Đăng ký ngay
+page.login.deleteAccount.withdraw=Rút đơn đăng ký
+
+page.regist.succeeded=Đăng ký thành công
+page.regist.signupAndSignin=Đăng ký và đăng nhập
+
+page.guest.bindAndSignin=Liên kết và đăng nhập
+
+page.pay.chooseMethod.placeholder=Vui lòng chọn phương thức thanh toán
+
+page.activeCode.title=Vui lòng nhập mã mời của bạn
+page.activeCode.placeholder=Mã lời mời
+page.activeCode.tip=Mã mời sẽ hết hạn ngay sau khi sử dụng.
+page.activeCode.invalid=Mã mời không hợp lệ
+
+page.whiteList.loginLimit=Yêu cầu đăng nhập của bạn bị giới hạn, nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với bộ phận dịch vụ khách hàng
+
+page.block.forever=Tài khoản của bạn đã bị chặn vĩnh viễn. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với bộ phận dịch vụ khách hàng
+page.block.hours=Tài khoản của bạn đã bị chặn và sẽ được bỏ chặn sau {0}. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với dịch vụ khách hàng
+
+page.bindAfterLogin.tips=Để tránh mất dữ liệu, vui lòng liên kết tài khoản của bạn trước
+
+page.realname.limit.title=Nhắc nhở sức khỏe trò chơi
+page.realname.limit.content=Tài khoản đăng nhập hiện tại của bạn là tài khoản nhỏ và đã được đưa vào hệ thống chống nghiện. Theo quy định quốc gia có liên quan, giờ bảo vệ sức khỏe là ngoài 20:00 đến 21:00 vào các ngày Thứ Sáu, Thứ Bảy, Chủ nhật và các ngày lễ hợp pháp. Trò chơi không thể chơi trong thời gian hiện tại, vui lòng sắp xếp thời gian của bạn cho phù hợp.
+page.realname.limit.logout=Đăng nhập vào tài khoản khác
+
+page.realname.form.title=Xác thực tên thật của trò chơi
+page.realname.form.content=Tài khoản chưa hoàn tất xác thực tên thật. Để tuân thủ các quy định quốc gia có liên quan, vui lòng điền thông tin tên thật.
+page.realname.form.realname=tên thật
+page.realname.form.idCard=Số ID thực
+
+page.userInfo.form.content=Chúng tôi là một công ty trò chơi tập trung vào trải nghiệm người dùng. Trong thử nghiệm này, chúng tôi hy vọng nhận được những thông tin sau từ bạn để chúng tôi có thể cung cấp dịch vụ nội dung trò chơi tốt hơn trong tương lai.
+page.userInfo.form.nextTime=Hẹn gặp lại bạn lần sau
+page.userInfo.form.sex=Giới tính của bạn:
+page.userInfo.form.birthday=Ngày sinh của bạn:
+page.userInfo.form.male=Nam
+page.userInfo.form.female=Nữ
+page.userInfo.tips.sex=Vui lòng chọn giới tính
+page.userInfo.tips.birthday=Vui lòng chọn ngày sinh của bạn
+
+notification.title.tips=Mẹo
+notification.account.delete.content=Bạn sẽ rút đơn đăng ký xóa tài khoản vĩnh viễn và mở khóa tài khoản.
+
+form.passport.id=Đạt ID:
+form.email.required=Vui lòng nhập địa chỉ email của bạn
+form.phone.required=Vui lòng nhập số điện thoại di động của bạn
+form.account.forbid.whiteSpace=Tài khoản không thể chứa dấu cách
+form.email.verify=Định dạng hộp thư không đúng
+form.phone.verify=Định dạng số điện thoại di động sai
+form.email.placeholder=Thư điện tử
+form.phone.placeholder=Số điện thoại di động
+form.code.placeholder=Mã xác minh
+form.code.required=Vui lòng nhập mã xác minh
+form.password.placeholder=Mật khẩu
+form.newPassword.placeholder=Mật khẩu mới
+form.password. Strength.weak=Độ mạnh của mật khẩu yếu
+form.password.required=Vui lòng nhập mật khẩu
+form.password. Strength.length=Vui lòng nhập ít nhất 8 ký tự
+form.password.length.require=Mật khẩu phải dài ít nhất 8 ký tự
+form.password.forbid.whiteSpace=Mật khẩu không được chứa dấu cách
+form.button.getCode=Nhận mã xác minh
+form.button.sendingCode=Đang gửi
+form.button.reGetCode=Gửi lại
+form.button.confirm=Xác nhận
+form.button.confirmNoSpace=Xác nhận
+form.button.edit=Chỉnh sửa
+form.button.save=Lưu
+form.button.cancel=Hủy
+form.button.next=Tiếp theo
+form.button.modifyPassword=Sửa đổi mật khẩu
+form.button.iKnow=Biết
+form.nickname.label=biệt hiệu
+form.sex.label=Giới tính
+form.birthday.label=Sinh nhật
+form.protocol.tips=Xin vui lòng đọc và đánh dấu vào ô trước khi tiếp tục.
+form.realname.required=Xin vui lòng nhập tên thật của bạn trước
+form.idCard.required=Vui lòng nhập số ID thực của bạn trước
+form.sex.required=Vui lòng chọn giới tính trước
+form.birthday.required=Vui lòng chọn ngày sinh của bạn trước
+
+page.infoEdit.nickname.hint=Có thể sửa đổi lại sau 30 ngày kể từ khi cài đặt thành công.
+
+giao thức.usage=Thỏa thuận người dùng
+giao thức.privacy=Chính sách quyền riêng tư
+giao thức.checkHint=Kiểm tra và đồng ý với giao thức này
+
+page.feedback.title=Phản hồi vấn đề
+page.feedback.email=Địa chỉ email của bạn để chúng tôi cung cấp phản hồi cho bạn (tùy chọn)
+page.feedback.phone=Điện thoại di động của bạn để chúng tôi có thể phản hồi kết quả (tùy chọn)
+page.feedback.roleId=ID nhân vật trò chơi của bạn (tùy chọn)
+page.feedback.description=Vấn đề bạn gặp phải
+page.feedback.description.require=Vui lòng điền mô tả vấn đề
+page.feedback.success.tips=Câu hỏi của bạn đã được gửi thành công, vui lòng kiên nhẫn chờ phản hồi từ bộ phận dịch vụ khách hàng
+
+page.bind.view.title=Liên kết tài khoản email
+page.bind.view.button=Liên kết tài khoản
+form.bind.view.email.placeholder=Email
+form.bind.view.pwd.placeholder=Đặt mật khẩu của bạn

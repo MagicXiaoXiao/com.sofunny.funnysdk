@@ -117,7 +117,6 @@ namespace SoFunny.FunnySDK.Internal
 
         public void SetLanguage(string language)
         {
-            // language 参数，英文 = en , 简体中文 = zh
             Service.Call("SetLanguage", language);
         }
 
