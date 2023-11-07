@@ -11,10 +11,22 @@ namespace SoFunny.FunnySDK
         const string STR_LOCALIZATION_PREFIX = "FunnySDK/Localization/";
 
         internal static Dictionary<string, string> CurrentLanguageStrings = new Dictionary<string, string>();
+        private static readonly Dictionary<SystemLanguage, string> languageCodes = new Dictionary<SystemLanguage, string>();
         internal static bool CurrentLanguageHasBeenSet = false;
 
         private static string currentLanguage;
         private static TextAsset currentLocalizationText;
+
+        static Locale()
+        {
+            languageCodes[SystemLanguage.Chinese] = "zh-CN";// 中国-大陆
+            languageCodes[SystemLanguage.ChineseSimplified] = "zh-CN"; // 中国-大陆
+            languageCodes[SystemLanguage.ChineseTraditional] = "zh-HK"; // 中国-香港
+            languageCodes[SystemLanguage.English] = "en-US";// 美国
+            languageCodes[SystemLanguage.Indonesian] = "id-ID"; // 印度尼西亚
+            languageCodes[SystemLanguage.Vietnamese] = "vi-VN"; // 越南
+            languageCodes[SystemLanguage.Thai] = "th-TH"; // 泰国
+        }
 
 
         /// <summary>
@@ -57,6 +69,18 @@ namespace SoFunny.FunnySDK
             }
         }
 
+        internal static string GetLanguageCode(SystemLanguage language)
+        {
+            if (languageCodes.ContainsKey(language))
+            {
+                return languageCodes[language];
+            }
+            else
+            {
+                return languageCodes[SystemLanguage.English];
+            }
+        }
+
         /// <summary>
         /// The player language. If not set in PlayerPrefs then returns Application.systemLanguage
         /// </summary>
@@ -75,15 +99,7 @@ namespace SoFunny.FunnySDK
 
         public static void SetCurrentLanguage(SystemLanguage language)
         {
-            if (language == SystemLanguage.Chinese || language == SystemLanguage.ChineseSimplified || language == SystemLanguage.ChineseTraditional)
-            {
-                CurrentLanguage = "Chinese";
-            }
-            else
-            {
-                CurrentLanguage = language.ToString();
-            }
-
+            CurrentLanguage = GetLanguageCode(language);
             PlayerLanguage = language;
 
             FunnyLocalize[] allTexts = GameObject.FindObjectsOfType<FunnyLocalize>();

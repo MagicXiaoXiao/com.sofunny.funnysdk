@@ -1,0 +1,150 @@
+message.code.send.succeeded=รหัสยืนยันส่งสำเร็จ
+message.code.send.failed=ไม่สามารถส่งรหัสยืนยัน
+message.box.title=คำแนะนำ
+message.btn.reLogin=เข้าสู่ระบบใหม่
+message.paramsError=พารามิเตอร์ไม่ถูกต้อง
+message.operation.succeeded=การดำเนินการสำเร็จ
+message.operation.failed=การดำเนินการล้มเหลว
+message.login.params.error=การกำหนดค่าพารามิเตอร์การเข้าสู่ระบบไม่ถูกต้อง
+message.verify.succeeded=การยืนยันสำเร็จ
+message.bind.success= การเชื่อมสำเร็จ
+message.update.success=อัปเดตสำเร็จ
+message.update.operating=กำลังอัปเดต . .
+message.delete.success= ลบสำเร็จ
+message.login.status.expire=ความผิดปกติของข้อมูล โปรดเปิดศูนย์ส่วนบุคคลอีกครั้ง
+message.password.change.success=เปลี่ยนรหัสผ่านเรียบร้อยแล้ว จะเข้าสู่ระบบอีกครั้ง
+message.account.email.change.success=อีเมลใหม่ถูกผูกไว้สำเร็จและจะเข้าสู่ระบบอีกครั้ง
+message.account.phone.change.success=โทรศัพท์ใหม่ถูกผูกไว้เรียบร้อยแล้ว และคุณจะเข้าสู่ระบบอีกครั้ง
+message.account.switch.success=สลับสำเร็จ
+message.copy.success=คัดลอกสำเร็จ
+message.error.unknown=ข้อผิดพลาดที่ไม่รู้จัก
+message.error.network=เครือข่ายผิดพลาด โปรดลองอีกครั้งในภายหลัง
+message.error.version=ข้อผิดพลาดเวอร์ชันของระบบ
+message.error.cancelLogin=ยกเลิกการเข้าสู่ระบบ
+message.error.cancelBind=ยกเลิกการผูก
+message.login.waiting=กำลังเข้าสู่ระบบ . .
+message.bind.waiting=การผูกมัด . .
+message.bind.waitingGetUserInfo=การเชื่อมโยงสำเร็จ กำลังรับข้อมูลผู้ใช้
+message.errorCodeIs=รหัสข้อผิดพลาดคือ:
+message.account.expired=สถานะการเข้าสู่ระบบบัญชีหมดอายุแล้ว โปรดเข้าสู่ระบบอีกครั้ง
+message.account.delete.tipsAfterLogin=บัญชี {0} ส่งคำขอลบบัญชีถาวรเมื่อ {1} และจะถูกลบอย่างถาวรในวันที่ {2} หากคุณต้องการรักษาบัญชีของคุณไว้ โปรดคลิกปุ่มด้านล่างเพื่อถอนใบสมัครของคุณ
+message.account.none=ขณะนี้ไม่ได้เข้าสู่ระบบบัญชี
+
+button.login.otherAccount=เข้าสู่ระบบบัญชีอื่น
+button.feedback=ติดต่อฝ่ายบริการลูกค้า
+button.pay.confirm=ยืนยันการชำระเงิน
+button.submit=ส่ง
+button.bind=ผูกบัญชี
+
+page.login.chooseLogin.guest=การเข้าสู่ระบบของแขก
+page.login.chooseLogin.account=การเข้าสู่ระบบบัญชีที่น่าสนใจจริงๆ
+page.login.chooseLogin.account.email=เข้าสู่กล่องจดหมาย
+page.login.chooseLogin.account.phone=เข้าสู่ระบบด้วยหมายเลขโทรศัพท์มือถือ
+page.login.chooseLogin.third=วิธีการเข้าสู่ระบบอื่นๆ
+
+page.login.tab.login-credentials=เข้าสู่ระบบบัญชีและรหัสผ่าน
+page.login.tab.login-code=เข้าสู่ระบบรหัสยืนยัน
+page.login.tab.signup=การลงทะเบียนบัญชี
+page.login.form.signup=เข้าสู่ระบบ
+page.login.code.title=กรุณากรอกรหัสยืนยัน
+page.login.code.sendTo.label=ส่งไปที่
+page.login.findPassword.label=ค้นหารหัสผ่าน
+page.login.toSignup.question.label=ไม่มีบัญชีใช่หรือไม่
+page.login.toSignup.label=ลงทะเบียนตอนนี้
+page.login.deleteAccount.withdraw=ถอนใบสมัคร
+
+page.regist.succeeded=การลงทะเบียนสำเร็จ
+page.regist.signupAndSignin=ลงทะเบียนและลงชื่อเข้าใช้
+
+page.guest.bindAndSignin=ผูกและลงชื่อเข้าใช้
+
+page.pay.chooseMethod.placeholder=โปรดเลือกวิธีการชำระเงิน
+
+page.activeCode.title=กรุณากรอกรหัสเชิญของคุณ
+page.activeCode.placeholder=รหัสคำเชิญ
+page.activeCode.tip=รหัสเชิญจะหมดอายุทันทีหลังการใช้งาน
+page.activeCode.invalid=รหัสเชิญไม่ถูกต้อง
+
+page.whiteList.loginLimit=คำขอเข้าสู่ระบบของคุณถูกจำกัด หากคุณมีคำถามใดๆ โปรดติดต่อฝ่ายบริการลูกค้า
+
+page.block.forever=บัญชีของคุณถูกบล็อกอย่างถาวร หากคุณมีคำถามใด ๆ โปรดติดต่อฝ่ายบริการลูกค้า
+page.block.hours=บัญชีของคุณถูกบล็อคและจะถูกปลดบล็อคหลังจาก {0} หากคุณมีคำถามใด ๆ โปรดติดต่อฝ่ายบริการลูกค้า
+
+page.bindAfterLogin.tips=เพื่อป้องกันข้อมูลสูญหาย โปรดผูกบัญชีของคุณก่อน
+
+page.realname.limit.title=ตัวเตือนสุขภาพของเกม
+page.realname.limit.content=บัญชีเข้าสู่ระบบปัจจุบันของคุณเป็นบัญชีรองและได้รวมอยู่ในระบบป้องกันการติดยาเสพติด ตามกฎระเบียบภายในประเทศที่เกี่ยวข้อง เวลาการคุ้มครองสุขภาพอยู่นอกเวลา 20:00 น. - 21:00 น. ในวันศุกร์ วันเสาร์ วันอาทิตย์ และวันหยุดตามกฎหมาย ไม่สามารถเล่นเกมได้ในช่วงเวลาปัจจุบัน โปรดจัดเวลาของคุณให้เหมาะสม
+page.realname.limit.logout=เข้าสู่ระบบบัญชีอื่น
+
+page.realname.form.title=การตรวจสอบชื่อจริงของเกม
+page.realname.form.content=บัญชียังไม่ผ่านการรับรองความถูกต้องของชื่อจริง เพื่อให้เป็นไปตามข้อบังคับของประเทศที่เกี่ยวข้อง โปรดกรอกข้อมูลชื่อจริงให้ครบถ้วน
+page.realname.form.realname=ชื่อจริง
+page.realname.form.idCard=หมายเลขประจำตัวจริง
+
+page.userInfo.form.content=เราเป็นบริษัทเกมที่มุ่งเน้นประสบการณ์ผู้ใช้ ในการทดสอบนี้ เราหวังว่าจะได้รับข้อมูลต่อไปนี้จากคุณ เพื่อที่เราจะได้สามารถให้บริการเนื้อหาเกมได้ดียิ่งขึ้นในอนาคต
+page.userInfo.form.nextTime=พบกันใหม่ครั้งหน้า
+page.userInfo.form.sex=เพศของคุณ:
+page.userInfo.form.birthday=วันเกิดของคุณ:
+page.userInfo.form.male=เพศชาย
+page.userInfo.form.Female=เพศหญิง
+page.userInfo.tips.sex=โปรดเลือกเพศ
+page.userInfo.tips.birthday=โปรดเลือกวันเกิดของคุณ
+
+alert.title.tips=เคล็ดลับ
+alert.account.delete.content=คุณจะถอนใบสมัครของคุณสำหรับการลบบัญชีถาวรและปลดล็อคบัญชี
+
+form.passport.id=รหัสประจำตัว:
+form.email.required=กรุณากรอกที่อยู่อีเมลของคุณ
+form.phone.required=กรุณากรอกหมายเลขโทรศัพท์มือถือของคุณ
+form.account.forbid.whiteSpace=บัญชีไม่สามารถมีช่องว่างได้
+form.email.verify=ข้อผิดพลาดรูปแบบอีเมล
+form.phone.verify=รูปแบบหมายเลขโทรศัพท์มือถือไม่ถูกต้อง
+form.email.placeholder=อีเมล
+form.phone.placeholder=หมายเลขโทรศัพท์มือถือ
+form.code.placeholder=รหัสยืนยัน
+form.code.required=กรุณาป้อนรหัสยืนยัน
+form.password.placeholder=รหัสผ่าน
+form.newPassword.placeholder=รหัสผ่านใหม่
+form.password.strength.weak=ความยากของรหัสผ่านต่ำ
+form.password.required=กรุณากรอกรหัสผ่าน
+form.password.strength.length=โปรดป้อนอย่างน้อย 8 ตัวอักษร
+form.password.length.require=รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร
+form.password.forbid.whiteSpace=รหัสผ่านไม่สามารถมีช่องว่างได้
+form.button.getCode=รับรหัสยืนยัน
+form.button.sendingCode=การส่ง
+form.button.reGetCode=ส่งอีกครั้ง
+form.button.confirm=ยืนยัน
+form.button.confirmNoSpace=ยืนยัน
+form.button.edit=แก้ไข
+form.button.save=บันทึก
+form.button.cancel=ยกเลิก
+form.button.next=ถัดไป
+form.button.modifyPassword=แก้ไขรหัสผ่าน
+form.button.iKnow=รู้
+form.nickname.label=ชื่อเล่น
+form.sex.label=เพศ
+form.birthday.label=วันเกิด
+form.protocol.tips=โปรดอ่านและทำเครื่องหมายในช่องก่อนดำเนินการต่อ
+form.realname.required=กรุณากรอกชื่อจริงของคุณก่อน
+form.idCard.required=โปรดป้อนหมายเลขประจำตัวจริงของคุณก่อน
+form.sex.required=กรุณาเลือกเพศก่อน
+form.birthday.required=โปรดเลือกวันเกิดของคุณก่อน
+
+page.infoEdit.nickname.hint=สามารถแก้ไขได้อีกครั้ง 30 วันหลังจากการตั้งค่าสำเร็จ
+
+protocols.usage=ข้อตกลงผู้ใช้
+protocols.privacy=นโยบายความเป็นส่วนตัว
+protocols.checkHint=ตรวจสอบและยอมรับโปรโตคอลนี้
+
+page.feedback.title=คำติชมปัญหา
+page.feedback.email=ที่อยู่อีเมลของคุณสำหรับให้เราแสดงความคิดเห็น (ไม่บังคับ)
+page.feedback.phone=โทรศัพท์มือถือของคุณเพื่อให้เราสามารถตอบกลับผลลัพธ์ได้ (ไม่บังคับ)
+page.feedback.roleId=รหัสตัวละครในเกมของคุณ (ไม่บังคับ)
+page.feedback.description=ปัญหาที่คุณพบ
+page.feedback.description.require=กรุณากรอกคำอธิบายปัญหา
+page.feedback.success.tips=คำถามของคุณถูกส่งเรียบร้อยแล้ว โปรดรออย่างอดทนเพื่อรับคำติชมจากฝ่ายบริการลูกค้า
+
+page.bind.view.title=ผูกบัญชีอีเมล
+page.bind.view.button=ผูก
+form.bind.view.email.placeholder=อีเมล
+form.bind.view.pwd.placeholder=ตั้งรหัสผ่านของคุณ

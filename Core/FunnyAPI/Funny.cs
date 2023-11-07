@@ -81,12 +81,12 @@ namespace SoFunny.FunnySDK
         /// <param name="language"></param>
         public static void SetLanguage(SystemLanguage language)
         {
+            Locale.SetCurrentLanguage(language);
+
             if (SdkSetup)
             {
                 Core.Service.SetLanguage(language);
             }
-
-            Locale.SetCurrentLanguage(language);
         }
 
     }

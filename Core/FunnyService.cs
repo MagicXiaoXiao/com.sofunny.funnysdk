@@ -42,17 +42,7 @@ namespace SoFunny.FunnySDK
 
         internal void SetLanguage(SystemLanguage language)
         {
-            switch (language)
-            {
-                case SystemLanguage.Chinese:
-                case SystemLanguage.ChineseSimplified:
-                case SystemLanguage.ChineseTraditional:
-                    bridgeService.Common.SetLanguage("zh");
-                    break;
-                default:
-                    bridgeService.Common.SetLanguage("en");
-                    break;
-            }
+            bridgeService.Common.SetLanguage(Locale.GetLanguageCode(language));
         }
 
     }

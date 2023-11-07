@@ -11,7 +11,8 @@ using UnityEditor.iOS.Xcode;
 using UnityEditor.iOS.Xcode.Extensions;
 
 
-namespace SoFunny.FunnySDK.Editor {
+namespace SoFunny.FunnySDK.Editor
+{
 
     public class XcodeExportProcess
     {
@@ -122,7 +123,7 @@ namespace SoFunny.FunnySDK.Editor {
             #endregion
 
             #region 设置 Xcode BuildSettings 配置参数流程
-            
+
             proj.AddBuildProperty(mainTargetGUID, "FRAMEWORK_SEARCH_PATHS", $"$(PROJECT_DIR)/{FRAMEWORK_TARGET_PATH}");
 
             proj.SetBuildProperty(unityPackageTargetGUID, "CLANG_ENABLE_MODULES", "YES");
@@ -136,6 +137,9 @@ namespace SoFunny.FunnySDK.Editor {
 
             proj.SetBuildProperty(unityPackageTargetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
             proj.SetBuildProperty(mainTargetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
+
+            proj.SetBuildProperty(unityPackageTargetGUID, "ENABLE_BITCODE", "NO");
+            proj.SetBuildProperty(mainTargetGUID, "ENABLE_BITCODE", "NO");
 
             #endregion
 
