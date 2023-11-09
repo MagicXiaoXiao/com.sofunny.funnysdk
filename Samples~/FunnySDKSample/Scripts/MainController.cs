@@ -5,9 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using SoFunny.FunnySDK;
 using SoFunny.FunnySDK.UIModule;
-using System;
+//using SoFunny.FunnySDK.IAP;
+using System.Text;
 
-public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserServiceDelegate, IPrivateUserInfoDelegate
+
+public class MainController : MonoBehaviour
 {
 
     public Image userIconImage;
@@ -15,24 +17,36 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     public Text statusMessageText;
     public Text rawJsonText;
     public VerticalLayoutGroup layoutGroup;
+    public Dropdown languageDropdown;
 
     private bool launchValue = true;
 
     private void Awake()
     {
-
         Funny.Initialize();
 
         Funny.Account.OnLoginEvents += Account_OnLoginEvents;
         Funny.Account.OnLogoutEvents += Account_OnLogoutEvents;
         Funny.Account.OnSwitchAccountEvents += Account_OnSwitchAccountEvents;
+        Funny.Agreement.OnComfirmProtocolEvent += Agreement_OnComfirmProtocolEvent;
     }
 
+
+
+    private void Agreement_OnComfirmProtocolEvent()
+    {
+        Toast.ShowSuccess("您已真有趣同意协议");
+    }
+
+    //private void Service_OnMissReceiptHandlerEvents(IAPReceipt[] obj)
+    //{
+    //    Toast.Show($"含有 {obj.Length} 条遗留凭据");
+    //}
 
     private void Account_OnSwitchAccountEvents(AccessToken obj)
     {
         // 账号被切换事件
-        Funny.Account.GetUserProfile(this);
+        StartCoroutine(UpdateProfile(Funny.Account.GetUserProfile()));
     }
 
     private void Account_OnLogoutEvents()
@@ -44,17 +58,18 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     private void Account_OnLoginEvents(SoFunny.FunnySDK.AccessToken obj)
     {
         // 登录事件
-        Funny.Account.GetUserProfile(this);
+        StartCoroutine(UpdateProfile(Funny.Account.GetUserProfile()));
     }
 
     private void Start()
     {
+        OnUpdateLanguage();
+
         var token = Funny.Account.GetCurrentAccessToken();
 
         if (token != null)
         {
-            Funny.Account.GetUserProfile(this);
-
+            StartCoroutine(UpdateProfile(Funny.Account.GetUserProfile()));
         }
 
 #if UNITY_IOS
@@ -86,7 +101,7 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
     public void ShowNewLoginView()
     {
         // 发起登录
-        Funny.Account.Login(this);
+        Funny.Account.Login(OnLoginSuccess, OnLoginFailure, OnLoginCancel);
     }
 
     public void Logout()
@@ -94,10 +109,119 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
         Funny.Account.Logout();
     }
 
-    public void CopyTokenValue()
+    public void OpenAgreeProtocolView()
     {
         Funny.Agreement.Open();
+    }
 
+    public void BindEmail()
+    {
+        if (Funny.Account.GetCurrentAccessToken() is null)
+        {
+            Alert.Show("提示", "当前未登录账号");
+            return;
+        }
+
+        Funny.Account.Bind(BindingType.Email, () =>
+        {
+            rawJsonText.text = "绑定邮箱成功";
+            Toast.ShowSuccess("绑定成功");
+        }, (error) =>
+        {
+            rawJsonText.text = $"绑定失败：{error.Code} - {error.Message}";
+            Toast.ShowFail("绑定失败");
+        }, () =>
+        {
+            rawJsonText.text = "绑定已被取消";
+            Toast.Show("取消绑定");
+        });
+    }
+
+    public void BindAppleID()
+    {
+        if (Funny.Account.GetCurrentAccessToken() is null)
+        {
+            Alert.Show("提示", "当前未登录账号");
+            return;
+        }
+
+        Loader.ShowIndicator();
+
+        Funny.Account.Bind(BindingType.AppleID, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定 AppleID 成功";
+            Toast.ShowSuccess("绑定成功");
+        }, (error) =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = $"绑定失败： {error.Code} - {error.Message}";
+            Toast.ShowFail("绑定失败");
+        }, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定已被取消";
+            Toast.Show("取消绑定");
+        });
+    }
+
+    public void BindGoogleAccount()
+    {
+        if (Funny.Account.GetCurrentAccessToken() is null)
+        {
+            Alert.Show("提示", "当前未登录账号");
+            return;
+        }
+
+        Loader.ShowIndicator();
+
+        Funny.Account.Bind(BindingType.Google, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定 Google 成功";
+            Toast.ShowSuccess("绑定成功");
+        }, (error) =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = $"绑定失败： {error.Code} - {error.Message}";
+            Toast.ShowFail("绑定失败");
+        }, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定已被取消";
+            Toast.Show("取消绑定");
+        });
+    }
+
+    public void BindStatusData()
+    {
+        if (Funny.Account.GetCurrentAccessToken() is null)
+        {
+            Alert.Show("提示", "当前未登录账号");
+            return;
+        }
+
+        var status = Funny.Account.GetBindStatus();
+        var sb = new StringBuilder();
+
+        foreach (var item in status)
+        {
+            string flag = item.IsBind ? "<color=green>已绑定</color>" : "<color=red>未绑定</color>";
+            sb.Append($"类型：{item.Type} | {flag}");
+            sb.AppendLine();
+        }
+
+        Alert.Show("绑定状态", sb.ToString());
+    }
+
+    public void CopyTokenValue()
+    {
         var token = Funny.Account.GetCurrentAccessToken();
 
         if (token is null)
@@ -151,16 +275,12 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
 
     public void AuthPrivacyProfile()
     {
-        Funny.Billboard.FetchAny((has) =>
-        {
-
-        });
-        Funny.Account.GetPrivateUserInfo(this);
+        Funny.Account.AuthPrivateUserInfo(OnConsentAuthPrivateInfo, OnNextTime);
     }
 
     IEnumerator UpdateProfile(SoFunny.FunnySDK.UserProfile profile)
     {
-        if (profile.PictureURL != null)
+        if (!string.IsNullOrEmpty(profile.PictureURL))
         {
             var www = UnityWebRequestTexture.GetTexture(profile.PictureURL);
             yield return www.SendWebRequest();
@@ -204,6 +324,7 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
         }
         else
         {
+            rawJsonText.text = "获取用户信息成功";
             yield return null;
         }
 
@@ -240,11 +361,36 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
         scrollContentTransform.localPosition = Vector3.zero;
     }
 
+    public void OnUpdateLanguage()
+    {
+        switch (languageDropdown.value)
+        {
+            case 0:
+                Funny.SetLanguage(SystemLanguage.ChineseSimplified);
+                break;
+            case 1:
+                Funny.SetLanguage(SystemLanguage.ChineseTraditional);
+                break;
+            case 2:
+                Funny.SetLanguage(SystemLanguage.English);
+                break;
+            case 3:
+                Funny.SetLanguage(SystemLanguage.Thai);
+                break;
+            case 4:
+                Funny.SetLanguage(SystemLanguage.Vietnamese);
+                break;
+            case 5:
+                Funny.SetLanguage(SystemLanguage.Indonesian);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void OnLoginSuccess(SoFunny.FunnySDK.AccessToken accessToken)
     {
         rawJsonText.text = "登录成功 token 值为" + accessToken.Value;
-
-        Funny.Account.GetUserProfile(this);
     }
 
     public void OnLoginCancel()
@@ -257,35 +403,60 @@ public class MainController : MonoBehaviour, ILoginServiceDelegate, IUserService
         rawJsonText.text = "登录失败 - " + error.Message;
     }
 
-    public void OnUserProfileSuccess(SoFunny.FunnySDK.UserProfile profile)
-    {
-        rawJsonText.text = "正在获取用户信息中....";
-
-        StartCoroutine(UpdateProfile(profile));
-    }
-
-    public void OnUserProfileFailure(ServiceError error)
-    {
-        rawJsonText.text = error.Message;
-    }
-
     public void OnConsentAuthPrivateInfo(UserPrivateInfo userInfo)
     {
         Alert.Show("提示", $"填写成功！性别：{userInfo.Gender} ，生日：{userInfo.Birthday}");
     }
 
-    public void OnNextTime()
+    public void OnNextTime(bool enableService)
     {
-        Toast.Show("下次一定填");
+        if (enableService)
+        {
+            Toast.Show("下次一定填");
+        }
+        else
+        {
+            Toast.Show("隐私授权服务未开启");
+        }
     }
 
-    public void OnUnenabledService()
+    public void ExecutePayment()
     {
-        Toast.Show("隐私授权服务未开启");
+
+        //IAPProduct product = new IAPProduct("funny.product.item1", "Unity 测试商品");
+        //IAPPayer payer = new IAPPayer("0002", "Unity 测试员", "测试区");
+        //IAPOrder funnyOrder = IAPOrder.Create(product, payer, PaymentType.AppleInAppPurchase, 1);
+
+        //Loader.ShowIndicator();
+
+        //FunnyIAP.Service.Execute(
+        //    funnyOrder,
+        //    (receipt, order) =>
+        //    {
+        //        Loader.HideIndicator();
+
+        //        Alert.Show("购买成功", $"支付凭据编号：{receipt.Id}");
+
+        //        rawJsonText.text = $"支付凭据编号：{receipt.Id}";
+        //    },
+        //    () =>
+        //    {
+        //        Loader.HideIndicator();
+        //        Alert.Show("提示", $"购买已被取消");
+        //        rawJsonText.text = "购买已被取消";
+        //    },
+        //    (error) =>
+        //    {
+        //        Loader.HideIndicator();
+        //        Alert.Show("购买失败", $"购买失败：{error.Code} - {error.Message}");
+        //        rawJsonText.text = $"购买失败：{error.Code} - {error.Message}";
+        //    }
+        //);
     }
 
-    public void OnPrivateInfoFailure(ServiceError error)
+    public void CheckMissReceipt()
     {
-        Toast.Show("隐私授权失败" + error.Message);
+        //FunnyIAP.Service.CheckMissReceiptQueue();
     }
+
 }
