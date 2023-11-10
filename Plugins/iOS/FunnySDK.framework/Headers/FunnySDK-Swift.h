@@ -261,6 +261,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreFoundation;
+@import ObjectiveC;
 @import UIKit;
 #endif
 
@@ -320,9 +321,21 @@ SWIFT_CLASS("_TtC8FunnySDK11LoginButton")
 
 
 
+@class UIEvent;
+
+@interface UIWindow (SWIFT_EXTENSION(FunnySDK))
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent * _Nullable)event;
+@end
 
 
 
+
+SWIFT_CLASS("_TtC8FunnySDK17_FunnyInitializer")
+@interface _FunnyInitializer : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
++ (void)registerComponent;
+@end
 
 #endif
 #if defined(__cplusplus)

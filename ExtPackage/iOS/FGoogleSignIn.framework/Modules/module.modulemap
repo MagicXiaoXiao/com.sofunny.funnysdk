@@ -1,0 +1,11 @@
+framework module FGoogleSignIn {
+  umbrella header "FGoogleSignIn.h"
+
+  export *
+  module * { export * }
+}
+
+module FGoogleSignIn.Swift {
+  header "FGoogleSignIn-Swift.h"
+  requires objc
+}

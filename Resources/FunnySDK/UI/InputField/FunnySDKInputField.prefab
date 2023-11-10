@@ -871,8 +871,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa066578135b4ea1a50e9e7e771ebc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableClear: 0
   clearButton: {fileID: 7651496313765200469}
+  enableRecord: 0
   recordButton: {fileID: 7651496313601713224}
+  enableEye: 0
   openEyeButton: {fileID: 7651496314400279765}
   closeEyeButton: {fileID: 7651496314759986018}
   contentType: 0
