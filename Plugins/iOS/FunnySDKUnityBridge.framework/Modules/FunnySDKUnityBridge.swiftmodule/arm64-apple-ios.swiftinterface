@@ -1,0 +1,24 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FunnySDKUnityBridge
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CoreGraphics
+import Foundation
+import FunnySDK
+@_exported import FunnySDKUnityBridge
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+public typealias iOSServiceHandler = @convention(c) (Swift.UnsafeMutablePointer<Swift.CChar>, Swift.Bool, Swift.UnsafeMutablePointer<Swift.CChar>) -> Swift.Void
+public typealias NotificationMessageHandler = @convention(c) (Swift.UnsafeMutablePointer<Swift.CChar>, Swift.UnsafeMutablePointer<Swift.CChar>) -> Swift.Void
+@_cdecl("FSDK_Call")
+public func UnityCallService(jsonObject: Swift.UnsafeMutablePointer<Swift.CChar>)
+@_cdecl("FSDK_CallAndReturn")
+public func UnityCallAndReturnService(jsonObject: Swift.UnsafeMutablePointer<Swift.CChar>) -> Swift.UnsafeMutablePointer<Swift.CChar>
+@_cdecl("FSDK_CallAndBack")
+public func UnityCallAndBackService(jsonObject: Swift.UnsafeMutablePointer<Swift.CChar>, handler: @convention(c) (Swift.UnsafeMutablePointer<Swift.CChar>, Swift.Bool, Swift.UnsafeMutablePointer<Swift.CChar>) -> Swift.Void)
+@_cdecl("FSDK_TrackEvent")
+public func UnityTrackEvent(name: Swift.UnsafeMutablePointer<Swift.CChar>, jsonObject: Swift.UnsafeMutablePointer<Swift.CChar>)
+@_cdecl("FSDK_NotificationCenter")
+public func UnityNotificationCenterActive(message: @convention(c) (Swift.UnsafeMutablePointer<Swift.CChar>, Swift.UnsafeMutablePointer<Swift.CChar>) -> Swift.Void)

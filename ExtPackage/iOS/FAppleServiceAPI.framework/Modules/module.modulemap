@@ -6,6 +6,6 @@ framework module FAppleServiceAPI {
 }
 
 module FAppleServiceAPI.Swift {
-    header "FAppleServiceAPI-Swift.h"
-    requires objc
+  header "FAppleServiceAPI-Swift.h"
+  requires objc
 }

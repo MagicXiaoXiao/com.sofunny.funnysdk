@@ -135,8 +135,8 @@ namespace SoFunny.FunnySDK.Editor
             proj.SetBuildProperty(unityPackageTargetGUID, "SWIFT_VERSION", "5.0");
             proj.SetBuildProperty(mainTargetGUID, "SWIFT_VERSION", "5.0");
 
-            proj.SetBuildProperty(unityPackageTargetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
-            proj.SetBuildProperty(mainTargetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
+            //proj.SetBuildProperty(unityPackageTargetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
+            //proj.SetBuildProperty(mainTargetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
 
             proj.SetBuildProperty(unityPackageTargetGUID, "ENABLE_BITCODE", "NO");
             proj.SetBuildProperty(mainTargetGUID, "ENABLE_BITCODE", "NO");

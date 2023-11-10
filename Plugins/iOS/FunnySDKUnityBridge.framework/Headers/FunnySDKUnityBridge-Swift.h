@@ -294,7 +294,7 @@ SWIFT_EXTERN void FSDK_Call(char * _Nonnull jsonObject);
 SWIFT_EXTERN void FSDK_NotificationCenter(void (* _Nonnull message)(char * _Nonnull, char * _Nonnull));
 
 
-SWIFT_EXTERN void FSDK_TrackEvent(char * _Nonnull jsonObject);
+SWIFT_EXTERN void FSDK_TrackEvent(char * _Nonnull name, char * _Nonnull jsonObject);
 
 #endif
 #if defined(__cplusplus)

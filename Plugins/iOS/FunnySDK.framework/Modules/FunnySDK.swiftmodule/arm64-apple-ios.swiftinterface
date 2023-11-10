@@ -1,0 +1,962 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FunnySDK
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Combine
+import CommonCrypto
+import CryptoKit
+import Foundation
+@_exported import FunnySDK
+import ObjectiveC
+import SafariServices
+import Security
+import Swift
+import UIKit
+import WebKit.WKScriptMessageHandler
+import WebKit
+import _Concurrency
+import _StringProcessing
+public protocol RequestAdapter {
+  func adapted(_ request: Foundation.URLRequest) throws -> Foundation.URLRequest
+}
+public struct AnyRequestAdapter : FunnySDK.RequestAdapter {
+  public init(_ block: @escaping (Foundation.URLRequest) throws -> Foundation.URLRequest)
+  public func adapted(_ request: Foundation.URLRequest) throws -> Foundation.URLRequest
+}
+public protocol ResponsePipelineTerminator : AnyObject {
+  func parse<T>(request: T, data: Foundation.Data) throws -> T.Response where T : FunnySDK.Request
+}
+public protocol ResponsePipelineRedirector : AnyObject {
+  func shouldApply<T>(request: T, data: Foundation.Data, response: Foundation.HTTPURLResponse) -> Swift.Bool where T : FunnySDK.Request
+  func redirect<T>(request: T, data: Foundation.Data, response: Foundation.HTTPURLResponse, done closure: @escaping (FunnySDK.ResponsePipelineRedirectorAction) throws -> Swift.Void) throws where T : FunnySDK.Request
+}
+public enum ResponsePipelineRedirectorAction {
+  case restart
+  case restartWithout(FunnySDK.ResponsePipeline)
+  case stop(any Swift.Error)
+  case `continue`
+  case continueWith(Foundation.Data, Foundation.HTTPURLResponse)
+}
+public enum ResponsePipeline {
+  case terminator(any FunnySDK.ResponsePipelineTerminator)
+  case redirector(any FunnySDK.ResponsePipelineRedirector)
+}
+extension FunnySDK.ResponsePipeline : Swift.Equatable {
+  public static func == (lhs: FunnySDK.ResponsePipeline, rhs: FunnySDK.ResponsePipeline) -> Swift.Bool
+}
+public class JSONParsePipeline : FunnySDK.ResponsePipelineTerminator {
+  final public let parser: Foundation.JSONDecoder
+  public init(_ parser: Foundation.JSONDecoder)
+  public func parse<T>(request: T, data: Foundation.Data) throws -> T.Response where T : FunnySDK.Request
+  @objc deinit
+}
+public enum Log {
+  public static func assertionFailure(_ message: @autoclosure () -> Swift.String, file: Swift.StaticString = #file, line: Swift.UInt = #line)
+  public static func fatalError(_ message: @autoclosure () -> Swift.String, file: Swift.StaticString = #file, line: Swift.UInt = #line) -> Swift.Never
+  public static func precondition(_ condition: @autoclosure () -> Swift.Bool, _ message: @autoclosure () -> Swift.String, file: Swift.StaticString = #file, line: Swift.UInt = #line)
+  public static func print(_ items: Any...)
+  public static func warning(_ items: Any...)
+}
+public struct FunnySDKNotificationKey {
+}
+public enum FunnySDKCore {
+  public static func initializeSDK()
+  public static func application(_ app: UIKit.UIApplication, open url: Foundation.URL?, options: [UIKit.UIApplication.OpenURLOptionsKey : Any] = [:]) -> Swift.Bool
+}
+extension FunnySDK.FunnySDKCore {
+  public static func switchURL(_ value: Swift.Bool)
+}
+extension UIKit.UIWindow {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func motionEnded(_ motion: UIKit.UIEvent.EventSubtype, with event: UIKit.UIEvent?)
+}
+extension FunnySDK.API.Auth {
+  public static func login(platform: FunnySDK.PlatformChannel, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+@propertyWrapper final public class FunnyInjected<Service> {
+  public init(_ type: Service.Type)
+  final public var wrappedValue: Service? {
+    get
+  }
+  @objc deinit
+}
+public enum FunnyUI {
+}
+public protocol FunnyAccountModule : FunnySDK.FunnyModule {
+  var isLogin: Swift.Bool { get }
+  var currentToken: Swift.String? { get }
+  var currentProfile: FunnySDK.PlayerProfile? { get }
+}
+extension FunnySDK.FunnyAccountModule {
+  public var serviceLevel: Swift.Int {
+    get
+  }
+}
+public struct Unit : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct UserPrivateInfo : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public enum Agreement {
+  public static var isAgree: Swift.Bool {
+    get
+  }
+  public static var onCompletion: ((Swift.Bool) -> Swift.Void)?
+  public static func open()
+}
+extension FunnySDK.FunnyUI {
+  public enum DatePicker {
+    public static var selectedAction: ((Foundation.Date) -> Swift.Void)?
+    public static var cancelAction: (() -> Swift.Void)?
+    public static func show(date: Foundation.Date? = nil)
+  }
+}
+public struct HexColor : Swift.Codable {
+  public let rawValue: Swift.String
+  public let color: UIKit.UIColor
+  public init(_ color: UIKit.UIColor)
+  public init(rawValue: Swift.String, default: UIKit.UIColor)
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension FunnySDK.HexColor : Swift.Equatable {
+  public static func == (lhs: FunnySDK.HexColor, rhs: FunnySDK.HexColor) -> Swift.Bool
+}
+extension FunnySDK.HexColor : Swift.ExpressibleByStringLiteral {
+  public init(stringLiteral value: Swift.String)
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+public enum FunnySDKError : Swift.Error {
+  case requestFailed(reason: FunnySDK.FunnySDKError.RequestErrorReason)
+  case responseFailed(reason: FunnySDK.FunnySDKError.ResponseErrorReason)
+  case authorizeFailed(reason: FunnySDK.FunnySDKError.AuthorizeErrorReason)
+  case certificationFailed(reason: FunnySDK.FunnySDKError.CertificationErrorReason)
+  case generalError(reason: FunnySDK.FunnySDKError.GeneralErrorReason)
+  case untypedError(error: any Swift.Error)
+  case warningError(message: Swift.String)
+  case privacyAuthorizeFailed(reason: FunnySDK.FunnySDKError.PrivacyAuthErrorReason)
+}
+extension FunnySDK.FunnySDKError {
+  public var isRequestError: Swift.Bool {
+    get
+  }
+  public var isResponseError: Swift.Bool {
+    get
+  }
+  public var isAuthorizeError: Swift.Bool {
+    get
+  }
+  public var isGeneralError: Swift.Bool {
+    get
+  }
+  public var isCertificationError: Swift.Bool {
+    get
+  }
+}
+extension FunnySDK.FunnySDKError {
+  public var isUserCancelled: Swift.Bool {
+    get
+  }
+  public var isBadRequest: Swift.Bool {
+    get
+  }
+  public var isRefreshTokenError: Swift.Bool {
+    get
+  }
+  public var isPermissionError: Swift.Bool {
+    get
+  }
+  public var isTokenError: Swift.Bool {
+    get
+  }
+  public func isResponseError(statusCode: Swift.Int) -> Swift.Bool
+  public var isURLSessionTimeOut: Swift.Bool {
+    get
+  }
+  public func isURLSessionErrorCode(sessionErrorCode code: Swift.Int) -> Swift.Bool
+}
+extension FunnySDK.FunnySDKError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+extension FunnySDK.FunnySDKError : Foundation.CustomNSError {
+  public var errorCode: Swift.Int {
+    get
+  }
+  public var errorUserInfo: [Swift.String : Any] {
+    get
+  }
+  public static var errorDomain: Swift.String {
+    get
+  }
+}
+public enum FunnySDKErrorUserInfoKey : Swift.String {
+  case underlyingError
+  case statusCode
+  case resultCode
+  case type
+  case data
+  case APIError
+  case raw
+  case url
+  case message
+  case status
+  case text
+  case encoding
+  case parameterName
+  case reason
+  case index
+  case key
+  case got
+  case process
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension FunnySDK.FunnySDKError {
+  public enum GeneralErrorReason {
+    case conversionError(string: Swift.String, encoding: Swift.String.Encoding)
+  }
+}
+public protocol FunnyGoogleAuthModel {
+  var name: Swift.String? { get }
+  var email: Swift.String? { get }
+  var identityToken: Swift.String { get }
+}
+public enum O2AuthResult<Success, Failure> where Failure : Swift.Error {
+  case success(Success)
+  case cancelled
+  case failure(Failure)
+}
+extension FunnySDK.O2AuthResult {
+  public func get() throws -> Success
+}
+public enum BillboardStyle {
+  case vertical
+  case horizontal
+  public static func == (a: FunnySDK.BillboardStyle, b: FunnySDK.BillboardStyle) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class Billboard {
+  public static var onOpenEvent: (() -> Swift.Void)?
+  public static var onCloseEvent: (() -> Swift.Void)?
+  public static func hasData(completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  public static func show(_ style: FunnySDK.BillboardStyle)
+  @objc deinit
+}
+public struct GetUserProfileRequest : FunnySDK.Request {
+  public init()
+  public let method: FunnySDK.HTTPMethod
+  public let path: Swift.String
+  public let authentication: FunnySDK.AuthenticateMethod
+  public typealias Response = FunnySDK.UserProfile
+}
+extension FunnySDK.API.Auth {
+  public static func fetchPrivateProfile(completionHandler completion: @escaping (Swift.Result<FunnySDK.UserPrivateInfo, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func commitPrivateInfo(birthday: Swift.String, sex: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+@_hasMissingDesignatedInitializers final public class Track {
+  public static func report(_ name: Swift.String, _ prop: [Swift.String : Any]?)
+  public static func currentOpenID() -> Swift.String?
+  public static func currentLoginWay() -> Swift.Int?
+  public static func currentLoginFrom() -> Swift.Int?
+  @objc deinit
+}
+public enum UserCenter {
+  public static var onOpenEvent: (() -> Swift.Void)?
+  public static var onCloseEvent: (() -> Swift.Void)?
+  public static func open()
+}
+@_hasMissingDesignatedInitializers public class Session {
+  public static var shared: FunnySDK.Session {
+    get
+  }
+  @discardableResult
+  public func send<T>(_ request: T, callbackQueue: FunnySDK.CallbackQueue = .currentMainOrAsync, completionHandler completion: ((Swift.Result<T.Response, FunnySDK.FunnySDKError>) -> Swift.Void)? = nil) -> FunnySDK.SessionTask? where T : FunnySDK.Request
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SessionTask {
+  @objc deinit
+}
+extension FunnySDK.API.Auth {
+  public static func retrievePassword(account: Swift.String, newPassword: Swift.String, code: Swift.String, codeCategory: Swift.Int, completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+public struct Constant {
+  public static let SDKVersion: Swift.String
+}
+public protocol PrivacyFormViewDelegate : AnyObject {
+  func nextTime()
+  func webCallSuccess(profile: FunnySDK.PrivacyProfile)
+}
+public enum API {
+  public static func sendCode(account: Swift.String, codeAction: Swift.Int, codeCategory: Swift.Int, completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func getAppInfo(completionHandler completion: @escaping (Swift.Result<FunnySDK.PlatformTogglesModel, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func fetchBindInfo(completionHandler completion: @escaping (Swift.Result<FunnySDK.BindInfo, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+public enum CallbackQueue {
+  case asyncMain
+  case currentMainOrAsync
+  case untouch
+  case dispatch(Dispatch.DispatchQueue)
+  case operation(Foundation.OperationQueue)
+}
+public enum FunnyAccount {
+  public static var isAuthorized: Swift.Bool {
+    get
+  }
+  public static var currentAccessToken: FunnySDK.UserAccessToken? {
+    get
+  }
+  public static func getProfile() -> FunnySDK.PlayerProfile?
+  public static func fetchProfile(completionHandler completion: @escaping (Swift.Result<FunnySDK.PlayerProfile, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func logout()
+  public static func verifyLogin(completionHandler completion: @escaping (Swift.Result<FunnySDK.LoginVerifyResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func login(account: Swift.String, password: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func login(account: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func login(platform: FunnySDK.PlatformChannel, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func register(account: Swift.String, password: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func bindEmail(_ email: Swift.String, password: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func bindProvider(_ provider: FunnySDK.PlatformChannel, completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+extension FunnySDK.FunnySDKError {
+  public enum AuthorizeErrorReason {
+    case exhaustedLoginFlow
+    case malformedHierarchy
+    case userCancelled
+    case forceStopped
+    case callbackURLSchemeNotMatching
+    case malformedRedirectURL(url: Foundation.URL, message: Swift.String?)
+    case notInPlayableTime
+    case subModuleError
+    case responseStateValueNotMatching(expected: Swift.String, got: Swift.String?)
+    case webLoginError(error: Swift.String, description: Swift.String?)
+    case keychainOperation(status: Darwin.OSStatus)
+    case invalidDataInKeychain
+    case cryptoError(error: FunnySDK.CryptoError)
+  }
+}
+extension FunnySDK.API {
+  public enum UserCenter {
+    public static func fetchPCInfo(completionHandler completion: @escaping (Swift.Result<FunnySDK.PCWebInfo, FunnySDK.FunnySDKError>) -> Swift.Void)
+  }
+}
+public protocol FunnyConfigModule : FunnySDK.FunnyModule {
+  var appId: Swift.String { get }
+  var isMainland: Swift.Bool { get }
+  var currentDeviceId: Swift.String { get }
+  var universalLinkURL: Foundation.URL? { get }
+  var webURL: Swift.String { get }
+  func setLanguage(_ value: Swift.String?)
+}
+extension FunnySDK.FunnyConfigModule {
+  public var serviceLevel: Swift.Int {
+    get
+  }
+  public var universalLinkURL: Foundation.URL? {
+    get
+  }
+}
+public enum Feedback {
+  public static var onOpenEvent: (() -> Swift.Void)?
+  public static var onCloseEvent: (() -> Swift.Void)?
+  public static func show(playerID: Swift.String? = nil)
+}
+public protocol LoginButtonDelegate : AnyObject {
+  func loginButtonDidStartLogin(_ button: FunnySDK.LoginButton)
+  func loginButton(_ button: FunnySDK.LoginButton, didSucceedLogin token: FunnySDK.UserAccessToken)
+  func loginButton(_ button: FunnySDK.LoginButton, didFailLogin error: FunnySDK.FunnySDKError)
+  func loginButton(_ button: FunnySDK.LoginButton, didFailLogin error: any Swift.Error)
+}
+extension FunnySDK.LoginButtonDelegate {
+  public func loginButtonDidStartLogin(_ button: FunnySDK.LoginButton)
+  public func loginButton(_ button: FunnySDK.LoginButton, didFailLogin error: FunnySDK.FunnySDKError)
+  public func loginButton(_ button: FunnySDK.LoginButton, didFailLogin error: any Swift.Error)
+}
+@objc @_Concurrency.MainActor(unsafe) open class LoginButton : UIKit.UIButton {
+  public enum ButtonSize {
+    case small
+    case normal
+    public static func == (a: FunnySDK.LoginButton.ButtonSize, b: FunnySDK.LoginButton.ButtonSize) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor(unsafe) weak public var delegate: (any FunnySDK.LoginButtonDelegate)?
+  @_Concurrency.MainActor(unsafe) weak public var presentingViewController: UIKit.UIViewController?
+  @_Concurrency.MainActor(unsafe) public var buttonSize: FunnySDK.LoginButton.ButtonSize {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var buttonText: Swift.String? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) @objc dynamic public init()
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var intrinsicContentSize: CoreFoundation.CGSize {
+    @objc get
+  }
+  @objc @_Concurrency.MainActor(unsafe) open func login()
+  @objc deinit
+}
+extension FunnySDK.API.Auth {
+  public static func login(account: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func login(account: Swift.String, password: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+public struct BindInfo : Swift.Codable {
+  public let items: [FunnySDK.BindStatusItem]
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct BindStatusItem : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension Foundation.NSNotification.Name {
+  public static let FunnySDKUserDidLogin: Foundation.Notification.Name
+  public static let FunnySDKUserDidLogout: Foundation.Notification.Name
+  public static let FunnySDKDidSwitchAccount: Foundation.Notification.Name
+  public static let FunnySDKDidSwitchOtherAccount: Foundation.Notification.Name
+  public static let FunnySDKTapAntiAddictionLimit: Foundation.Notification.Name
+  public static let FunnySDKBindStatusUpdate: Foundation.Notification.Name
+}
+extension FunnySDK.FunnySDKNotificationKey {
+  public static let oldAccessToken: Swift.String
+  public static let newAccessToken: Swift.String
+}
+@_hasMissingDesignatedInitializers public class AccessTokenStore {
+  @objc deinit
+}
+public protocol FunnyModule {
+  var serviceLevel: Swift.Int { get }
+  func initializer()
+}
+extension FunnySDK.FunnyModule {
+  public var serviceLevel: Swift.Int {
+    get
+  }
+}
+public struct JWT : Swift.Equatable {
+  public static func == (lhs: FunnySDK.JWT, rhs: FunnySDK.JWT) -> Swift.Bool
+  public let payload: FunnySDK.JWT.Payload
+}
+extension FunnySDK.JWT {
+  public struct Payload {
+  }
+}
+extension FunnySDK.JWT.Payload {
+  public subscript<T>(key: Swift.String, type: T.Type) -> T? {
+    get
+  }
+  public var issuer: Swift.String? {
+    get
+  }
+  public var subject: Swift.String? {
+    get
+  }
+  public var audience: Swift.String? {
+    get
+  }
+  public var expiration: Foundation.Date? {
+    get
+  }
+  public var issueAt: Foundation.Date? {
+    get
+  }
+}
+extension FunnySDK.JWT.Payload {
+  public var name: Swift.String? {
+    get
+  }
+  public var pictureURL: Foundation.URL? {
+    get
+  }
+  public var email: Swift.String? {
+    get
+  }
+}
+public protocol FunnySignInWithGoogle : FunnySDK.FunnyModule {
+  func authorize(onSuccess: @escaping (any FunnySDK.FunnyGoogleAuthModel) -> Swift.Void, onCancel: @escaping () -> Swift.Void, onFailure: @escaping (any Swift.Error) -> Swift.Void)
+}
+public struct LoginVerifyCode : Swift.RawRepresentable, Swift.Equatable {
+  public let rawValue: Swift.Int
+  public init(rawValue: Swift.Int)
+  public static func == (lhs: FunnySDK.LoginVerifyCode, rhs: FunnySDK.LoginVerifyCode) -> Swift.Bool
+  public typealias RawValue = Swift.Int
+}
+public struct LoginVerifyResult : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension FunnySDK.FunnyUI {
+  public enum Web {
+    public static func show(url: Foundation.URL)
+  }
+}
+public enum Modules {
+  public static var funnyInfo: [Swift.String : Any] {
+    get
+  }
+  public static func register<T>(_ type: T.Type, _ service: any FunnySDK.FunnyModule)
+}
+public protocol FunnySignInWithApple : FunnySDK.FunnyModule {
+  func authorize(onSuccess: @escaping (any FunnySDK.FunnyAppleAuthModel) -> Swift.Void, onCancel: @escaping () -> Swift.Void, onFailure: @escaping (any Swift.Error) -> Swift.Void)
+}
+public struct PlatformChannel : Swift.RawRepresentable, Swift.Equatable {
+  public let rawValue: Swift.String
+  public init(rawValue: Swift.String)
+  public static func == (lhs: FunnySDK.PlatformChannel, rhs: FunnySDK.PlatformChannel) -> Swift.Bool
+  public typealias RawValue = Swift.String
+}
+extension FunnySDK.PlatformChannel {
+  public static let Guest: FunnySDK.PlatformChannel
+  public static let Facebook: FunnySDK.PlatformChannel
+  public static let Twitter: FunnySDK.PlatformChannel
+  public static let AppleSign: FunnySDK.PlatformChannel
+  public static let Google: FunnySDK.PlatformChannel
+  public static let WeChat: FunnySDK.PlatformChannel
+  public static let QQ: FunnySDK.PlatformChannel
+  public static let TapTap: FunnySDK.PlatformChannel
+}
+public enum LoginChannelType {
+  case sofunny
+  case guest
+  case facebook
+  case apple
+  case twitter
+  case wechat
+  case qq
+  public static func == (a: FunnySDK.LoginChannelType, b: FunnySDK.LoginChannelType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct PCWebInfo : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func makeToast(_ message: Swift.String?, duration: Foundation.TimeInterval = ToastManager.shared.duration, position: FunnySDK.ToastPosition = ToastManager.shared.position, title: Swift.String? = nil, image: UIKit.UIImage? = nil, style: FunnySDK.ToastStyle = ToastManager.shared.style, completion: ((_ didTap: Swift.Bool) -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func makeToast(_ message: Swift.String?, duration: Foundation.TimeInterval = ToastManager.shared.duration, point: CoreFoundation.CGPoint, title: Swift.String?, image: UIKit.UIImage?, style: FunnySDK.ToastStyle = ToastManager.shared.style, completion: ((_ didTap: Swift.Bool) -> Swift.Void)?)
+  @_Concurrency.MainActor(unsafe) public func showToast(_ toast: UIKit.UIView, duration: Foundation.TimeInterval = ToastManager.shared.duration, position: FunnySDK.ToastPosition = ToastManager.shared.position, completion: ((_ didTap: Swift.Bool) -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func showToast(_ toast: UIKit.UIView, duration: Foundation.TimeInterval = ToastManager.shared.duration, point: CoreFoundation.CGPoint, completion: ((_ didTap: Swift.Bool) -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func hideToast()
+  @_Concurrency.MainActor(unsafe) public func hideToast(_ toast: UIKit.UIView)
+  @_Concurrency.MainActor(unsafe) public func hideAllToasts(includeActivity: Swift.Bool = false, clearQueue: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) public func clearToastQueue()
+  @_Concurrency.MainActor(unsafe) public func makeToastActivity(_ position: FunnySDK.ToastPosition)
+  @_Concurrency.MainActor(unsafe) public func makeToastActivity(_ point: CoreFoundation.CGPoint)
+  @_Concurrency.MainActor(unsafe) public func hideToastActivity()
+  @_Concurrency.MainActor(unsafe) public func toastViewForMessage(_ message: Swift.String?, title: Swift.String?, image: UIKit.UIImage?, style: FunnySDK.ToastStyle) throws -> UIKit.UIView
+}
+public struct ToastStyle {
+  public init()
+  public var backgroundColor: UIKit.UIColor
+  public var titleColor: UIKit.UIColor
+  public var messageColor: UIKit.UIColor
+  public var maxWidthPercentage: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  public var maxHeightPercentage: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  public var horizontalPadding: CoreFoundation.CGFloat
+  public var verticalPadding: CoreFoundation.CGFloat
+  public var cornerRadius: CoreFoundation.CGFloat
+  public var titleFont: UIKit.UIFont
+  public var messageFont: UIKit.UIFont
+  public var titleAlignment: UIKit.NSTextAlignment
+  public var messageAlignment: UIKit.NSTextAlignment
+  public var titleNumberOfLines: Swift.Int
+  public var messageNumberOfLines: Swift.Int
+  public var displayShadow: Swift.Bool
+  public var shadowColor: UIKit.UIColor
+  public var shadowOpacity: Swift.Float {
+    get
+    set
+  }
+  public var shadowRadius: CoreFoundation.CGFloat
+  public var shadowOffset: CoreFoundation.CGSize
+  public var imageSize: CoreFoundation.CGSize
+  public var activitySize: CoreFoundation.CGSize
+  public var fadeDuration: Swift.Double
+  public var activityIndicatorColor: UIKit.UIColor
+  public var activityBackgroundColor: UIKit.UIColor
+}
+@_hasMissingDesignatedInitializers public class ToastManager {
+  public static let shared: FunnySDK.ToastManager
+  public var style: FunnySDK.ToastStyle
+  public var isTapToDismissEnabled: Swift.Bool
+  public var isQueueEnabled: Swift.Bool
+  public var duration: Swift.Double
+  public var position: FunnySDK.ToastPosition
+  @objc deinit
+}
+public enum ToastPosition {
+  case top
+  case center
+  case bottom
+  public static func == (a: FunnySDK.ToastPosition, b: FunnySDK.ToastPosition) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension FunnySDK.API.Auth {
+  public static func activationCodeVerify(_ code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.LoginVerifyResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+@_hasMissingDesignatedInitializers public class LoginManager {
+  public static let shared: FunnySDK.LoginManager
+  public var isSetupFinished: Swift.Bool {
+    get
+  }
+  public var isAuthorized: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+extension FunnySDK.API {
+  public enum Auth {
+    public static func recallAccountDelete(completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
+    public static func submitRealnameInfo(name: Swift.String, id: Swift.String, callbackQueue queue: FunnySDK.CallbackQueue = .currentMainOrAsync, completionHandler completion: @escaping (Swift.Result<FunnySDK.LoginVerifyResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+  }
+}
+extension FunnySDK.API.Auth {
+  public static func register(account: Swift.String, password: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+public struct UserAccessToken : Swift.Codable {
+  public init(value: Swift.String, expiresIn: Swift.Int)
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers final public class _FunnyInitializer : ObjectiveC.NSObject {
+  @objc public static func registerComponent()
+  @objc deinit
+}
+public class PlayerProfile : Swift.Codable {
+  final public let id: Swift.String
+  final public let displayName: Swift.String
+  final public let account: Swift.String
+  final public let correlatedName: Swift.String?
+  final public let pictureURL: Swift.String?
+  final public let statusMessage: Swift.String?
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+public struct PrivacyProfile : Swift.Decodable {
+  public var authPlatform: Swift.String {
+    get
+  }
+  public var userBirthday: Swift.String {
+    get
+  }
+  public var userSex: Swift.String {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension FunnySDK.PrivacyProfile : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct PlatformTogglesModel : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public typealias EntityID = Swift.String
+extension FunnySDK.FunnySDKError {
+  public enum RequestErrorReason {
+    case missingURL
+    case lackOfAccessToken
+    case jsonEncodingFailed(any Swift.Error)
+    case invalidParameter([FunnySDK.FunnySDKError.RequestErrorReason.ParameterItem])
+    public struct ParameterItem {
+      public let name: Swift.String
+      public let value: Swift.String
+      public let description: Swift.String
+    }
+  }
+}
+public protocol DefaultEnumCodable : Swift.Decodable, Swift.Encodable, Swift.RawRepresentable {
+  static var defaultCase: Self { get }
+}
+extension FunnySDK.DefaultEnumCodable where Self.RawValue : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct APIError {
+  public let code: Swift.Int
+  public let error: Swift.String
+  public let detail: Swift.String?
+}
+public enum ResultUtil {
+  public static func match<Success, Failure, Output>(result: Swift.Result<Success, Failure>, onSuccess: (Success) -> Output, onFailure: (Failure) -> Output) -> Output where Failure : Swift.Error
+  public static func matchSuccess<Success, Failure, Output>(result: Swift.Result<Success, Failure>, with folder: (Success?) -> Output) -> Output where Failure : Swift.Error
+  public static func matchFailure<Success, Failure, Output>(result: Swift.Result<Success, Failure>, with folder: ((any Swift.Error)?) -> Output) -> Output where Failure : Swift.Error
+  public static func match<Success, Failure, Output>(result: Swift.Result<Success, Failure>, with folder: (Success?, (any Swift.Error)?) -> Output) -> Output where Failure : Swift.Error
+}
+extension FunnySDK.FunnySDKError {
+  public enum CertificationErrorReason {
+    case userCancelled
+    case malformedHierarchy
+    case notAvailable
+    public static func == (a: FunnySDK.FunnySDKError.CertificationErrorReason, b: FunnySDK.FunnySDKError.CertificationErrorReason) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+public struct UserProfile : Swift.Codable {
+  public let userId: Swift.String
+  public let displayName: Swift.String
+  public let correlatedName: Swift.String
+  public let pictureURL: Swift.String?
+  public let statusMessage: Swift.String?
+  public let account: Swift.String?
+  public let deleteFlag: Swift.Bool?
+  public var identity: Swift.String {
+    get
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum HTTPMethod : Swift.String {
+  case get
+  case post
+  case put
+  case delete
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum AuthenticateMethod {
+  case none
+  case token
+  case tokenValue(value: Swift.String)
+}
+public enum ContentType {
+  case none
+  case formUrlEncoded
+  case json
+  public static func == (a: FunnySDK.ContentType, b: FunnySDK.ContentType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public typealias Parameters = [Swift.String : Any]
+public protocol Request {
+  associatedtype Response : Swift.Decodable
+  var method: FunnySDK.HTTPMethod { get }
+  var baseURL: Foundation.URL { get }
+  var path: Swift.String { get }
+  var pathQueries: [Foundation.URLQueryItem]? { get }
+  var hasChannelID: Swift.Bool { get }
+  var hasDeviceInfo: Swift.Bool { get }
+  var parameters: FunnySDK.Parameters? { get }
+  var authentication: FunnySDK.AuthenticateMethod { get }
+  var contentType: FunnySDK.ContentType { get }
+  var adapters: [any FunnySDK.RequestAdapter] { get }
+  var suffixAdapters: [any FunnySDK.RequestAdapter]? { get }
+  var pipelines: [FunnySDK.ResponsePipeline] { get }
+  var prefixPipelines: [FunnySDK.ResponsePipeline]? { get }
+  var dataParser: any FunnySDK.ResponsePipelineTerminator { get }
+  var timeout: Foundation.TimeInterval { get }
+  var cachePolicy: Foundation.NSURLRequest.CachePolicy { get }
+}
+extension FunnySDK.Request {
+  public var baseURL: Foundation.URL {
+    get
+  }
+  public var cachePolicy: Foundation.NSURLRequest.CachePolicy {
+    get
+  }
+  public var hasChannelID: Swift.Bool {
+    get
+  }
+  public var hasDeviceInfo: Swift.Bool {
+    get
+  }
+  public var adapters: [any FunnySDK.RequestAdapter] {
+    get
+  }
+  public var pipelines: [FunnySDK.ResponsePipeline] {
+    get
+  }
+  public var pathQueries: [Foundation.URLQueryItem]? {
+    get
+  }
+  public var suffixAdapters: [any FunnySDK.RequestAdapter]? {
+    get
+  }
+  public var prefixPipelines: [FunnySDK.ResponsePipeline]? {
+    get
+  }
+  public var dataParser: any FunnySDK.ResponsePipelineTerminator {
+    get
+  }
+  public var contentType: FunnySDK.ContentType {
+    get
+  }
+  public var parameters: FunnySDK.Parameters? {
+    get
+  }
+  public var timeout: Foundation.TimeInterval {
+    get
+  }
+}
+public enum CryptoError : Swift.Error {
+  public enum AlgorithmsErrorReason {
+    case invalidDERKey(data: Foundation.Data, reason: Swift.String)
+    case invalidX509Header(data: Foundation.Data, index: Swift.Int, reason: Swift.String)
+    case createKeyFailed(data: Foundation.Data, reason: Swift.String)
+    case invalidPEMKey(string: Swift.String, reason: Swift.String)
+    case encryptingError((any Swift.Error)?)
+    case decryptingError((any Swift.Error)?)
+    case signingError((any Swift.Error)?)
+    case verifyingError((any Swift.Error)?, statusCode: Swift.Int?)
+    case invalidSignature(data: Foundation.Data)
+  }
+  public enum JWTErrorReason {
+    case malformedJWTFormat(string: Swift.String)
+    case unsupportedHeaderAlgorithm(name: Swift.String)
+    case claimVerifyingFailed(key: Swift.String, got: Swift.String, description: Swift.String)
+  }
+  public enum JWKErrorReason {
+    case unsupportedKeyType(Swift.String)
+  }
+  public enum GeneralErrorReason {
+    case base64ConversionFailed(string: Swift.String)
+    case dataConversionFailed(data: Foundation.Data, encoding: Swift.String.Encoding)
+    case stringConversionFailed(string: Swift.String, encoding: Swift.String.Encoding)
+    case operationNotSupported(reason: Swift.String)
+    case decodingFailed(string: Swift.String, type: any Any.Type)
+  }
+  case algorithmsFailed(reason: FunnySDK.CryptoError.AlgorithmsErrorReason)
+  case JWTFailed(reason: FunnySDK.CryptoError.JWTErrorReason)
+  case JWKFailed(reason: FunnySDK.CryptoError.JWKErrorReason)
+  case generalError(reason: FunnySDK.CryptoError.GeneralErrorReason)
+}
+extension FunnySDK.CryptoError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+extension FunnySDK.CryptoError : Foundation.CustomNSError {
+  public var errorUserInfo: [Swift.String : Any] {
+    get
+  }
+  public var errorCode: Swift.Int {
+    get
+  }
+  public static var errorDomain: Swift.String {
+    get
+  }
+}
+extension FunnySDK.LoginManager {
+  public enum BotPrompt : Swift.String {
+    case normal
+    case aggressive
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public struct WebPageLanguage {
+    public let rawValue: Swift.String
+    public init(rawValue: Swift.String)
+    public static let arabic: FunnySDK.LoginManager.WebPageLanguage
+    public static let german: FunnySDK.LoginManager.WebPageLanguage
+    public static let english: FunnySDK.LoginManager.WebPageLanguage
+    public static let spanish: FunnySDK.LoginManager.WebPageLanguage
+    public static let french: FunnySDK.LoginManager.WebPageLanguage
+    public static let indonesian: FunnySDK.LoginManager.WebPageLanguage
+    public static let italian: FunnySDK.LoginManager.WebPageLanguage
+    public static let japanese: FunnySDK.LoginManager.WebPageLanguage
+    public static let korean: FunnySDK.LoginManager.WebPageLanguage
+    public static let malay: FunnySDK.LoginManager.WebPageLanguage
+    public static let portugueseBrazilian: FunnySDK.LoginManager.WebPageLanguage
+    public static let portugueseEuropean: FunnySDK.LoginManager.WebPageLanguage
+    public static let russian: FunnySDK.LoginManager.WebPageLanguage
+    public static let thai: FunnySDK.LoginManager.WebPageLanguage
+    public static let turkish: FunnySDK.LoginManager.WebPageLanguage
+    public static let vietnamese: FunnySDK.LoginManager.WebPageLanguage
+    public static let chineseSimplified: FunnySDK.LoginManager.WebPageLanguage
+    public static let chineseTraditional: FunnySDK.LoginManager.WebPageLanguage
+  }
+}
+public struct AuthResult : Swift.Codable {
+  public let needBind: Swift.Bool
+  public let bindCode: Swift.String?
+  public let isRegister: Swift.Bool?
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public protocol FunnyAppleAuthModel {
+  var name: Swift.String? { get }
+  var identityToken: Swift.String { get }
+  var authorizationCode: Swift.String { get }
+}
+extension FunnySDK.FunnySDKError {
+  public enum ResponseErrorReason {
+    public struct APIErrorDetail {
+      public let code: Swift.Int
+      public let error: FunnySDK.APIError?
+      public let raw: Foundation.HTTPURLResponse
+      public let rawString: Swift.String?
+    }
+    case URLSessionError(any Swift.Error)
+    case nonHTTPURLResponse
+    case dataParsingFailed(any Any.Type, Foundation.Data, (any Swift.Error)?)
+    case invalidHTTPStatusAPIError(detail: FunnySDK.FunnySDKError.ResponseErrorReason.APIErrorDetail)
+  }
+}
+extension FunnySDK.FunnySDKError {
+  public enum PrivacyAuthErrorReason {
+    case cancelled
+    case notEnabled
+    case failure(message: Swift.String)
+  }
+}
+extension FunnySDK.FunnySDKError.PrivacyAuthErrorReason {
+  public var errorCode: Swift.Int {
+    get
+  }
+}
+extension FunnySDK.FunnySDKErrorUserInfoKey : Swift.Equatable {}
+extension FunnySDK.FunnySDKErrorUserInfoKey : Swift.Hashable {}
+extension FunnySDK.FunnySDKErrorUserInfoKey : Swift.RawRepresentable {}
+extension FunnySDK.BillboardStyle : Swift.Equatable {}
+extension FunnySDK.BillboardStyle : Swift.Hashable {}
+extension FunnySDK.LoginButton.ButtonSize : Swift.Equatable {}
+extension FunnySDK.LoginButton.ButtonSize : Swift.Hashable {}
+extension FunnySDK.LoginChannelType : Swift.Equatable {}
+extension FunnySDK.LoginChannelType : Swift.Hashable {}
+extension FunnySDK.ToastPosition : Swift.Equatable {}
+extension FunnySDK.ToastPosition : Swift.Hashable {}
+extension FunnySDK.FunnySDKError.CertificationErrorReason : Swift.Equatable {}
+extension FunnySDK.FunnySDKError.CertificationErrorReason : Swift.Hashable {}
+extension FunnySDK.HTTPMethod : Swift.Equatable {}
+extension FunnySDK.HTTPMethod : Swift.Hashable {}
+extension FunnySDK.HTTPMethod : Swift.RawRepresentable {}
+extension FunnySDK.ContentType : Swift.Equatable {}
+extension FunnySDK.ContentType : Swift.Hashable {}
+extension FunnySDK.LoginManager.BotPrompt : Swift.Equatable {}
+extension FunnySDK.LoginManager.BotPrompt : Swift.Hashable {}
+extension FunnySDK.LoginManager.BotPrompt : Swift.RawRepresentable {}
