@@ -217,9 +217,9 @@ namespace SoFunny.FunnySDK
                 StartFlag = true;
 
                 LoginAnalysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
-
+#if !UNITY_ANDROID || UNITY_EDITOR
                 Loader.ShowIndicator();
-
+#endif
                 AppInfoConfig appInfo = await Service.Common.GetAppInfo().Async();
 
                 LoginView.SetProviders(appInfo.GetLoginProviders());
