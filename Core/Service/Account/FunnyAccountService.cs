@@ -48,8 +48,6 @@ namespace SoFunny.FunnySDK
             BridgeNotificationCenter.Default.AddObserver(this, "event.switch.new.account", () =>
             {
                 // 切换其他账号
-                _allowAutoLogin = false;
-
                 Logout();
             });
 
@@ -663,6 +661,11 @@ namespace SoFunny.FunnySDK
 
         public void Logout()
         {
+            if (Service.Login.IsAuthorized)
+            {
+                _allowAutoLogin = false;
+            }
+
             AccountInfo.Current.Clear();
 
             Service.Login.Logout();
