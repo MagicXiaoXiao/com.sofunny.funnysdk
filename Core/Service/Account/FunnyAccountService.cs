@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using SoFunny.FunnySDK.UIModule;
 using SoFunny.FunnySDK.Internal;
 using System.Threading.Tasks;
+
 
 namespace SoFunny.FunnySDK
 {
@@ -222,8 +224,14 @@ namespace SoFunny.FunnySDK
 #endif
                 AppInfoConfig appInfo = await Service.Common.GetAppInfo().Async();
 
+#if UNITY_STANDALONE
+                // PC 登录页设置
+                PCLoginView.SetProviders(appInfo.GetLoginProviders().ToArray());
+                PCLoginUIFlowSetup(onSuccessHandler, onCancelHandler);
+#else
                 LoginView.SetProviders(appInfo.GetLoginProviders());
                 LoginUIFlowSetup(onSuccessHandler, onCancelHandler);
+#endif
 
                 if (Service.Login.IsAuthorized) // 快速登录
                 {
@@ -259,7 +267,11 @@ namespace SoFunny.FunnySDK
                 else // 打开登录 UI 界面流程
                 {
                     Loader.HideIndicator();
+#if UNITY_STANDALONE
+                    PCLoginView.Open();
+#else
                     LoginView.Open();
+#endif
                 }
             }
             catch (ServiceError error)
@@ -275,7 +287,11 @@ namespace SoFunny.FunnySDK
 
                     LoginAnalysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
 
+#if UNITY_STANDALONE
+                    PCLoginView.Open();
+#else
                     LoginView.Open();
+#endif
                 }
                 else
                 {
@@ -308,6 +324,8 @@ namespace SoFunny.FunnySDK
 
                         // 关闭 UI 以及后续逻辑
                         LoginView.Close();
+                        PCLoginView.Close();
+
                         AccessToken token = GetCurrentAccessToken();
 
                         LoginAnalysis.SdkLoginResultSuccess(newUser);
@@ -348,7 +366,11 @@ namespace SoFunny.FunnySDK
                     break;
                 case LimitStatus.StatusType.AllowFailed:
                     // IP 限制页面
+#if UNITY_STANDALONE
+                    PCLoginView.Open(PCLoginPage.AccountLimit("您已被限制登录"));
+#else
                     LoginView.JumpTo(UILoginPageState.LoginLimitPage);
+#endif
                     break;
                 case LimitStatus.StatusType.AccountInCooldownFailed:
                     {
@@ -371,7 +393,11 @@ namespace SoFunny.FunnySDK
                                          //string tips = $"账号 {info.Account} 于 {info.StartDate} 提交了永久删除账号申请，将于 {info.DeadlineDate} 永久删除。如需要保留账号，请点击下方按钮撤回申请";
                                          string tips = string.Format(Locale.LoadText("message.account.delete.tipsAfterLogin"), info.Account, info.StartDate, info.DeadlineDate);
                                          // 账号冷静期页面
+#if UNITY_STANDALONE
+                                         PCLoginView.Open(PCLoginPage.AccountCooldown(tips));
+#else
                                          LoginView.JumpTo(UILoginPageState.CoolDownTipsPage, tips);
+#endif
                                      });
                     }
                     break;
@@ -379,19 +405,32 @@ namespace SoFunny.FunnySDK
                     Toast.ShowFail(Locale.LoadText("page.activeCode.invalid"));
 
                     LoginAnalysis.SdkVerifyCodeFailure(2, 402, new ServiceError(limit.StatusCode, "无效邀请码"));
+#if UNITY_STANDALONE
+                    PCLoginView.Open(PCLoginPage.ActCode());
+#else
                     LoginView.JumpTo(UILoginPageState.ActivationKeyPage);
+#endif
                     break;
                 case LimitStatus.StatusType.ActivationUnfilled:
                     // 跳转邀请码页面
+#if UNITY_STANDALONE
+                    PCLoginView.Open(PCLoginPage.ActCode());
+#else
                     LoginView.JumpTo(UILoginPageState.ActivationKeyPage);
+#endif
                     break;
                 default:
                     Toast.ShowFail(Locale.LoadText("message.error.unknown"));
+#if UNITY_STANDALONE
+                    PCLoginView.Open(PCLoginPage.AccountLimit(Locale.LoadText("message.error.unknown")));
+#else
                     LoginView.JumpTo(UILoginPageState.LoginLimitPage);
+#endif
                     break;
             }
         }
 
+        #region 移动端登录页逻辑处理
         private void LoginUIFlowSetup(Action<AccessToken> onSuccessHandler, Action onCancelHandler)
         {
             LoginView.OnCancelAction = (pageState) =>
@@ -421,8 +460,6 @@ namespace SoFunny.FunnySDK
                     LoginResult loginResult = await Service.Login.LoginWithPassword(account, password).Async();
                     LoginAnalysis.SdkStartLoginSuccess(false, true);
 
-                    FunnyDataStore.AddAccountHistory(account);
-
                     LimitStatus limitStatus = await VerifyLimit();
 
                     Loader.HideIndicator();
@@ -450,8 +487,6 @@ namespace SoFunny.FunnySDK
 
                     LoginAnalysis.SdkVerifyCodeSuccess(1, 202);
                     LoginAnalysis.SdkStartLoginSuccess(false, true);
-
-                    FunnyDataStore.AddAccountHistory(account);
 
                     LimitStatus limitStatus = await VerifyLimit();
 
@@ -529,8 +564,6 @@ namespace SoFunny.FunnySDK
 
                     LoginAnalysis.SdkVerifyCodeSuccess(1, 203);
                     LoginAnalysis.SdkStartLoginSuccess(false, true);
-
-                    FunnyDataStore.AddAccountHistory(account);
 
                     LimitStatus limitStatus = await VerifyLimit();
 
@@ -657,7 +690,316 @@ namespace SoFunny.FunnySDK
             };
 
         }
+        #endregion
 
+        #region PC 端登录页逻辑处理
+        private void PCLoginUIFlowSetup(Action<AccessToken> onSuccessHandler, Action onCancelHandler)
+        {
+            PCLoginView.OnCancelAction = (pageState) =>
+            {
+                StartFlag = false;
+
+                LoginAnalysis.SdkPageClose((int)pageState);
+                LoginAnalysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录被取消"));
+
+                onCancelHandler?.Invoke();
+            };
+
+            //LoginView.OnOpenViewAction = (current, prev) =>
+            //{
+            //    LoginAnalysis.SdkPageLoad((int)current, (int)prev);
+            //};
+
+            PCLoginView.OnLoginWithPasswordAction = async (account, password, remember) =>
+            {
+                Loader.ShowIndicator();
+
+                LoginAnalysis.SetLoginFrom(1);
+                LoginAnalysis.SetLoginWay(BridgeConfig.IsMainland ? 103 : 101);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.LoginWithPassword(account, password).Async();
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    LoginAccountRecord record = FunnyDataStore.GetAccountRecord(account);
+
+                    if (record != null)
+                    {
+                        if (remember)
+                        {
+                            record.SymbolCount = password.Length;
+                        }
+                        else
+                        {
+                            record.SymbolCount = 0;
+                        }
+
+                        FunnyDataStore.AddAccountRcord(record);
+                    }
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                }
+            };
+
+            PCLoginView.OnLoginWithCodeAction = async (account, code) =>
+            {
+                Loader.ShowIndicator();
+
+                LoginAnalysis.SetLoginFrom(3);
+                LoginAnalysis.SetLoginWay(BridgeConfig.IsMainland ? 103 : 101);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.LoginWithCode(account, code).Async();
+
+                    LoginAnalysis.SdkVerifyCodeSuccess(1, 202);
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    LoginAnalysis.SdkVerifyCodeFailure(1, 202, error);
+                    LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                }
+
+            };
+
+            PCLoginView.OnLoginWithRecordAction = async (record, remember) =>
+            {
+                Loader.ShowIndicator();
+
+                FunnyDataStore.UpdateToken(record.Token);
+
+                try
+                {
+                    if (!remember)
+                    {
+                        record.SymbolCount = 0;
+                        FunnyDataStore.AddAccountRcord(record);
+                    }
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+
+                    LimitResultHandler(limitStatus, false, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    if (error.Error == ServiceErrorType.InvalidAccessToken)
+                    {
+                        PCLoginView.OnInvaidTokenResultAction?.Invoke();
+                    }
+
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+                }
+            };
+
+            PCLoginView.OnLoginWithProviderAction = async (provider) =>
+            {
+                Loader.ShowIndicator();
+
+                if (provider == LoginProvider.Guest)
+                {
+                    LoginAnalysis.SetLoginFrom(5);
+                }
+                else
+                {
+                    LoginAnalysis.SetLoginFrom(4);
+                }
+
+                LoginAnalysis.SetLoginWay((int)provider);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.LoginWithProvider(provider).Async();
+
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    if (error.Code == 0)
+                    {
+                        LoginAnalysis.SdkTPAuthCancel();
+                    }
+                    else if (error.Code == -1)
+                    {
+                        LoginAnalysis.SdkTPAuthFailure(error);
+                    }
+                    else
+                    {
+                        LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                    }
+                }
+            };
+
+            PCLoginView.OnRegisterAccountAction = async (account, password, code) =>
+            {
+                Loader.ShowIndicator();
+
+                LoginAnalysis.SetLoginFrom(2);
+
+                try
+                {
+                    LoginResult loginResult = await Service.Login.RegisterAccount(account, password, code).Async();
+
+                    LoginAnalysis.SdkVerifyCodeSuccess(1, 203);
+                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                    LimitStatus limitStatus = await VerifyLimit();
+
+                    Loader.HideIndicator();
+
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+
+                    LoginAnalysis.SdkVerifyCodeFailure(1, 203, error);
+                    LoginAnalysis.SdkStartLoginFailure(false, true, error);
+                }
+
+            };
+
+            PCLoginView.OnRetrievePasswordAction = async (account, newPassword, code) =>
+            {
+                Loader.ShowIndicator();
+                try
+                {
+                    await Service.Login.RetrievePassword(account, newPassword, code).Async();
+
+                    Loader.HideIndicator();
+                    Toast.ShowSuccess(Locale.LoadText("message.password.change.success"));
+                    LoginAnalysis.SdkVerifyCodeSuccess(1, 301);
+
+                    PCLoginView.Open(PCLoginPage.LoginWithPassword());
+                }
+                catch (ServiceError error)
+                {
+                    Loader.HideIndicator();
+                    Toast.ShowFail(error.Message);
+                    LoginAnalysis.SdkVerifyCodeFailure(1, 301, error);
+                }
+            };
+
+            PCLoginView.OnClickPriacyProtocol = () =>
+            {
+                Service.Common.OpenPrivacyProtocol();
+            };
+
+            PCLoginView.OnClickUserAgreenment = () =>
+            {
+                Service.Common.OpenUserAgreenment();
+            };
+
+            PCLoginView.OnClickContactUS = () =>
+            {
+                LoginAnalysis.SdkPageOpen(702);
+                Service.Common.ContactUS();
+            };
+
+            PCLoginView.OnSwitchOtherAction = () =>
+            {
+                LoginAnalysis.SdkLoginResultFailure(false, new ServiceError(-1, "登录账号被限制"));
+
+                Logout();
+
+                LoginAnalysis.SdkPageOpen((int)UILoginPageState.LoginSelectPage);
+
+                PCLoginView.Open(PCLoginPage.LoginWithPassword());
+            };
+
+            PCLoginView.OnCommitActivationAction = (code) =>
+            {
+                Loader.ShowIndicator();
+                Service.Login.ActivationCodeCommit(code)
+                             .Then((limitStatus) =>
+                             {
+                                 Loader.HideIndicator();
+                                 LimitResultHandler(limitStatus, false, onSuccessHandler);
+                             })
+                             .Catch((error) =>
+                             {
+                                 Loader.HideIndicator();
+                                 Toast.ShowFail(error.Message);
+
+                                 LoginAnalysis.SdkVerifyCodeFailure(2, 402, (ServiceError)error);
+                             });
+            };
+
+            PCLoginView.OnReCallDeleteAction = () =>
+            {
+                string title = Locale.LoadText("alert.title.tips");
+                string content = Locale.LoadText("alert.account.delete.content");
+                string ok = Locale.LoadText("form.button.confirmNoSpace");
+                string cancel = Locale.LoadText("form.button.cancel");
+
+                Alert.Show(title, content,
+                    new AlertActionItem(cancel),
+                    new AlertActionItem(ok, async () =>
+                    {
+                        Loader.ShowIndicator();
+                        try
+                        {
+                            await Service.Login.RecallAccountDelete().Async();
+                            LimitStatus limitStatus = await VerifyLimit();
+
+                            Loader.HideIndicator();
+
+                            LimitResultHandler(limitStatus, false, onSuccessHandler);
+                        }
+                        catch (Exception error)
+                        {
+                            Loader.HideIndicator();
+                            Toast.ShowFail(error.Message);
+                        }
+                    }));
+            };
+
+            PCLoginView.OnSendVerifcationCodeAction = (page, error) =>
+            {
+                if (error is null)
+                {
+                    LoginAnalysis.SdkSendCodeSuccess((int)page);
+                }
+                else
+                {
+                    LoginAnalysis.SdkSendCodeFailure((int)page, error);
+                }
+            };
+        }
+        #endregion
 
         public void Logout()
         {

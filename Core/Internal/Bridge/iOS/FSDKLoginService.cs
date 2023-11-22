@@ -14,17 +14,6 @@ namespace SoFunny.FunnySDK.Internal
 
         public bool IsAuthorized => FSDKCall.Builder("IsAuthorized").Invoke<bool>();
 
-        public void ActivationCodeCommit(string code, ServiceCompletedHandler<LimitStatus> handler)
-        {
-            FSDKCallAndBack.Builder("ActivationCodeCommit")
-                           .Add("code", code)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise<LimitStatus> ActivationCodeCommit(string code)
         {
             return new Promise<LimitStatus>((resolve, reject) =>
@@ -35,18 +24,6 @@ namespace SoFunny.FunnySDK.Internal
                            .Catch(reject)
                            .Invoke();
             });
-        }
-
-        public void CommitPrivateInfo(string birthday, string sex, ServiceCompletedHandler<VoidObject> handler)
-        {
-            FSDKCallAndBack.Builder("CommitPrivateInfo")
-                           .Add("birthday", birthday)
-                           .Add("sex", sex)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
         }
 
         public Promise CommitPrivateInfo(string birthday, string sex)
@@ -67,16 +44,6 @@ namespace SoFunny.FunnySDK.Internal
             return FSDKCall.Builder("GetCurrentAccessToken").Invoke<AccessToken>();
         }
 
-        public void GetPrivateProfile(ServiceCompletedHandler<UserPrivateInfo> handler)
-        {
-            FSDKCallAndBack.Builder("GetPrivateProfile")
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise<UserPrivateInfo> GetPrivateProfile()
         {
             return new Promise<UserPrivateInfo>((resolve, reject) =>
@@ -93,16 +60,6 @@ namespace SoFunny.FunnySDK.Internal
             return FSDKCall.Builder("GetUserProfile").Invoke<UserProfile>();
         }
 
-        public void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler)
-        {
-            FSDKCallAndBack.Builder("FetchUserProfile")
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise<UserProfile> FetchUserProfile()
         {
             return new Promise<UserProfile>((resolve, reject) =>
@@ -112,16 +69,6 @@ namespace SoFunny.FunnySDK.Internal
                                .Catch(reject)
                                .Invoke();
             });
-        }
-
-        public void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler)
-        {
-            FSDKCallAndBack.Builder("GetWebPCInfo")
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
         }
 
         public Promise<WebPCInfo> GetWebPCInfo()
@@ -135,18 +82,6 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void LoginWithCode(string account, string code, ServiceCompletedHandler<LoginResult> handler)
-        {
-            FSDKCallAndBack.Builder("LoginWithCode")
-                           .Add("account", account)
-                           .Add("code", code)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise<LoginResult> LoginWithCode(string account, string code)
         {
             return new Promise<LoginResult>((resolve, reject) =>
@@ -154,22 +89,14 @@ namespace SoFunny.FunnySDK.Internal
                 FSDKCallAndBack.Builder("LoginWithCode")
                                .Add("account", account)
                                .Add("code", code)
-                               .Then(resolve)
+                               .Then<LoginResult>((result) =>
+                               {
+                                   FunnyDataStore.AddAccountRcord(new LoginAccountRecord(account));
+                                   resolve(result);
+                               })
                                .Catch(reject)
                                .Invoke();
             });
-        }
-
-        public void LoginWithPassword(string account, string password, ServiceCompletedHandler<LoginResult> handler)
-        {
-            FSDKCallAndBack.Builder("LoginWithPassword")
-                           .Add("account", account)
-                           .Add("password", password)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
         }
 
         public Promise<LoginResult> LoginWithPassword(string account, string password)
@@ -179,23 +106,14 @@ namespace SoFunny.FunnySDK.Internal
                 FSDKCallAndBack.Builder("LoginWithPassword")
                            .Add("account", account)
                            .Add("password", password)
-                           .Then(resolve)
+                           .Then<LoginResult>((result) =>
+                           {
+                               FunnyDataStore.AddAccountRcord(new LoginAccountRecord(account));
+                               resolve(result);
+                           })
                            .Catch(reject)
                            .Invoke();
             });
-        }
-
-        public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<LoginResult> handler)
-        {
-            string value = provider.ToString().ToLower();
-
-            FSDKCallAndBack.Builder("LoginWithProvider")
-                           .Add("provider", value)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
         }
 
         public Promise<LoginResult> LoginWithProvider(LoginProvider provider)
@@ -217,16 +135,6 @@ namespace SoFunny.FunnySDK.Internal
             FSDKCall.Builder("Logout").Invoke();
         }
 
-        public void NativeVerifyLimit(ServiceCompletedHandler<LimitStatus> handler)
-        {
-            FSDKCallAndBack.Builder("NativeVerifyLimit")
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise<LimitStatus> NativeVerifyLimit()
         {
             return new Promise<LimitStatus>((resolve, reject) =>
@@ -236,18 +144,6 @@ namespace SoFunny.FunnySDK.Internal
                                .Catch(reject)
                                .Invoke();
             });
-        }
-
-        public void RealnameInfoCommit(string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
-        {
-            FSDKCallAndBack.Builder("RealnameInfoCommit")
-                           .Add("realname", realname)
-                           .Add("cardID", cardID)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
         }
 
         public Promise<LimitStatus> RealnameInfoCommit(string realname, string cardID)
@@ -263,16 +159,6 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void RecallAccountDelete(ServiceCompletedHandler<VoidObject> handler)
-        {
-            FSDKCallAndBack.Builder("RecallAccountDelete")
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise RecallAccountDelete()
         {
             return new Promise((resolve, reject) =>
@@ -284,19 +170,6 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<LoginResult> handler)
-        {
-            FSDKCallAndBack.Builder("RegisterAccount")
-                           .Add("account", account)
-                           .Add("password", password)
-                           .Add("chkCode", chkCode)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise<LoginResult> RegisterAccount(string account, string password, string chkCode)
         {
             return new Promise<LoginResult>((resolve, reject) =>
@@ -305,26 +178,14 @@ namespace SoFunny.FunnySDK.Internal
                            .Add("account", account)
                            .Add("password", password)
                            .Add("chkCode", chkCode)
-                           .Then(resolve)
+                           .Then<LoginResult>((result) =>
+                           {
+                               FunnyDataStore.AddAccountRcord(new LoginAccountRecord(account));
+                               resolve(result);
+                           })
                            .Catch(reject)
                            .Invoke();
             });
-        }
-
-        public void RetrievePassword(string account, string password, string chkCode, ServiceCompletedHandler<VoidObject> handler)
-        {
-            CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
-
-            FSDKCallAndBack.Builder("RetrievePassword")
-                           .Add("account", account)
-                           .Add("password", password)
-                           .Add("chkCode", chkCode)
-                           .Add("category", (int)category)
-                           .AddCallbackHandler((success, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(success, json, handler);
-                           })
-                           .Invoke();
         }
 
         public Promise RetrievePassword(string account, string password, string chkCode)

@@ -27,18 +27,19 @@ namespace SoFunny.FunnySDK.UIModule
 
         public void Show()
         {
-            var recordList = FunnyDataStore.GetAccountHistory();
+            var recordList = FunnyDataStore.GetRecordList();
 
             foreach (var item in recordList)
             {
                 var perfab = Instantiate(itemPerfab);
                 var recordItem = perfab.GetComponent<SDKUIRecordItem>();
 
-                recordItem.Setup(item);
+                recordItem.Setup(item.Account);
 
                 recordItem.onRemoveAction = (target, value) =>
                 {
-                    FunnyDataStore.RemoveAccount(value);
+                    FunnyDataStore.RemoveAccountRecord(value);
+
                     contentList.Remove(target);
 
                     if (contentList.Count <= 0)

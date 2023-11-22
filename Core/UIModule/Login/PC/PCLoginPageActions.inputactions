@@ -1,0 +1,52 @@
+{
+    "name": "PCLoginPageActions",
+    "maps": [
+        {
+            "name": "Base",
+            "id": "7f0e73ab-9087-4cb9-b724-b731e4405c0a",
+            "actions": [
+                {
+                    "name": "SwitchFocus",
+                    "type": "Button",
+                    "id": "a2964ceb-fb16-4952-9ba4-2ab696d61d11",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CommitForm",
+                    "type": "Button",
+                    "id": "b0cad406-c946-4dce-8b5a-bae58db449ae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2120c035-1990-4e4a-89ea-67d63373051a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchFocus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c90597c8-5f0e-4faa-bfb2-27521ff5cefe",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommitForm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
