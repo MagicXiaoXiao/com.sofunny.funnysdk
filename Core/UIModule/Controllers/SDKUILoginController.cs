@@ -95,7 +95,8 @@ namespace SoFunny.FunnySDK.UIModule
                     Logger.LogWarning("无法打开未知页面");
                     break;
             }
-            //LoginView.OnOpenViewAction?.Invoke(pageState, currentPageState);
+
+            LoginView.OnOpenViewAction?.Invoke(pageState, currentPageState);
             loginViewEvent?.OnOpenView(pageState, currentPageState);
 
             currentPageState = pageState;

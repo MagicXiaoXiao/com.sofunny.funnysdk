@@ -14,7 +14,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void FetchBindInfo(ServiceCompletedHandler<BindInfo> handler)
         {
-            SSOToken token = FunnyDataStore.GetCurrentToken();
+            SSOToken token = FunnyDataStore.Current;
 
             if (token is null)
             {
@@ -46,7 +46,7 @@ namespace SoFunny.FunnySDK.Internal
         {
             return new Promise<BindInfo>((resolve, reject) =>
             {
-                SSOToken token = FunnyDataStore.GetCurrentToken();
+                SSOToken token = FunnyDataStore.Current;
 
                 if (token is null)
                 {

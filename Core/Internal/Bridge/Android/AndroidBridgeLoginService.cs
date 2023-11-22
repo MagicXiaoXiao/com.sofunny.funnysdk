@@ -8,10 +8,6 @@ namespace SoFunny.FunnySDK.Internal
 {
     internal partial class AndroidBridge : IBridgeServiceLogin
     {
-        public void ActivationCodeCommit(string code, ServiceCompletedHandler<LimitStatus> handler)
-        {
-            Service.Call("ActivationCodeCommit", code, new AndroidCallBack<LimitStatus>(handler));
-        }
 
         public Promise<LimitStatus> ActivationCodeCommit(string code)
         {
@@ -53,11 +49,6 @@ namespace SoFunny.FunnySDK.Internal
             }
         }
 
-        public void FetchUserProfile(ServiceCompletedHandler<UserProfile> handler)
-        {
-            Service.Call("FetchUserProfile", new AndroidCallBack<UserProfile>(handler));
-        }
-
         public Promise<UserProfile> FetchUserProfile()
         {
             return new Promise<UserProfile>((resolve, reject) =>
@@ -66,35 +57,30 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void LoginWithCode(string account, string code, ServiceCompletedHandler<LoginResult> handler)
-        {
-            Service.Call("LoginWithCode", account, code, new AndroidCallBack<LoginResult>(handler));
-        }
-
         public Promise<LoginResult> LoginWithCode(string account, string code)
         {
             return new Promise<LoginResult>((resolve, reject) =>
             {
-                Service.Call("LoginWithCode", account, code, new AndroidCallBack<LoginResult>(resolve, reject));
-            });
-        }
+                Service.Call("LoginWithCode", account, code, new AndroidCallBack<LoginResult>((result) =>
+                {
+                    FunnyDataStore.AddAccountRcord(new LoginAccountRecord(account));
+                    resolve(result);
 
-        public void LoginWithPassword(string account, string password, ServiceCompletedHandler<LoginResult> handler)
-        {
-            Service.Call("LoginWithPassword", account, password, new AndroidCallBack<LoginResult>(handler));
+                }, reject));
+            });
         }
 
         public Promise<LoginResult> LoginWithPassword(string account, string password)
         {
             return new Promise<LoginResult>((resolve, reject) =>
             {
-                Service.Call("LoginWithPassword", account, password, new AndroidCallBack<LoginResult>(resolve, reject));
-            });
-        }
+                Service.Call("LoginWithPassword", account, password, new AndroidCallBack<LoginResult>((result) =>
+                {
+                    FunnyDataStore.AddAccountRcord(new LoginAccountRecord(account));
+                    resolve(result);
 
-        public void LoginWithProvider(LoginProvider provider, ServiceCompletedHandler<LoginResult> handler)
-        {
-            Service.Call("LoginWithProvider", ((int)provider), new AndroidCallBack<LoginResult>(handler));
+                }, reject));
+            });
         }
 
         public Promise<LoginResult> LoginWithProvider(LoginProvider provider)
@@ -110,22 +96,12 @@ namespace SoFunny.FunnySDK.Internal
             Service.Call("Logout");
         }
 
-        public void NativeVerifyLimit(ServiceCompletedHandler<LimitStatus> handler)
-        {
-            Service.Call("NativeVerifyLimit", new AndroidCallBack<LimitStatus>(handler));
-        }
-
         public Promise<LimitStatus> NativeVerifyLimit()
         {
             return new Promise<LimitStatus>((resolve, reject) =>
             {
                 Service.Call("NativeVerifyLimit", new AndroidCallBack<LimitStatus>(resolve, reject));
             });
-        }
-
-        public void RealnameInfoCommit(string realname, string cardID, ServiceCompletedHandler<LimitStatus> handler)
-        {
-            Service.Call("RealnameInfoCommit", realname, cardID, new AndroidCallBack<LimitStatus>(handler));
         }
 
         public Promise<LimitStatus> RealnameInfoCommit(string realname, string cardID)
@@ -136,11 +112,6 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void RecallAccountDelete(ServiceCompletedHandler<VoidObject> handler)
-        {
-            Service.Call("RecallAccountDelete", new AndroidCallBack<VoidObject>(handler));
-        }
-
         public Promise RecallAccountDelete()
         {
             return new Promise((resolve, reject) =>
@@ -149,23 +120,17 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void RegisterAccount(string account, string password, string chkCode, ServiceCompletedHandler<LoginResult> handler)
-        {
-            Service.Call("RegisterAccount", account, password, chkCode, new AndroidCallBack<LoginResult>(handler));
-        }
-
         public Promise<LoginResult> RegisterAccount(string account, string password, string chkCode)
         {
             return new Promise<LoginResult>((resolve, reject) =>
             {
-                Service.Call("RegisterAccount", account, password, chkCode, new AndroidCallBack<LoginResult>(resolve, reject));
-            });
-        }
+                Service.Call("RegisterAccount", account, password, chkCode, new AndroidCallBack<LoginResult>((result) =>
+                {
+                    FunnyDataStore.AddAccountRcord(new LoginAccountRecord(account));
+                    resolve(result);
 
-        public void RetrievePassword(string account, string password, string chkCode, ServiceCompletedHandler<VoidObject> handler)
-        {
-            CodeCategory category = BridgeConfig.IsMainland ? CodeCategory.Phone : CodeCategory.Email;
-            Service.Call("RetrievePassword", account, password, chkCode, ((int)category), new AndroidCallBack<VoidObject>(handler));
+                }, reject));
+            });
         }
 
         public Promise RetrievePassword(string account, string password, string chkCode)
@@ -177,11 +142,6 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void GetWebPCInfo(ServiceCompletedHandler<WebPCInfo> handler)
-        {
-            Service.Call("GetWebPCInfo", new AndroidCallBack<WebPCInfo>(handler));
-        }
-
         public Promise<WebPCInfo> GetWebPCInfo()
         {
             return new Promise<WebPCInfo>((resolve, reject) =>
@@ -190,22 +150,12 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void CommitPrivateInfo(string birthday, string sex, ServiceCompletedHandler<VoidObject> handler)
-        {
-            Service.Call("CommitPrivateInfo", birthday, sex, new AndroidCallBack<VoidObject>(handler));
-        }
-
         public Promise CommitPrivateInfo(string birthday, string sex)
         {
             return new Promise((resolve, reject) =>
             {
                 Service.Call("CommitPrivateInfo", birthday, sex, new AndroidCallBack(resolve, reject));
             });
-        }
-
-        public void GetPrivateProfile(ServiceCompletedHandler<UserPrivateInfo> handler)
-        {
-            Service.Call("GetPrivateProfile", new AndroidCallBack<UserPrivateInfo>(handler));
         }
 
         public Promise<UserPrivateInfo> GetPrivateProfile()

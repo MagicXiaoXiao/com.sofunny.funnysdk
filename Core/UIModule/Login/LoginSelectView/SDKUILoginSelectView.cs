@@ -173,7 +173,15 @@ namespace SoFunny.FunnySDK.UIModule
         private void OnSoFunnyLoginAction()
         {
             if (!CheckAgreement()) { return; }
-            string account = FunnyDataStore.GetAccountHistory().DefaultIfEmpty("").First();
+
+            LoginAccountRecord record = FunnyDataStore.GetFirstRecord();
+            string account = "";
+
+            if (record != null)
+            {
+                account = record.Account;
+            }
+
             Controller.OpenPage(UILoginPageState.PwdLoginPage, account);
         }
 
