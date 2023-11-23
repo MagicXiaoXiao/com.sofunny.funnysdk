@@ -57,15 +57,16 @@ namespace SoFunny.FunnySDK.UIModule
             }
         }
 
-        internal void Show()
+        public void Show()
         {
             gameObject.SetActive(true);
         }
 
-        internal void Hide()
+        public void Hide()
         {
             gameObject.SetActive(false);
         }
+
     }
 }
 

@@ -33,6 +33,7 @@ namespace SoFunny.FunnySDK.UIModule
         internal string text { get { return inputField.text.Trim(); } set { inputField.text = value; } }
         internal string placeholder { get { return placeholderText.text.Trim(); } set { placeholderText.text = value; } }
         internal bool isFocused => inputField.isFocused;
+        internal int characterLimit { get { return inputField.characterLimit; } set { inputField.characterLimit = value; } }
 
         private void Awake()
         {
@@ -102,6 +103,12 @@ namespace SoFunny.FunnySDK.UIModule
             if (!enableEye) return;
 
             inputFieldMeun.SetActiveEye(true);
+        }
+
+        internal void SetContentType(InputField.ContentType contentType)
+        {
+            this.contentType = contentType;
+            inputField.contentType = contentType;
         }
 
     }
