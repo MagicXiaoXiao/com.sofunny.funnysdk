@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using SoFunny.FunnySDK.Internal;
 using UnityEngine;
 using UnityEngine.UI;
-using static SoFunny.FunnySDK.UIModule.PCLoginPageActions;
 
 namespace SoFunny.FunnySDK.UIModule
 {

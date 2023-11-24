@@ -80,7 +80,7 @@ namespace SoFunny.FunnySDK.Internal
             Feedback = new FSDKFeedbackService();
             Agreement = new FunnyAgreementService(Common);
 #endif
-            BridgeConfig.Init(Common.GetNativeConfig());
+            BridgeConfig.Init(Common.GetNativeConfig(), Environment.Release);
         }
 
     }
