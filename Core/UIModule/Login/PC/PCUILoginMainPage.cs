@@ -79,7 +79,12 @@ namespace SoFunny.FunnySDK.UIModule
             accountInputField.onValueChangedEvents.AddListener(OnAccountInputFieldValueChangedAction);
             accountInputField.onValueChangedEvents.AddListener((value) => onAccountChangedEvents?.Invoke(value));
 
-            accountInputField.onClearContentEvents.AddListener(() => pwdInputField.text = "");
+            accountInputField.onClearContentEvents.AddListener(() =>
+            {
+                pwdInputField.text = "";
+                rememberToggle.isOn = false;
+            });
+
             accountInputField.onClickArrowEvents.AddListener(() =>
             {
                 if (recordListPage.IsActive)
@@ -107,6 +112,17 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void Start()
         {
+            if (BridgeConfig.IsMainland)
+            {
+                accountInputField.SetContentType(InputField.ContentType.IntegerNumber);
+                accountInputField.characterLimit = 11;
+            }
+            else
+            {
+                accountInputField.SetContentType(InputField.ContentType.EmailAddress);
+                accountInputField.characterLimit = 0;
+            }
+
             if (FunnyDataStore.HasRecord)
             {
                 LoginAccountRecord record = FunnyDataStore.GetFirstRecord();
@@ -197,9 +213,6 @@ namespace SoFunny.FunnySDK.UIModule
             rememberToggle.GetComponentInChildren<Text>().text = "记住密码";
             rememberToggle.gameObject.SetActive(true);
 
-            accountInputField.placeholder = "邮箱";
-            pwdInputField.placeholder = "密码";
-
             bottomMeun.SetActive(BridgeConfig.IsMainland);
 
             gameObject.SetActive(true);
@@ -222,8 +235,6 @@ namespace SoFunny.FunnySDK.UIModule
             smsContainer.SetActive(true);
             accountPwdButton.gameObject.SetActive(true);
             rememberToggle.gameObject.SetActive(false);
-            accountInputField.placeholder = "邮箱";
-            codeInputField.placeholder = "验证码";
 
             bottomMeun.SetActive(BridgeConfig.IsMainland);
 
@@ -372,6 +383,15 @@ namespace SoFunny.FunnySDK.UIModule
                 IsLoginRecord = true;
                 rememberToggle.isOn = true;
             }
+            else
+            {
+                if (!string.IsNullOrEmpty(pwdInputField.text))
+                {
+                    pwdInputField.text = "";
+                }
+
+                rememberToggle.isOn = false;
+            }
 
         }
 
@@ -400,6 +420,7 @@ namespace SoFunny.FunnySDK.UIModule
                 if (!string.IsNullOrEmpty(pwdInputField.text))
                 {
                     pwdInputField.text = "";
+                    rememberToggle.isOn = false;
                 }
             }
             else
@@ -407,7 +428,11 @@ namespace SoFunny.FunnySDK.UIModule
                 LoginAccountRecord record = FunnyDataStore.GetAccountRecord(value);
 
                 if (record is null) return;
-                if (string.IsNullOrEmpty(record.Pwd)) return;
+                if (string.IsNullOrEmpty(record.Pwd))
+                {
+                    rememberToggle.isOn = false;
+                    return;
+                }
 
                 pwdInputField.text = record.Pwd;
                 pwdInputField.HideEye(true);
