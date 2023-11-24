@@ -210,7 +210,6 @@ namespace SoFunny.FunnySDK.UIModule
             pwdInputField.gameObject.SetActive(true);
             leftMeun.SetActive(true);
 
-            rememberToggle.GetComponentInChildren<Text>().text = "记住密码";
             rememberToggle.gameObject.SetActive(true);
 
             bottomMeun.SetActive(BridgeConfig.IsMainland);

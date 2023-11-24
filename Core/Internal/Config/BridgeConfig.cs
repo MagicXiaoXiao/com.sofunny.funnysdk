@@ -22,7 +22,7 @@ namespace SoFunny.FunnySDK
         internal static string UserProtocolURL { get; private set; }
         internal static string PrivacyProtocolURL { get; private set; }
 
-        internal static void Init(string appID, bool isMainland, string env = Environment.Develop)
+        internal static void Init(string appID, bool isMainland, string env = Environment.Release)
         {
             AppID = appID;
             IsMainland = isMainland;
@@ -51,7 +51,7 @@ namespace SoFunny.FunnySDK
             }
         }
 
-        internal static void Init(NativeConfig config, string env = Environment.Develop)
+        internal static void Init(NativeConfig config, string env = Environment.Release)
         {
             AppID = config.AppID;
             IsMainland = config.IsMainland;
