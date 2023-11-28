@@ -11,7 +11,8 @@ namespace SoFunny.FunnySDK.Internal
     {
         internal FSDKCommon()
         {
-
+            // 注册通知中心
+            FSDK_NotificationCenter(PostNotificationHandler);
         }
 
         private delegate void NotificationMessage(string name, string jsonString);
@@ -34,8 +35,6 @@ namespace SoFunny.FunnySDK.Internal
         {
             // 初始化
             FSDKCall.Builder("Initialize").Invoke();
-            // 注册通知中心
-            FSDK_NotificationCenter(PostNotificationHandler);
         }
 
         public NativeConfig GetNativeConfig()
