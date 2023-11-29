@@ -17,3 +17,9 @@
 "funnysdk.bind.account.success" = "Pengikatan akun berhasil";
 "funnysdk.switch.account.nodata" = "Catatan akun target kosong dan peralihan akun gagal";
 "funnysdk.minor.player.tips" = "Akun ini adalah akun di bawah umur. Jumat, Sabtu, Minggu, dan hari libur resmi di luar pukul 20:00 ~ 21:00 adalah periode perlindungan kesehatan dan tidak dapat dimainkan. Harap atur waktu Anda secara wajar" ;
+
+"funnysdk.billboard.title" = "Papan Buletin";
+"funnysdk.billboard.alert.title" = "Kiat";
+"funnysdk.billboard.alert.ok" = "Oke";
+"funnysdk.billboard.load.error" = "Gagal mendapatkan pengumuman, harap periksa jaringan dan buka kembali pengumuman";
+"funnysdk.billboard.no.data" = "Saat ini tidak ada pengumuman";

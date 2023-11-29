@@ -250,7 +250,7 @@ public enum BillboardStyle {
   public static var onOpenEvent: (() -> Swift.Void)?
   public static var onCloseEvent: (() -> Swift.Void)?
   public static func hasData(completionHandler: @escaping (Swift.Bool) -> Swift.Void)
-  public static func show(_ style: FunnySDK.BillboardStyle)
+  public static func show()
   @objc deinit
 }
 public struct GetUserProfileRequest : FunnySDK.Request {

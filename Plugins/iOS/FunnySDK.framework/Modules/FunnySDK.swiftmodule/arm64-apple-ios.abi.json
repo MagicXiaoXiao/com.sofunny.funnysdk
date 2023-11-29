@@ -1013,16 +1013,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
         "kind": "TypeDecl",
         "name": "Log",
         "printedName": "Log",
@@ -2142,16 +2132,6 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -2596,6 +2576,16 @@
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "FunnySDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "FunnySDK",
         "declAttributes": [
@@ -8553,23 +8543,17 @@
           {
             "kind": "Function",
             "name": "show",
-            "printedName": "show(_:)",
+            "printedName": "show()",
             "children": [
               {
                 "kind": "TypeNominal",
                 "name": "Void",
                 "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "BillboardStyle",
-                "printedName": "FunnySDK.BillboardStyle",
-                "usr": "s:8FunnySDK14BillboardStyleO"
               }
             ],
             "declKind": "Func",
-            "usr": "s:8FunnySDK9BillboardC4showyyAA0C5StyleOFZ",
-            "mangledName": "$s8FunnySDK9BillboardC4showyyAA0C5StyleOFZ",
+            "usr": "s:8FunnySDK9BillboardC4showyyFZ",
+            "mangledName": "$s8FunnySDK9BillboardC4showyyFZ",
             "moduleName": "FunnySDK",
             "static": true,
             "declAttributes": [
@@ -11002,16 +10986,6 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -11701,16 +11675,6 @@
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "FunnySDK",
         "declAttributes": [
@@ -14146,16 +14110,6 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -14991,16 +14945,6 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -15263,23 +15207,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "SafariServices",
-        "printedName": "SafariServices",
-        "declKind": "Import",
-        "moduleName": "FunnySDK"
       },
       {
         "kind": "Import",
@@ -15628,16 +15555,6 @@
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "FunnySDK",
         "declAttributes": [
@@ -16217,38 +16134,8 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "FunnySDK",
         "declAttributes": [
@@ -16281,6 +16168,16 @@
         "printedName": "SafariServices",
         "declKind": "Import",
         "moduleName": "FunnySDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "FunnySDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
       },
       {
         "kind": "Import",
@@ -16828,16 +16725,6 @@
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "FunnySDK",
         "declAttributes": [
@@ -22499,23 +22386,6 @@
         "kind": "Import",
         "name": "WebKit",
         "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK"
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "FunnySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "SafariServices",
-        "printedName": "SafariServices",
         "declKind": "Import",
         "moduleName": "FunnySDK"
       },
@@ -28567,13 +28437,6 @@
             "printedName": "__DefaultCustomPlaygroundQuickLookable",
             "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
             "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Sendable",
-            "printedName": "Sendable",
-            "usr": "s:s8SendableP",
-            "mangledName": "$ss8SendableP"
           }
         ]
       },
@@ -31385,251 +31248,6 @@
       "value": "\"funnysdk.realname.cerification.nodata\""
     },
     {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 476,
-      "length": 2,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 486,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 497,
-      "length": 2,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 508,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 551,
-      "length": 1,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 691,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 745,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 830,
-      "length": 10,
-      "value": "\"ItemCell\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 1041,
-      "length": 9,
-      "value": "\"#ECECED\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 1170,
-      "length": 14,
-      "value": "\"board_footer\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 1375,
-      "length": 9,
-      "value": "\"#F8F8F8\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 1501,
-      "length": 20,
-      "value": "\"board_logo_sofunny\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1864,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1971,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2070,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2171,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2280,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "FloatLiteral",
-      "offset": 2622,
-      "length": 6,
-      "value": "0.3645"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2994,
-      "length": 2,
-      "value": "-4"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "FloatLiteral",
-      "offset": 3436,
-      "length": 3,
-      "value": "0.5"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "FloatLiteral",
-      "offset": 3819,
-      "length": 6,
-      "value": "0.1388"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "FloatLiteral",
-      "offset": 4834,
-      "length": 6,
-      "value": "0.3238"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 5085,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 5097,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5166,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5227,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 5649,
-      "length": 21,
-      "value": "\"sdk_check_billboard\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 5673,
-      "length": 14,
-      "value": "\"billboard_id\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 5871,
-      "length": 26,
-      "value": "\"公告内容没有数据\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 6145,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 6355,
-      "length": 10,
-      "value": "\"ItemCell\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 6786,
-      "length": 25,
-      "value": "\"sdk_billboard_link_jump\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 6814,
-      "length": 14,
-      "value": "\"billboard_id\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 6850,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardLeftRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 6853,
-      "length": 16,
-      "value": "\"billboard_link\""
-    },
-    {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Utils\/Helpers.swift",
       "kind": "StringLiteral",
       "offset": 345,
@@ -32225,6 +31843,55 @@
       "value": "\"access_token\""
     },
     {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardTabCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 540,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardTabCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 573,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardTabCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 780,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardTabCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1046,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardTabCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1115,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardTabCell.swift",
+      "kind": "StringLiteral",
+      "offset": 1209,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardTabCell.swift",
+      "kind": "StringLiteral",
+      "offset": 1753,
+      "length": 9,
+      "value": "\"#2E2E2E\""
+    },
+    {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Agreement\/Agreement.swift",
       "kind": "BooleanLiteral",
       "offset": 597,
@@ -32300,6 +31967,13 @@
       "offset": 259,
       "length": 17,
       "value": "\"\/native\/profile\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardContentList.swift",
+      "kind": "Array",
+      "offset": 487,
+      "length": 2,
+      "value": "[]"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Request\/GetAppConfigurationRequest.swift",
@@ -33277,42 +32951,42 @@
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Billboard.swift",
       "kind": "StringLiteral",
-      "offset": 862,
+      "offset": 839,
       "length": 65,
       "value": "\"[FunnyBillboard] 请先初始化 FunnySDK 后再次打开公告\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Billboard.swift",
       "kind": "BooleanLiteral",
-      "offset": 1101,
+      "offset": 1109,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Billboard.swift",
       "kind": "StringLiteral",
-      "offset": 1160,
+      "offset": 1168,
       "length": 6,
       "value": "\"page\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Billboard.swift",
       "kind": "IntegerLiteral",
-      "offset": 1168,
+      "offset": 1176,
       "length": 3,
       "value": "601"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Billboard.swift",
       "kind": "StringLiteral",
-      "offset": 1190,
+      "offset": 1198,
       "length": 13,
       "value": "\"sdk_open_id\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Billboard.swift",
       "kind": "StringLiteral",
-      "offset": 1254,
+      "offset": 1262,
       "length": 15,
       "value": "\"sdk_page_open\""
     },
@@ -35309,7 +34983,7 @@
       "kind": "StringLiteral",
       "offset": 466,
       "length": 7,
-      "value": "\"1.2.0\""
+      "value": "\"1.4.0\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Utils\/Constant.swift",
@@ -35853,177 +35527,114 @@
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "BooleanLiteral",
-      "offset": 1430,
+      "offset": 1424,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 1483,
+      "offset": 1477,
       "length": 9,
       "value": "\"#F8F8F8\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "IntegerLiteral",
-      "offset": 1603,
+      "offset": 1597,
       "length": 2,
       "value": "16"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2022,
+      "offset": 2016,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2149,
+      "offset": 2143,
       "length": 12,
       "value": "\"yyyy-MM-dd\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2187,
+      "offset": 2181,
       "length": 119,
       "value": "\"<p style=\"margin-bottom: 2px; color: #828282;\">\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2286,
+      "offset": 2280,
       "length": 2,
       "value": "\"<\/p>\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2349,
-      "length": 506,
+      "offset": 2343,
+      "length": 530,
       "value": "\"<head>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover\"\/>\n<\/head>\n<body style = \"margin: 0px; padding-left: 8px; padding-right:4px; background-color: #f8f8f8;\">\n    \""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2657,
+      "offset": 2651,
       "length": 1,
       "value": "\"\n    <img src=\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2701,
+      "offset": 2695,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2704,
+      "offset": 2698,
       "length": 11,
       "value": "\"\" onerror=\"this.style = 'display: none;'\" style=\"width: 100%;\" draggable=\"false\"><\/img>\n    \""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 2827,
-      "length": 2,
-      "value": "\"\n<\/body>\""
+      "offset": 2821,
+      "length": 1,
+      "value": "\"\n\n<br \/>\n<\/body>\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 3094,
+      "offset": 3112,
       "length": 59,
       "value": "\"document.documentElement.style.webkitTouchCallout='none';\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 3190,
+      "offset": 3208,
       "length": 57,
       "value": "\"document.documentElement.style.webkitUserSelect='none';\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 3284,
+      "offset": 3302,
       "length": 210,
       "value": "\"    const aElements = document.getElementsByTagName(\"a\");\n    for(let i=0;i<aElements.length;i++){\n            aElements[i].setAttribute(\"draggable\",false);\n    }\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardContentView.swift",
       "kind": "StringLiteral",
-      "offset": 3825,
+      "offset": 3843,
       "length": 13,
       "value": "\"about:blank\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "StringLiteral",
-      "offset": 230,
-      "length": 18,
-      "value": "\"item_meun_normal\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "StringLiteral",
-      "offset": 301,
-      "length": 20,
-      "value": "\"item_meun_selected\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 601,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "StringLiteral",
-      "offset": 658,
-      "length": 9,
-      "value": "\"#2E2E2E\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "StringLiteral",
-      "offset": 1216,
-      "length": 9,
-      "value": "\"#2E2E2E\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1430,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1841,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2109,
-      "length": 1,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/LeftRightView\/BillboardVLeftCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2158,
-      "length": 1,
-      "value": "6"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Account\/FunnyAccount.swift",
@@ -36334,184 +35945,51 @@
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 824,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 877,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1134,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1264,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1442,
-      "length": 1,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1451,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1462,
-      "length": 1,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1472,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1510,
-      "length": 2,
-      "value": "60"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1977,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardLayoutModel.swift",
       "kind": "StringLiteral",
-      "offset": 2389,
-      "length": 12,
-      "value": "\"HLViewCell\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2580,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "FloatLiteral",
-      "offset": 2906,
-      "length": 3,
-      "value": "0.5"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 3053,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 3065,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3121,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3217,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3762,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 3786,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 3839,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "StringLiteral",
-      "offset": 4042,
-      "length": 12,
-      "value": "\"HLViewCell\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HorizontalLeftView.swift",
-      "kind": "StringLiteral",
-      "offset": 4380,
-      "length": 12,
-      "value": "\"HLViewCell\""
+      "offset": 333,
+      "length": 20,
+      "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardLayoutModel.swift",
       "kind": "StringLiteral",
-      "offset": 577,
+      "offset": 340,
+      "length": 1,
+      "value": "\"-\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardLayoutModel.swift",
+      "kind": "StringLiteral",
+      "offset": 352,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardLayoutModel.swift",
+      "kind": "StringLiteral",
+      "offset": 655,
       "length": 11,
       "value": "\"modify_at\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardLayoutModel.swift",
       "kind": "StringLiteral",
-      "offset": 612,
+      "offset": 690,
       "length": 14,
       "value": "\"tag_start_at\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardLayoutModel.swift",
       "kind": "StringLiteral",
-      "offset": 577,
+      "offset": 655,
       "length": 11,
       "value": "\"modify_at\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Model\/BillboardLayoutModel.swift",
       "kind": "StringLiteral",
-      "offset": 612,
+      "offset": 690,
       "length": 14,
       "value": "\"tag_start_at\""
     },
@@ -37041,132 +36519,6 @@
       "value": "0"
     },
     {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 374,
-      "length": 1,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 569,
-      "length": 2,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 653,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 846,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "StringLiteral",
-      "offset": 1016,
-      "length": 12,
-      "value": "\"yyyy-MM-dd\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1954,
-      "length": 3,
-      "value": "238"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1958,
-      "length": 3,
-      "value": "255"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1970,
-      "length": 2,
-      "value": "44"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1973,
-      "length": 3,
-      "value": "255"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1984,
-      "length": 2,
-      "value": "53"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1987,
-      "length": 3,
-      "value": "255"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1999,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2151,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2269,
-      "length": 1,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2355,
-      "length": 1,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2443,
-      "length": 2,
-      "value": "-8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2528,
-      "length": 2,
-      "value": "-8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/LeftView\/HLViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2610,
-      "length": 2,
-      "value": "60"
-    },
-    {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Crypto\/JWT\/JWT.swift",
       "kind": "StringLiteral",
       "offset": 856,
@@ -37489,76 +36841,6 @@
       "value": "\"'versionError'\""
     },
     {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 290,
-      "length": 2,
-      "value": "20"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 339,
-      "length": 1,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 543,
-      "length": 1,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 573,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "BooleanLiteral",
-      "offset": 653,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "BooleanLiteral",
-      "offset": 761,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 879,
-      "length": 1,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 963,
-      "length": 2,
-      "value": "-8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1050,
-      "length": 1,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SimpleListViewCell.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1138,
-      "length": 2,
-      "value": "-8"
-    },
-    {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Login\/Model\/LoginVerifyResult.swift",
       "kind": "IntegerLiteral",
       "offset": 378,
@@ -37627,202 +36909,6 @@
       "offset": 1380,
       "length": 10,
       "value": "\"ret_code\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 349,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 381,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 607,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 616,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 627,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 637,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1486,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1657,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1930,
-      "length": 3,
-      "value": "320"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "FloatLiteral",
-      "offset": 2034,
-      "length": 3,
-      "value": "1.5"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2213,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2666,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2813,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3397,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 3876,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 3878,
-      "length": 1,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 4136,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 5520,
-      "length": 8,
-      "value": "\"提示\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 5539,
-      "length": 20,
-      "value": "\"当前没有公告\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 5584,
-      "length": 8,
-      "value": "\"好的\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5665,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 5859,
-      "length": 8,
-      "value": "\"提示\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 5878,
-      "length": 44,
-      "value": "\"公告请求失败，请重新打开公告\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 5947,
-      "length": 8,
-      "value": "\"好的\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 6024,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 7060,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 7232,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/HorizontalViewController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 7403,
-      "length": 4,
-      "value": "true"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Network\/Request\/GetBillboardLayoutRequest.swift",
@@ -38238,139 +37324,6 @@
       "value": "false"
     },
     {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1044,
-      "length": 2,
-      "value": "20"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1054,
-      "length": 2,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1066,
-      "length": 2,
-      "value": "20"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1077,
-      "length": 2,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1117,
-      "length": 2,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1237,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1248,
-      "length": 2,
-      "value": "80"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1423,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1475,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "StringLiteral",
-      "offset": 1556,
-      "length": 20,
-      "value": "\"SimpleListViewCell\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1739,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1766,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2400,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3065,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3562,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 4594,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "StringLiteral",
-      "offset": 4807,
-      "length": 20,
-      "value": "\"SimpleListViewCell\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "StringLiteral",
-      "offset": 4965,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/SummaryView\/SummaryView.swift",
-      "kind": "StringLiteral",
-      "offset": 5074,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/FunnySDKUI\/WebInterface\/JSBridge\/PrivacyFormJSBridge.swift",
       "kind": "StringLiteral",
       "offset": 878,
@@ -38460,62 +37413,6 @@
       "offset": 949,
       "length": 8,
       "value": "\"taptap\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "StringLiteral",
-      "offset": 232,
-      "length": 17,
-      "value": "\"title_banner_bg\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "StringLiteral",
-      "offset": 429,
-      "length": 13,
-      "value": "\"board_close\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 532,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 754,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "FloatLiteral",
-      "offset": 956,
-      "length": 6,
-      "value": "0.1388"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1348,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1551,
-      "length": 3,
-      "value": "-15"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/TitleBarView.swift",
-      "kind": "FloatLiteral",
-      "offset": 1640,
-      "length": 4,
-      "value": "0.35"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Login\/Request\/PostLoginAuthRequest.swift",
@@ -38764,31 +37661,241 @@
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "Array",
+      "offset": 846,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 882,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 1285,
+      "length": 32,
+      "value": "\"funnysdk.billboard.alert.title\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 1365,
+      "length": 31,
+      "value": "\"funnysdk.billboard.load.error\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 1458,
+      "length": 29,
+      "value": "\"funnysdk.billboard.alert.ok\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 1610,
+      "length": 57,
+      "value": "\"board data load failure - \""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 1666,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 2054,
+      "length": 32,
+      "value": "\"funnysdk.billboard.alert.title\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 2138,
+      "length": 28,
+      "value": "\"funnysdk.billboard.no.data\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 2232,
+      "length": 29,
+      "value": "\"funnysdk.billboard.alert.ok\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 765,
+      "offset": 2506,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
-      "kind": "FloatLiteral",
-      "offset": 775,
+      "kind": "IntegerLiteral",
+      "offset": 2518,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2658,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2821,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3216,
+      "length": 2,
+      "value": "16"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3259,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3381,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3738,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 4217,
+      "length": 26,
+      "value": "\"funnysdk.billboard.title\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 4469,
+      "length": 6,
+      "value": "\"page\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4477,
       "length": 3,
-      "value": "0.3"
+      "value": "601"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 4495,
+      "length": 13,
+      "value": "\"sdk_open_id\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 4555,
+      "length": 18,
+      "value": "\"sdk_close_window\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1236,
+      "offset": 4616,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 5590,
+      "length": 25,
+      "value": "\"sdk_billboard_link_jump\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 5618,
+      "length": 14,
+      "value": "\"billboard_id\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 5650,
+      "length": 16,
+      "value": "\"billboard_link\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5939,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1908,
-      "length": 5,
-      "value": "false"
+      "offset": 6111,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6282,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 6738,
+      "length": 9,
+      "value": "\"TabCell\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 7180,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8019,
+      "length": 2,
+      "value": "44"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/BillboardViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8085,
+      "length": 2,
+      "value": "60"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Account\/AccountStore.swift",
@@ -38873,41 +37980,6 @@
       "offset": 1874,
       "length": 1,
       "value": "0"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/FullView\/VerticalFullView.swift",
-      "kind": "IntegerLiteral",
-      "offset": 884,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/FullView\/VerticalFullView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 911,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/FullView\/VerticalFullView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1150,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/FullView\/VerticalFullView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1677,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/FullView\/VerticalFullView.swift",
-      "kind": "StringLiteral",
-      "offset": 2694,
-      "length": 12,
-      "value": "\"yyyy-MM-dd\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/General\/FunnyLoginEnum.swift",
@@ -39328,20 +38400,6 @@
       "offset": 791,
       "length": 10,
       "value": "\"chk_code\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/RightView\/HorizontalRightView.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1009,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/HorizontalStyle\/RightView\/HorizontalRightView.swift",
-      "kind": "StringLiteral",
-      "offset": 1519,
-      "length": 33,
-      "value": "\"billboard no layout model data.\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Utils\/Toast.swift",
@@ -40766,106 +39824,78 @@
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
-      "kind": "StringLiteral",
-      "offset": 436,
-      "length": 34,
-      "value": "\"funnysdk.billboard.handler.queue\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "Array",
-      "offset": 671,
+      "offset": 527,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "Array",
-      "offset": 725,
+      "offset": 597,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
+      "kind": "Array",
+      "offset": 655,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "StringLiteral",
-      "offset": 892,
-      "length": 18,
-      "value": "\"billboard_layout\""
+      "offset": 1138,
+      "length": 23,
+      "value": "\"billboard_layout_read\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "StringLiteral",
-      "offset": 971,
-      "length": 19,
-      "value": "\"billboard_content\""
+      "offset": 1938,
+      "length": 65,
+      "value": "\"billboard read cache save error - \""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "StringLiteral",
-      "offset": 1882,
-      "length": 74,
-      "value": "\"billboard loading layout local data error. \""
+      "offset": 2002,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2219,
+      "length": 1,
+      "value": "0"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "StringLiteral",
-      "offset": 1955,
+      "offset": 2416,
+      "length": 66,
+      "value": "\"billboard loading read data error. \""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
+      "kind": "StringLiteral",
+      "offset": 2481,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "StringLiteral",
-      "offset": 2317,
-      "length": 75,
-      "value": "\"billboard loading content local data error. \""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
-      "kind": "StringLiteral",
-      "offset": 2391,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
-      "kind": "StringLiteral",
-      "offset": 4050,
+      "offset": 3518,
       "length": 38,
       "value": "\"billboard load data error = \""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
       "kind": "StringLiteral",
-      "offset": 4087,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
-      "kind": "StringLiteral",
-      "offset": 4688,
-      "length": 67,
-      "value": "\"billboard layout cache save error - \""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
-      "kind": "StringLiteral",
-      "offset": 4754,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
-      "kind": "StringLiteral",
-      "offset": 5075,
-      "length": 68,
-      "value": "\"billboard content cache save error - \""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/Storage\/BillboardStorage.swift",
-      "kind": "StringLiteral",
-      "offset": 5142,
+      "offset": 3555,
       "length": 2,
       "value": "\"\""
     },
@@ -42448,202 +41478,6 @@
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Feedback\/UI\/FeedbackViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 4720,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 284,
-      "length": 14,
-      "value": "\"board_bg_img\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 529,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 574,
-      "length": 2,
-      "value": "14"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1132,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1246,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1505,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1683,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1860,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2333,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "FloatLiteral",
-      "offset": 2530,
-      "length": 3,
-      "value": "0.9"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "FloatLiteral",
-      "offset": 2800,
-      "length": 6,
-      "value": "1.5972"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2951,
-      "length": 3,
-      "value": "375"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "FloatLiteral",
-      "offset": 3221,
-      "length": 6,
-      "value": "1.5972"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3371,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3895,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 4355,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 4922,
-      "length": 6,
-      "value": "\"page\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 4930,
-      "length": 3,
-      "value": "601"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 4948,
-      "length": 13,
-      "value": "\"sdk_open_id\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 5008,
-      "length": 18,
-      "value": "\"sdk_close_window\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 5756,
-      "length": 8,
-      "value": "\"提示\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 5775,
-      "length": 20,
-      "value": "\"当前没有公告\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 5820,
-      "length": 8,
-      "value": "\"好的\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5901,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 6124,
-      "length": 8,
-      "value": "\"提示\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 6143,
-      "length": 44,
-      "value": "\"公告请求失败，请重新打开公告\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "StringLiteral",
-      "offset": 6212,
-      "length": 8,
-      "value": "\"好的\""
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Billboard\/VerticalStyle\/VerticalStyleController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 6289,
       "length": 4,
       "value": "true"
     },

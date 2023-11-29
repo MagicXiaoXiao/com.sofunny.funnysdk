@@ -17,3 +17,9 @@
 "funnysdk.bind.account.success" = "賬號綁定成功";
 "funnysdk.switch.account.nodata" = "目標賬號記錄為空，切換賬號失敗";
 "funnysdk.minor.player.tips" = "此賬號為未成年賬號，週五、週六、週日及法定節假日 20 點 ~ 21 點之外為健康保護時段，無法遊戲，請合理安排時間";
+
+"funnysdk.billboard.title" = "遊戲公告";
+"funnysdk.billboard.alert.title" = "提示";
+"funnysdk.billboard.alert.ok" = "好的";
+"funnysdk.billboard.load.error" = "公告取得失敗，請檢查網頁後重新開啟公告";
+"funnysdk.billboard.no.data" = "目前沒有公告";
