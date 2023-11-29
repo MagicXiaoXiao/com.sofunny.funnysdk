@@ -212,6 +212,7 @@ namespace SoFunny.FunnySDK.Internal
 
         public void OpenAgreenment()
         {
+            BridgeNotificationCenter.Default.Post("event.open.protocol");
             Logger.LogWarning("PC 或 Editor 暂未开发此功能");
         }
 
