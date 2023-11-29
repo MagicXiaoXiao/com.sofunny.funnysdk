@@ -8,6 +8,7 @@ namespace SoFunny.FunnySDK
     internal class FunnyLocalize : LocalizeBase
     {
         private Text _text;
+        private Font thaiFont;
 
         public override void UpdateLocale()
         {
@@ -19,7 +20,19 @@ namespace SoFunny.FunnySDK
         protected override void Start()
         {
             _text = GetComponent<Text>();
+
+            if (Locale.CurrentLanguage == "th-TH")
+            {
+                thaiFont = Resources.Load<Font>("FunnySDK/Fonts/NotoSansThai-Regular");
+                _text.font = thaiFont;
+            }
+
             base.Start();
+        }
+
+        private void OnDestroy()
+        {
+            Resources.UnloadAsset(thaiFont);
         }
 
     }

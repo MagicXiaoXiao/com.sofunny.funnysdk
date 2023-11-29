@@ -132,13 +132,11 @@ namespace SoFunny.FunnySDK.UIModule
 
             if (BridgeConfig.IsMainland)
             {
-                emailOrPhonePlaceholder.text = Locale.LoadText("form.phone.placeholder");
                 emailOrPhoneInputField.characterLimit = 11;
                 emailOrPhoneInputField.contentType = InputField.ContentType.IntegerNumber;
             }
             else
             {
-                emailOrPhonePlaceholder.text = Locale.LoadText("form.email.placeholder");
                 emailOrPhoneInputField.characterLimit = 0;
                 emailOrPhoneInputField.contentType = InputField.ContentType.EmailAddress;
             }
