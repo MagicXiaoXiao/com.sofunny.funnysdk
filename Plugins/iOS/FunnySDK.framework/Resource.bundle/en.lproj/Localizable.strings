@@ -28,3 +28,8 @@
 
 "funnysdk.minor.player.tips" = "This account is a minor account. It is a health protection period beyond 20:00~21:00 on Friday, Saturday, Sunday and statutory holidays. You cannot play. Please arrange your time reasonably";
 
+"funnysdk.billboard.title" = "Announcement";
+"funnysdk.billboard.alert.title" = "Tip";
+"funnysdk.billboard.alert.ok" = "OK";
+"funnysdk.billboard.load.error" = "Failed to obtain the announcement, please check the network and reopen the announcement";
+"funnysdk.billboard.no.data" = "There are currently no announcements";

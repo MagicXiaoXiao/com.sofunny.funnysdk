@@ -17,3 +17,9 @@
 "funnysdk.bind.account.success" = "Liên kết tài khoản thành công";
 "funnysdk.switch.account.nodata" = "Bản ghi tài khoản đích trống và chuyển đổi tài khoản không thành công";
 "funnysdk.minor.player.tips" = "Tài khoản này là tài khoản nhỏ. Thứ sáu, thứ bảy, chủ nhật và các ngày lễ hợp pháp ngoài 20:00 ~ 21:00 là khoảng thời gian bảo vệ sức khỏe và không thể chơi. Vui lòng sắp xếp thời gian hợp lý" ;
+
+"funnysdk.billboard.title" = "Bảng thông báo";
+"funnysdk.billboard.alert.title" = "Mẹo";
+"funnysdk.billboard.alert.ok" = "Được";
+"funnysdk.billboard.load.error" = "Không nhận được thông báo, vui lòng kiểm tra mạng và mở lại thông báo";
+"funnysdk.billboard.no.data" = "Hiện tại không có thông báo nào";

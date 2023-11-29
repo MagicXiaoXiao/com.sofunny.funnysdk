@@ -17,3 +17,9 @@
 "funnysdk.bind.account.success" = "ผูกบัญชีสำเร็จ";
 "funnysdk.switch.account.nodata" = "บันทึกบัญชีเป้าหมายว่างเปล่าและการสลับบัญชีล้มเหลว";
 "funnysdk.minor.player.tips" = "บัญชีนี้เป็นบัญชีรอง วันศุกร์ วันเสาร์ วันอาทิตย์ และวันหยุดตามกฎหมายนอกเวลา 20:00 ~ 21:00 น. เป็นช่วงการคุ้มครองสุขภาพและไม่สามารถเล่นได้ โปรดจัดเวลาของคุณตามสมควร" ;
+
+"funnysdk.billboard.title" = "กระดานข่าว";
+"funnysdk.billboard.alert.title" = "เคล็ดลับ";
+"funnysdk.billboard.alert.ok" = "ตกลง";
+"funnysdk.billboard.load.error" = "ไม่สามารถรับประกาศได้ โปรดตรวจสอบเครือข่ายและเปิดประกาศอีกครั้ง";
+"funnysdk.billboard.no.data" = "ขณะนี้ไม่มีประกาศ";

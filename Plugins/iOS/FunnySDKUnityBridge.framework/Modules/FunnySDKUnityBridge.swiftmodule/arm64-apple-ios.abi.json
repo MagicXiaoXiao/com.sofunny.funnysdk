@@ -2039,21 +2039,21 @@
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDKUnityBridge\/Core\/SDKServiceCall.swift",
       "kind": "StringLiteral",
-      "offset": 2788,
+      "offset": 2768,
       "length": 21,
       "value": "\"event.open.protocol\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDKUnityBridge\/Core\/SDKServiceCall.swift",
       "kind": "BooleanLiteral",
-      "offset": 2823,
+      "offset": 2803,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDKUnityBridge\/Core\/SDKServiceCall.swift",
       "kind": "StringLiteral",
-      "offset": 2996,
+      "offset": 2976,
       "length": 21,
       "value": "\"event.open.protocol\""
     }

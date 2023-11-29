@@ -17,3 +17,10 @@
 "funnysdk.bind.account.success" = "账号绑定成功";
 "funnysdk.switch.account.nodata" = "目标账号记录为空，切换账号失败";
 "funnysdk.minor.player.tips" = "此账号为未成年账号，周五、周六、周日及法定节假日 20 点 ~ 21 点之外为健康保护时段，无法游戏，请合理安排时间";
+
+"funnysdk.billboard.title" = "游戏公告";
+"funnysdk.billboard.alert.title" = "提示";
+"funnysdk.billboard.alert.ok" = "好的";
+"funnysdk.billboard.load.error" = "公告获取失败，请检查网络后重新打开公告";
+"funnysdk.billboard.no.data" = "当前没有公告";
+
