@@ -33,6 +33,7 @@ namespace SoFunny.FunnySDK.Internal
             }
             else
             {
+#if UNITY_2021_1_OR_NEWER
                 HttpClientHandler clientHandler = new HttpClientHandler();
                 clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
                 {
@@ -50,6 +51,33 @@ namespace SoFunny.FunnySDK.Internal
                 };
 
                 Client = new HttpClient(clientHandler);
+#else
+                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
+                {
+
+                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None) return true;
+
+                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors)
+                    {
+                        // 根证书不受信任时，判断请求 Host 是否匹配
+                        Uri BaseUri = new Uri(BridgeConfig.BaseURL);
+
+                        if (sender is HttpWebRequest request)
+                        {
+                            return request.RequestUri.Host == BaseUri.Host;
+                        }
+                        else if (sender is HttpRequestMessage httpRequest)
+                        {
+                            return httpRequest.RequestUri.Host == BaseUri.Host;
+                        }
+                    }
+
+                    return false;
+                };
+
+                Client = new HttpClient();
+#endif
+
             }
 
             var acceptLanguage = new StringWithQualityHeaderValue(BridgeConfig.IsMainland ? "zh" : "en");
