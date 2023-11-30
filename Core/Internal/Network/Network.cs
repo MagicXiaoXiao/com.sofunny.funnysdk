@@ -27,7 +27,30 @@ namespace SoFunny.FunnySDK.Internal
 
         static Network()
         {
-            Client = new HttpClient();
+            if (BridgeConfig.IsMainland)
+            {
+                Client = new HttpClient();
+            }
+            else
+            {
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
+                {
+                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None) return true;
+
+                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors)
+                    {
+                        Uri BaseUri = new Uri(BridgeConfig.BaseURL);
+
+                        // 根证书不受信任时，判断请求 Host 是否匹配
+                        return sender.RequestUri.Host == BaseUri.Host;
+                    }
+
+                    return false;
+                };
+
+                Client = new HttpClient(clientHandler);
+            }
 
             var acceptLanguage = new StringWithQualityHeaderValue(BridgeConfig.IsMainland ? "zh" : "en");
             Client.DefaultRequestHeaders.AcceptLanguage.Add(acceptLanguage);
@@ -40,27 +63,14 @@ namespace SoFunny.FunnySDK.Internal
             }
         }
 
-        internal static async void Send(RequestBase request, RequestCompletedHandler completedHandler)
+        private static async void Send(HttpRequestMessage request, TimeSpan timeOut, RequestCompletedHandler completedHandler)
         {
-
-            if (Application.internetReachability == NetworkReachability.NotReachable)
-            {
-                completedHandler?.Invoke(null, ServiceError.Make(ServiceErrorType.ConnectToServerFailed));
-                return;
-            }
-
-            CancellationTokenSource timeOutToken = new CancellationTokenSource(request.TimeOut);
+            CancellationTokenSource timeOutToken = new CancellationTokenSource(timeOut);
 
             try
             {
-                HttpRequestMessage requestMessage = CreateRequest(request);
-
-                Logger.Log($"开始发起请求: {requestMessage.Method} - {requestMessage.RequestUri.AbsoluteUri}");
-                var parameters = JsonConvert.SerializeObject(request.Parameters());
-
-                Logger.Log($"请求参数: {parameters}");
                 // 发起请求
-                var response = await Client.SendAsync(requestMessage, timeOutToken.Token);
+                var response = await Client.SendAsync(request, timeOutToken.Token);
                 // 获取响应体
                 var responseBody = await response.Content.ReadAsStringAsync();
 
@@ -79,8 +89,28 @@ namespace SoFunny.FunnySDK.Internal
                         completedHandler(null, error);
                         break;
                     case HttpStatusCode.Unauthorized:
-                        Logger.LogError($"请求失败！StatusCode = 401, Response = {responseBody}");
-                        completedHandler(null, ServiceError.Make(ServiceErrorType.InvalidAccessToken));
+
+                        // 刷新 Token 机制
+                        SSOToken newToken = await RefreshSSOTokenHandler();
+
+                        if (newToken is null)
+                        {
+                            Logger.LogError($"请求失败！StatusCode = 401, Response = {responseBody}");
+                            completedHandler(null, ServiceError.Make(ServiceErrorType.InvalidAccessToken));
+                        }
+                        else
+                        {
+                            // 更新当前 Token 记录
+                            FunnyDataStore.UpdateTokenAndRecord(newToken);
+
+                            // 继续之前请求
+                            HttpRequestMessage newRequest = new HttpRequestMessage(request.Method, request.RequestUri);
+                            newRequest.Content = request.Content;
+                            newRequest.Content.Headers.ContentType = request.Content.Headers.ContentType;
+                            newRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", newToken.Value);
+
+                            Send(newRequest, timeOut, completedHandler);
+                        }
                         break;
                     case HttpStatusCode.InternalServerError:
                         Logger.LogError($"请求失败！StatusCode = 500, Response = {responseBody}");
@@ -115,6 +145,25 @@ namespace SoFunny.FunnySDK.Internal
                 Logger.LogError($"数据解析失败 - {ex.Message}");
                 completedHandler(null, ServiceError.Make(ServiceErrorType.ProcessingDataFailed));
             }
+        }
+
+        internal static void Send(RequestBase request, RequestCompletedHandler completedHandler)
+        {
+
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                completedHandler?.Invoke(null, ServiceError.Make(ServiceErrorType.ConnectToServerFailed));
+                return;
+            }
+
+            HttpRequestMessage requestMessage = CreateRequest(request);
+
+            Logger.Log($"开始发起请求: {requestMessage.Method} - {requestMessage.RequestUri.AbsoluteUri}");
+            var parameters = JsonConvert.SerializeObject(request.Parameters());
+
+            Logger.Log($"请求参数: {parameters}");
+
+            Send(requestMessage, request.TimeOut, completedHandler);
         }
 
         private static HttpRequestMessage CreateRequest(RequestBase request)
@@ -173,6 +222,24 @@ namespace SoFunny.FunnySDK.Internal
             }
 
             return message;
+        }
+
+        private static async Task<SSOToken> RefreshSSOTokenHandler()
+        {
+            PostRefreshTokenRequest request = new PostRefreshTokenRequest(FunnyDataStore.Current);
+            HttpRequestMessage requestMessage = CreateRequest(request);
+            CancellationTokenSource timeOutToken = new CancellationTokenSource(request.TimeOut);
+
+            var response = await Client.SendAsync(requestMessage, timeOutToken.Token);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                SSOToken newToken = JsonConvert.DeserializeObject<SSOToken>(responseBody);
+                return newToken;
+            }
+
+            return null;
         }
 
     }
