@@ -130,6 +130,20 @@ namespace SoFunny.FunnySDK
             Current = ssoToken;
         }
 
+        internal static void UpdateTokenAndRecord(SSOToken ssoToken)
+        {
+            if (Current is null) return;
+
+            LoginAccountRecord currentRecord = AccountRecords.FirstOrDefault(record => record.Token.RefreshToken == Current.RefreshToken);
+
+            if (currentRecord is null) return;
+
+            currentRecord.Token = ssoToken;
+            AddAccountRcord(currentRecord);
+
+            UpdateToken(ssoToken);
+        }
+
         internal static void DeleteToken()
         {
             Current = null;

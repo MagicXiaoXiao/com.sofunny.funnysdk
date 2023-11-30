@@ -83,6 +83,7 @@ namespace SoFunny.FunnySDK.UIModule
             {
                 pwdInputField.text = "";
                 rememberToggle.isOn = false;
+                agreementToggle.isOn = false;
             });
 
             accountInputField.onClickArrowEvents.AddListener(() =>
@@ -381,6 +382,7 @@ namespace SoFunny.FunnySDK.UIModule
 
                 IsLoginRecord = true;
                 rememberToggle.isOn = true;
+                agreementToggle.isOn = true;
             }
             else
             {
@@ -390,6 +392,7 @@ namespace SoFunny.FunnySDK.UIModule
                 }
 
                 rememberToggle.isOn = false;
+                agreementToggle.isOn = false;
             }
 
         }
@@ -420,6 +423,7 @@ namespace SoFunny.FunnySDK.UIModule
                 {
                     pwdInputField.text = "";
                     rememberToggle.isOn = false;
+                    agreementToggle.isOn = false;
                 }
             }
             else
@@ -430,6 +434,7 @@ namespace SoFunny.FunnySDK.UIModule
                 if (string.IsNullOrEmpty(record.Pwd))
                 {
                     rememberToggle.isOn = false;
+                    agreementToggle.isOn = false;
                     return;
                 }
 
@@ -438,6 +443,7 @@ namespace SoFunny.FunnySDK.UIModule
 
                 IsLoginRecord = true;
                 rememberToggle.isOn = true;
+                agreementToggle.isOn = true;
             }
         }
 
