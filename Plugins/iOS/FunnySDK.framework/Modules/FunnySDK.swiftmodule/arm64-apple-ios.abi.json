@@ -12004,6 +12004,51 @@
           },
           {
             "kind": "Var",
+            "name": "enablePayment",
+            "printedName": "enablePayment",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8FunnySDK0A12ConfigModuleP13enablePaymentSbvp",
+            "mangledName": "$s8FunnySDK0A12ConfigModuleP13enablePaymentSbvp",
+            "moduleName": "FunnySDK",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8FunnySDK0A12ConfigModuleP13enablePaymentSbvg",
+                "mangledName": "$s8FunnySDK0A12ConfigModuleP13enablePaymentSbvg",
+                "moduleName": "FunnySDK",
+                "genericSig": "<τ_0_0 where τ_0_0 : FunnySDK.FunnyConfigModule>",
+                "sugared_genericSig": "<Self where Self : FunnySDK.FunnyConfigModule>",
+                "protocolReq": true,
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "serviceLevel",
             "printedName": "serviceLevel",
             "children": [
@@ -30914,175 +30959,175 @@
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "BooleanLiteral",
-      "offset": 739,
+      "offset": 783,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 792,
+      "offset": 836,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "BooleanLiteral",
-      "offset": 1105,
+      "offset": 1149,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 1154,
+      "offset": 1198,
       "length": 38,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 1172,
+      "offset": 1216,
       "length": 1,
       "value": "\".\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 1191,
+      "offset": 1235,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 1370,
+      "offset": 1414,
       "length": 38,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 1388,
+      "offset": 1432,
       "length": 1,
       "value": "\".\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 1407,
+      "offset": 1451,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 2169,
+      "offset": 1857,
       "length": 58,
       "value": "\"更新远程配置失败 - \""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 2226,
+      "offset": 1914,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "BooleanLiteral",
-      "offset": 2398,
+      "offset": 2086,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 2806,
+      "offset": 2576,
       "length": 3,
       "value": "\"_\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 2920,
+      "offset": 2690,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 2958,
+      "offset": 2728,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 2995,
+      "offset": 2765,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3031,
+      "offset": 2801,
       "length": 1,
       "value": "4"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3148,
+      "offset": 2918,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3260,
+      "offset": 3030,
       "length": 1,
       "value": "6"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3372,
+      "offset": 3142,
       "length": 1,
       "value": "7"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3408,
+      "offset": 3178,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3440,
+      "offset": 3210,
       "length": 1,
       "value": "9"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3555,
+      "offset": 3325,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "IntegerLiteral",
-      "offset": 3592,
+      "offset": 3362,
       "length": 2,
       "value": "11"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Toggles\/PlatformTogglesStore.swift",
       "kind": "StringLiteral",
-      "offset": 3687,
+      "offset": 3466,
       "length": 26,
       "value": "\"更新远程配置成功\""
     },
@@ -37277,49 +37322,49 @@
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Configuration.swift",
       "kind": "StringLiteral",
-      "offset": 5994,
+      "offset": 6047,
       "length": 29,
       "value": "\"配置模块初始化完成\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Configuration.swift",
       "kind": "StringLiteral",
-      "offset": 6255,
+      "offset": 6308,
       "length": 14,
       "value": "\"FUNNY_APP_ID\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Configuration.swift",
       "kind": "StringLiteral",
-      "offset": 6349,
+      "offset": 6402,
       "length": 94,
       "value": "\"未设置 AppID 值，请确认 SoFunny-Info.plist 中，是否设置 FUNNY_APP_ID 的值。\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Configuration.swift",
       "kind": "StringLiteral",
-      "offset": 6460,
+      "offset": 6513,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Configuration.swift",
       "kind": "StringLiteral",
-      "offset": 6538,
+      "offset": 6591,
       "length": 10,
       "value": "\"MAINLAND\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Configuration.swift",
       "kind": "StringLiteral",
-      "offset": 6619,
+      "offset": 6672,
       "length": 147,
       "value": "\"未设置 MAINLAND 值，请确认 SoFunny-Info.plist 中，是否设置 MAINLAND 的值（YES or NO）。如未设置，则默认为海外版本\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Configuration.swift",
       "kind": "BooleanLiteral",
-      "offset": 6783,
+      "offset": 6836,
       "length": 5,
       "value": "false"
     },
@@ -40371,254 +40416,324 @@
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 473,
+      "offset": 550,
       "length": 13,
       "value": "\"nppa_enable\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 514,
+      "offset": 591,
       "length": 15,
       "value": "\"app_auth_item\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 561,
+      "offset": 638,
       "length": 26,
       "value": "\"provide_user_info_enable\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 473,
+      "offset": 689,
+      "length": 14,
+      "value": "\"app_pay_item\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "StringLiteral",
+      "offset": 550,
       "length": 13,
       "value": "\"nppa_enable\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 514,
+      "offset": 591,
       "length": 15,
       "value": "\"app_auth_item\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 561,
+      "offset": 638,
       "length": 26,
       "value": "\"provide_user_info_enable\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "StringLiteral",
+      "offset": 689,
+      "length": 14,
+      "value": "\"app_pay_item\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "BooleanLiteral",
-      "offset": 633,
+      "offset": 749,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "Array",
-      "offset": 661,
+      "offset": 777,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "BooleanLiteral",
-      "offset": 690,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
-      "kind": "BooleanLiteral",
-      "offset": 913,
+      "offset": 806,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "Array",
-      "offset": 1016,
+      "offset": 835,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "BooleanLiteral",
-      "offset": 1115,
+      "offset": 1055,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "Array",
+      "offset": 1158,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1257,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "Array",
+      "offset": 1361,
+      "length": 2,
+      "value": "[]"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 1568,
+      "offset": 1811,
       "length": 3,
       "value": "\"_\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1903,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 1983,
+      "offset": 1985,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2057,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2478,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "BooleanLiteral",
-      "offset": 2063,
+      "offset": 2558,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2171,
+      "offset": 2666,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2197,
+      "offset": 2692,
       "length": 10,
       "value": "\"facebook\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2225,
+      "offset": 2720,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2251,
+      "offset": 2746,
       "length": 9,
       "value": "\"twitter\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2278,
+      "offset": 2773,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2288,
+      "offset": 2783,
       "length": 8,
       "value": "\"google\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2314,
+      "offset": 2809,
       "length": 1,
       "value": "4"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2389,
+      "offset": 2884,
       "length": 7,
       "value": "\"apple\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2459,
+      "offset": 2954,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2469,
+      "offset": 2964,
       "length": 7,
       "value": "\"guest\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2494,
+      "offset": 2989,
       "length": 1,
       "value": "6"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2504,
+      "offset": 2999,
       "length": 7,
       "value": "\"email\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2529,
+      "offset": 3024,
       "length": 1,
       "value": "7"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2555,
+      "offset": 3050,
       "length": 8,
       "value": "\"wechat\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2581,
+      "offset": 3076,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2607,
+      "offset": 3102,
       "length": 4,
       "value": "\"qq\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2629,
+      "offset": 3124,
       "length": 1,
       "value": "9"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2639,
+      "offset": 3134,
       "length": 7,
       "value": "\"phone\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2664,
+      "offset": 3159,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "StringLiteral",
-      "offset": 2675,
+      "offset": 3170,
       "length": 8,
       "value": "\"taptap\""
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
       "kind": "IntegerLiteral",
-      "offset": 2701,
+      "offset": 3196,
       "length": 2,
       "value": "11"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "StringLiteral",
+      "offset": 3737,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3823,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Configuration\/Model\/PlatformTogglesModel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3915,
+      "length": 1,
+      "value": "0"
     },
     {
       "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FunnySDK\/Utils\/String.swift",
