@@ -9,19 +9,31 @@ namespace SoFunny.FunnySDK.Internal
         internal string Account;
         internal int CodeAction;
         internal int CodeCategory;
-        internal string Ticket;
 
-        internal SendCodeRequest(string account, CodeAction codeAction, CodeCategory codeCategory, string ticket)
+        internal SendCodeRequest(string account, CodeAction codeAction, CodeCategory codeCategory)
         {
             Account = account;
             CodeAction = (int)codeAction;
             CodeCategory = (int)codeCategory;
-            Ticket = ticket;
         }
 
         internal override HttpMethod Method => HttpMethod.Post;
 
         internal override string Path => "/common/create_code";
+        internal override bool AppID => true;
+
+        internal override string Token
+        {
+            get
+            {
+                if (FunnyDataStore.HasToken)
+                {
+                    return FunnyDataStore.Current.Value;
+                }
+
+                return "";
+            }
+        }
 
         internal override Dictionary<string, object> Parameters()
         {
@@ -29,7 +41,6 @@ namespace SoFunny.FunnySDK.Internal
                 {"account", Account},
                 {"code_action", CodeAction},
                 {"code_category", CodeCategory},
-                {"ticket", Ticket},
             };
         }
     }
