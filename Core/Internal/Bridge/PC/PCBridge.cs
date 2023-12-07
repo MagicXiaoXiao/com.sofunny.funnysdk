@@ -109,69 +109,12 @@ namespace SoFunny.FunnySDK.Internal
             Application.OpenURL(BridgeConfig.UserProtocolURL);
         }
 
-        public void SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory, ServiceCompletedHandler<VoidObject> handler)
-        {
-            Network.Send(new TicketRequest(), (data, error) =>
-            {
-                if (error == null)
-                {
-                    var json = JObject.Parse(data);
-                    string ticket = json["ticket"].ToString();
-                    // 发送验证码
-                    CreateCode(account, codeAction, codeCategory, ticket, handler);
-                }
-                else
-                {
-                    handler?.Invoke(null, error);
-                }
-            });
-        }
-
         public Promise SendVerificationCode(string account, CodeAction codeAction, CodeCategory codeCategory)
         {
 
             return new Promise((resolve, reject) =>
             {
-                Network.Send(new TicketRequest(), (data, error) =>
-                {
-                    if (error == null)
-                    {
-                        var json = JObject.Parse(data);
-                        string ticket = json["ticket"].ToString();
-                        // 发送验证码
-                        CreateCode(account, codeAction, codeCategory, ticket)
-                        .Then(resolve)
-                        .Catch(reject);
-                    }
-                    else
-                    {
-                        reject(error);
-                    }
-                });
-            });
-
-        }
-
-        private void CreateCode(string account, CodeAction codeAction, CodeCategory codeCategory, string ticket, ServiceCompletedHandler<VoidObject> handler)
-        {
-            Network.Send(new SendCodeRequest(account, codeAction, codeCategory, ticket), (data, error) =>
-            {
-                if (error == null)
-                {
-                    handler?.Invoke(new VoidObject(), null);
-                }
-                else
-                {
-                    handler?.Invoke(null, error);
-                }
-            });
-        }
-
-        public Promise CreateCode(string account, CodeAction codeAction, CodeCategory codeCategory, string ticket)
-        {
-            return new Promise((resolve, reject) =>
-            {
-                Network.Send(new SendCodeRequest(account, codeAction, codeCategory, ticket), (data, error) =>
+                Network.Send(new SendCodeRequest(account, codeAction, codeCategory), (data, error) =>
                 {
                     if (error == null)
                     {
@@ -183,6 +126,7 @@ namespace SoFunny.FunnySDK.Internal
                     }
                 });
             });
+
         }
 
         public void TrackEvent(Track track)
