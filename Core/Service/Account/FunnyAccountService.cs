@@ -249,20 +249,12 @@ namespace SoFunny.FunnySDK
                     // TODO: 待定无感登录埋点
                     //LoginAnalysis.SdkStartLoginSuccess(true, true);
 
-                    if (loginResult.IsNeedBind) // 需进行手机号绑定
-                    {
-                        Toast.ShowFail("需要进行绑定流程");
-                        Loader.HideIndicator();
-                    }
-                    else
-                    {
-                        // 登录限制效验
-                        LimitStatus limitStatus = await VerifyLimit();
+                    // 登录限制效验
+                    LimitStatus limitStatus = await VerifyLimit();
 
-                        Loader.HideIndicator();
+                    Loader.HideIndicator();
 
-                        LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
-                    }
+                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
                 }
                 else // 打开登录 UI 界面流程
                 {
@@ -325,6 +317,7 @@ namespace SoFunny.FunnySDK
                         // 关闭 UI 以及后续逻辑
                         LoginView.Close();
                         PCLoginView.Close();
+                        BindView.Close();
 
                         AccessToken token = GetCurrentAccessToken();
 
@@ -524,13 +517,46 @@ namespace SoFunny.FunnySDK
                 {
                     LoginResult loginResult = await Service.Login.LoginWithProvider(provider).Async();
 
-                    LoginAnalysis.SdkStartLoginSuccess(false, true);
+                    if (loginResult.IsNeedBind)
+                    {
+                        BindView.OnCancelAction = () =>
+                        {
+                            LoginView.Close();
+                            onCancelHandler?.Invoke();
+                        };
 
-                    LimitStatus limitStatus = await VerifyLimit();
+                        BindView.OnCommitAction = async (account, bindCode, code) =>
+                        {
+                            Loader.ShowIndicator();
 
-                    Loader.HideIndicator();
+                            try
+                            {
+                                LoginResult bindResult = await Service.Bind.ForedBind(new PhoneBindable(account, code), bindCode).Async();
+                                LimitStatus limitStatus = await VerifyLimit();
+                                Loader.HideIndicator();
 
-                    LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                                LimitResultHandler(limitStatus, bindResult.NewUser, onSuccessHandler);
+                            }
+                            catch (Exception ex)
+                            {
+                                Loader.HideIndicator();
+                                Toast.ShowFail(ex.Message);
+                            }
+                        };
+
+                        BindView.Open(loginResult.BindCode);
+                        Loader.HideIndicator();
+                    }
+                    else
+                    {
+                        LoginAnalysis.SdkStartLoginSuccess(false, true);
+
+                        LimitStatus limitStatus = await VerifyLimit();
+
+                        Loader.HideIndicator();
+
+                        LimitResultHandler(limitStatus, loginResult.NewUser, onSuccessHandler);
+                    }
                 }
                 catch (ServiceError error)
                 {
@@ -1024,7 +1050,7 @@ namespace SoFunny.FunnySDK
             return Service.Login.GetUserProfile();
         }
 
-        public void Bind(BindingType type, Action onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
+        public async void Bind(BindingType type, Action onSuccessHandler, Action<ServiceError> onFailureHandler, Action onCancelHandler)
         {
             if (!Service.Login.IsAuthorized) // 是否已授权登录
             {
@@ -1042,6 +1068,7 @@ namespace SoFunny.FunnySDK
 
             switch (type)
             {
+                case BindingType.Phone:
                 case BindingType.Email:
                     // TODO: 后续需优化调整逻辑代码
                     BindView.OnCancelAction = () =>
@@ -1049,40 +1076,40 @@ namespace SoFunny.FunnySDK
                         onCancelHandler?.Invoke();
                     };
 
-                    BindView.OnCommitAction = (email, pwd, code) =>
+                    BindView.OnCommitAction = async (email, pwd, code) =>
                     {
                         Loader.ShowIndicator();
                         bindable = new EmailBindable(email, pwd, code);
 
-                        Service.Bind.Binding(bindable, (_, error) =>
+                        try
                         {
-                            if (error is null)
-                            {
-                                Service.Bind.FetchBindInfo((info, infoError) =>
-                                {
+                            await Service.Bind.Binding(new EmailBindable(email, pwd, code)).Async();
 
-                                    AccountInfo.Current.Profile = GetUserProfile();
-                                    AccountInfo.Current.BindInfo = info;
-
-                                    Loader.HideIndicator();
-                                    BindView.Close();
-
-                                    if (infoError is null)
-                                    {
-                                        onSuccessHandler?.Invoke();
-                                    }
-                                    else
-                                    {
-                                        onFailureHandler?.Invoke(infoError);
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                Loader.HideIndicator();
-                                Toast.ShowFail(error.Message);
-                            }
-                        });
+                            Service.Bind.FetchBindInfo()
+                                        .Then((info) =>
+                                        {
+                                            AccountInfo.Current.Profile = GetUserProfile();
+                                            AccountInfo.Current.BindInfo = info;
+                                            onSuccessHandler?.Invoke();
+                                        })
+                                        .Catch((error) =>
+                                        {
+                                            onFailureHandler?.Invoke((ServiceError)error);
+                                        })
+                                        .Finally(() =>
+                                        {
+                                            Loader.HideIndicator();
+                                            BindView.Close();
+                                        });
+                        }
+                        catch (ServiceError error)
+                        {
+                            Toast.ShowFail(error.Message);
+                        }
+                        finally
+                        {
+                            Loader.HideIndicator();
+                        }
                     };
 
                     BindView.Open();
@@ -1099,27 +1126,25 @@ namespace SoFunny.FunnySDK
                     return;
             }
 
-            Service.Bind.Binding(bindable, (_, error) =>
+            try
             {
-                if (error is null)
-                {
+                await Service.Bind.Binding(bindable).Async();
 
-                    Service.Bind.FetchBindInfo((info, infoError) =>
-                    {
-                        AccountInfo.Current.Profile = GetUserProfile();
-                        AccountInfo.Current.BindInfo = info;
-
-                        if (infoError is null)
-                        {
-                            onSuccessHandler?.Invoke();
-                        }
-                        else
-                        {
-                            onFailureHandler?.Invoke(infoError);
-                        }
-                    });
-                }
-                else if (error.Code == 0)
+                Service.Bind.FetchBindInfo()
+                            .Then((info) =>
+                            {
+                                AccountInfo.Current.Profile = GetUserProfile();
+                                AccountInfo.Current.BindInfo = info;
+                                onSuccessHandler?.Invoke();
+                            })
+                            .Catch((error) =>
+                            {
+                                onFailureHandler?.Invoke((ServiceError)error);
+                            });
+            }
+            catch (ServiceError error)
+            {
+                if (error.Code == 0)
                 {
                     onCancelHandler?.Invoke();
                 }
@@ -1127,7 +1152,7 @@ namespace SoFunny.FunnySDK
                 {
                     onFailureHandler?.Invoke(error);
                 }
-            });
+            }
         }
 
         public BindStatusItem[] GetBindStatus()
