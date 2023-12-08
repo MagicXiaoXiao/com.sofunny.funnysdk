@@ -10,16 +10,6 @@ namespace SoFunny.FunnySDK.Internal
         {
         }
 
-        public void FetchBindInfo(ServiceCompletedHandler<BindInfo> handler)
-        {
-            FSDKCallAndBack.Builder("FetchBindInfo")
-                           .AddCallbackHandler((result, json) =>
-                           {
-                               IosHelper.HandlerServiceCallback(result, json, handler);
-                           })
-                           .Invoke();
-        }
-
         public Promise<BindInfo> FetchBindInfo()
         {
             return new Promise<BindInfo>((resolve, reject) =>
@@ -31,33 +21,61 @@ namespace SoFunny.FunnySDK.Internal
             });
         }
 
-        public void Binding(IBindable bindable, ServiceCompletedHandler<VoidObject> handler)
+        public Promise Binding(IBindable bindable)
         {
-            if (bindable is EmailBindable emailModel)
+            return new Promise((resolve, reject) =>
             {
-                FSDKCallAndBack.Builder("BindEmail")
-                               .Add("email", emailModel.Email)
-                               .Add("password", emailModel.Password)
-                               .Add("code", emailModel.Code)
-                               .AddCallbackHandler((result, json) =>
-                               {
-                                   IosHelper.HandlerServiceCallback(result, json, handler);
-                               })
-                               .Invoke();
-            }
-            else
-            {
-                FSDKCallAndBack.Builder("BindProvider")
-                               .Add("provider", bindable.Flag)
-                               .AddCallbackHandler((result, json) =>
-                               {
-                                   IosHelper.HandlerServiceCallback(result, json, handler);
-                               })
-                               .Invoke();
-            }
+                if (bindable is EmailBindable emailModel)
+                {
+                    FSDKCallAndBack.Builder("BindEmail")
+                                   .Add("email", emailModel.Email)
+                                   .Add("password", emailModel.Password)
+                                   .Add("code", emailModel.Code)
+                                   .Then(resolve)
+                                   .Catch(reject)
+                                   .Invoke();
+                }
+                else if (bindable is PhoneBindable phoneModel)
+                {
+                    FSDKCallAndBack.Builder("BindPhone")
+                                   .Add("phone", phoneModel.PhoneNumber)
+                                   .Add("code", phoneModel.Code)
+                                   .Then(resolve)
+                                   .Catch(reject)
+                                   .Invoke();
+                }
+                else
+                {
+                    FSDKCallAndBack.Builder("BindProvider")
+                                   .Add("provider", bindable.Flag)
+                                   .Then(resolve)
+                                   .Catch(reject)
+                                   .Invoke();
+                }
+            });
         }
 
-
+        public Promise<LoginResult> ForedBind(IBindable bindable, string bindCode)
+        {
+            return new Promise<LoginResult>((resolve, reject) =>
+            {
+                if (bindable is PhoneBindable phoneModel)
+                {
+                    FSDKCallAndBack.Builder("ForedBindPhone")
+                                   .Add("phone", phoneModel.PhoneNumber)
+                                   .Add("code", phoneModel.Code)
+                                   .Add("bindCode", bindCode)
+                                   .Then(resolve)
+                                   .Catch(reject)
+                                   .Invoke();
+                }
+                else
+                {
+                    Logger.LogWarning("暂无相关强制绑定项");
+                    reject(ServiceError.Make(ServiceErrorType.UnknownError));
+                }
+            });
+        }
     }
 }
 

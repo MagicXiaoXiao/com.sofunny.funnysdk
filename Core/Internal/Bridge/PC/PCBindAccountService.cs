@@ -12,34 +12,12 @@ namespace SoFunny.FunnySDK.Internal
         {
         }
 
-        public void FetchBindInfo(ServiceCompletedHandler<BindInfo> handler)
+        public Promise Binding(IBindable bindable)
         {
-            SSOToken token = FunnyDataStore.Current;
-
-            if (token is null)
+            return new Promise((resolve, reject) =>
             {
-                handler?.Invoke(null, ServiceError.Make(ServiceErrorType.NoLoginError));
-                return;
-            }
-
-            Network.Send(new GetAccountBindInfoRequest(token.Value), (jsonValue, error) =>
-            {
-                if (error is null)
-                {
-                    BindInfo bindInfo = JsonConvert.DeserializeObject<BindInfo>(jsonValue);
-
-                    handler?.Invoke(bindInfo, null);
-                }
-                else
-                {
-                    handler?.Invoke(null, error);
-                }
+                reject?.Invoke(new ServiceError(-1, "PC 版本暂不支持该功能"));
             });
-        }
-
-        public void Binding(IBindable bindable, ServiceCompletedHandler<VoidObject> handler)
-        {
-            handler?.Invoke(null, new ServiceError(-1, "PC 版本暂不支持该功能"));
         }
 
         public Promise<BindInfo> FetchBindInfo()
@@ -68,6 +46,14 @@ namespace SoFunny.FunnySDK.Internal
                     }
                 });
 
+            });
+        }
+
+        public Promise<LoginResult> ForedBind(IBindable bindable, string bindCode)
+        {
+            return new Promise<LoginResult>((resolve, reject) =>
+            {
+                reject?.Invoke(new ServiceError(-1, "PC 版本暂不支持该功能"));
             });
         }
     }
