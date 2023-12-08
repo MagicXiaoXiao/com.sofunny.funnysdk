@@ -144,7 +144,9 @@ page.feedback.description=The problem you encountered
 page.feedback.description.require=Please fill in the problem description
 page.feedback.success.tips=Your question has been submitted successfully, please wait patiently for customer service feedback
 
-page.bind.view.title=Bind Email
-page.bind.view.button=Bind Email
-form.bind.view.email.placeholder=Email
+page.bind.view.title.email=Bind Email
+page.bind.view.title.phone=Bind PhoneNumber
+page.bind.view.button=Bind
+form.bind.view.email.placeholder.email=Email
+form.bind.view.email.placeholder.phone=PhoneNumber
 form.bind.view.pwd.placeholder=Password

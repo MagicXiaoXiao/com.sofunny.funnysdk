@@ -16,6 +16,8 @@ namespace SoFunny.FunnySDK.UIModule
         public InputField pwdInputField;
         public InputField codeInputField;
 
+        private string _bindCode;
+
         void Awake()
         {
             closeButton.onClick.AddListener(Cancel);
@@ -29,6 +31,12 @@ namespace SoFunny.FunnySDK.UIModule
 
         }
 
+        internal void SetBindCode(string bindCode)
+        {
+            _bindCode = bindCode;
+            pwdInputField.gameObject.SetActive(false);
+        }
+
         private void Cancel()
         {
             BindView.OnCancelAction?.Invoke();
@@ -37,9 +45,28 @@ namespace SoFunny.FunnySDK.UIModule
 
         private void SendSmsCode()
         {
+            string account = emailInputField.text.Trim();
 
-            string email = emailInputField.text.Trim();
+            if (BridgeConfig.IsMainland)
+            {
+                if (string.IsNullOrEmpty(_bindCode))
+                {
+                    Toast.ShowFail("国内版本绑定功能暂未实现");
+                }
+                else
+                {
+                    SendBindPhoneCode(account);
+                }
+            }
+            else
+            {
+                SendEmailCode(account);
+            }
+        }
 
+
+        private void SendEmailCode(string email)
+        {
             if (string.IsNullOrEmpty(email))
             {
                 Toast.ShowFail(Locale.LoadText("form.email.required"));
@@ -69,34 +96,78 @@ namespace SoFunny.FunnySDK.UIModule
                                     });
         }
 
+        private void SendBindPhoneCode(string phone)
+        {
+            if (string.IsNullOrEmpty(phone))
+            {
+                Toast.ShowFail(Locale.LoadText("form.phone.required"));
+                return;
+            }
+
+            if (!phone.IsMatchPhone())
+            {
+                Toast.ShowFail(Locale.LoadText("form.phone.verify"));
+                return;
+            }
+
+            timerHandler.SendingStatus();
+
+            Funny.Core.Bridge.Common.SendVerificationCode(phone, Internal.CodeAction.LoginBindAccount, Internal.CodeCategory.Phone)
+                                    .Then(timerHandler.StartTimer)
+                                    .Catch((error) =>
+                                    {
+                                        Toast.ShowFail(error.Message);
+                                        timerHandler.ResetTimer();
+                                    });
+
+        }
+
+
         private void StartBinding()
         {
-            string email = emailInputField.text.Trim();
+            string account = emailInputField.text.Trim();
             string password = pwdInputField.text.Trim();
             string code = codeInputField.text.Trim();
 
-            if (string.IsNullOrEmpty(email))
+            if (BridgeConfig.IsMainland)
             {
-                Toast.ShowFail(Locale.LoadText("form.email.required"));
-                return;
-            }
+                if (string.IsNullOrEmpty(account))
+                {
+                    Toast.ShowFail(Locale.LoadText("form.phone.required"));
+                    return;
+                }
 
-            if (!email.IsMatchEmail())
-            {
-                Toast.ShowFail(Locale.LoadText("form.email.verify"));
-                return;
+                if (!account.IsMatchPhone())
+                {
+                    Toast.ShowFail(Locale.LoadText("form.phone.verify"));
+                    return;
+                }
             }
-
-            if (string.IsNullOrEmpty(password))
+            else
             {
-                Toast.ShowFail(Locale.LoadText("form.password.required"));
-                return;
-            }
+                if (string.IsNullOrEmpty(account))
+                {
+                    Toast.ShowFail(Locale.LoadText("form.email.required"));
+                    return;
+                }
 
-            if (password.Length < 8)
-            {
-                Toast.ShowFail(Locale.LoadText("form.password.length.require"));
-                return;
+                if (!account.IsMatchEmail())
+                {
+                    Toast.ShowFail(Locale.LoadText("form.email.verify"));
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    Toast.ShowFail(Locale.LoadText("form.password.required"));
+                    return;
+                }
+
+                if (password.Length < 8)
+                {
+                    Toast.ShowFail(Locale.LoadText("form.password.length.require"));
+                    return;
+                }
             }
 
             if (string.IsNullOrEmpty(code))
@@ -105,7 +176,15 @@ namespace SoFunny.FunnySDK.UIModule
                 return;
             }
 
-            BindView.OnCommitAction?.Invoke(email, password, code);
+            if (string.IsNullOrEmpty(_bindCode))
+            {
+                BindView.OnCommitAction?.Invoke(account, password, code);
+            }
+            else
+            {
+                BindView.OnCommitAction?.Invoke(account, _bindCode, code);
+            }
+
         }
 
         internal void HideAndClose()

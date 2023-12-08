@@ -144,7 +144,9 @@ page.feedback.description=Vấn đề bạn gặp phải
 page.feedback.description.require=Vui lòng điền mô tả vấn đề
 page.feedback.success.tips=Câu hỏi của bạn đã được gửi thành công, vui lòng kiên nhẫn chờ phản hồi từ bộ phận dịch vụ khách hàng
 
-page.bind.view.title=Liên kết tài khoản email
-page.bind.view.button=Liên kết tài khoản
-form.bind.view.email.placeholder=Email
+page.bind.view.title.email=Liên kết tài khoản email
+page.bind.view.title.phone=Ràng buộc số điện thoại di động
+page.bind.view.button=Bind
+form.bind.view.email.placeholder.email=Email
+form.bind.view.email.placeholder.phone=Số điện thoại di động
 form.bind.view.pwd.placeholder=Đặt mật khẩu của bạn

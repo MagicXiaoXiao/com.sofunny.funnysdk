@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.button.getCode
+  enKey: 
+  zhKey: 
 --- !u!1 &2248513537526570241
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +177,6 @@ RectTransform:
   - {fileID: 7307594211272401549}
   - {fileID: 7141663777035446934}
   - {fileID: 5114282240319339697}
-  - {fileID: 4096816811028237925}
   m_Father: {fileID: 9069013482195264258}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -315,6 +316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: page.bind.view.button
+  enKey: 
+  zhKey: 
 --- !u!1 &2641447801332952544
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +377,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 1100
   m_TargetDisplay: 0
 --- !u!114 &8508363295809080961
 MonoBehaviour:
@@ -447,12 +450,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6881751718934201168}
-  m_Father: {fileID: 7099218269903016864}
+  m_Father: {fileID: 9069013482195264258}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 65}
   m_SizeDelta: {x: 410, y: 62}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7288283199406113619
@@ -735,7 +738,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39226bb619b3b40c5a4a02712a7a3c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localizationKey: page.bind.view.title
+  localizationKey: page.bind.view.title.email
+  enKey: page.bind.view.title.email
+  zhKey: page.bind.view.title.phone
 --- !u!1 &4632380763020021429
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +931,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.bind.view.pwd.placeholder
+  enKey: 
+  zhKey: 
 --- !u!114 &5832964118510497951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,7 +945,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39226bb619b3b40c5a4a02712a7a3c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localizationKey: form.bind.view.email.placeholder
+  localizationKey: form.bind.view.email.placeholder.email
+  enKey: form.bind.view.email.placeholder.email
+  zhKey: form.bind.view.email.placeholder.phone
 --- !u!1 &7344242034492411046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,6 +1181,7 @@ RectTransform:
   - {fileID: 7597407914097526863}
   - {fileID: 8792965360379781475}
   - {fileID: 7099218269903016864}
+  - {fileID: 4096816811028237925}
   m_Father: {fileID: 1057383992689034795}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1230,6 +1240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationKey: form.code.placeholder
+  enKey: 
+  zhKey: 
 --- !u!1 &8835793587863082747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,6 +1448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PasswordInputField
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651496314472407569, guid: 62080e84cf7c5403c8560b23e656eed7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7651496314472407570, guid: 62080e84cf7c5403c8560b23e656eed7,
         type: 3}

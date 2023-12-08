@@ -24,9 +24,14 @@ namespace SoFunny.FunnySDK.UIModule
         internal static Action<string, string, string> OnCommitAction;
         internal static Action OnCancelAction;
 
-        internal static void Open()
+        internal static void Open(string bindCode = "")
         {
             Prepare();
+
+            if (!string.IsNullOrEmpty(bindCode))
+            {
+                _view.SetBindCode(bindCode);
+            }
         }
 
         internal static void Close()
