@@ -144,7 +144,9 @@ page.feedback.description=ปัญหาที่คุณพบ
 page.feedback.description.require=กรุณากรอกคำอธิบายปัญหา
 page.feedback.success.tips=คำถามของคุณถูกส่งเรียบร้อยแล้ว โปรดรออย่างอดทนเพื่อรับคำติชมจากฝ่ายบริการลูกค้า
 
-page.bind.view.title=ผูกบัญชีอีเมล
+page.bind.view.title.email=ผูกบัญชีอีเมล
+page.bind.view.title.phone=ผูกหมายเลขโทรศัพท์มือถือ
 page.bind.view.button=ผูก
-form.bind.view.email.placeholder=อีเมล
+form.bind.view.email.placeholder.email=อีเมล
+form.bind.view.email.placeholder.phone=หมายเลขโทรศัพท์มือถือ
 form.bind.view.pwd.placeholder=ตั้งรหัสผ่านของคุณ

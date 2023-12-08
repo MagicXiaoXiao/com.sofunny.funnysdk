@@ -144,7 +144,9 @@ page.feedback.description=Masalah yang Anda temui
 page.feedback.description.require=Silakan isi deskripsi masalah
 page.feedback.success.tips=Pertanyaan Anda telah berhasil dikirimkan, harap sabar menunggu tanggapan dari layanan pelanggan
 
-page.bind.view.title=Ikat akun email
-halaman.bind.view.button=Ikat akun
-form.bind.view.email.placeholder=Email
+page.bind.view.title.email=Ikat akun email
+page.bind.view.title.phone=Ikat nomor ponsel
+page.bind.view.button=Ikat akun
+form.bind.view.email.placeholder.email=Email
+form.bind.view.email.placeholder.phone=Nomor ponsel
 form.bind.view.pwd.placeholder=Setel kata sandi Anda
