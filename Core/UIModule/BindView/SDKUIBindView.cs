@@ -34,6 +34,7 @@ namespace SoFunny.FunnySDK.UIModule
         internal void SetBindCode(string bindCode)
         {
             _bindCode = bindCode;
+            closeButton.gameObject.SetActive(false);
             pwdInputField.gameObject.SetActive(false);
         }
 
