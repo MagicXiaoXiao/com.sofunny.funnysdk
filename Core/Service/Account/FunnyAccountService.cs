@@ -521,6 +521,7 @@ namespace SoFunny.FunnySDK
                     {
                         BindView.OnCancelAction = () =>
                         {
+                            StartFlag = false;
                             LoginView.Close();
                             onCancelHandler?.Invoke();
                         };
