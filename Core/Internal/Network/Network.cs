@@ -27,58 +27,7 @@ namespace SoFunny.FunnySDK.Internal
 
         static Network()
         {
-            if (BridgeConfig.IsMainland)
-            {
-                Client = new HttpClient();
-            }
-            else
-            {
-#if UNITY_2021_1_OR_NEWER
-                HttpClientHandler clientHandler = new HttpClientHandler();
-                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
-                {
-                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None) return true;
-
-                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors)
-                    {
-                        Uri BaseUri = new Uri(BridgeConfig.BaseURL);
-
-                        // 根证书不受信任时，判断请求 Host 是否匹配
-                        return sender.RequestUri.Host == BaseUri.Host;
-                    }
-
-                    return false;
-                };
-
-                Client = new HttpClient(clientHandler);
-#else
-                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
-                {
-
-                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None) return true;
-
-                    if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors)
-                    {
-                        // 根证书不受信任时，判断请求 Host 是否匹配
-                        Uri BaseUri = new Uri(BridgeConfig.BaseURL);
-
-                        if (sender is HttpWebRequest request)
-                        {
-                            return request.RequestUri.Host == BaseUri.Host;
-                        }
-                        else if (sender is HttpRequestMessage httpRequest)
-                        {
-                            return httpRequest.RequestUri.Host == BaseUri.Host;
-                        }
-                    }
-
-                    return false;
-                };
-
-                Client = new HttpClient();
-#endif
-
-            }
+            Client = new HttpClient();
 
             var acceptLanguage = new StringWithQualityHeaderValue(BridgeConfig.IsMainland ? "zh" : "en");
             Client.DefaultRequestHeaders.AcceptLanguage.Add(acceptLanguage);
