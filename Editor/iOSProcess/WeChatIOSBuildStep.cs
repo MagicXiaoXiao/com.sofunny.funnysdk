@@ -54,6 +54,8 @@ namespace SoFunny.FunnySDK.Editor
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("weixin");
             queriesSchemes.AddString("weixinULAPI");
+            queriesSchemes.AddString("weixinURLParamsAPI");
+
         }
 
         public override void OnProcessSoFunnyInfoPlist(BuildTarget buildTarget, string pathToBuiltTarget, PlistDocument sofunnyPlist)
