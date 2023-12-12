@@ -1,0 +1,366 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FunnySDK",
+        "printedName": "FunnySDK",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FunnySDK",
+        "printedName": "FunnySDK",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI"
+      },
+      {
+        "kind": "Import",
+        "name": "FWeChatOpenAPI_Private",
+        "printedName": "FWeChatOpenAPI_Private",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FunnySDK",
+        "printedName": "FunnySDK",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "_FunnyWeChatServiceInitializer",
+        "printedName": "_FunnyWeChatServiceInitializer",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "registerComponent",
+            "printedName": "registerComponent()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FWeChatOpenAPI@objc(cs)_FunnyWeChatServiceInitializer(cm)registerComponent",
+            "mangledName": "$s14FWeChatOpenAPI08_FunnyWeB18ServiceInitializerC17registerComponentyyFZ",
+            "moduleName": "FWeChatOpenAPI",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@FWeChatOpenAPI@objc(cs)_FunnyWeChatServiceInitializer",
+        "mangledName": "$s14FWeChatOpenAPI08_FunnyWeB18ServiceInitializerC",
+        "moduleName": "FWeChatOpenAPI",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjCMembers",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "hasMissingDesignatedInitializers": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FunnySDK",
+        "printedName": "FunnySDK",
+        "declKind": "Import",
+        "moduleName": "FWeChatOpenAPI"
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 470,
+      "length": 8,
+      "value": "\"openid\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 500,
+      "length": 10,
+      "value": "\"nickname\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 534,
+      "length": 5,
+      "value": "\"sex\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 558,
+      "length": 10,
+      "value": "\"province\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 592,
+      "length": 6,
+      "value": "\"city\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 618,
+      "length": 9,
+      "value": "\"country\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 650,
+      "length": 12,
+      "value": "\"headimgurl\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 688,
+      "length": 11,
+      "value": "\"privilege\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "Array",
+      "offset": 714,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 730,
+      "length": 9,
+      "value": "\"unionid\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "Dictionary",
+      "offset": 1055,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "Dictionary",
+      "offset": 1110,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1409,
+      "length": 27,
+      "value": "\"https:\/\/api.weixin.qq.com\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1496,
+      "length": 15,
+      "value": "\"\/sns\/userinfo\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1631,
+      "length": 14,
+      "value": "\"access_token\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/WeChatAPIRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1672,
+      "length": 8,
+      "value": "\"openid\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 308,
+      "length": 20,
+      "value": "\"FUNNY_WECHAT_APPID\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 344,
+      "length": 6,
+      "value": "\"none\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 397,
+      "length": 28,
+      "value": "\"FUNNY_WECHAT_UNIVERSALLINK\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 441,
+      "length": 6,
+      "value": "\"none\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 477,
+      "length": 6,
+      "value": "\"none\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 504,
+      "length": 6,
+      "value": "\"none\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 537,
+      "length": 125,
+      "value": "\"The FWeChatOpenAPI SDK related configuration is not filled in, please go to SoFunny-Info.plist to fill in the configuration\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 807,
+      "length": 36,
+      "value": "\"WeChat 服务模块初始化完成\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "StringLiteral",
+      "offset": 1325,
+      "length": 8,
+      "value": "\"wxCode\""
+    },
+    {
+      "filePath": "\/Users\/cxb\/Desktop\/Work\/funny-sdk-ios-work\/FunnySDK\/FWeChatOpenAPI\/InternalServiceBridge.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1478,
+      "length": 1,
+      "value": "1"
+    }
+  ]
+}

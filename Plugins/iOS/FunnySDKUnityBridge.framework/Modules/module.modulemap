@@ -1,7 +1,7 @@
 framework module FunnySDKUnityBridge {
   umbrella header "FunnySDKUnityBridge.h"
-
   export *
+
   module * { export * }
 }
 
