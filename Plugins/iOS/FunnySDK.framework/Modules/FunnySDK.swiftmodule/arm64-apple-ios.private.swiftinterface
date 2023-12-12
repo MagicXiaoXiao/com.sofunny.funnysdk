@@ -1,21 +1,24 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
 // swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FunnySDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Combine
 import CommonCrypto
 import CryptoKit
+import DeveloperToolsSupport
 import Foundation
 @_exported import FunnySDK
 import ObjectiveC
 import SafariServices
 import Security
 import Swift
+import SwiftUI
 import UIKit
 import WebKit.WKScriptMessageHandler
 import WebKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 public protocol RequestAdapter {
   func adapted(_ request: Foundation.URLRequest) throws -> Foundation.URLRequest
 }
@@ -237,6 +240,9 @@ public enum O2AuthResult<Success, Failure> where Failure : Swift.Error {
 extension FunnySDK.O2AuthResult {
   public func get() throws -> Success
 }
+public protocol FunnySignInWithWeChat : FunnySDK.FunnyModule {
+  func authorize(onSuccess: @escaping (any FunnySDK.FunnyWeChatAuthModel) -> Swift.Void, onCancel: @escaping () -> Swift.Void, onFailure: @escaping (any Swift.Error) -> Swift.Void)
+}
 public enum BillboardStyle {
   case vertical
   case horizontal
@@ -293,6 +299,9 @@ extension FunnySDK.API.Auth {
 public struct Constant {
   public static let SDKVersion: Swift.String
 }
+public protocol FunnyWeChatAuthModel {
+  var wxCode: Swift.String { get }
+}
 public protocol PrivacyFormViewDelegate : AnyObject {
   func nextTime()
   func webCallSuccess(profile: FunnySDK.PrivacyProfile)
@@ -326,6 +335,7 @@ public enum FunnyAccount {
   public static func register(account: Swift.String, password: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
   public static func bindEmail(_ email: Swift.String, password: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
   public static func bindProvider(_ provider: FunnySDK.PlatformChannel, completionHandler completion: @escaping (Swift.Result<FunnySDK.Unit, FunnySDK.FunnySDKError>) -> Swift.Void)
+  public static func foredBind(phone: Swift.String, code: Swift.String, bindCode: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
 }
 extension FunnySDK.FunnySDKError {
   public enum AuthorizeErrorReason {
@@ -441,11 +451,13 @@ extension FunnySDK.FunnySDKNotificationKey {
 public protocol FunnyModule {
   var serviceLevel: Swift.Int { get }
   func initializer()
+  func application(_ app: UIKit.UIApplication, open url: Foundation.URL, options: [UIKit.UIApplication.OpenURLOptionsKey : Any]) -> Swift.Bool
 }
 extension FunnySDK.FunnyModule {
   public var serviceLevel: Swift.Int {
     get
   }
+  public func application(_ app: UIKit.UIApplication, open url: Foundation.URL, options: [UIKit.UIApplication.OpenURLOptionsKey : Any]) -> Swift.Bool
 }
 public struct JWT : Swift.Equatable {
   public static func == (lhs: FunnySDK.JWT, rhs: FunnySDK.JWT) -> Swift.Bool
@@ -627,6 +639,7 @@ extension FunnySDK.API.Auth {
   public var isAuthorized: Swift.Bool {
     get
   }
+  public func testLogin()
   @objc deinit
 }
 extension FunnySDK.API {
@@ -637,6 +650,9 @@ extension FunnySDK.API {
 }
 extension FunnySDK.API.Auth {
   public static func register(account: Swift.String, password: Swift.String, code: Swift.String, completionHandler completion: @escaping (Swift.Result<FunnySDK.AuthResult, FunnySDK.FunnySDKError>) -> Swift.Void)
+}
+public protocol FunnySignInWithQQ : FunnySDK.FunnyModule {
+  func authorize(onSuccess: @escaping (any FunnySDK.FunnyQQAuthModel) -> Swift.Void, onCancel: @escaping () -> Swift.Void, onFailure: @escaping (any Swift.Error) -> Swift.Void)
 }
 public struct UserAccessToken : Swift.Codable {
   public init(value: Swift.String, expiresIn: Swift.Int)
@@ -821,6 +837,10 @@ extension FunnySDK.Request {
     get
   }
 }
+public protocol FunnyQQAuthModel {
+  var name: Swift.String { get }
+  var accessToken: Swift.String { get }
+}
 public enum CryptoError : Swift.Error {
   public enum AlgorithmsErrorReason {
     case invalidDERKey(data: Foundation.Data, reason: Swift.String)
@@ -904,7 +924,7 @@ extension FunnySDK.LoginManager {
 }
 public struct AuthResult : Swift.Codable {
   public let needBind: Swift.Bool
-  public let bindCode: Swift.String?
+  public let bindCode: Swift.String
   public let isRegister: Swift.Bool?
   public init(from decoder: any Swift.Decoder) throws
   public func encode(to encoder: any Swift.Encoder) throws
