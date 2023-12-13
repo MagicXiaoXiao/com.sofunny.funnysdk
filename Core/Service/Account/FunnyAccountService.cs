@@ -1059,7 +1059,7 @@ namespace SoFunny.FunnySDK
                 return;
             }
 
-            if (CurrentBindInfo.Bounded(type)) // 当前类似是否已绑定
+            if (CurrentBindInfo.Bounded(type)) // 当前类型是否已绑定
             {
                 onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
                 return;
@@ -1069,7 +1069,9 @@ namespace SoFunny.FunnySDK
 
             switch (type)
             {
-                case BindingType.Phone:
+                case BindingType.Phone: // Tips: 不存在手机号未绑定时的已登录账号
+                    onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
+                    return;
                 case BindingType.Email:
                     // TODO: 后续需优化调整逻辑代码
                     BindView.OnCancelAction = () =>
@@ -1121,6 +1123,12 @@ namespace SoFunny.FunnySDK
                     break;
                 case BindingType.Google:
                     bindable = new GoogleBindable();
+                    break;
+                case BindingType.QQ:
+                    bindable = new QQBindable();
+                    break;
+                case BindingType.WeChat:
+                    bindable = new WeChatBindable();
                     break;
                 default:
                     onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.UnknownError));
