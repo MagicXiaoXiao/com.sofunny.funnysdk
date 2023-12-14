@@ -68,6 +68,9 @@ namespace SoFunny.FunnySDK
                 case ServiceErrorType.AccountBindFailed:
                     message = "账号绑定失败";
                     break;
+                case ServiceErrorType.AccountAlreadyBound:
+                    message = "当前账号已绑定";
+                    break;
                 default: break;
             }
 
@@ -101,6 +104,10 @@ namespace SoFunny.FunnySDK
         /// 绑定失败
         /// </summary>
         AccountBindFailed = -2000,
+        /// <summary>
+        /// 当前账号已绑定
+        /// </summary>
+        AccountAlreadyBound = -2100,
         /// <summary>
         /// 数据处理失败 (数据解析失败、或 SDK 内部处理发生错误)
         /// </summary>

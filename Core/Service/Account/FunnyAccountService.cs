@@ -1061,7 +1061,7 @@ namespace SoFunny.FunnySDK
 
             if (CurrentBindInfo.Bounded(type)) // 当前类型是否已绑定
             {
-                onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
+                onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountAlreadyBound));
                 return;
             }
 
@@ -1070,7 +1070,7 @@ namespace SoFunny.FunnySDK
             switch (type)
             {
                 case BindingType.Phone: // Tips: 不存在手机号未绑定时的已登录账号
-                    onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
+                    onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountAlreadyBound));
                     return;
                 case BindingType.Email:
                     // TODO: 后续需优化调整逻辑代码
@@ -1131,7 +1131,7 @@ namespace SoFunny.FunnySDK
                     bindable = new WeChatBindable();
                     break;
                 default:
-                    onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.UnknownError));
+                    onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
                     return;
             }
 
