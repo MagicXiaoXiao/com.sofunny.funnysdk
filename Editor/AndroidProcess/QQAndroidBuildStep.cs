@@ -74,6 +74,12 @@ namespace SoFunny.FunnySDK.Editor
             orgLegacyNode.SetAttribute("required", NamespaceURI, "false");
             applicationNode.AppendChild(orgLegacyNode);
         }
+
+        public override void OnProcessLauncherGradle(GradleConfig gradle) {
+            var defaultConfig = gradle.ROOT.FindChildNodeByName("android").FindChildNodeByName("defaultConfig");
+            defaultConfig.AppendContentNode($"manifestPlaceholders[\"qq_auth_app_id\"] = \"{Config.QQ.appID}\"");
+        }
+
     }
 }
 

@@ -73,7 +73,7 @@ namespace SoFunny.FunnySDK.Editor
         public override void OnProcessLauncherGradle(GradleConfig gradle)
         {
             var defaultConfig = gradle.ROOT.FindChildNodeByName("android").FindChildNodeByName("defaultConfig");
-            defaultConfig.AppendContentNode("manifestPlaceholders = [\nwechat_package: applicationId\n]");
+            defaultConfig.AppendContentNode("manifestPlaceholders[\"wechat_package\"] = applicationId");
         }
 
     }
