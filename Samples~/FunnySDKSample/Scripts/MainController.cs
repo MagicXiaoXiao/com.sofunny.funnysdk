@@ -199,6 +199,68 @@ public class MainController : MonoBehaviour
         });
     }
 
+    public void BindQQAccount()
+    {
+        if (Funny.Account.GetCurrentAccessToken() is null)
+        {
+            Alert.Show("提示", "当前未登录账号");
+            return;
+        }
+
+        Loader.ShowIndicator();
+
+        Funny.Account.Bind(BindingType.QQ, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定 QQ 成功";
+            Toast.ShowSuccess("绑定成功");
+        }, (error) =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = $"绑定失败： {error.Code} - {error.Message}";
+            Toast.ShowFail("绑定失败");
+        }, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定已被取消";
+            Toast.Show("取消绑定");
+        });
+    }
+
+    public void BindWechatAccount()
+    {
+        if (Funny.Account.GetCurrentAccessToken() is null)
+        {
+            Alert.Show("提示", "当前未登录账号");
+            return;
+        }
+
+        Loader.ShowIndicator();
+
+        Funny.Account.Bind(BindingType.WeChat, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定 WeChat 成功";
+            Toast.ShowSuccess("绑定成功");
+        }, (error) =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = $"绑定失败： {error.Code} - {error.Message}";
+            Toast.ShowFail("绑定失败");
+        }, () =>
+        {
+            Loader.HideIndicator();
+
+            rawJsonText.text = "绑定已被取消";
+            Toast.Show("取消绑定");
+        });
+    }
+
     public void BindStatusData()
     {
         if (Funny.Account.GetCurrentAccessToken() is null)
