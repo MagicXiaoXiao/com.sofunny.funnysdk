@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#if UNITY_IOS && !UNITY_EDITOR
-
-using AOT;
-using System.Runtime.InteropServices;
-
-#endif
-
 namespace SoFunny.FunnySDK.Internal
 {
     /// <summary>

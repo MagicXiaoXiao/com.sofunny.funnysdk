@@ -1,10 +1,15 @@
 ﻿#if UNITY_EDITOR || UNITY_STANDALONE
 using System;
+using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using SoFunny.FunnySDK.Promises;
+using System.Text;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace SoFunny.FunnySDK.Internal
 {
@@ -92,11 +97,47 @@ namespace SoFunny.FunnySDK.Internal
 
         public NativeConfig GetNativeConfig()
         {
+#if UNITY_EDITOR
             NativeConfig config = new NativeConfig();
-            config.AppID = ConfigService.Config.AppID;
-            config.IsMainland = ConfigService.Config.IsMainland;
+            string configJson = EditorPrefs.GetString("funnysdk.editor.app.config");
 
-            return config;
+            if (string.IsNullOrEmpty(configJson))
+            {
+                config.AppID = ConfigService.Config.AppID;
+                config.Env = ConfigService.Config.IsMainland ? PackageEnv.Mainland : PackageEnv.Overseas;
+
+                return config;
+            }
+            else
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<NativeConfig>(configJson);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex);
+                    return null;
+                }
+            }
+#else
+            string configPath = Path.Combine(Application.dataPath, "funnysdk.core");
+            if (!File.Exists(configPath)) return null;
+
+            try
+            {
+                string base64Data = File.ReadAllText(configPath);
+                byte[] configBytes = Convert.FromBase64String(base64Data);
+                string json = Encoding.UTF8.GetString(configBytes);
+
+                return JsonConvert.DeserializeObject<NativeConfig>(json);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
+#endif
         }
 
         public void OpenPrivacyProtocol()

@@ -70,6 +70,7 @@ namespace SoFunny.FunnySDK.Internal
             Billboard = new AndroidBillboardService(AndroidBridge.GetInstance().OldService);
             Feedback = new AndroidFeedbackService(AndroidBridge.GetInstance().OldService);
             Agreement = new FunnyAgreementService(Common);
+
 #elif UNITY_IOS
             Common = new FSDKCommon();
             Login = new FSDKLoginService();
@@ -80,7 +81,7 @@ namespace SoFunny.FunnySDK.Internal
             Feedback = new FSDKFeedbackService();
             Agreement = new FunnyAgreementService(Common);
 #endif
-            BridgeConfig.Init(Common.GetNativeConfig(), Environment.Release);
+            BridgeConfig.Init(Common.GetNativeConfig());
         }
 
     }

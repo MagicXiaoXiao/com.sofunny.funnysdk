@@ -5,16 +5,16 @@ namespace SoFunny.FunnySDK.Internal
 {
 
     [JsonObject(MemberSerialization.OptIn)]
-    internal class NativeConfig
+    public class NativeConfig
     {
         [JsonProperty("appID")]
-        internal string AppID;
+        public string AppID { get; set; }
 
-        [JsonProperty("mainland")]
-        internal bool IsMainland;
+        [JsonProperty("env")]
+        public PackageEnv Env { get; set; }
 
         [JsonProperty("webURL")]
-        internal string webURL;
+        public string WebURL { get; set; }
 
     }
 }
