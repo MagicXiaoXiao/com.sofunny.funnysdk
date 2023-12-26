@@ -11,20 +11,32 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class AppleWithSignIOSBuildStep : FunnyXcodeBuildStep
     {
+        private Apple appleConfig;
+        private bool _enable;
 
-        public override bool IsEnabled
+        public override bool Enabled => _enable;
+
+        internal override void OnInitConfig(Configuration.iOS config)
         {
-            get
+            if (config is null)
             {
-                var config = FunnyEditorConfig.GetConfig();
-                if (config.IsMainland)
+                var editorConfig = FunnyEditorConfig.GetConfig();
+                if (editorConfig.IsMainland)
                 {
-                    return config.Apple.mainlandEnable;
+                    _enable = editorConfig.Apple.mainlandEnable;
                 }
                 else
                 {
-                    return config.Apple.overseaEnable;
+                    _enable = editorConfig.Apple.overseaEnable;
                 }
+
+                appleConfig = Apple.Create(_enable);
+            }
+            else
+            {
+                appleConfig = config.SetupApple();
+
+                _enable = appleConfig.EnableSignIn;
             }
         }
 

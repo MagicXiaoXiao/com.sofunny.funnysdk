@@ -10,13 +10,30 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TapTapIOSBuildStep : FunnyXcodeBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private TapTap tapTapConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool Enabled => _enable;
+
+        internal override void OnInitConfig(Configuration.iOS config)
         {
-            get
+            if (config is null)
             {
-                return Config.IsMainland && Config.TapTap.Enable;
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (!editorConfig.IsMainland) return;
+
+                tapTapConfig = TapTap.Create(editorConfig.TapTap.clientID, editorConfig.TapTap.clientToken, editorConfig.TapTap.serverURL);
+                _enable = tapTapConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                tapTapConfig = config.SetupTapTap();
+
+                if (initConfig.Env == FunnyEnv.Mainland)
+                {
+                    _enable = tapTapConfig.Enable;
+                }
             }
         }
 
@@ -68,7 +85,7 @@ namespace SoFunny.FunnySDK.Editor
             taptapURLScheme.SetString("CFBundleTypeRole", "Editor");
             taptapURLScheme.SetString("CFBundleURLName", "TapTap SDK");
             var taptapSchemes = taptapURLScheme.CreateArray("CFBundleURLSchemes");
-            taptapSchemes.AddString($"tt{Config.TapTap.clientID}");
+            taptapSchemes.AddString($"tt{tapTapConfig.ClientID}");
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("tapiosdk");
@@ -79,10 +96,10 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTID", Config.TapTap.clientID);
-            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTTOKEN", Config.TapTap.clientToken);
-            sofunnyDict.SetString("FUNNY_TAPTAP_SERVERURL", Config.TapTap.serverURL);
-            sofunnyDict.SetBoolean("FUNNY_TAPTAP_BONFIRE", Config.TapTap.isBonfire);
+            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTID", tapTapConfig.ClientID);
+            sofunnyDict.SetString("FUNNY_TAPTAP_CLIENTTOKEN", tapTapConfig.ClientToken);
+            sofunnyDict.SetString("FUNNY_TAPTAP_SERVERURL", tapTapConfig.ServerURL);
+            sofunnyDict.SetBoolean("FUNNY_TAPTAP_BONFIRE", tapTapConfig.EnableTestVersion);
         }
 
     }

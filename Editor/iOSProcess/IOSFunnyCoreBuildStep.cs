@@ -12,9 +12,24 @@ namespace SoFunny.FunnySDK.Editor
 
     public class IOSFunnyCoreBuildStep : FunnyXcodeBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private InitConfig initConfig;
 
-        public override bool IsEnabled => true;
+        public override bool Enabled => true;
+
+        internal override void OnInitConfig(Configuration.iOS config)
+        {
+            if (config is null)
+            {
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                FunnyEnv env = editorConfig.IsMainland ? FunnyEnv.Mainland : FunnyEnv.Overseas;
+
+                initConfig = InitConfig.Create(editorConfig.AppID, env);
+            }
+            else
+            {
+                initConfig = config.SetupInit();
+            }
+        }
 
         public override void OnProcessInfoPlist(BuildTarget buildTarget, string pathToBuiltTarget, PlistDocument infoPlist)
         {
@@ -37,11 +52,12 @@ namespace SoFunny.FunnySDK.Editor
         public override void OnProcessSoFunnyInfoPlist(BuildTarget buildTarget, string pathToBuiltTarget, PlistDocument sofunnyPlist)
         {
             PlistElementDict sofunnyDict = sofunnyPlist.root;
-            bool isMainland = Config.IsMainland;
+            bool isMainland = initConfig.Env == FunnyEnv.Mainland;
+            int envValue = (int)initConfig.GenerateNativeConfig().Env;
 
+            sofunnyDict.SetInteger("FUNNY_SDK_ENV", envValue);
             sofunnyDict.SetBoolean("MAINLAND", isMainland);
-            sofunnyDict.SetString("FUNNY_APP_ID", Config.AppID);
-
+            sofunnyDict.SetString("FUNNY_APP_ID", initConfig.AppID);
         }
 
     }

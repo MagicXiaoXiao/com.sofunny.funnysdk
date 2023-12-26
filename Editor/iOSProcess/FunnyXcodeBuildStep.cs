@@ -12,13 +12,11 @@ using System.IO;
 using UnityEditor.iOS.Xcode;
 #endif
 
-namespace SoFunny.FunnySDK.Editor {
-
-
+namespace SoFunny.FunnySDK.Editor
+{
     public class FunnyXcodeBuildStep
     {
-
-        public virtual bool IsEnabled => false;
+        public virtual bool Enabled => false;
 
         public virtual string DisplayName => GetType().Name;
 
@@ -34,10 +32,15 @@ namespace SoFunny.FunnySDK.Editor {
                                       where typeof(FunnyXcodeBuildStep).IsAssignableFrom(type) && type != typeof(FunnyXcodeBuildStep)
                                       select type;
 
+            Configuration.iOS config = Configuration.GetIosConfiguration();
+
             foreach (var item in funnyBuildStepTypes)
             {
-                var step = (FunnyXcodeBuildStep)Activator.CreateInstance(item);
-                if (step.IsEnabled)
+                FunnyXcodeBuildStep step = (FunnyXcodeBuildStep)Activator.CreateInstance(item, true);
+
+                step.OnInitConfig(config);
+
+                if (step.Enabled)
                 {
                     steps.Add(step);
                 }
@@ -59,6 +62,7 @@ namespace SoFunny.FunnySDK.Editor {
             }
         }
 
+        internal virtual void OnInitConfig(Configuration.iOS config) { }
 
         public virtual void OnBeginPostProcess(BuildTarget buildTarget, string pathToBuiltProject) { }
 

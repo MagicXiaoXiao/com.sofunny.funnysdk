@@ -9,20 +9,30 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class GoogleIOSBuildStep : FunnyXcodeBuildStep
     {
+        private Google googleConfig;
+        private bool _enable = false;
 
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        public override bool Enabled => _enable;
 
-        public override bool IsEnabled
+        internal override void OnInitConfig(Configuration.iOS config)
         {
-            get
+            if (config is null)
             {
-                if (Config.IsMainland)
+                FunnySDKConfig Config = FunnyEditorConfig.GetConfig();
+
+                if (Config.IsMainland) return;
+
+                _enable = Config.Google.Enable;
+                googleConfig = Google.Create(Config.Google.iOSClientID);
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                googleConfig = config.SetupGoogle();
+
+                if (initConfig.Env == FunnyEnv.Overseas)
                 {
-                    return false;
-                }
-                else
-                {
-                    return Config.Google.Enable;
+                    _enable = googleConfig.Enable;
                 }
             }
         }
@@ -55,13 +65,13 @@ namespace SoFunny.FunnySDK.Editor
             facebookURLScheme.SetString("CFBundleTypeRole", "Editor");
             facebookURLScheme.SetString("CFBundleURLName", "GOOGLE SDK");
             var fbSchemes = facebookURLScheme.CreateArray("CFBundleURLSchemes");
-            fbSchemes.AddString($"{Config.Google.iOSURLScheme}");
+            fbSchemes.AddString($"{googleConfig.ReversedClientID}");
         }
 
         public override void OnProcessSoFunnyInfoPlist(BuildTarget buildTarget, string pathToBuiltTarget, PlistDocument sofunnyPlist)
         {
             var sofunnyDict = sofunnyPlist.root;
-            sofunnyDict.SetString("FUNNY_GOOGLE_CLIENT_ID", $"{Config.Google.iOSClientID}");
+            sofunnyDict.SetString("FUNNY_GOOGLE_CLIENT_ID", $"{googleConfig.ClientID}");
         }
 
     }

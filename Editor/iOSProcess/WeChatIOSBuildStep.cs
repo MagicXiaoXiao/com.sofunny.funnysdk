@@ -10,13 +10,30 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class WeChatIOSBuildStep : FunnyXcodeBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private WeChat wechatConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool Enabled => _enable;
+
+        internal override void OnInitConfig(Configuration.iOS config)
         {
-            get
+            if (config is null)
             {
-                return Config.IsMainland && Config.WeChat.Enable;
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (!editorConfig.IsMainland) return;
+
+                wechatConfig = WeChat.Create(editorConfig.WeChat.appID, editorConfig.WeChat.universalLink);
+                _enable = wechatConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                wechatConfig = config.SetupWeChat();
+
+                if (initConfig.Env == FunnyEnv.Mainland)
+                {
+                    _enable = wechatConfig.Enable;
+                }
             }
         }
 
@@ -49,7 +66,7 @@ namespace SoFunny.FunnySDK.Editor
             wechatURLScheme.SetString("CFBundleTypeRole", "Editor");
             wechatURLScheme.SetString("CFBundleURLName", "WECHAT SDK");
             var wechatSchemes = wechatURLScheme.CreateArray("CFBundleURLSchemes");
-            wechatSchemes.AddString(Config.WeChat.appID);
+            wechatSchemes.AddString(wechatConfig.AppID);
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("weixin");
@@ -62,8 +79,8 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_WECHAT_APPID", Config.WeChat.appID);
-            sofunnyDict.SetString("FUNNY_WECHAT_UNIVERSALLINK", Config.WeChat.universalLink);
+            sofunnyDict.SetString("FUNNY_WECHAT_APPID", wechatConfig.AppID);
+            sofunnyDict.SetString("FUNNY_WECHAT_UNIVERSALLINK", wechatConfig.UniversalLinks);
         }
 
     }

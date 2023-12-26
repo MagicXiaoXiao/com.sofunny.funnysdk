@@ -10,13 +10,30 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class QQIOSBuildStep : FunnyXcodeBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private QQ qqConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool Enabled => _enable;
+
+        internal override void OnInitConfig(Configuration.iOS config)
         {
-            get
+            if (config is null)
             {
-                return Config.IsMainland && Config.QQ.Enable;
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (!editorConfig.IsMainland) return;
+
+                qqConfig = QQ.Create(editorConfig.QQ.appID, editorConfig.QQ.universalLink);
+                _enable = editorConfig.IsMainland && qqConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                qqConfig = config.SetupQQ();
+
+                if (initConfig.Env == FunnyEnv.Mainland)
+                {
+                    _enable = qqConfig.Enable;
+                }
             }
         }
 
@@ -48,7 +65,7 @@ namespace SoFunny.FunnySDK.Editor
             qqURLScheme.SetString("CFBundleTypeRole", "Editor");
             qqURLScheme.SetString("CFBundleURLName", "QQ SDK");
             var qqSchemes = qqURLScheme.CreateArray("CFBundleURLSchemes");
-            qqSchemes.AddString($"tencent{Config.QQ.appID}");
+            qqSchemes.AddString($"tencent{qqConfig.AppID}");
 
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
@@ -64,8 +81,8 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TENCENT_APPID", Config.QQ.appID);
-            sofunnyDict.SetString("FUNNY_TENCENT_UNIVERSALLINK", Config.QQ.universalLink);
+            sofunnyDict.SetString("FUNNY_TENCENT_APPID", qqConfig.AppID);
+            sofunnyDict.SetString("FUNNY_TENCENT_UNIVERSALLINK", qqConfig.UniversalLinks);
         }
     }
 }

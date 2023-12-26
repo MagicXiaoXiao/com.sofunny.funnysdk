@@ -10,19 +10,29 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TwitterIOSBuildStep : FunnyXcodeBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private Twitter twitterConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool Enabled => _enable;
+
+        internal override void OnInitConfig(Configuration.iOS config)
         {
-            get
+            if (config is null)
             {
-                if (Config.IsMainland)
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (editorConfig.IsMainland) return;
+
+                twitterConfig = Twitter.Create(editorConfig.Twitter.consumerKey, editorConfig.Twitter.consumerSecret);
+                _enable = twitterConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                twitterConfig = config.SetupTwitter();
+
+                if (initConfig.Env == FunnyEnv.Overseas)
                 {
-                    return false;
-                }
-                else
-                {
-                    return Config.Twitter.Enable;
+                    _enable = twitterConfig.Enable;
                 }
             }
         }
@@ -55,7 +65,7 @@ namespace SoFunny.FunnySDK.Editor
             twitterURLScheme.SetString("CFBundleTypeRole", "Editor");
             twitterURLScheme.SetString("CFBundleURLName", "TWITTER SDK");
             var twiSchemes = twitterURLScheme.CreateArray("CFBundleURLSchemes");
-            twiSchemes.AddString($"twitterkit-{Config.Twitter.consumerKey}");
+            twiSchemes.AddString($"twitterkit-{twitterConfig.ConsumerKey}");
 
             PlistElementArray queriesSchemes = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
             queriesSchemes.AddString("twitter");
@@ -66,8 +76,8 @@ namespace SoFunny.FunnySDK.Editor
         {
             var sofunnyDict = sofunnyPlist.root;
 
-            sofunnyDict.SetString("FUNNY_TWITTER_CKEY", Config.Twitter.consumerKey);
-            sofunnyDict.SetString("FUNNY_TWITTER_CSECRET", Config.Twitter.consumerSecret);
+            sofunnyDict.SetString("FUNNY_TWITTER_CKEY", twitterConfig.ConsumerKey);
+            sofunnyDict.SetString("FUNNY_TWITTER_CSECRET", twitterConfig.ConsumerSecret);
         }
 
     }
