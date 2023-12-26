@@ -1069,11 +1069,26 @@ namespace SoFunny.FunnySDK
 
             switch (type)
             {
-                case BindingType.Phone: // Tips: 不存在手机号未绑定时的已登录账号
-                    onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountAlreadyBound));
+                case BindingType.Phone:
+                    if (BridgeConfig.IsMainland)
+                    {
+                        // 国内不存在手机号未绑定时的已登录账号
+                        onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountAlreadyBound));
+                    }
+                    else
+                    {
+                        // 海外不存在绑定手机逻辑，给出绑定失败
+                        onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
+                    }
                     return;
                 case BindingType.Email:
-                    // TODO: 后续需优化调整逻辑代码
+
+                    if (BridgeConfig.IsMainland)// 国内不存在绑定邮箱
+                    {
+                        onFailureHandler?.Invoke(ServiceError.Make(ServiceErrorType.AccountBindFailed));
+                        return;
+                    }
+
                     BindView.OnCancelAction = () =>
                     {
                         onCancelHandler?.Invoke();
