@@ -10,7 +10,8 @@ using UnityEditor;
 using System.Xml;
 using System.IO;
 
-namespace SoFunny.FunnySDK.Editor {
+namespace SoFunny.FunnySDK.Editor
+{
 
     public class AndroidBaseBuildStep
     {
@@ -30,9 +31,14 @@ namespace SoFunny.FunnySDK.Editor {
                                       where typeof(AndroidBaseBuildStep).IsAssignableFrom(type) && type != typeof(AndroidBaseBuildStep)
                                       select type;
 
+            Configuration.Android config = Configuration.GetAndroidConfiguration();
+
             foreach (var item in funnyBuildStepTypes)
             {
                 var step = (AndroidBaseBuildStep)Activator.CreateInstance(item);
+
+                step.OnInitConfig(config);
+
                 if (step.IsEnabled)
                 {
                     steps.Add(step);
@@ -41,6 +47,8 @@ namespace SoFunny.FunnySDK.Editor {
 
             return steps.ToArray();
         }
+
+        internal virtual void OnInitConfig(Configuration.Android config) { }
 
         /// <summary>
         /// 导出流程开始时前置操作流程

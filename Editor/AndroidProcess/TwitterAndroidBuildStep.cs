@@ -9,19 +9,29 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class TwitterAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private Twitter twitterConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool IsEnabled => _enable;
+
+        internal override void OnInitConfig(Configuration.Android config)
         {
-            get
+            if (config is null)
             {
-                if (Config.IsMainland)
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (editorConfig.IsMainland) return;
+
+                twitterConfig = Twitter.Create(editorConfig.Twitter.consumerKey, editorConfig.Twitter.consumerSecret);
+                _enable = twitterConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                twitterConfig = config.SetupTwitter();
+
+                if (initConfig.Env == FunnyEnv.Overseas)
                 {
-                    return false;
-                }
-                else
-                {
-                    return Config.Twitter.Enable;
+                    _enable = twitterConfig.Enable;
                 }
             }
         }
@@ -59,12 +69,12 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement twitterAppID = stringsXML.CreateElement("string");
             twitterAppID.SetAttribute("name", "twitter_app_id");
-            twitterAppID.InnerText = Config.Twitter.consumerKey;
+            twitterAppID.InnerText = twitterConfig.ConsumerKey;
             resources.AppendChild(twitterAppID);
 
             XmlElement twitterSecret = stringsXML.CreateElement("string");
             twitterSecret.SetAttribute("name", "twitter_secret");
-            twitterSecret.InnerText = Config.Twitter.consumerSecret;
+            twitterSecret.InnerText = twitterConfig.ConsumerSecret;
             resources.AppendChild(twitterSecret);
 
         }

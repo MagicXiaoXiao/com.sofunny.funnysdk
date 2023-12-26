@@ -10,16 +10,32 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class QQAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private QQ qqConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool IsEnabled => _enable;
+
+        internal override void OnInitConfig(Configuration.Android config)
         {
-            get
+            if (config is null)
             {
-                return Config.IsMainland && Config.QQ.Enable;
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (!editorConfig.IsMainland) return;
+
+                qqConfig = QQ.Create(editorConfig.QQ.appID, editorConfig.QQ.universalLink);
+                _enable = qqConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                qqConfig = config.SetupQQ();
+
+                if (initConfig.Env == FunnyEnv.Overseas)
+                {
+                    _enable = qqConfig.Enable;
+                }
             }
         }
-
 
         public override FileInfo[] OnProcessPrepareAARFile(string unityLibraryPath)
         {
@@ -54,7 +70,7 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement qqAppID = stringsXML.CreateElement("string");
             qqAppID.SetAttribute("name", "qq_app_id");
-            qqAppID.InnerText = Config.QQ.appID;
+            qqAppID.InnerText = qqConfig.AppID;
 
             resources.AppendChild(qqAppID);
         }
@@ -74,12 +90,6 @@ namespace SoFunny.FunnySDK.Editor
             orgLegacyNode.SetAttribute("required", NamespaceURI, "false");
             applicationNode.AppendChild(orgLegacyNode);
         }
-
-        public override void OnProcessLauncherGradle(GradleConfig gradle) {
-            var defaultConfig = gradle.ROOT.FindChildNodeByName("android").FindChildNodeByName("defaultConfig");
-            defaultConfig.AppendContentNode($"manifestPlaceholders[\"qq_auth_app_id\"] = \"{Config.QQ.appID}\"");
-        }
-
     }
 }
 

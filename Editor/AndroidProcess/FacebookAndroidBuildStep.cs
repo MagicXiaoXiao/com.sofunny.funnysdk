@@ -10,19 +10,29 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class FacebookAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private Facebook facebookConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool IsEnabled => _enable;
+
+        internal override void OnInitConfig(Configuration.Android config)
         {
-            get
+            if (config is null)
             {
-                if (Config.IsMainland)
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (editorConfig.IsMainland) return;
+
+                facebookConfig = Facebook.Create(editorConfig.Facebook.appID, editorConfig.Facebook.clientToken);
+                _enable = facebookConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                facebookConfig = config.SetupFacebook();
+
+                if (initConfig.Env == FunnyEnv.Overseas)
                 {
-                    return false;
-                }
-                else
-                {
-                    return Config.Facebook.Enable;
+                    _enable = facebookConfig.Enable;
                 }
             }
         }
@@ -65,17 +75,17 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement facebookAppID = stringsXML.CreateElement("string");
             facebookAppID.SetAttribute("name", "facebook_app_id");
-            facebookAppID.InnerText = Config.Facebook.appID;
+            facebookAppID.InnerText = facebookConfig.AppID;
             resources.AppendChild(facebookAppID);
 
             XmlElement facebookScheme = stringsXML.CreateElement("string");
             facebookScheme.SetAttribute("name", "fb_login_protocol_scheme");
-            facebookScheme.InnerText = "fb" + Config.Facebook.appID;
+            facebookScheme.InnerText = "fb" + facebookConfig.AppID;
             resources.AppendChild(facebookScheme);
 
             XmlElement facebookClient = stringsXML.CreateElement("string");
             facebookClient.SetAttribute("name", "facebook_client_token");
-            facebookClient.InnerText = Config.Facebook.clientToken;
+            facebookClient.InnerText = facebookConfig.ClientToken;
             resources.AppendChild(facebookClient);
         }
 
@@ -94,7 +104,7 @@ namespace SoFunny.FunnySDK.Editor
             facebookClientTokenNode.SetAttribute("value", NamespaceURI, "@string/facebook_client_token");
             applicationNode.AppendChild(facebookClientTokenNode);
 
-            var trackValue = Config.Facebook.trackEnable ? "true" : "false";
+            var trackValue = facebookConfig.EnableAdvertiserTrack ? "true" : "false";
 
             XmlElement facebookTrackNode = manifestXML.CreateElement("meta-data");
             facebookTrackNode.SetAttribute("name", NamespaceURI, "com.facebook.sdk.AutoLogAppEventsEnabled");

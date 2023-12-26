@@ -16,9 +16,23 @@ namespace SoFunny.FunnySDK.Editor
     /// </summary>
     public class CoreAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
-
+        private InitConfig initConfig;
         public override bool IsEnabled => true;
+
+        internal override void OnInitConfig(Configuration.Android config)
+        {
+            if (config is null)
+            {
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                FunnyEnv env = editorConfig.IsMainland ? FunnyEnv.Mainland : FunnyEnv.Overseas;
+
+                initConfig = InitConfig.Create(editorConfig.AppID, env);
+            }
+            else
+            {
+                initConfig = config.SetupInit();
+            }
+        }
 
         public override void OnProcessGradleProperties(Dictionary<string, string> properties)
         {
@@ -60,10 +74,6 @@ namespace SoFunny.FunnySDK.Editor
             //depNode.AppendContentNode("implementation 'com.aliyun.ams:alicloud-android-httpdns:2.3.0'");
             string aarName = IsDebug ? "funny-sdk-debug" : "funny-sdk";
             depNode.AppendContentNode($"implementation(name: '{aarName}', ext:'aar')");
-            if (Config.Google.GmsGamesEnable)
-            {
-                depNode.AppendContentNode("implementation 'com.google.android.gms:play-services-games-v2:19.0.0'");
-            }
         }
 
 
@@ -75,22 +85,20 @@ namespace SoFunny.FunnySDK.Editor
             // 创建子节点
             XmlElement mainlandValue = stringsXML.CreateElement("string");
             mainlandValue.SetAttribute("name", "funny_sdk_mainland");
-            mainlandValue.InnerText = Config.IsMainland ? "true" : "false";
+            mainlandValue.InnerText = initConfig.Env == FunnyEnv.Mainland ? "true" : "false";
             // 加入 resources 节点
             resources.AppendChild(mainlandValue);
 
             XmlElement appIDValue = stringsXML.CreateElement("string");
             appIDValue.SetAttribute("name", "funny_sdk_app_id");
-            appIDValue.InnerText = Config.AppID;
+            appIDValue.InnerText = initConfig.AppID;
             resources.AppendChild(appIDValue);
 
-            if (Config.Google.GmsGamesEnable)
-            {
-                XmlElement gmsGamesAppIDValue = stringsXML.CreateElement("string");
-                gmsGamesAppIDValue.SetAttribute("name", "funny_sdk_gms_games.app_id");
-                gmsGamesAppIDValue.InnerText = Config.Google.gmsGamesAppId;
-                resources.AppendChild(gmsGamesAppIDValue);
-            }
+            XmlElement funnyEnvValue = stringsXML.CreateElement("string");
+            funnyEnvValue.SetAttribute("name", "funny_sdk_env");
+            int envValue = (int)initConfig.GenerateNativeConfig().Env;
+            funnyEnvValue.InnerText = envValue.ToString();
+            resources.AppendChild(funnyEnvValue);
         }
 
         public override void OnProcessUnityLibraryManifest(XmlDocument manifestXML)
@@ -108,18 +116,10 @@ namespace SoFunny.FunnySDK.Editor
             channelNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_mainland");
             applicationNode.AppendChild(channelNode);
 
-            if (Config.Google.GmsGamesEnable)
-            {
-                XmlElement googleGMSGamesIdNode = manifestXML.CreateElement("meta-data");
-                googleGMSGamesIdNode.SetAttribute("name", NamespaceURI, "com.google.android.gms.games.APP_ID");
-                googleGMSGamesIdNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_gms_games.app_id");
-                applicationNode.AppendChild(googleGMSGamesIdNode);
-
-                XmlElement gmsVersion = manifestXML.CreateElement("meta-data");
-                gmsVersion.SetAttribute("name", NamespaceURI, "com.google.android.gms.version");
-                gmsVersion.SetAttribute("value", NamespaceURI, "@integer/google_play_services_version");
-                applicationNode.AppendChild(gmsVersion);
-            }
+            XmlElement envNode = manifestXML.CreateElement("meta-data");
+            envNode.SetAttribute("name", NamespaceURI, "com.xmfunny.funnysdk.ENV");
+            envNode.SetAttribute("value", NamespaceURI, "@string/funny_sdk_env");
+            applicationNode.AppendChild(envNode);
         }
 
         public override void OnProcessLauncherGradle(GradleConfig gradle)

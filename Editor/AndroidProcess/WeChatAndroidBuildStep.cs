@@ -9,13 +9,31 @@ namespace SoFunny.FunnySDK.Editor
 {
     public class WeChatAndroidBuildStep : AndroidBaseBuildStep
     {
-        private FunnySDK.FunnySDKConfig Config => FunnyEditorConfig.GetConfig();
+        private WeChat wechatConfig;
+        private bool _enable = false;
 
-        public override bool IsEnabled
+        public override bool IsEnabled => _enable;
+
+        internal override void OnInitConfig(Configuration.Android config)
         {
-            get
+            if (config is null)
             {
-                return Config.IsMainland && Config.WeChat.Enable;
+                FunnySDKConfig editorConfig = FunnyEditorConfig.GetConfig();
+                if (!editorConfig.IsMainland) return;
+
+                wechatConfig = WeChat.Create(editorConfig.WeChat.appID, editorConfig.WeChat.universalLink);
+                _enable = wechatConfig.Enable;
+            }
+            else
+            {
+                InitConfig initConfig = config.SetupInit();
+                wechatConfig = config.SetupWeChat();
+
+                if (initConfig.Env == FunnyEnv.Mainland)
+                {
+                    _enable = wechatConfig.Enable;
+                }
+
             }
         }
 
@@ -55,7 +73,7 @@ namespace SoFunny.FunnySDK.Editor
 
             XmlElement wechatAppID = stringsXML.CreateElement("string");
             wechatAppID.SetAttribute("name", "wechat_app_id");
-            wechatAppID.InnerText = Config.WeChat.appID;
+            wechatAppID.InnerText = wechatConfig.AppID;
             resources.AppendChild(wechatAppID);
         }
 
@@ -73,7 +91,7 @@ namespace SoFunny.FunnySDK.Editor
         public override void OnProcessLauncherGradle(GradleConfig gradle)
         {
             var defaultConfig = gradle.ROOT.FindChildNodeByName("android").FindChildNodeByName("defaultConfig");
-            defaultConfig.AppendContentNode("manifestPlaceholders[\"wechat_package\"] = applicationId");
+            defaultConfig.AppendContentNode("manifestPlaceholders = [\nwechat_package: applicationId\n]");
         }
 
     }
